@@ -1,11 +1,11 @@
-package me.rasztabiga.thesis
+package me.rasztabiga.thesis.products
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class ThesisApplication
+class ProductsApplication
 
 fun main(args: Array<String>) {
-	runApplication<ThesisApplication>(*args)
+	runApplication<ProductsApplication>(*args)
 }
