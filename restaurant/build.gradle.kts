@@ -32,19 +32,13 @@ dependencies {
 	implementation("me.rasztabiga.thesis:shared:sha-e8420d8")
 
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
-//	implementation("org.springframework.boot:spring-boot-starter-rsocket")
 	implementation("org.springframework.boot:spring-boot-starter-web")
-//	implementation("org.springframework.boot:spring-boot-starter-webflux")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.axonframework:axon-spring-boot-starter")
 	implementation("org.axonframework.extensions.kotlin:axon-kotlin")
-//	implementation("org.axonframework.extensions.reactor:axon-reactor-spring-boot-starter")
 	implementation(kotlin("reflect"))
 	implementation(kotlin("stdlib"))
-
-
 	runtimeOnly("org.springframework.boot:spring-boot-devtools")
-
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.axonframework:axon-test")
