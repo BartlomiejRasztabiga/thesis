@@ -16,12 +16,21 @@ java {
 
 repositories {
 	mavenCentral()
+	maven {
+		url = uri("https://maven.pkg.github.com/bartlomiejrasztabiga/thesis")
+		credentials {
+			username = project.property("GITHUB_ACTOR").toString()
+			password = project.property("GITHUB_TOKEN").toString()
+		}
+	}
 }
 
 val axonVersion = "4.7.2"
 val testcontainersVersion = "1.17.6"
 
 dependencies {
+	implementation("me.rasztabiga.thesis:shared:sha-e8420d8")
+
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 //	implementation("org.springframework.boot:spring-boot-starter-rsocket")
 	implementation("org.springframework.boot:spring-boot-starter-web")
@@ -32,7 +41,11 @@ dependencies {
 //	implementation("org.axonframework.extensions.reactor:axon-reactor-spring-boot-starter")
 	implementation(kotlin("reflect"))
 	implementation(kotlin("stdlib"))
+
+
 	runtimeOnly("org.springframework.boot:spring-boot-devtools")
+
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.axonframework:axon-test")
 	testImplementation("org.testcontainers:junit-jupiter")
