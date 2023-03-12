@@ -13,13 +13,19 @@ services:
       - '8024:8024'
       - '8124:8124'
       - '8224:8224'
-    networks:
-      - axon-net
+
+  restaurant-service:
+    image: ghcr.io/bartlomiejrasztabiga/thesis/restaurant:latest
+    build:
+      context: ../restaurant
+      dockerfile: Dockerfile
+    ports:
+      - '8101:8101'
+    depends_on:
+      - axonserver
+    environment:
+      - AXON_AXONSERVER_SERVERS=axonserver
 volumes:
   axonserver-data:
   axonserver-events:
   axonserver-config:
-networks:
-  axon-net:
-
-

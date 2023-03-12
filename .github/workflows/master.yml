@@ -46,6 +46,7 @@ jobs:
           images: ghcr.io/${{ github.repository }}/restaurant
           tags: |
             type=sha
+            type=raw,value=latest
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
@@ -95,6 +96,7 @@ jobs:
           images: ghcr.io/${{ github.repository }}/order
           tags: |
             type=sha
+            type=raw,value=latest
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
