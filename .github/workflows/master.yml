@@ -87,7 +87,7 @@ jobs:
           tags: |
             type=sha
       - name: Debug
-        run: echo ${{ steps.meta.outputs.labels[0] }}
+        run: echo sha-${GITHUB_SHA::7}
       - name: Publish with Gradle
         run: ./gradlew -Pversion=${{ steps.meta.outputs.labels[0] }} publish
         env:
