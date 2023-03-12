@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.28.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: restaurant-service
+  name: restaurant-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: restaurant-service
+  strategy: {}
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.28.0 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/thesis-default: "true"
+        io.kompose.service: restaurant-service
+    spec:
+      containers:
+        - env:
+            - name: AXON_AXONSERVER_SERVERS
+              value: axonserver
+          image: ghcr.io/bartlomiejrasztabiga/thesis/restaurant:latest
+          name: restaurant-service
+          ports:
+            - containerPort: 8101
+          resources: {}
+      restartPolicy: Always
+status: {}

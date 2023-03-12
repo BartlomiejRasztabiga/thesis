@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert
+    kompose.version: 1.28.0 (HEAD)
+  creationTimestamp: null
+  labels:
+    io.kompose.service: axonserver
+  name: axonserver
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: axonserver
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert
+        kompose.version: 1.28.0 (HEAD)
+      creationTimestamp: null
+      labels:
+        io.kompose.network/thesis-default: "true"
+        io.kompose.service: axonserver
+    spec:
+      containers:
+        - image: axoniq/axonserver:4.6.9-jdk-17-dev
+          name: axonserver
+          ports:
+            - containerPort: 8024
+            - containerPort: 8124
+            - containerPort: 8224
+          resources: {}
+          volumeMounts:
+            - mountPath: /data
+              name: axonserver-data
+            - mountPath: /eventdata
+              name: axonserver-events
+            - mountPath: /config
+              name: axonserver-config
+              readOnly: true
+      hostname: axonserver
+      restartPolicy: Always
+      volumes:
+        - name: axonserver-data
+          persistentVolumeClaim:
+            claimName: axonserver-data
+        - name: axonserver-events
+          persistentVolumeClaim:
+            claimName: axonserver-events
+        - name: axonserver-config
+          persistentVolumeClaim:
+            claimName: axonserver-config
+            readOnly: true
+status: {}
