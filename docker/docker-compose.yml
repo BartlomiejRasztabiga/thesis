@@ -3,7 +3,6 @@ name: 'thesis'
 services:
   axonserver:
     image: axoniq/axonserver:4.6.9-jdk-17-dev
-    platform: linux/arm64
     hostname: axonserver
     volumes:
       - axonserver-data:/data
@@ -21,6 +20,18 @@ services:
       dockerfile: Dockerfile
     ports:
       - '8101:8101'
+    depends_on:
+      - axonserver
+    environment:
+      - AXON_AXONSERVER_SERVERS=axonserver
+
+  order-service:
+    image: ghcr.io/bartlomiejrasztabiga/thesis/order:latest
+    build:
+      context: ../order
+      dockerfile: Dockerfile
+    ports:
+      - '8102:8102'
     depends_on:
       - axonserver
     environment:
