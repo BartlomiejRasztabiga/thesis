@@ -14,7 +14,7 @@ jobs:
     
     defaults:
       run:
-        working-directory: ./restaurant
+        working-directory: restaurant
 
     permissions:
       contents: read
@@ -27,11 +27,12 @@ jobs:
         with:
           java-version: '17'
           distribution: 'corretto'
-      - name: Build with Gradle
+      - name: Set up Gradle
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 8.0.2
-          arguments: build
+      - name: Build with Gradle
+        run: ./gradlew build
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
