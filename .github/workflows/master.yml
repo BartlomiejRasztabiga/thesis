@@ -79,16 +79,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 8.0.2
-      - name: Extract metadata (tags, labels) for Gradle publishing
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: shared # unused
-          tags: |
-            type=sha
-      - name: Debug
-        run: echo sha-${GITHUB_SHA::7}
       - name: Publish with Gradle
-        run: ./gradlew -Pversion=${{ steps.meta.outputs.labels[0] }} publish
+        run: ./gradlew -Pversion="sha-${GITHUB_SHA::7}" publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
