@@ -2,8 +2,8 @@ name: Build & Publish - restaurant
 
 on:
   push:
-    branches: ["master"]
-    
+    branches: [ "master" ]
+
 env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}/restaurant
@@ -17,30 +17,22 @@ jobs:
       run:
         working-directory: ${{ env.WORKING_DIR }}
 
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 17
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'
-        distribution: 'corretto'
-    - name: Build with Gradle
-      uses: gradle/gradle-build-action@v2
-      with:
-        arguments: build
-        
-  docker:
-    runs-on: ubuntu-latest
-    
-    defaults:
-      run:
-        working-directory: ${{ env.WORKING_DIR }}
-
     permissions:
       contents: read
       packages: write
 
     steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'corretto'
+      - name: Build with Gradle
+        uses: gradle/gradle-build-action@v2
+        with:
+          gradle-version: 8.0.2
+          arguments: build
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
       - name: Set up Docker Buildx
