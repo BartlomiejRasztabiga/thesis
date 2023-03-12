@@ -19,8 +19,8 @@ repositories {
 	maven {
 		url = uri("https://maven.pkg.github.com/bartlomiejrasztabiga/thesis")
 		credentials {
-			username = project.property("GITHUB_ACTOR").toString()
-			password = project.property("GITHUB_TOKEN").toString()
+			username = System.getenv("GITHUB_ACTOR") ?: project.property("GITHUB_ACTOR").toString()
+			password = System.getenv("GITHUB_TOKEN") ?: project.property("GITHUB_TOKEN").toString()
 		}
 	}
 }
