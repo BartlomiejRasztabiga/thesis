@@ -1,28 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: kompose convert
-    kompose.version: 1.28.0 (HEAD)
-  creationTimestamp: null
-  labels:
-    io.kompose.service: restaurant-service
   name: restaurant-service
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: restaurant-service
-  strategy: {}
+      app: restaurant-service
   template:
     metadata:
-      annotations:
-        kompose.cmd: kompose convert
-        kompose.version: 1.28.0 (HEAD)
-      creationTimestamp: null
       labels:
-        io.kompose.network/thesis-default: "true"
-        io.kompose.service: restaurant-service
+        app: restaurant-service
     spec:
       containers:
         - env:
@@ -32,6 +20,4 @@ spec:
           name: restaurant-service
           ports:
             - containerPort: 8101
-          resources: {}
       restartPolicy: Always
-status: {}

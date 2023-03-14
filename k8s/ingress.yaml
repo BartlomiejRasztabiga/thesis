@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: thesis-ingress
+spec:
+  rules:
+    - host: thesis.rasztabiga.me
+      http:
+        paths:
+          - path: /api/v1/order
+            pathType: Prefix
+            backend:
+              service:
+                name: order-service
+                port:
+                  number: 8102
+          - path: /api/v1/restaurant
+            pathType: Prefix
+            backend:
+              service:
+                name: restaurant-service
+                port:
+                  number: 8101
