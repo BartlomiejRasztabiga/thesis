@@ -16,7 +16,7 @@ spec:
         - env:
             - name: AXON_AXONSERVER_SERVERS
               value: axonserver
-          image: ghcr.io/bartlomiejrasztabiga/thesis/restaurant:latest
+          image: ghcr.io/bartlomiejrasztabiga/thesis/restaurant:sha-7d790f6
           name: restaurant-service
           ports:
             - containerPort: 8101
