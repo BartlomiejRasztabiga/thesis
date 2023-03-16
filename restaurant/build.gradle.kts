@@ -29,7 +29,7 @@ val axonVersion = "4.7.2"
 val testcontainersVersion = "1.17.6"
 
 dependencies {
-	implementation("me.rasztabiga.thesis:shared:sha-e8420d8")
+	implementation("me.rasztabiga.thesis:shared:0.1.1")
 
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-web")
