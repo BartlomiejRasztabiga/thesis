@@ -48,6 +48,7 @@ jobs:
           images: ghcr.io/${{ github.repository }}/restaurant
           tags: |
             type=sha
+            type=semver,pattern={{version}}
             type=raw,value=latest
       - name: Build and push
         uses: docker/build-push-action@v4
@@ -100,6 +101,7 @@ jobs:
           images: ghcr.io/${{ github.repository }}/order
           tags: |
             type=sha
+            type=semver,pattern={{version}}
             type=raw,value=latest
       - name: Build and push
         uses: docker/build-push-action@v4
@@ -132,7 +134,13 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 8.0.2
+      - name: Set TAG version
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: echo "VERSION=$GITHUB_REF_NAME" >> $GITHUB_ENV
+      - name: Set SHA version
+        if: !startsWith(github.ref, 'refs/tags/v')
+        run: echo "VERSION=sha-${GITHUB_SHA::7}" >> $GITHUB_ENV
       - name: Publish with Gradle
-        run: ./gradlew -Pversion="sha-${GITHUB_SHA::7}" publish
+        run: ./gradlew -Pversion="${{ env.VERSION }}" publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
