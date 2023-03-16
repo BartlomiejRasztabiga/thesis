@@ -1,28 +1,25 @@
+---
 name: Build & Publish
-
 on:
   push:
-    branches: [ "master" ]
-
+    branches:
+      - master
 jobs:
   restaurant:
     runs-on: ubuntu-latest
-    
     defaults:
       run:
         working-directory: restaurant
-
     permissions:
       contents: read
       packages: write
-
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
-          distribution: 'corretto'
+          java-version: "17"
+          distribution: corretto
       - name: Set up Gradle
         uses: gradle/gradle-build-action@v2
         with:
@@ -57,25 +54,21 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
   order:
     runs-on: ubuntu-latest
-
     defaults:
       run:
         working-directory: order
-
     permissions:
       contents: read
       packages: write
-
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
-          distribution: 'corretto'
+          java-version: "17"
+          distribution: corretto
       - name: Set up Gradle
         uses: gradle/gradle-build-action@v2
         with:
@@ -110,26 +103,21 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
-
   shared:
     runs-on: ubuntu-latest
-
     defaults:
       run:
         working-directory: shared
-
     permissions:
       contents: read
       packages: write
-
     steps:
       - uses: actions/checkout@v3
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
-          java-version: '17'
-          distribution: 'corretto'
+          java-version: "17"
+          distribution: corretto
       - name: Set up Gradle
         uses: gradle/gradle-build-action@v2
         with:
@@ -138,7 +126,7 @@ jobs:
         if: startsWith(github.ref, 'refs/tags/v')
         run: echo "VERSION=$GITHUB_REF_NAME" >> $GITHUB_ENV
       - name: Set SHA version
-        if: !startsWith(github.ref, 'refs/tags/v')
+        if: "!startsWith(github.ref, 'refs/tags/v')"
         run: echo "VERSION=sha-${GITHUB_SHA::7}" >> $GITHUB_ENV
       - name: Publish with Gradle
         run: ./gradlew -Pversion="${{ env.VERSION }}" publish
