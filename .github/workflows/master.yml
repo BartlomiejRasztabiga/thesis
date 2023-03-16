@@ -126,7 +126,7 @@ jobs:
           gradle-version: 8.0.2
       - name: Set TAG version
         if: startsWith(github.ref, 'refs/tags/v')
-        run: echo "VERSION=$GITHUB_REF_NAME" >> $GITHUB_ENV
+        run: echo "VERSION=${GITHUB_REF_NAME:1}" >> $GITHUB_ENV
       - name: Set SHA version
         if: "!startsWith(github.ref, 'refs/tags/v')"
         run: echo "VERSION=sha-${GITHUB_SHA::7}" >> $GITHUB_ENV
