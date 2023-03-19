@@ -152,6 +152,8 @@ jobs:
         with:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBECONFIG }}
+      - name: Set TAG version
+        run: echo "VERSION=${GITHUB_REF_NAME:1}" >> $GITHUB_ENV
       - uses: Azure/k8s-deploy@v4
         with:
           namespace: 'thesis'
@@ -161,5 +163,5 @@ jobs:
             k8s/restaurant-service-deployment.yaml
             k8s/order-service-deployment.yaml
           images: |
-            ghcr.io/bartlomiejrasztabiga/thesis/restaurant:${{GITHUB_REF_NAME:1}}
-            ghcr.io/bartlomiejrasztabiga/thesis/order:${{GITHUB_REF_NAME:1}}
+            ghcr.io/bartlomiejrasztabiga/thesis/restaurant:${{ env.VERSION }}
+            ghcr.io/bartlomiejrasztabiga/thesis/order:${{ env.VERSION }}
