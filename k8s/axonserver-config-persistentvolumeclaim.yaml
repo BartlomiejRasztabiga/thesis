@@ -4,7 +4,7 @@ metadata:
   name: axonserver-config
 spec:
   accessModes:
-    - ReadOnlyMany
+    - ReadWriteOnce
   resources:
     requests:
       storage: 100Mi
