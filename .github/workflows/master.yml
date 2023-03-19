@@ -161,5 +161,5 @@ jobs:
             k8s/restaurant-service-deployment.yaml
             k8s/order-service-deployment.yaml
           images: |
-            ghcr.io/bartlomiejrasztabiga/thesis/restaurant:${GITHUB_REF_NAME:1}
-            ghcr.io/bartlomiejrasztabiga/thesis/order:${GITHUB_REF_NAME:1}
+            ghcr.io/bartlomiejrasztabiga/thesis/restaurant:${{GITHUB_REF_NAME:1}}
+            ghcr.io/bartlomiejrasztabiga/thesis/order:${{GITHUB_REF_NAME:1}}
