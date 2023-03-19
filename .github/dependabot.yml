@@ -1,0 +1,12 @@
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: "gradle"
+    directory: "/restaurant"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
+    directory: "/order"
+    schedule:
+      interval: "daily"
