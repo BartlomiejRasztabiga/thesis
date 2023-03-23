@@ -33,9 +33,13 @@ dependencies {
 
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
 	implementation("org.springframework.boot:spring-boot-starter-web")
+	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	implementation("org.springframework.boot:spring-boot-configuration-processor")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.axonframework:axon-spring-boot-starter")
 	implementation("org.axonframework.extensions.kotlin:axon-kotlin")
+	implementation("org.axonframework.extensions.reactor:axon-reactor-spring-boot-starter")
+	implementation("org.axonframework:axon-micrometer")
 	implementation(kotlin("reflect"))
 	implementation(kotlin("stdlib"))
 	runtimeOnly("org.springframework.boot:spring-boot-devtools")
