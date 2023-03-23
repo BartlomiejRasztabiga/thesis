@@ -25,6 +25,17 @@ services:
     environment:
       - AXON_AXONSERVER_SERVERS=axonserver
 
+  restaurant-db:
+    image: mongo:6.0.5
+    ports:
+      - '27101:27017'
+    volumes:
+      - restaurant-db-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=restaurant
+
   order-service:
     image: ghcr.io/bartlomiejrasztabiga/thesis/order:latest
     build:
@@ -40,3 +51,4 @@ volumes:
   axonserver-data:
   axonserver-events:
   axonserver-config:
+  restaurant-db-data:
