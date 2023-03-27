@@ -1,3 +1,5 @@
+PL
+
 # Rozdział 1:  Event Storming
 
 ## 1.1 Wstęp
