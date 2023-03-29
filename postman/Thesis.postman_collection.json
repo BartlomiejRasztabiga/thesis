@@ -1,0 +1,45 @@
+{
+	"info": {
+		"_postman_id": "ff86a588-b504-4f6c-b390-0a5617428b88",
+		"name": "Thesis",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1388028"
+	},
+	"item": [
+		{
+			"name": "Restaurant",
+			"item": [
+				{
+					"name": "Create Restaurant",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"restaurantId\": \"{{$guid}}\",\n    \"name\": \"{{$randomCompanyName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8101/api/v1/restaurant",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8101",
+							"path": [
+								"api",
+								"v1",
+								"restaurant"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

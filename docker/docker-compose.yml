@@ -47,8 +47,20 @@ services:
       - axonserver
     environment:
       - AXON_AXONSERVER_SERVERS=axonserver
+
+  order-db:
+    image: mongo:6.0.5
+    ports:
+      - '27102:27017'
+    volumes:
+      - order-db-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=order
 volumes:
   axonserver-data:
   axonserver-events:
   axonserver-config:
   restaurant-db-data:
+  order-db-data:
