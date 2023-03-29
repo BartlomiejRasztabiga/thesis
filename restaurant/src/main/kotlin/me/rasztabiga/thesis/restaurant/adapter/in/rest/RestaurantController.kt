@@ -2,6 +2,7 @@ package me.rasztabiga.thesis.restaurant.adapter.`in`.rest
 
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToCreateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.api.rest.CreateRestaurantRequest
+import me.rasztabiga.thesis.shared.UuidWrapper
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -24,8 +25,9 @@ class RestaurantController(
     }
 
     @PostMapping
-    fun createRestaurant(@RequestBody request: CreateRestaurantRequest): Mono<UUID> {
+    fun createRestaurant(@RequestBody request: CreateRestaurantRequest): Mono<UuidWrapper> {
         val command = mapToCreateRestaurantCommand(request)
-        return reactorCommandGateway.send(command)
+        val id = reactorCommandGateway.send<UUID>(command)
+        return id.map { UuidWrapper(it) }
     }
 }
