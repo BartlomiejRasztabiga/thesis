@@ -1,8 +1,8 @@
-package me.rasztabiga.thesis.restaurant.api.event
+package me.rasztabiga.thesis.restaurant.domain.event
 
 import java.util.UUID
 
 data class RestaurantCreatedEvent(
-    val restaurantId: UUID,
+    val id: UUID,
     val name: String
 )

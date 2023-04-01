@@ -1,12 +1,12 @@
 package me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper
 
-import me.rasztabiga.thesis.restaurant.api.command.CreateRestaurantCommand
-import me.rasztabiga.thesis.restaurant.api.rest.CreateRestaurantRequest
+import me.rasztabiga.thesis.restaurant.domain.command.CreateRestaurantCommand
+import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.CreateRestaurantRequest
 
 object RestaurantControllerMapper {
     fun mapToCreateRestaurantCommand(request: CreateRestaurantRequest): CreateRestaurantCommand {
         return CreateRestaurantCommand(
-            restaurantId = request.restaurantId,
+            id = request.id,
             name = request.name
         )
     }

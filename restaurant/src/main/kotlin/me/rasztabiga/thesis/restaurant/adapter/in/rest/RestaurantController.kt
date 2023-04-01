@@ -1,10 +1,13 @@
 package me.rasztabiga.thesis.restaurant.adapter.`in`.rest
 
+import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.CreateRestaurantRequest
+import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToCreateRestaurantCommand
-import me.rasztabiga.thesis.restaurant.api.rest.CreateRestaurantRequest
+import me.rasztabiga.thesis.restaurant.query.query.FindAllRestaurantsQuery
 import me.rasztabiga.thesis.shared.UuidWrapper
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
-import org.springframework.http.ResponseEntity
+import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway
+import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -14,14 +17,18 @@ import reactor.core.publisher.Mono
 import java.util.UUID
 
 @RestController
-@RequestMapping("/api/v1/restaurant")
+@RequestMapping("/api/v1/restaurants")
 class RestaurantController(
-    private val reactorCommandGateway: ReactorCommandGateway
+    private val reactorCommandGateway: ReactorCommandGateway,
+    private val reactorQueryGateway: ReactorQueryGateway
 ) {
 
     @GetMapping
-    fun helloWorld(): ResponseEntity<String> {
-        return ResponseEntity.ok("Hello World from Restaurant Service!")
+    fun getRestaurants(): Mono<List<RestaurantResponse>> {
+        return reactorQueryGateway.query(
+            FindAllRestaurantsQuery(),
+            ResponseTypes.multipleInstancesOf(RestaurantResponse::class.java)
+        )
     }
 
     @PostMapping

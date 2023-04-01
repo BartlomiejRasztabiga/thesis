@@ -1,9 +1,9 @@
-package me.rasztabiga.thesis.restaurant.api.command
+package me.rasztabiga.thesis.restaurant.domain.command
 
 import org.axonframework.modelling.command.TargetAggregateIdentifier
 import java.util.UUID
 
 data class CreateRestaurantCommand(
-    @TargetAggregateIdentifier val restaurantId: UUID,
+    @TargetAggregateIdentifier val id: UUID,
     val name: String
 )

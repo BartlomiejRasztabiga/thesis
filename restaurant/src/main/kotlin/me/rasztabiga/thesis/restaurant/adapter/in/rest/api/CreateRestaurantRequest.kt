@@ -1,8 +1,8 @@
-package me.rasztabiga.thesis.restaurant.api.rest
+package me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api
 
 import java.util.UUID
 
 data class CreateRestaurantRequest(
-    val restaurantId: UUID,
+    val id: UUID,
     val name: String
 )

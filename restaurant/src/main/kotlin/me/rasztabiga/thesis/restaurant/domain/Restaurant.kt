@@ -1,7 +1,7 @@
-package me.rasztabiga.thesis.restaurant.command
+package me.rasztabiga.thesis.restaurant.domain
 
-import me.rasztabiga.thesis.restaurant.api.command.CreateRestaurantCommand
-import me.rasztabiga.thesis.restaurant.api.event.RestaurantCreatedEvent
+import me.rasztabiga.thesis.restaurant.domain.command.CreateRestaurantCommand
+import me.rasztabiga.thesis.restaurant.domain.event.RestaurantCreatedEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
@@ -13,14 +13,14 @@ import java.util.UUID
 internal class Restaurant {
 
     @AggregateIdentifier
-    private lateinit var restaurantId: UUID
+    private lateinit var id: UUID
     private lateinit var name: String
 
     @CommandHandler
     constructor(command: CreateRestaurantCommand) {
         AggregateLifecycle.apply(
             RestaurantCreatedEvent(
-                restaurantId = command.restaurantId,
+                id = command.id,
                 name = command.name
             )
         )
@@ -28,7 +28,7 @@ internal class Restaurant {
 
     @EventSourcingHandler
     fun on(event: RestaurantCreatedEvent) {
-        this.restaurantId = event.restaurantId
+        this.id = event.id
         this.name = event.name
     }
 }
