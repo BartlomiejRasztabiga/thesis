@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"restaurantId\": \"{{$guid}}\",\n    \"name\": \"{{$randomCompanyName}}\"\n}",
+							"raw": "{\n    \"id\": \"{{$guid}}\",\n    \"name\": \"{{$randomCompanyName}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -24,16 +24,33 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8101/api/v1/restaurant",
-							"protocol": "http",
+							"raw": "{{restaurant_url}}/api/v1/restaurants",
 							"host": [
-								"localhost"
+								"{{restaurant_url}}"
 							],
-							"port": "8101",
 							"path": [
 								"api",
 								"v1",
-								"restaurant"
+								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all restaurants",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/restaurants",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"restaurants"
 							]
 						}
 					},
