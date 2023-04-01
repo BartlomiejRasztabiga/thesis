@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: restaurant-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: restaurant-db
+  serviceName: restaurant-db
+  template:
+    metadata:
+      labels:
+        app: restaurant-db
+    spec:
+      containers:
+        - image: mongo:6.0.5
+          name: restaurant-db
+          ports:
+            - containerPort: 27101
+          volumeMounts:
+            - mountPath: /data/db
+              name: restaurant-db-data
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: root
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: password
+            - name: MONGO_INITDB_DATABASE
+              value: restaurant
+      restartPolicy: Always
+      volumes:
+        - name: restaurant-db-data
+          persistentVolumeClaim:
+            claimName: restaurant-db-data

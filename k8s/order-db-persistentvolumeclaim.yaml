@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: axonserver-events
+  name: order-db-data
 spec:
   accessModes:
     - ReadWriteOnce

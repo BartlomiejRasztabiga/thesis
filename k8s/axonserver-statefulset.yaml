@@ -20,7 +20,6 @@ spec:
             - containerPort: 8024
             - containerPort: 8124
             - containerPort: 8224
-          resources: { }
           volumeMounts:
             - mountPath: /data
               name: axonserver-data
