@@ -3,7 +3,7 @@ package me.rasztabiga.thesis.restaurant.adapter.`in`.rest
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.CreateRestaurantRequest
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToCreateRestaurantCommand
-import me.rasztabiga.thesis.restaurant.query.query.FindAllRestaurantsQuery
+import me.rasztabiga.thesis.restaurant.domain.query.query.FindAllRestaurantsQuery
 import me.rasztabiga.thesis.shared.UuidWrapper
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway

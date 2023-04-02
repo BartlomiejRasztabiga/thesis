@@ -1,4 +1,4 @@
-package me.rasztabiga.thesis.restaurant.query.entity
+package me.rasztabiga.thesis.restaurant.domain.query.entity
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document

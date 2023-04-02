@@ -1,4 +1,4 @@
-package me.rasztabiga.thesis.restaurant.domain.event
+package me.rasztabiga.thesis.restaurant.domain.command.event
 
 import java.util.UUID
 

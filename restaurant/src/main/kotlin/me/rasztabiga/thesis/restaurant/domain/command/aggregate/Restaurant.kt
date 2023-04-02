@@ -1,7 +1,7 @@
-package me.rasztabiga.thesis.restaurant.domain
+package me.rasztabiga.thesis.restaurant.domain.command.aggregate
 
-import me.rasztabiga.thesis.restaurant.domain.command.CreateRestaurantCommand
-import me.rasztabiga.thesis.restaurant.domain.event.RestaurantCreatedEvent
+import me.rasztabiga.thesis.restaurant.domain.command.command.CreateRestaurantCommand
+import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier

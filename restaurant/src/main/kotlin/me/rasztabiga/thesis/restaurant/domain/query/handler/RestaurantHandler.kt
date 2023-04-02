@@ -1,11 +1,11 @@
-package me.rasztabiga.thesis.restaurant.query.handler
+package me.rasztabiga.thesis.restaurant.domain.query.handler
 
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantResponse
-import me.rasztabiga.thesis.restaurant.domain.event.RestaurantCreatedEvent
-import me.rasztabiga.thesis.restaurant.infrastructure.RestaurantRepository
-import me.rasztabiga.thesis.restaurant.query.mapper.RestaurantMapper.mapToEntity
-import me.rasztabiga.thesis.restaurant.query.mapper.RestaurantMapper.mapToResponse
-import me.rasztabiga.thesis.restaurant.query.query.FindAllRestaurantsQuery
+import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
+import me.rasztabiga.thesis.restaurant.adapter.out.db.RestaurantRepository
+import me.rasztabiga.thesis.restaurant.domain.query.mapper.RestaurantMapper.mapToEntity
+import me.rasztabiga.thesis.restaurant.domain.query.mapper.RestaurantMapper.mapToResponse
+import me.rasztabiga.thesis.restaurant.domain.query.query.FindAllRestaurantsQuery
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler
