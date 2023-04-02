@@ -13,6 +13,14 @@ services:
       - '8124:8124'
       - '8224:8224'
 
+  gateway:
+    image: ghcr.io/bartlomiejrasztabiga/thesis/gateway:latest
+    build:
+      context: ../gateway
+      dockerfile: Dockerfile
+    ports:
+      - '8100:8100'
+
   restaurant-service:
     image: ghcr.io/bartlomiejrasztabiga/thesis/restaurant:latest
     build:

@@ -25,38 +25,23 @@ repositories {
 	}
 }
 
-val axonVersion = "4.7.2"
-val testcontainersVersion = "1.17.6"
+extra["springCloudVersion"] = "2022.0.2"
 
 dependencies {
-	implementation("me.rasztabiga.thesis:shared:0.1.7")
-
-	implementation("org.springframework.boot:spring-boot-starter-actuator")
-	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
-	implementation("org.springframework.boot:spring-boot-configuration-processor")
-	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-	implementation("org.axonframework:axon-spring-boot-starter")
-	implementation("org.axonframework.extensions.kotlin:axon-kotlin")
-	implementation("org.axonframework.extensions.reactor:axon-reactor-spring-boot-starter")
-	implementation("org.axonframework:axon-micrometer")
 	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
-	implementation(kotlin("reflect"))
-	implementation(kotlin("stdlib"))
-	runtimeOnly("org.springframework.boot:spring-boot-devtools")
+	implementation("org.springframework.cloud:spring-cloud-starter-gateway")
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("io.projectreactor:reactor-test")
-	testImplementation("org.axonframework:axon-test")
-	testImplementation("org.testcontainers:junit-jupiter")
 }
 
 dependencyManagement {
 	imports {
-		mavenBom("org.axonframework:axon-bom:${axonVersion}")
-		mavenBom("org.testcontainers:testcontainers-bom:${testcontainersVersion}")
+		mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
 	}
 }
 
