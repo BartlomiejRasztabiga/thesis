@@ -7,17 +7,10 @@ spec:
     - host: thesis.rasztabiga.me
       http:
         paths:
-          - path: /api/v1/orders
+          - path: /api
             pathType: Prefix
             backend:
               service:
-                name: order-service
+                name: gateway
                 port:
-                  number: 8102
-          - path: /api/v1/restaurants
-            pathType: Prefix
-            backend:
-              service:
-                name: restaurant-service
-                port:
-                  number: 8101
+                  number: 8100
