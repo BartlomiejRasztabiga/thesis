@@ -5,6 +5,11 @@ object Scopes {
     val RESTAURANT = RestaurantScopes
 
     object RestaurantScopes {
-        const val READ = "SCOPE_restaurant.read"
+        private const val RESTAURANT = "${SCOPE}_restaurant"
+
+        const val READ = "${RESTAURANT}.read"
+        const val WRITE = "${RESTAURANT}.write"
     }
+
+    private const val SCOPE = "SCOPE"
 }
