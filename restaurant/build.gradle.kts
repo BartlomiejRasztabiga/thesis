@@ -29,11 +29,11 @@ val axonVersion = "4.7.2"
 val testcontainersVersion = "1.18.0"
 
 dependencies {
-	implementation("me.rasztabiga.thesis:shared:0.1.7")
+	implementation("me.rasztabiga.thesis:shared:0.1.15")
 
 	implementation("org.springframework.boot:spring-boot-starter-actuator")
-	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.springframework.boot:spring-boot-starter-webflux")
+	implementation("org.springframework.boot:spring-boot-starter-security")
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
 	implementation("org.springframework.boot:spring-boot-configuration-processor")
 	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
