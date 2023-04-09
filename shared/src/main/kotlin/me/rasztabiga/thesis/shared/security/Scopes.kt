@@ -2,5 +2,9 @@ package me.rasztabiga.thesis.shared.security
 
 object Scopes {
 
-    const val RESTAURANT_READ = "SCOPE_restaurant.read"
+    val RESTAURANT = RestaurantScopes
+
+    object RestaurantScopes {
+        const val READ = "SCOPE_restaurant.read"
+    }
 }
