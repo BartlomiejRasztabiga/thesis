@@ -7,13 +7,9 @@ object Scopes {
     object RestaurantScopes {
         private const val RESTAURANTS = "restaurants"
 
-        val READ = buildScope("read", RESTAURANTS)
-        val WRITE = buildScope("write", RESTAURANTS)
+        const val READ = "${SCOPE}_read:${RESTAURANTS}"
+        const val WRITE = "${SCOPE}_write:${RESTAURANTS}"
     }
 
     private const val SCOPE = "SCOPE"
-
-    private fun buildScope(scope: String, resource: String): String {
-        return "${SCOPE}_$scope:$resource"
-    }
 }
