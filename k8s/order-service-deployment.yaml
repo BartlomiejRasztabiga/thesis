@@ -28,7 +28,7 @@ spec:
               value: password
             - name: SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE
               value: admin
-          image: ghcr.io/bartlomiejrasztabiga/thesis/order:0.1.2
+          image: ghcr.io/bartlomiejrasztabiga/thesis/order
           name: order-service
           ports:
             - containerPort: 8102

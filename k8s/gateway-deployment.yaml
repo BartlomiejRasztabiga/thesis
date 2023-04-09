@@ -15,7 +15,7 @@ spec:
       containers:
         - env:
             - name: URI_RESTAURANT
-              value: restaurant-service:8101
+              value: http://restaurant-service:8101
           image: ghcr.io/bartlomiejrasztabiga/thesis/gateway
           name: gateway
           ports:
