@@ -16,6 +16,8 @@ spec:
         - env:
             - name: API_GATEWAY_URL
               value: https://thesis.rasztabiga.me/api
+            - name: SESSION_SECRET
+              value: "0a471d50870e4085be3e64fdc627dc87"
           image: ghcr.io/bartlomiejrasztabiga/thesis/frontend
           name: frontend
           ports:
