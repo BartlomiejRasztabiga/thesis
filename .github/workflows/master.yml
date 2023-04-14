@@ -104,9 +104,7 @@ jobs:
         with:
           node-version: 16
       - name: Download dependencies
-        uses: bahmutov/npm-install@v1
-        with:
-          useLockFile: false
+        run: npm ci
       - name: Lint
         run: npm run lint
       - name: Type check
