@@ -122,6 +122,7 @@ jobs:
         with:
           start: npm run start:mocks
           wait-on: "http://localhost:8811"
+          working-directory: ./frontend
         env:
           PORT: "8811"
       - name: Set up QEMU
