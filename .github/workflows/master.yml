@@ -89,6 +89,71 @@ jobs:
         run: ./gradlew -Pversion="${{ env.VERSION }}" publish
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  build-frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Download dependencies
+        uses: bahmutov/npm-install@v1
+        with:
+          useLockFile: false
+      - name: Lint
+        run: npm run lint
+      - name: Type check
+        run: npm run typecheck --if-present
+      - name: Run vitest
+        run: npm run test -- --coverage
+      - name: Copy test env vars
+        run: cp .env.example .env
+      - name: Setup Database
+        run: npx prisma migrate reset --force
+      - name: Build
+        run: npm run build
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          start: npm run start:mocks
+          wait-on: "http://localhost:8811"
+        env:
+          PORT: "8811"
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+      - name: Log in to the Container registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ghcr.io/${{ github.repository }}/frontend
+          tags: |
+            type=sha
+            type=semver,pattern={{version}}
+            type=raw,value=latest
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: ./frontend
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          platforms: linux/amd64,linux/arm64
+
   deploy:
     if: startsWith(github.ref, 'refs/tags/v')
     runs-on: ubuntu-latest
@@ -120,3 +185,4 @@ jobs:
             ghcr.io/bartlomiejrasztabiga/thesis/restaurant:${{ env.VERSION }}
             ghcr.io/bartlomiejrasztabiga/thesis/order:${{ env.VERSION }}
             ghcr.io/bartlomiejrasztabiga/thesis/gateway:${{ env.VERSION }}
+#           TODO frontend
