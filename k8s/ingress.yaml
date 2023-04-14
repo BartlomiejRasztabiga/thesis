@@ -14,3 +14,10 @@ spec:
                 name: gateway
                 port:
                   number: 8100
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: frontend
+                port:
+                  number: 8080

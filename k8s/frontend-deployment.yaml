@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      containers:
+        - env:
+            - name: API_GATEWAY_URL
+              value: https://thesis.rasztabiga.me/api
+          image: ghcr.io/bartlomiejrasztabiga/thesis/frontend
+          name: frontend
+          ports:
+            - containerPort: 8080
+      restartPolicy: Always
