@@ -5,7 +5,10 @@ import io.kotest.matchers.shouldNotBe
 import io.mockk.every
 import me.rasztabiga.thesis.restaurant.BaseWebFluxTest
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.CreateRestaurantRequest
+import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantResponse
+import me.rasztabiga.thesis.restaurant.domain.query.query.FindAllRestaurantsQuery
 import me.rasztabiga.thesis.shared.UuidWrapper
+import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType
 import reactor.core.publisher.Mono
@@ -26,12 +29,40 @@ class RestaurantControllerTest : BaseWebFluxTest() {
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .expectStatus().isCreated
-            .returnResult(UuidWrapper::class.java)
+            .expectBody(UuidWrapper::class.java)
+            .returnResult()
             .responseBody
-            .blockFirst()
 
         // then
         response shouldNotBe null
         response!!.id shouldBe request.id
+    }
+
+    @Test
+    fun `when GET is performed on restaurants endpoint, then returns 200 OK`() {
+        // given
+        val existingRestaurant = RestaurantResponse(UUID.randomUUID(), "Restaurant")
+        every {
+            reactorQueryGateway.query(
+                any<FindAllRestaurantsQuery>(),
+                ResponseTypes.multipleInstancesOf(RestaurantResponse::class.java)
+            )
+        } returns Mono.just(listOf(existingRestaurant))
+
+        // when
+        val response = webTestClient.get()
+            .uri("/api/v1/restaurants")
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .expectStatus().isOk
+            .expectBodyList(RestaurantResponse::class.java)
+            .returnResult()
+            .responseBody
+
+        // then
+        response shouldNotBe null
+        response!!.size shouldBe 1
+        response[0].id shouldBe existingRestaurant.id
+        response[0].name shouldBe existingRestaurant.name
     }
 }
