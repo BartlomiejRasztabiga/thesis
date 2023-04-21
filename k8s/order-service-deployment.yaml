@@ -34,4 +34,16 @@ spec:
           name: order-service
           ports:
             - containerPort: 8102
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8102
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8102
+            initialDelaySeconds: 30
+            periodSeconds: 10
       restartPolicy: Always

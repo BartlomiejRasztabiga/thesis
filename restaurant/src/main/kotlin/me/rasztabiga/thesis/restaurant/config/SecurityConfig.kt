@@ -15,6 +15,7 @@ class SecurityConfig {
     @Bean
     fun springSecurityFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
         return http.authorizeExchange()
+            .pathMatchers("/actuator/**").permitAll()
             .anyExchange().authenticated()
             .and()
             .csrf().disable()

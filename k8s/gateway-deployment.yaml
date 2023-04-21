@@ -20,4 +20,16 @@ spec:
           name: gateway
           ports:
             - containerPort: 8100
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8100
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8100
+            initialDelaySeconds: 30
+            periodSeconds: 10
       restartPolicy: Always

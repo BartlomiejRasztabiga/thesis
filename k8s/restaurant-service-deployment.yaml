@@ -34,4 +34,16 @@ spec:
           name: restaurant-service
           ports:
             - containerPort: 8101
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8101
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8101
+            initialDelaySeconds: 30
+            periodSeconds: 10
       restartPolicy: Always

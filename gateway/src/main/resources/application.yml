@@ -3,3 +3,14 @@ server:
 
 uri:
   restaurant: http://localhost:8101
+
+management:
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true

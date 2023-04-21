@@ -28,6 +28,18 @@ spec:
             - mountPath: /config
               name: axonserver-config
               readOnly: true
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8024
+            initialDelaySeconds: 30
+            periodSeconds: 30
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8024
+            initialDelaySeconds: 30
+            periodSeconds: 30
       restartPolicy: Always
       volumes:
         - name: axonserver-data
