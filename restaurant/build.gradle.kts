@@ -28,6 +28,7 @@ repositories {
 
 val axonVersion = "4.7.2"
 val testcontainersVersion = "1.18.0"
+val kotestVersion = "5.6.1"
 
 dependencies {
 	implementation("me.rasztabiga.thesis:shared:0.1.15")
@@ -53,6 +54,8 @@ dependencies {
 	testImplementation("io.projectreactor:reactor-test")
 	testImplementation("org.axonframework:axon-test")
 	testImplementation("org.testcontainers:junit-jupiter")
+	testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+	testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
 }
 
 dependencyManagement {

@@ -16,6 +16,8 @@ internal class Restaurant {
     private lateinit var id: UUID
     private lateinit var name: String
 
+    constructor()
+
     @CommandHandler
     constructor(command: CreateRestaurantCommand) {
         AggregateLifecycle.apply(

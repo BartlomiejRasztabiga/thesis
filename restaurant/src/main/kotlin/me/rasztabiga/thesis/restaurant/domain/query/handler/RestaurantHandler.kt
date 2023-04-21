@@ -3,7 +3,6 @@
 package me.rasztabiga.thesis.restaurant.domain.query.handler
 
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantResponse
-import me.rasztabiga.thesis.restaurant.adapter.out.db.RestaurantRepository
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
 import me.rasztabiga.thesis.restaurant.domain.query.mapper.RestaurantMapper.mapToEntity
 import me.rasztabiga.thesis.restaurant.domain.query.mapper.RestaurantMapper.mapToResponse
@@ -23,12 +22,12 @@ class RestaurantHandler(
     @EventHandler
     fun on(event: RestaurantCreatedEvent) {
         val entity = mapToEntity(event)
-        restaurantRepository.save(entity).block()
+        restaurantRepository.add(entity)
     }
 
     @Suppress("UnusedParameter")
     @QueryHandler
     fun on(query: FindAllRestaurantsQuery): Flux<RestaurantResponse> {
-        return restaurantRepository.findAll().map { mapToResponse(it) }
+        return restaurantRepository.loadAll().map { mapToResponse(it) }
     }
 }
