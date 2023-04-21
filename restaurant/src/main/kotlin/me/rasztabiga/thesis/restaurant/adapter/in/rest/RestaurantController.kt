@@ -1,4 +1,5 @@
 @file:Suppress("InvalidPackageDeclaration")
+
 package me.rasztabiga.thesis.restaurant.adapter.`in`.rest
 
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.CreateRestaurantRequest
@@ -10,11 +11,13 @@ import me.rasztabiga.thesis.shared.security.Scopes.RESTAURANT
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway
 import org.axonframework.messaging.responsetypes.ResponseTypes
+import org.springframework.http.HttpStatus
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Mono
 import java.util.UUID
@@ -36,6 +39,7 @@ class RestaurantController(
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyAuthority('${RESTAURANT.WRITE}')")
     fun createRestaurant(@RequestBody request: CreateRestaurantRequest): Mono<UuidWrapper> {
         val command = mapToCreateRestaurantCommand(request)
