@@ -1,3 +1,4 @@
+@file:Suppress("InvalidPackageDeclaration")
 package me.rasztabiga.thesis.order.adapter.`in`.rest
 
 import org.springframework.http.ResponseEntity

@@ -1,3 +1,4 @@
+@file:Suppress("InvalidPackageDeclaration")
 package me.rasztabiga.thesis.restaurant.domain.query.handler
 
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantResponse
@@ -23,6 +24,7 @@ class RestaurantHandler(
         restaurantRepository.save(entity)
     }
 
+    @Suppress("UnusedParameter")
     @QueryHandler
     fun on(query: FindAllRestaurantsQuery): List<RestaurantResponse> {
         return restaurantRepository.findAll().map { mapToResponse(it) }

@@ -1,3 +1,4 @@
+@file:Suppress("InvalidPackageDeclaration")
 package me.rasztabiga.thesis.restaurant.adapter.`in`.rest
 
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.CreateRestaurantRequest
