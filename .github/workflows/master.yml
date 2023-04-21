@@ -29,6 +29,8 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 8.0.2
+      - name: Detekt
+        run: ./gradlew detekt
       - name: Build with Gradle
         run: ./gradlew build
         env:
