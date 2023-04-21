@@ -1,3 +1,5 @@
+@file:Suppress("InvalidPackageDeclaration")
+
 package me.rasztabiga.thesis.restaurant.adapter.`in`.rest
 
 import io.kotest.matchers.shouldBe
