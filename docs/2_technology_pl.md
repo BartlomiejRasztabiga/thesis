@@ -2,8 +2,8 @@
 
 ## 2.1 Backend
 
-Język programowania: Kotlin 1.8.20
-Frameworki: Axon Framework 4.7.2 + Spring Boot 3.0.6
+Język programowania: Kotlin 1.8.21
+Frameworki: Axon Framework 4.7.3 + Spring Boot 3.0.6
 Biblioteki:
 - Spring WebFlux
 - Spring Security
@@ -49,5 +49,5 @@ Testy wydajnościowe: Python 3.10 + Locust 2.15.1
 
 ## 2.8 Inne
 
-- Axon Server 4.7.2
+- Axon Server 4.7.3
 - Postman
