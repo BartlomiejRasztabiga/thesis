@@ -8,6 +8,7 @@ import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantReq
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToCreateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToUpdateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.query.query.FindAllRestaurantsQuery
+import me.rasztabiga.thesis.restaurant.domain.query.query.FindRestaurantByIdQuery
 import me.rasztabiga.thesis.shared.UuidWrapper
 import me.rasztabiga.thesis.shared.security.Scopes.RESTAURANT
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
@@ -32,6 +33,15 @@ class RestaurantController(
         return reactorQueryGateway.query(
             FindAllRestaurantsQuery(),
             ResponseTypes.multipleInstancesOf(RestaurantResponse::class.java)
+        )
+    }
+
+    @GetMapping("/{restaurantId}")
+    @PreAuthorize("hasAnyAuthority('${RESTAURANT.READ}')")
+    fun getRestaurant(@PathVariable restaurantId: UUID): Mono<RestaurantResponse> {
+        return reactorQueryGateway.query(
+            FindRestaurantByIdQuery(restaurantId),
+            ResponseTypes.instanceOf(RestaurantResponse::class.java)
         )
     }
 
