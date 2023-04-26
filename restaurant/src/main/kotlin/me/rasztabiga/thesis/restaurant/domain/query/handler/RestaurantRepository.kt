@@ -11,4 +11,6 @@ interface RestaurantRepository {
     fun load(id: UUID): RestaurantEntity?
 
     fun loadAll(): Flux<RestaurantEntity>
+
+    fun delete(id: UUID)
 }

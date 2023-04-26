@@ -19,4 +19,8 @@ class InMemoryRestaurantRepository : RestaurantRepository,
     override fun loadAll(): Flux<RestaurantEntity> {
         return Flux.fromIterable(loadAllEntities())
     }
+
+    override fun delete(id: UUID) {
+        deleteEntity(id)
+    }
 }

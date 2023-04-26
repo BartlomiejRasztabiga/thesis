@@ -23,4 +23,8 @@ class DbRestaurantRepository(
     override fun loadAll(): Flux<RestaurantEntity> {
         return springDataRestaurantRepository.findAll()
     }
+
+    override fun delete(id: UUID) {
+        springDataRestaurantRepository.deleteById(id).block()
+    }
 }

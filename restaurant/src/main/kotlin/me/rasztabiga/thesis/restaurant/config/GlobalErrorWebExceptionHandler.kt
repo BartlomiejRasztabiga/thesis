@@ -36,7 +36,7 @@ class GlobalErrorWebExceptionHandler(
         return when (ex) {
             is CommandExecutionException -> {
                 when {
-                    ex.localizedMessage.contains("The aggregate was not found in the event store") -> {
+                    ex.localizedMessage.contains("not found") -> {
                         ApiError(ex.message!!, NOT_FOUND)
                     }
 

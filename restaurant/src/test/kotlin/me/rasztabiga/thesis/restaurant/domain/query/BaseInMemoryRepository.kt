@@ -17,4 +17,8 @@ open class BaseInMemoryRepository<T> {
     protected fun loadAllEntities(): List<T> {
         return entities.values.toList()
     }
+
+    protected fun deleteEntity(id: UUID) {
+        entities.remove(id)
+    }
 }

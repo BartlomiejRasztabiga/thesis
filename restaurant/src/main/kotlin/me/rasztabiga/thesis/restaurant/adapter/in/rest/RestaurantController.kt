@@ -6,7 +6,9 @@ import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.CreateRestaurantReq
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantRequest
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToCreateRestaurantCommand
+import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToDeleteRestaurantCommand
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToUpdateRestaurantCommand
+import me.rasztabiga.thesis.restaurant.domain.command.command.DeleteRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.query.query.FindAllRestaurantsQuery
 import me.rasztabiga.thesis.restaurant.domain.query.query.FindRestaurantByIdQuery
 import me.rasztabiga.thesis.shared.UuidWrapper
@@ -16,6 +18,7 @@ import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGa
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.springframework.http.HttpStatus
 import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -68,6 +71,14 @@ class RestaurantController(
         @PathVariable restaurantId: UUID
     ): Mono<UuidWrapper> {
         val command = mapToUpdateRestaurantCommand(request, restaurantId)
+        val id = reactorCommandGateway.send<UUID>(command)
+        return id.map { UuidWrapper(it) }
+    }
+
+    @DeleteMapping("/{restaurantId}")
+    @PreAuthorize("hasAnyAuthority('${RESTAURANT.WRITE}')")
+    fun deleteRestaurant(@PathVariable restaurantId: UUID): Mono<UuidWrapper> {
+        val command = mapToDeleteRestaurantCommand(restaurantId)
         val id = reactorCommandGateway.send<UUID>(command)
         return id.map { UuidWrapper(it) }
     }

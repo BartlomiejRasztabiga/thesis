@@ -5,6 +5,7 @@ package me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.CreateRestaurantRequest
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantRequest
 import me.rasztabiga.thesis.restaurant.domain.command.command.CreateRestaurantCommand
+import me.rasztabiga.thesis.restaurant.domain.command.command.DeleteRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantCommand
 import java.util.*
 
@@ -20,6 +21,12 @@ object RestaurantControllerMapper {
         return UpdateRestaurantCommand(
             id = restaurantId,
             name = request.name
+        )
+    }
+
+    fun mapToDeleteRestaurantCommand(restaurantId: UUID): DeleteRestaurantCommand {
+        return DeleteRestaurantCommand(
+            id = restaurantId
         )
     }
 }
