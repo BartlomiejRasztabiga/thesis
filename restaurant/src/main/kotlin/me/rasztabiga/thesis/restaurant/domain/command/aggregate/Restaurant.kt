@@ -49,6 +49,7 @@ internal class Restaurant {
         this.name = event.name
     }
 
+    @Suppress("UnusedParameter")
     @EventSourcingHandler
     fun on(event: RestaurantDeletedEvent) {
         markDeleted()
