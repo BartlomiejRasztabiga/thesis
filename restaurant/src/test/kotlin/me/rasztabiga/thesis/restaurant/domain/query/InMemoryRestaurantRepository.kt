@@ -7,7 +7,7 @@ import reactor.core.publisher.Flux
 class InMemoryRestaurantRepository : RestaurantRepository,
     BaseInMemoryRepository<RestaurantEntity>() {
 
-    override fun add(restaurant: RestaurantEntity) {
+    override fun save(restaurant: RestaurantEntity) {
         addEntity(restaurant)
     }
 

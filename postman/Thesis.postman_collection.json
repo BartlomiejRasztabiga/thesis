@@ -3,14 +3,101 @@
 		"_postman_id": "ff86a588-b504-4f6c-b390-0a5617428b88",
 		"name": "Thesis",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "1388028"
+		"_exporter_id": "1388028",
+		"_collection_link": "https://symmetricaltest.postman.co/workspace/Symmetrical~11210755-3eaa-48a2-bc79-e1ff032e261e/collection/1388028-ff86a588-b504-4f6c-b390-0a5617428b88?action=share&creator=1388028&source=collection_link"
 	},
 	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Get restaurant manager token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"restaurant_manager_access_token\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "audience",
+									"value": "https://thesis.rasztabiga.me/api",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "restaurant@thesis.rasztabiga.me",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "sazni3-docmaj-foNnuz",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "BVxjiTTdPPXMpUj8gm1KoGgkkQ1fObF4",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "gqzR7iyZF5N-l9RTRP9CYCds57AhuHewOsQ3VdPyXxovMPvI61F3-DdXw_qNbNhu",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://rasztabigab.eu.auth0.com/oauth/token",
+							"protocol": "https",
+							"host": [
+								"rasztabigab",
+								"eu",
+								"auth0",
+								"com"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
 		{
 			"name": "Restaurant",
 			"item": [
 				{
 					"name": "Create Restaurant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"restaurant_id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -38,6 +125,35 @@
 					"response": []
 				},
 				{
+					"name": "Update Restaurant",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomCompanyName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/restaurants/{{restaurant_id}}",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"restaurants",
+								"{{restaurant_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get all restaurants",
 					"request": {
 						"method": "GET",
@@ -56,7 +172,47 @@
 					},
 					"response": []
 				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{restaurant_manager_access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
 			]
+		}
+	],
+	"variable": [
+		{
+			"key": "restaurant_manager_access_token",
+			"value": ""
+		},
+		{
+			"key": "restaurant_id",
+			"value": ""
 		}
 	]
 }

@@ -28,8 +28,6 @@ spec:
               value: password
             - name: SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE
               value: admin
-            - name: MANAGEMENT_ZIPKIN_TRACING_ENDPOINT
-              value: http://zipkin.observability:9411/api/v2/spans
           image: ghcr.io/bartlomiejrasztabiga/thesis/order
           name: order-service
           ports:

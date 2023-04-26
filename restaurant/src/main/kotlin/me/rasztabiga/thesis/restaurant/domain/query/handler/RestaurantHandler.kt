@@ -4,6 +4,7 @@ package me.rasztabiga.thesis.restaurant.domain.query.handler
 
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
+import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.query.mapper.RestaurantMapper.mapToEntity
 import me.rasztabiga.thesis.restaurant.domain.query.mapper.RestaurantMapper.mapToResponse
 import me.rasztabiga.thesis.restaurant.domain.query.query.FindAllRestaurantsQuery
@@ -22,7 +23,14 @@ class RestaurantHandler(
     @EventHandler
     fun on(event: RestaurantCreatedEvent) {
         val entity = mapToEntity(event)
-        restaurantRepository.add(entity)
+        restaurantRepository.save(entity)
+    }
+
+    @EventHandler
+    fun on(event: RestaurantUpdatedEvent) {
+        val entity = restaurantRepository.load(event.id) ?: error("Restaurant not found: ${event.id}")
+        val updatedEntity = entity.copy(name = event.name)
+        restaurantRepository.save(updatedEntity)
     }
 
     @Suppress("UnusedParameter")
