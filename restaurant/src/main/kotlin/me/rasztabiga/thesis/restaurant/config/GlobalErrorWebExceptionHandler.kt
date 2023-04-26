@@ -2,8 +2,10 @@ package me.rasztabiga.thesis.restaurant.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.axonframework.commandhandling.CommandExecutionException
+import org.axonframework.queryhandling.QueryExecutionException
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler
 import org.springframework.context.annotation.Configuration
+import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
 import org.springframework.http.HttpStatus
 import org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR
@@ -13,7 +15,7 @@ import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 
 @Configuration
-@Order(-2)
+@Order(Ordered.HIGHEST_PRECEDENCE)
 class GlobalErrorWebExceptionHandler(
     private val objectMapper: ObjectMapper
 ) : ErrorWebExceptionHandler {
@@ -28,22 +30,36 @@ class GlobalErrorWebExceptionHandler(
         return exchange.response.writeWith(Mono.just(dataBuffer))
     }
 
+    // TODO Can I make it better? Currently Axon swallows all of my original exceptions
+
     private fun createError(ex: Throwable): ApiError {
         return when (ex) {
             is CommandExecutionException -> {
                 when {
                     ex.localizedMessage.contains("The aggregate was not found in the event store") -> {
-                        ApiError("The requested resource was not found", NOT_FOUND)
+                        ApiError(ex.message!!, NOT_FOUND)
                     }
 
                     else -> {
-                        ApiError("An unexpected error occurred", INTERNAL_SERVER_ERROR)
+                        ApiError(ex.message!!, INTERNAL_SERVER_ERROR)
+                    }
+                }
+            }
+
+            is QueryExecutionException -> {
+                when {
+                    ex.localizedMessage.contains("not found") -> {
+                        ApiError(ex.message!!, NOT_FOUND)
+                    }
+
+                    else -> {
+                        ApiError(ex.message!!, INTERNAL_SERVER_ERROR)
                     }
                 }
             }
 
             else -> {
-                ApiError("An unexpected error occurred", INTERNAL_SERVER_ERROR)
+                ApiError(ex.message!!, INTERNAL_SERVER_ERROR)
             }
         }
     }
