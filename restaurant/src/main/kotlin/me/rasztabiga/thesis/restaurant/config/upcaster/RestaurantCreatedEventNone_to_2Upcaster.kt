@@ -8,6 +8,7 @@ import org.dom4j.Document
 import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 
+@Suppress("ClassNaming")
 @Component
 @Order(0)
 class RestaurantCreatedEventNone_to_2Upcaster : SingleEventUpcaster() {
@@ -23,7 +24,9 @@ class RestaurantCreatedEventNone_to_2Upcaster : SingleEventUpcaster() {
         return intermediateRepresentation.type == TARGET_TYPE
     }
 
-    override fun doUpcast(intermediateRepresentation: IntermediateEventRepresentation): IntermediateEventRepresentation {
+    override fun doUpcast(
+        intermediateRepresentation: IntermediateEventRepresentation
+    ): IntermediateEventRepresentation {
         return intermediateRepresentation.upcastPayload(
             SimpleSerializedType(TARGET_TYPE.name, "2.0"),
             Document::class.java

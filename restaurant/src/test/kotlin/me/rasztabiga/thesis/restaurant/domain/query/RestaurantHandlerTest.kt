@@ -100,6 +100,7 @@ class RestaurantHandlerTest {
         exception shouldNotBe null
     }
 
+    @Suppress("MaxLineLength")
     @Test
     fun `given restaurant availability updated event, when handling FindRestaurantByIdQuery, then returns updated restaurant`() {
         // given
