@@ -1,9 +1,12 @@
 package me.rasztabiga.thesis.restaurant.domain.command
 
+import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Availability
 import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Restaurant
 import me.rasztabiga.thesis.restaurant.domain.command.command.CreateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.DeleteRestaurantCommand
+import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantAvailabilityCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantCommand
+import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantDeletedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantUpdatedEvent
@@ -30,7 +33,8 @@ class RestaurantTest {
 
         val restaurantCreatedEvent = RestaurantCreatedEvent(
             createRestaurantCommand.id,
-            createRestaurantCommand.name
+            createRestaurantCommand.name,
+            Availability.CLOSED
         )
 
         textFixture.givenNoPriorActivity()
@@ -48,7 +52,8 @@ class RestaurantTest {
 
         val restaurantCreatedEvent = RestaurantCreatedEvent(
             updateRestaurantCommand.id,
-            updateRestaurantCommand.name
+            updateRestaurantCommand.name,
+            Availability.CLOSED
         )
 
         val restaurantUpdatedEvent = RestaurantUpdatedEvent(
@@ -70,7 +75,8 @@ class RestaurantTest {
 
         val restaurantCreatedEvent = RestaurantCreatedEvent(
             deleteRestaurantCommand.id,
-            "Restaurant"
+            "Restaurant",
+            Availability.CLOSED
         )
 
         val restaurantDeletedEvent = RestaurantDeletedEvent(
@@ -81,5 +87,31 @@ class RestaurantTest {
             .`when`(deleteRestaurantCommand)
             .expectSuccessfulHandlerExecution()
             .expectEvents(restaurantDeletedEvent)
+    }
+
+    @Test
+    fun `should update restaurant availability`() {
+        val restaurantId = UUID.randomUUID()
+
+        val updateRestaurantAvailabilityCommand = UpdateRestaurantAvailabilityCommand(
+            restaurantId,
+            Availability.OPEN
+        )
+
+        val restaurantCreatedEvent = RestaurantCreatedEvent(
+            restaurantId,
+            "Restaurant",
+            Availability.CLOSED
+        )
+
+        val restaurantAvailabilityUpdatedEvent = RestaurantAvailabilityUpdatedEvent(
+            updateRestaurantAvailabilityCommand.id,
+            updateRestaurantAvailabilityCommand.availability
+        )
+
+        textFixture.given(restaurantCreatedEvent)
+            .`when`(updateRestaurantAvailabilityCommand)
+            .expectSuccessfulHandlerExecution()
+            .expectEvents(restaurantAvailabilityUpdatedEvent)
     }
 }

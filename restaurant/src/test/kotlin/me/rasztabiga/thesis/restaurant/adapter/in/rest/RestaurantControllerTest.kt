@@ -6,8 +6,10 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.mockk.every
 import me.rasztabiga.thesis.restaurant.BaseWebFluxTest
+import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.Availability
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.CreateRestaurantRequest
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantResponse
+import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantAvailabilityRequest
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantRequest
 import me.rasztabiga.thesis.restaurant.domain.query.query.FindAllRestaurantsQuery
 import me.rasztabiga.thesis.restaurant.domain.query.query.FindRestaurantByIdQuery
@@ -45,7 +47,7 @@ class RestaurantControllerTest : BaseWebFluxTest() {
     @Test
     fun `when GET is performed on restaurants endpoint, then returns 200 OK`() {
         // given
-        val existingRestaurant = RestaurantResponse(UUID.randomUUID(), "Restaurant")
+        val existingRestaurant = RestaurantResponse(UUID.randomUUID(), "Restaurant", Availability.CLOSED)
         every {
             reactorQueryGateway.query(
                 any<FindAllRestaurantsQuery>(),
@@ -73,7 +75,7 @@ class RestaurantControllerTest : BaseWebFluxTest() {
     @Test
     fun `when GET is performed on restaurant endpoint, then returns 200 OK`() {
         // given
-        val existingRestaurant = RestaurantResponse(UUID.randomUUID(), "Restaurant")
+        val existingRestaurant = RestaurantResponse(UUID.randomUUID(), "Restaurant", Availability.CLOSED)
         every {
             reactorQueryGateway.query(
                 any<FindRestaurantByIdQuery>(),
@@ -98,7 +100,7 @@ class RestaurantControllerTest : BaseWebFluxTest() {
     }
 
     @Test
-    fun `when PUT is performed on restaurant endpoint, then returns 201 CREATED`() {
+    fun `when PUT is performed on restaurant endpoint, then returns 200 OK`() {
         // given
         val restaurantId = UUID.randomUUID()
 
@@ -117,7 +119,7 @@ class RestaurantControllerTest : BaseWebFluxTest() {
     }
 
     @Test
-    fun `when DELETE is performed on restaurant endpoint, then returns 201 CREATED`() {
+    fun `when DELETE is performed on restaurant endpoint, then returns 200 OK`() {
         // given
         val restaurantId = UUID.randomUUID()
 
@@ -126,6 +128,25 @@ class RestaurantControllerTest : BaseWebFluxTest() {
         // when
         webTestClient.delete()
             .uri("/api/v1/restaurants/${restaurantId}")
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .expectStatus().isOk
+
+        // then
+    }
+
+    @Test
+    fun `when PUT is performed on restaurant availability endpoint, then returns 200 OK`() {
+        // given
+        val restaurantId = UUID.randomUUID()
+
+        val request = UpdateRestaurantAvailabilityRequest( Availability.OPEN)
+        every { reactorCommandGateway.send<UUID>(any()) } returns Mono.just(restaurantId)
+
+        // when
+        webTestClient.put()
+            .uri("/api/v1/restaurants/${restaurantId}/availability")
+            .body(Mono.just(request), CreateRestaurantRequest::class.java)
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
             .expectStatus().isOk

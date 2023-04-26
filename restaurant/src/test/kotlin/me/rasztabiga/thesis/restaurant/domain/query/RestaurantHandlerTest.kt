@@ -3,6 +3,8 @@ package me.rasztabiga.thesis.restaurant.domain.query
 import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.Availability
+import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantDeletedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantUpdatedEvent
@@ -12,6 +14,7 @@ import me.rasztabiga.thesis.restaurant.domain.query.query.FindAllRestaurantsQuer
 import me.rasztabiga.thesis.restaurant.domain.query.query.FindRestaurantByIdQuery
 import org.junit.jupiter.api.Test
 import java.util.*
+import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Availability as DomainAvailability
 
 class RestaurantHandlerTest {
 
@@ -22,7 +25,7 @@ class RestaurantHandlerTest {
     @Test
     fun `given restaurant created event, when handling FindAllRestaurantsQuery, then returns restaurant`() {
         // given
-        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant")
+        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant", DomainAvailability.CLOSED)
         restaurantHandler.on(restaurantCreatedEvent)
 
         // when
@@ -38,7 +41,7 @@ class RestaurantHandlerTest {
     @Test
     fun `given restaurant created event, when handling FindRestaurantByIdQuery, then returns restaurant`() {
         // given
-        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant")
+        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant", DomainAvailability.CLOSED)
         restaurantHandler.on(restaurantCreatedEvent)
 
         // when
@@ -53,7 +56,7 @@ class RestaurantHandlerTest {
     @Test
     fun `given restaurant updated event, when handling FindRestaurantByIdQuery, then returns updated restaurant`() {
         // given
-        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant")
+        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant", DomainAvailability.CLOSED)
         val restaurantUpdatedEvent = RestaurantUpdatedEvent(restaurantCreatedEvent.id, "New name")
         restaurantHandler.on(restaurantCreatedEvent)
         restaurantHandler.on(restaurantUpdatedEvent)
@@ -70,7 +73,7 @@ class RestaurantHandlerTest {
     @Test
     fun `given restaurant deleted event, when handling FindRestaurantByIdQuery, then throws`() {
         // given
-        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant")
+        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant", DomainAvailability.CLOSED)
         val restaurantDeletedEvent = RestaurantDeletedEvent(restaurantCreatedEvent.id)
         restaurantHandler.on(restaurantCreatedEvent)
         restaurantHandler.on(restaurantDeletedEvent)
@@ -95,5 +98,24 @@ class RestaurantHandlerTest {
 
         // then
         exception shouldNotBe null
+    }
+
+    @Test
+    fun `given restaurant availability updated event, when handling FindRestaurantByIdQuery, then returns updated restaurant`() {
+        // given
+        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant", DomainAvailability.CLOSED)
+        val restaurantAvailabilityUpdatedEvent =
+            RestaurantAvailabilityUpdatedEvent(restaurantCreatedEvent.id, DomainAvailability.OPEN)
+        restaurantHandler.on(restaurantCreatedEvent)
+        restaurantHandler.on(restaurantAvailabilityUpdatedEvent)
+
+        // when
+        val restaurant = restaurantHandler.on(FindRestaurantByIdQuery(restaurantCreatedEvent.id)).block()
+
+        // then
+        restaurant shouldNotBe null
+        restaurant!!.id shouldBe restaurantCreatedEvent.id
+        restaurant.name shouldBe restaurantCreatedEvent.name
+        restaurant.availability shouldBe Availability.OPEN
     }
 }
