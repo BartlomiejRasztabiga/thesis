@@ -2,7 +2,9 @@ package me.rasztabiga.thesis.restaurant.domain.command.aggregate
 
 import me.rasztabiga.thesis.restaurant.domain.command.command.CreateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.DeleteRestaurantCommand
+import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantAvailabilityCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantCommand
+import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantDeletedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantUpdatedEvent
@@ -20,12 +22,13 @@ internal class Restaurant {
     @AggregateIdentifier
     private lateinit var id: UUID
     private lateinit var name: String
+    private var availability: Availability = Availability.CLOSED
 
     constructor()
 
     @CommandHandler
     constructor(command: CreateRestaurantCommand) {
-        apply(RestaurantCreatedEvent(id = command.id, name = command.name))
+        apply(RestaurantCreatedEvent(id = command.id, name = command.name, availability = availability))
     }
 
     @CommandHandler
@@ -36,6 +39,11 @@ internal class Restaurant {
     @CommandHandler
     fun handle(command: DeleteRestaurantCommand) {
         apply(RestaurantDeletedEvent(id = command.id))
+    }
+
+    @CommandHandler
+    fun handle(command: UpdateRestaurantAvailabilityCommand) {
+        apply(RestaurantAvailabilityUpdatedEvent(id = command.id, availability = command.availability))
     }
 
     @EventSourcingHandler
@@ -53,5 +61,10 @@ internal class Restaurant {
     @EventSourcingHandler
     fun on(event: RestaurantDeletedEvent) {
         markDeleted()
+    }
+
+    @EventSourcingHandler
+    fun on(event: RestaurantAvailabilityUpdatedEvent) {
+        this.availability = event.availability
     }
 }

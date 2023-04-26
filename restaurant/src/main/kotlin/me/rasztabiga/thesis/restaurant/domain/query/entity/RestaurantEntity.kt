@@ -2,11 +2,17 @@ package me.rasztabiga.thesis.restaurant.domain.query.entity
 
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
-import java.util.UUID
+import java.util.*
 
 @Document(collection = "restaurant")
 data class RestaurantEntity(
     @Id
     val id: UUID,
-    val name: String
-)
+    val name: String,
+    val availability: Availability
+) {
+    enum class Availability {
+        OPEN,
+        CLOSED
+    }
+}

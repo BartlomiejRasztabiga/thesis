@@ -5,5 +5,6 @@ import java.util.UUID
 
 data class RestaurantResponse(
     val id: UUID,
-    val name: String
+    val name: String,
+    val availability: Availability
 )

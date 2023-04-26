@@ -154,6 +154,36 @@
 					"response": []
 				},
 				{
+					"name": "Update Restaurant availability",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"availability\": \"OPEN\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/restaurants/{{restaurant_id}}/availability",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"restaurants",
+								"{{restaurant_id}}",
+								"availability"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get all restaurants",
 					"request": {
 						"method": "GET",
@@ -167,6 +197,46 @@
 								"api",
 								"v1",
 								"restaurants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get restaurant",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/restaurants/{{restaurant_id}}",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"restaurants",
+								"{{restaurant_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete restaurant",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/restaurants/{{restaurant_id}}",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"restaurants",
+								"{{restaurant_id}}"
 							]
 						}
 					},
