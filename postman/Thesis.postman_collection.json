@@ -78,6 +78,75 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get ordering user token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"ordering_user_access_token\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "audience",
+									"value": "https://thesis.rasztabiga.me/api",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "user@thesis.rasztabiga.me",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "qabdyq-kepTed-xikke2",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "BVxjiTTdPPXMpUj8gm1KoGgkkQ1fObF4",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "gqzR7iyZF5N-l9RTRP9CYCds57AhuHewOsQ3VdPyXxovMPvI61F3-DdXw_qNbNhu",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://rasztabigab.eu.auth0.com/oauth/token",
+							"protocol": "https",
+							"host": [
+								"rasztabigab",
+								"eu",
+								"auth0",
+								"com"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -184,6 +253,36 @@
 					"response": []
 				},
 				{
+					"name": "Update Restaurant menu",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"menu\": [\n        \n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/restaurants/{{restaurant_id}}/menu",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"restaurants",
+								"{{restaurant_id}}",
+								"menu"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get all restaurants",
 					"request": {
 						"method": "GET",
@@ -273,6 +372,120 @@
 					}
 				}
 			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Create User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"user_id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": \"{{$guid}}\",\n    \"name\": \"{{$randomFullName}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/users",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/users",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/users/{{user_id}}",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ordering_user_access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
 		}
 	],
 	"variable": [
@@ -282,6 +495,14 @@
 		},
 		{
 			"key": "restaurant_id",
+			"value": ""
+		},
+		{
+			"key": "ordering_user_access_token",
+			"value": ""
+		},
+		{
+			"key": "user_id",
 			"value": ""
 		}
 	]

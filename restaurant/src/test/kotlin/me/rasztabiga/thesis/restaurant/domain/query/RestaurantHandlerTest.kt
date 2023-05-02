@@ -31,7 +31,7 @@ class RestaurantHandlerTest {
         restaurantHandler.on(restaurantCreatedEvent)
 
         // when
-        val restaurants = restaurantHandler.on(FindAllRestaurantsQuery()).collectList().block()
+        val restaurants = restaurantHandler.handle(FindAllRestaurantsQuery()).collectList().block()
 
         // then
         restaurants shouldNotBe null
@@ -47,7 +47,7 @@ class RestaurantHandlerTest {
         restaurantHandler.on(restaurantCreatedEvent)
 
         // when
-        val restaurant = restaurantHandler.on(FindRestaurantByIdQuery(restaurantCreatedEvent.id)).block()
+        val restaurant = restaurantHandler.handle(FindRestaurantByIdQuery(restaurantCreatedEvent.id)).block()
 
         // then
         restaurant shouldNotBe null
@@ -64,7 +64,7 @@ class RestaurantHandlerTest {
         restaurantHandler.on(restaurantUpdatedEvent)
 
         // when
-        val restaurant = restaurantHandler.on(FindRestaurantByIdQuery(restaurantCreatedEvent.id)).block()
+        val restaurant = restaurantHandler.handle(FindRestaurantByIdQuery(restaurantCreatedEvent.id)).block()
 
         // then
         restaurant shouldNotBe null
@@ -82,7 +82,7 @@ class RestaurantHandlerTest {
 
         // when
         val exception = shouldThrowExactly<RestaurantNotFoundException> {
-            restaurantHandler.on(FindRestaurantByIdQuery(UUID.randomUUID())).block()
+            restaurantHandler.handle(FindRestaurantByIdQuery(UUID.randomUUID())).block()
         }
 
         // then
@@ -95,7 +95,7 @@ class RestaurantHandlerTest {
 
         // when
         val exception = shouldThrowExactly<RestaurantNotFoundException> {
-            restaurantHandler.on(FindRestaurantByIdQuery(UUID.randomUUID())).block()
+            restaurantHandler.handle(FindRestaurantByIdQuery(UUID.randomUUID())).block()
         }
 
         // then
@@ -113,7 +113,7 @@ class RestaurantHandlerTest {
         restaurantHandler.on(restaurantAvailabilityUpdatedEvent)
 
         // when
-        val restaurant = restaurantHandler.on(FindRestaurantByIdQuery(restaurantCreatedEvent.id)).block()
+        val restaurant = restaurantHandler.handle(FindRestaurantByIdQuery(restaurantCreatedEvent.id)).block()
 
         // then
         restaurant shouldNotBe null
@@ -134,7 +134,7 @@ class RestaurantHandlerTest {
         restaurantHandler.on(restaurantMenuUpdatedEvent)
 
         // when
-        val restaurant = restaurantHandler.on(FindRestaurantByIdQuery(restaurantCreatedEvent.id)).block()
+        val restaurant = restaurantHandler.handle(FindRestaurantByIdQuery(restaurantCreatedEvent.id)).block()
 
         // then
         restaurant shouldNotBe null
