@@ -259,7 +259,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"menu\": [\n        \n    ]\n}",
+							"raw": "{\n    \"menu\": [\n        {\n            \"name\": \"Product #1\",\n            \"description\": \"Description\",\n            \"price\": 21.37\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
