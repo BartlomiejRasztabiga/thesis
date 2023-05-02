@@ -121,6 +121,7 @@ class RestaurantHandlerTest {
         restaurant.availability shouldBe Availability.OPEN
     }
 
+    @Suppress("MaxLineLength")
     @Test
     fun `given restaurant menu updated event, when handling FindRestaurantByIdQuery, then returns updated restaurant`() {
         // given
