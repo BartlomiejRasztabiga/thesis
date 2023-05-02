@@ -6,6 +6,7 @@ import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantDeletedEvent
+import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantMenuUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.query.entity.RestaurantEntity
 import me.rasztabiga.thesis.restaurant.domain.query.exception.RestaurantNotFoundException
@@ -48,6 +49,15 @@ class RestaurantHandler(
     fun on(event: RestaurantAvailabilityUpdatedEvent) {
         val entity = restaurantRepository.load(event.id) ?: throw RestaurantNotFoundException(event.id)
         val updatedEntity = entity.copy(availability = RestaurantEntity.Availability.valueOf(event.availability.name))
+        restaurantRepository.save(updatedEntity)
+    }
+
+    @EventHandler
+    fun on(event: RestaurantMenuUpdatedEvent) {
+        val entity = restaurantRepository.load(event.id) ?: throw RestaurantNotFoundException(event.id)
+        val updatedEntity = entity.copy(menu = event.menu.map {
+            RestaurantEntity.Product(it.id, it.name, it.description, it.price)
+        })
         restaurantRepository.save(updatedEntity)
     }
 

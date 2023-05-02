@@ -45,7 +45,6 @@ dependencies {
     implementation("org.axonframework:axon-spring-boot-starter")
     implementation("org.axonframework.extensions.kotlin:axon-kotlin")
     implementation("org.axonframework.extensions.reactor:axon-reactor-spring-boot-starter")
-    implementation("org.axonframework:axon-micrometer")
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     implementation("org.dom4j:dom4j:2.1.4")

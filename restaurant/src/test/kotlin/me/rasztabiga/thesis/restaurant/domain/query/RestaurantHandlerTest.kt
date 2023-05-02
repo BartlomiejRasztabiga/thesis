@@ -4,9 +4,11 @@ import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.Availability
+import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Product
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantDeletedEvent
+import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantMenuUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.query.exception.RestaurantNotFoundException
 import me.rasztabiga.thesis.restaurant.domain.query.handler.RestaurantHandler
@@ -25,7 +27,7 @@ class RestaurantHandlerTest {
     @Test
     fun `given restaurant created event, when handling FindAllRestaurantsQuery, then returns restaurant`() {
         // given
-        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant", DomainAvailability.CLOSED)
+        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant")
         restaurantHandler.on(restaurantCreatedEvent)
 
         // when
@@ -41,7 +43,7 @@ class RestaurantHandlerTest {
     @Test
     fun `given restaurant created event, when handling FindRestaurantByIdQuery, then returns restaurant`() {
         // given
-        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant", DomainAvailability.CLOSED)
+        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant")
         restaurantHandler.on(restaurantCreatedEvent)
 
         // when
@@ -56,7 +58,7 @@ class RestaurantHandlerTest {
     @Test
     fun `given restaurant updated event, when handling FindRestaurantByIdQuery, then returns updated restaurant`() {
         // given
-        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant", DomainAvailability.CLOSED)
+        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant")
         val restaurantUpdatedEvent = RestaurantUpdatedEvent(restaurantCreatedEvent.id, "New name")
         restaurantHandler.on(restaurantCreatedEvent)
         restaurantHandler.on(restaurantUpdatedEvent)
@@ -73,7 +75,7 @@ class RestaurantHandlerTest {
     @Test
     fun `given restaurant deleted event, when handling FindRestaurantByIdQuery, then throws`() {
         // given
-        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant", DomainAvailability.CLOSED)
+        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant")
         val restaurantDeletedEvent = RestaurantDeletedEvent(restaurantCreatedEvent.id)
         restaurantHandler.on(restaurantCreatedEvent)
         restaurantHandler.on(restaurantDeletedEvent)
@@ -104,7 +106,7 @@ class RestaurantHandlerTest {
     @Test
     fun `given restaurant availability updated event, when handling FindRestaurantByIdQuery, then returns updated restaurant`() {
         // given
-        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant", DomainAvailability.CLOSED)
+        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant")
         val restaurantAvailabilityUpdatedEvent =
             RestaurantAvailabilityUpdatedEvent(restaurantCreatedEvent.id, DomainAvailability.OPEN)
         restaurantHandler.on(restaurantCreatedEvent)
@@ -116,7 +118,30 @@ class RestaurantHandlerTest {
         // then
         restaurant shouldNotBe null
         restaurant!!.id shouldBe restaurantCreatedEvent.id
-        restaurant.name shouldBe restaurantCreatedEvent.name
         restaurant.availability shouldBe Availability.OPEN
+    }
+
+    @Test
+    fun `given restaurant menu updated event, when handling FindRestaurantByIdQuery, then returns updated restaurant`() {
+        // given
+        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant")
+        val restaurantMenuUpdatedEvent = RestaurantMenuUpdatedEvent(
+            restaurantCreatedEvent.id,
+            listOf(Product(UUID.randomUUID(), "Product", "description", 1.0))
+        )
+        restaurantHandler.on(restaurantCreatedEvent)
+        restaurantHandler.on(restaurantMenuUpdatedEvent)
+
+        // when
+        val restaurant = restaurantHandler.on(FindRestaurantByIdQuery(restaurantCreatedEvent.id)).block()
+
+        // then
+        restaurant shouldNotBe null
+        restaurant!!.id shouldBe restaurantCreatedEvent.id
+        restaurant.menu.size shouldBe 1
+        restaurant.menu[0].id shouldBe restaurantMenuUpdatedEvent.menu[0].id
+        restaurant.menu[0].name shouldBe restaurantMenuUpdatedEvent.menu[0].name
+        restaurant.menu[0].description shouldBe restaurantMenuUpdatedEvent.menu[0].description
+        restaurant.menu[0].price shouldBe restaurantMenuUpdatedEvent.menu[0].price
     }
 }

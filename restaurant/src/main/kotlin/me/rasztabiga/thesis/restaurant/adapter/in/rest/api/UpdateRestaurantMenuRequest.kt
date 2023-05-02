@@ -2,16 +2,10 @@
 
 package me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api
 
-import java.util.*
-
-data class RestaurantResponse(
-    val id: UUID,
-    val name: String,
-    val availability: Availability,
+data class UpdateRestaurantMenuRequest(
     val menu: List<Product>
 ) {
     data class Product(
-        val id: UUID,
         val name: String,
         val description: String?,
         val price: Double,

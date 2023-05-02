@@ -5,11 +5,13 @@ package me.rasztabiga.thesis.restaurant.adapter.`in`.rest
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.CreateRestaurantRequest
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantAvailabilityRequest
+import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantMenuRequest
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantRequest
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToCreateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToDeleteRestaurantCommand
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToUpdateRestaurantAvailabilityCommand
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToUpdateRestaurantCommand
+import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToUpdateRestaurantMenuCommand
 import me.rasztabiga.thesis.restaurant.domain.query.query.FindAllRestaurantsQuery
 import me.rasztabiga.thesis.restaurant.domain.query.query.FindRestaurantByIdQuery
 import me.rasztabiga.thesis.shared.UuidWrapper
@@ -91,6 +93,17 @@ class RestaurantController(
         @PathVariable restaurantId: UUID
     ): Mono<UuidWrapper> {
         val command = mapToUpdateRestaurantAvailabilityCommand(request, restaurantId)
+        val id = reactorCommandGateway.send<UUID>(command)
+        return id.map { UuidWrapper(it) }
+    }
+
+    @PutMapping("/{restaurantId}/menu")
+    @PreAuthorize("hasAnyAuthority('${RESTAURANT.WRITE}')")
+    fun updateRestaurantMenu(
+        @RequestBody request: UpdateRestaurantMenuRequest,
+        @PathVariable restaurantId: UUID
+    ): Mono<UuidWrapper> {
+        val command = mapToUpdateRestaurantMenuCommand(request, restaurantId)
         val id = reactorCommandGateway.send<UUID>(command)
         return id.map { UuidWrapper(it) }
     }

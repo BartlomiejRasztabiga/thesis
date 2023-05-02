@@ -8,10 +8,22 @@ import me.rasztabiga.thesis.restaurant.domain.query.entity.RestaurantEntity
 object RestaurantMapper {
 
     fun mapToEntity(event: RestaurantCreatedEvent): RestaurantEntity {
-        return RestaurantEntity(event.id, event.name, RestaurantEntity.Availability.valueOf(event.availability.name))
+        return RestaurantEntity(
+            event.id,
+            event.name,
+            RestaurantEntity.Availability.CLOSED,
+            emptyList()
+        )
     }
 
     fun mapToResponse(entity: RestaurantEntity): RestaurantResponse {
-        return RestaurantResponse(entity.id, entity.name, Availability.valueOf(entity.availability.name))
+        return RestaurantResponse(
+            entity.id,
+            entity.name,
+            Availability.valueOf(entity.availability.name),
+            entity.menu.map {
+                RestaurantResponse.Product(it.id, it.name, it.description, it.price)
+            }
+        )
     }
 }

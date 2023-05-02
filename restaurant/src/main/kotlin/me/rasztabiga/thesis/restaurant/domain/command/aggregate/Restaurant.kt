@@ -2,11 +2,13 @@ package me.rasztabiga.thesis.restaurant.domain.command.aggregate
 
 import me.rasztabiga.thesis.restaurant.domain.command.command.CreateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.DeleteRestaurantCommand
+import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantMenuCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantAvailabilityCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantDeletedEvent
+import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantMenuUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantUpdatedEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
@@ -23,12 +25,13 @@ internal class Restaurant {
     private lateinit var id: UUID
     private lateinit var name: String
     private var availability: Availability = Availability.CLOSED
+    private var menu: List<Product> = listOf()
 
     constructor()
 
     @CommandHandler
     constructor(command: CreateRestaurantCommand) {
-        apply(RestaurantCreatedEvent(id = command.id, name = command.name, availability = availability))
+        apply(RestaurantCreatedEvent(id = command.id, name = command.name))
     }
 
     @CommandHandler
@@ -44,6 +47,15 @@ internal class Restaurant {
     @CommandHandler
     fun handle(command: UpdateRestaurantAvailabilityCommand) {
         apply(RestaurantAvailabilityUpdatedEvent(id = command.id, availability = command.availability))
+    }
+
+    @CommandHandler
+    fun handle(command: UpdateRestaurantMenuCommand) {
+        command.menu.forEach { product ->
+            require(product.price >= 0) { "Price cannot be negative" }
+        }
+
+        apply(RestaurantMenuUpdatedEvent(id = command.id, menu = command.menu))
     }
 
     @EventSourcingHandler
@@ -66,5 +78,10 @@ internal class Restaurant {
     @EventSourcingHandler
     fun on(event: RestaurantAvailabilityUpdatedEvent) {
         this.availability = event.availability
+    }
+
+    @EventSourcingHandler
+    fun on(event: RestaurantMenuUpdatedEvent) {
+        this.menu = event.menu
     }
 }
