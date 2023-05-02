@@ -1,4 +1,4 @@
-package me.rasztabiga.thesis.restaurant.domain.query
+package me.rasztabiga.thesis.order.domain.query
 
 import kotlin.reflect.full.memberProperties
 

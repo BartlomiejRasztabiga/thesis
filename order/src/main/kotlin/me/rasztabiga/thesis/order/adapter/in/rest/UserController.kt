@@ -8,7 +8,6 @@ import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.UserControllerMapper.
 import me.rasztabiga.thesis.order.domain.query.query.FindAllUsersQuery
 import me.rasztabiga.thesis.order.domain.query.query.FindUserByIdQuery
 import me.rasztabiga.thesis.shared.StringIdWrapper
-import me.rasztabiga.thesis.shared.UuidWrapper
 import me.rasztabiga.thesis.shared.security.Scopes
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway
