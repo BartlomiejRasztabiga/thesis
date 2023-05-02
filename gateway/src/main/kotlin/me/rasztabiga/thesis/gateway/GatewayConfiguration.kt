@@ -16,6 +16,14 @@ class GatewayConfiguration {
                 it.path("/api/v1/restaurants/**")
                     .uri(uriConfiguration.restaurant)
             }
+            .route("order") {
+                it.path("/api/v1/orders/**")
+                    .uri(uriConfiguration.order)
+            }
+            .route("user") {
+                it.path("/api/v1/users/**")
+                    .uri(uriConfiguration.order)
+            }
             .build()
     }
 }

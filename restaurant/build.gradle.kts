@@ -31,7 +31,7 @@ val testcontainersVersion = "1.18.0"
 val kotestVersion = "5.6.1"
 
 dependencies {
-    implementation("me.rasztabiga.thesis:shared:0.1.15")
+    implementation("me.rasztabiga.thesis:shared:0.2.6")
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-webflux")

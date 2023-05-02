@@ -1,5 +1,3 @@
-@file:Suppress("InvalidPackageDeclaration")
-
 package me.rasztabiga.thesis.restaurant.domain.query.handler
 
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantResponse
@@ -63,12 +61,12 @@ class RestaurantHandler(
 
     @Suppress("UnusedParameter")
     @QueryHandler
-    fun on(query: FindAllRestaurantsQuery): Flux<RestaurantResponse> {
+    fun handle(query: FindAllRestaurantsQuery): Flux<RestaurantResponse> {
         return restaurantRepository.loadAll().map { mapToResponse(it) }
     }
 
     @QueryHandler
-    fun on(query: FindRestaurantByIdQuery): Mono<RestaurantResponse> {
+    fun handle(query: FindRestaurantByIdQuery): Mono<RestaurantResponse> {
         return restaurantRepository.load(query.restaurantId)
             ?.let { Mono.just(mapToResponse(it)) }
             ?: Mono.error(RestaurantNotFoundException(query.restaurantId))

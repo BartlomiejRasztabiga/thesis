@@ -16,6 +16,8 @@ spec:
         - env:
             - name: URI_RESTAURANT
               value: http://restaurant-service:8101
+            - name: URI_ORDER
+              value: http://order-service:8102
           image: ghcr.io/bartlomiejrasztabiga/thesis/gateway
           name: gateway
           ports:

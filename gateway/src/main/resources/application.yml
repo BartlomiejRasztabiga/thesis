@@ -3,6 +3,7 @@ server:
 
 uri:
   restaurant: http://localhost:8101
+  order: http://localhost:8102
 
 management:
   endpoint:

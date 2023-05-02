@@ -6,5 +6,6 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan
 @ConfigurationPropertiesScan
 @ConfigurationProperties(prefix = "uri")
 data class UriConfiguration(
-    val restaurant: String
+    val restaurant: String,
+    val order: String
 )
