@@ -18,10 +18,13 @@ import org.springframework.web.bind.annotation.RestController
 import reactor.core.publisher.Mono
 import java.util.*
 
-@RestController
-@RequestMapping("/api/v1/users")
-class UserController {
-
+//@RestController
+//@RequestMapping("/api/v1/users")
+//class UserController(
+//    private val reactorCommandGateway: ReactorCommandGateway,
+//    private val reactorQueryGateway: ReactorQueryGateway
+//) {
+//
 //    @PostMapping
 //    @ResponseStatus(HttpStatus.CREATED)
 //    @PreAuthorize("hasAnyAuthority('${Scopes.RESTAURANT.WRITE}')")
@@ -30,4 +33,4 @@ class UserController {
 //        val id = reactorCommandGateway.send<UUID>(command)
 //        return id.map { UuidWrapper(it) }
 //    }
-}
+//}
