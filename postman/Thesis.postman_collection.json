@@ -427,6 +427,81 @@
 					"response": []
 				},
 				{
+					"name": "Create delivery address",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"delivery_address_id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"address\": \"{{$randomStreetAddress}}\",\n    \"additionalInfo\": \"additionalInfo\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/users/{{user_id}}/addresses",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"{{user_id}}",
+								"addresses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete delivery addres",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/users/{{user_id}}/addresses/{{delivery_address_id}}",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"{{user_id}}",
+								"addresses",
+								"{{delivery_address_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Get all users",
 					"request": {
 						"method": "GET",
@@ -513,6 +588,10 @@
 		},
 		{
 			"key": "user_id",
+			"value": ""
+		},
+		{
+			"key": "delivery_address_id",
 			"value": ""
 		}
 	]

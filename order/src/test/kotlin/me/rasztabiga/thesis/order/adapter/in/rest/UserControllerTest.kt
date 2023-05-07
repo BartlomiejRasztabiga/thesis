@@ -6,15 +6,18 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.mockk.every
 import me.rasztabiga.thesis.order.BaseWebFluxTest
+import me.rasztabiga.thesis.order.adapter.`in`.rest.api.CreateDeliveryAddressRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.CreateUserRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.UserResponse
 import me.rasztabiga.thesis.order.domain.query.query.FindAllUsersQuery
 import me.rasztabiga.thesis.order.domain.query.query.FindUserByIdQuery
 import me.rasztabiga.thesis.shared.StringIdWrapper
+import me.rasztabiga.thesis.shared.UuidWrapper
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType
 import reactor.core.publisher.Mono
+import java.util.*
 
 class UserControllerTest : BaseWebFluxTest() {
 
@@ -43,7 +46,7 @@ class UserControllerTest : BaseWebFluxTest() {
     @Test
     fun `when GET is performed on users endpoint, then returns 200 OK`() {
         // given
-        val existingUser = UserResponse("1", "User")
+        val existingUser = UserResponse("1", "User", mutableListOf())
         every {
             reactorQueryGateway.query(
                 any<FindAllUsersQuery>(),
@@ -71,7 +74,7 @@ class UserControllerTest : BaseWebFluxTest() {
     @Test
     fun `when GET is performed on user endpoint, then returns 200 OK`() {
         // given
-        val existingUser = UserResponse("1", "User")
+        val existingUser = UserResponse("1", "User", mutableListOf())
         every {
             reactorQueryGateway.query(
                 any<FindUserByIdQuery>(),
@@ -93,5 +96,43 @@ class UserControllerTest : BaseWebFluxTest() {
         response shouldNotBe null
         response!!.id shouldBe existingUser.id
         response.name shouldBe existingUser.name
+    }
+
+    @Test
+    fun `when POST is performed on delivery addresses endpoint, then returns 201 CREATED`() {
+        // given
+        val request = CreateDeliveryAddressRequest("address", "additionalInfo")
+        every { reactorCommandGateway.send<UUID>(any()) } returns Mono.just(UUID.randomUUID())
+
+        // when
+        val response = webTestClient.post()
+            .uri("/api/v1/users/1/addresses")
+            .body(Mono.just(request), CreateUserRequest::class.java)
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .expectStatus().isCreated
+            .expectBody(UuidWrapper::class.java)
+            .returnResult()
+            .responseBody
+
+        // then
+        response shouldNotBe null
+        response!!.id shouldNotBe null
+    }
+
+    @Test
+    fun `when DELETE is performed on delivery addresses endpoint, then returns 200 OK`() {
+        // given
+        val addressId = UUID.randomUUID()
+        every { reactorCommandGateway.send<UUID>(any()) } returns Mono.just(UUID.randomUUID())
+
+        // when
+        val response = webTestClient.delete()
+            .uri("/api/v1/users/1/addresses/$addressId")
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .expectStatus().isOk
+
+        // then
     }
 }

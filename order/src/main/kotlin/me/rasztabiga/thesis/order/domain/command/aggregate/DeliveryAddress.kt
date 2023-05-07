@@ -20,5 +20,21 @@ internal class DeliveryAddress {
         this.address = address
         this.additionalInfo = additionalInfo
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is DeliveryAddress) return false
+
+        if (addressId != other.addressId) return false
+        if (address != other.address) return false
+        return additionalInfo == other.additionalInfo
+    }
+
+    override fun hashCode(): Int {
+        var result = addressId.hashCode()
+        result = 31 * result + address.hashCode()
+        result = 31 * result + (additionalInfo?.hashCode() ?: 0)
+        return result
+    }
 }
 

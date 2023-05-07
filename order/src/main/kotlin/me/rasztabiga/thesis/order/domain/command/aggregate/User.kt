@@ -34,7 +34,7 @@ internal class User {
     fun handle(command: CreateDeliveryAddressCommand) {
         val addressId = command.addressId
         if (deliveryAddresses.any { it.addressId == addressId }) {
-            throw IllegalStateException("Address with id $addressId already exists")
+            error("Address with id $addressId already exists")
         }
 
         apply(
