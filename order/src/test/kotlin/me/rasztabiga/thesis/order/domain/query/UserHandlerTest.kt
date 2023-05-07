@@ -48,6 +48,7 @@ class UserHandlerTest {
         user.name shouldBe userCreatedEvent.name
     }
 
+    @Suppress("MaxLineLength")
     @Test
     fun `given delivery address created event, when handling FindUserByIdQuery, then returns user with delivery address`() {
         // given
@@ -68,6 +69,7 @@ class UserHandlerTest {
         user.deliveryAddresses[0].additionalInfo shouldBe deliveryAddressCreatedEvent.additionalInfo
     }
 
+    @Suppress("MaxLineLength")
     @Test
     fun `given delivery address deleted event, when handling FindUserByIdQuery, then returns user without delivery address`() {
         // given
