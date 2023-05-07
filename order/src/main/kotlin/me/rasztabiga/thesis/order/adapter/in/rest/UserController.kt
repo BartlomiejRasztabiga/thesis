@@ -2,18 +2,23 @@
 
 package me.rasztabiga.thesis.order.adapter.`in`.rest
 
+import me.rasztabiga.thesis.order.adapter.`in`.rest.api.CreateDeliveryAddressRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.CreateUserRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.UserResponse
+import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.UserControllerMapper.mapToCreateDeliveryAddressCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.UserControllerMapper.mapToCreateUserCommand
+import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.UserControllerMapper.mapToDeleteDeliveryAddressCommand
 import me.rasztabiga.thesis.order.domain.query.query.FindAllUsersQuery
 import me.rasztabiga.thesis.order.domain.query.query.FindUserByIdQuery
 import me.rasztabiga.thesis.shared.StringIdWrapper
+import me.rasztabiga.thesis.shared.UuidWrapper
 import me.rasztabiga.thesis.shared.security.Scopes
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.springframework.http.HttpStatus
 import org.springframework.security.access.prepost.PreAuthorize
+import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -56,5 +61,28 @@ class UserController(
         val command = mapToCreateUserCommand(request)
         val id = reactorCommandGateway.send<String>(command)
         return id.map { StringIdWrapper(it) }
+    }
+
+    @PostMapping("/{userId}/addresses")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAnyAuthority('${Scopes.USER.WRITE}')")
+    fun createDeliveryAddress(
+        @RequestBody request: CreateDeliveryAddressRequest,
+        @PathVariable userId: String
+    ): Mono<UuidWrapper> {
+        val command = mapToCreateDeliveryAddressCommand(request, userId)
+        return reactorCommandGateway.send<UUID>(command)
+            .then(Mono.just(UuidWrapper(command.addressId)))
+    }
+
+    @DeleteMapping("/{userId}/addresses/{addressId}")
+    @PreAuthorize("hasAnyAuthority('${Scopes.USER.WRITE}')")
+    fun deleteDeliveryAddress(
+        @PathVariable userId: String,
+        @PathVariable addressId: UUID
+    ): Mono<UuidWrapper> {
+        val command = mapToDeleteDeliveryAddressCommand(userId, addressId)
+        val id = reactorCommandGateway.send<UUID>(command)
+        return id.map { UuidWrapper(it) }
     }
 }

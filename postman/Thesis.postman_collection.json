@@ -59,6 +59,11 @@
 									"key": "client_secret",
 									"value": "gqzR7iyZF5N-l9RTRP9CYCds57AhuHewOsQ3VdPyXxovMPvI61F3-DdXw_qNbNhu",
 									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "read:restaurants write:restaurants",
+									"type": "text"
 								}
 							]
 						},
@@ -127,6 +132,11 @@
 								{
 									"key": "client_secret",
 									"value": "gqzR7iyZF5N-l9RTRP9CYCds57AhuHewOsQ3VdPyXxovMPvI61F3-DdXw_qNbNhu",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "read:users write:users",
 									"type": "text"
 								}
 							]

@@ -8,15 +8,23 @@ object UserMapper {
 
     fun mapToEntity(event: UserCreatedEvent): UserEntity {
         return UserEntity(
-            event.id,
-            event.name
+            id = event.id,
+            name = event.name,
+            deliveryAddresses = mutableListOf()
         )
     }
 
     fun mapToResponse(entity: UserEntity): UserResponse {
         return UserResponse(
-            entity.id,
-            entity.name
+            id = entity.id,
+            name = entity.name,
+            deliveryAddresses = entity.deliveryAddresses.map {
+                UserResponse.DeliveryAddress(
+                    it.id,
+                    it.address,
+                    it.additionalInfo
+                )
+            }
         )
     }
 }
