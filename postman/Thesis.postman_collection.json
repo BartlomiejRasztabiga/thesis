@@ -136,7 +136,7 @@
 								},
 								{
 									"key": "scope",
-									"value": "read:users write:users",
+									"value": "read:users write:users read:orders write:orders",
 									"type": "text"
 								}
 							]
@@ -535,6 +535,46 @@
 								"v1",
 								"users",
 								"{{user_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Start Order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"order_id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"userId\": \"{{user_id}}\",\n    \"restaurantId\": \"{{restaurant_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/orders",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders"
 							]
 						}
 					},

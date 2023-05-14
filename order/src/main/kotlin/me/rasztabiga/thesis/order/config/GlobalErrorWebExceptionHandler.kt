@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
 import org.springframework.http.HttpStatus
+import org.springframework.http.HttpStatus.BAD_REQUEST
 import org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR
 import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.http.MediaType
@@ -59,17 +60,8 @@ class GlobalErrorWebExceptionHandler(
                 }
             }
 
-            // TODO po co to jest potrzebne?
-            is ExecutionException -> {
-                when {
-                    ex.localizedMessage.contains("not found") -> {
-                        ApiError(ex.message!!, NOT_FOUND)
-                    }
-
-                    else -> {
-                        ApiError(ex.message!!, INTERNAL_SERVER_ERROR)
-                    }
-                }
+            is IllegalArgumentException -> {
+                ApiError(ex.message!!, BAD_REQUEST)
             }
 
             else -> {
