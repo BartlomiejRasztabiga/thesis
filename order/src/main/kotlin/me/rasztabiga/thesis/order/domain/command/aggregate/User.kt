@@ -3,12 +3,14 @@ package me.rasztabiga.thesis.order.domain.command.aggregate
 import me.rasztabiga.thesis.order.domain.command.command.CreateDeliveryAddressCommand
 import me.rasztabiga.thesis.order.domain.command.command.CreateUserCommand
 import me.rasztabiga.thesis.order.domain.command.command.DeleteDeliveryAddressCommand
+import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
 import me.rasztabiga.thesis.order.domain.command.event.DeliveryAddressCreatedEvent
 import me.rasztabiga.thesis.order.domain.command.event.DeliveryAddressDeletedEvent
 import me.rasztabiga.thesis.order.domain.command.event.UserCreatedEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
+import org.axonframework.modelling.command.AggregateLifecycle
 import org.axonframework.modelling.command.AggregateLifecycle.apply
 import org.axonframework.modelling.command.AggregateMember
 import org.axonframework.spring.stereotype.Aggregate
@@ -60,6 +62,19 @@ internal class User {
         }
     }
 
+    @CommandHandler
+    fun handle(command: StartOrderCommand) {
+        AggregateLifecycle.createNew(Order::class.java) {
+            Order(
+                StartOrderCommand(
+                    orderId = command.orderId,
+                    userId = command.userId,
+                    restaurantId = command.restaurantId
+                )
+            )
+        }
+    }
+
     @EventSourcingHandler
     fun on(event: UserCreatedEvent) {
         this.id = event.id
@@ -68,7 +83,7 @@ internal class User {
 
     @EventSourcingHandler
     fun on(event: DeliveryAddressCreatedEvent) {
-        deliveryAddresses.add(
+        this.deliveryAddresses.add(
             DeliveryAddress(
                 addressId = event.addressId,
                 address = event.address,
@@ -79,6 +94,6 @@ internal class User {
 
     @EventSourcingHandler
     fun on(event: DeliveryAddressDeletedEvent) {
-        deliveryAddresses.removeIf { it.addressId == event.addressId }
+        this.deliveryAddresses.removeIf { it.addressId == event.addressId }
     }
 }
