@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.http.MediaType
 import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
+import java.util.concurrent.ExecutionException
 
 @Configuration
 @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -47,6 +48,19 @@ class GlobalErrorWebExceptionHandler(
             }
 
             is QueryExecutionException -> {
+                when {
+                    ex.localizedMessage.contains("not found") -> {
+                        ApiError(ex.message!!, NOT_FOUND)
+                    }
+
+                    else -> {
+                        ApiError(ex.message!!, INTERNAL_SERVER_ERROR)
+                    }
+                }
+            }
+
+            // TODO po co to jest potrzebne?
+            is ExecutionException -> {
                 when {
                     ex.localizedMessage.contains("not found") -> {
                         ApiError(ex.message!!, NOT_FOUND)
