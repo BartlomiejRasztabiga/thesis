@@ -4,6 +4,7 @@ import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.Availability
+import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Product
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
@@ -118,7 +119,7 @@ class RestaurantHandlerTest {
         // then
         restaurant shouldNotBe null
         restaurant!!.id shouldBe restaurantCreatedEvent.id
-        restaurant.availability shouldBe Availability.OPEN
+        restaurant.availability shouldBe RestaurantResponse.Availability.OPEN
     }
 
     @Suppress("MaxLineLength")

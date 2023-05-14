@@ -20,7 +20,7 @@ object RestaurantMapper {
         return RestaurantResponse(
             entity.id,
             entity.name,
-            Availability.valueOf(entity.availability.name),
+            RestaurantResponse.Availability.valueOf(entity.availability.name),
             entity.menu.map {
                 RestaurantResponse.Product(it.id, it.name, it.description, it.price)
             }
