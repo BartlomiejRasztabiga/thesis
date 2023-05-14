@@ -16,4 +16,8 @@ data class RestaurantResponse(
         val description: String?,
         val price: Double,
     )
+
+    enum class Availability {
+        OPEN, CLOSED
+    }
 }

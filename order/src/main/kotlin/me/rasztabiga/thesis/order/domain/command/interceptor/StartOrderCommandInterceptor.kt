@@ -1,5 +1,6 @@
 package me.rasztabiga.thesis.order.domain.command.interceptor
 
+import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
 import org.axonframework.commandhandling.CommandMessage
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway
 import org.axonframework.messaging.MessageDispatchInterceptor
@@ -13,18 +14,18 @@ class StartOrderCommandInterceptor(
 
     override fun handle(messages: List<CommandMessage<*>>): BiFunction<Int, CommandMessage<*>, CommandMessage<*>> {
         return BiFunction { _, commandMessage ->
-//            val command = commandMessage.payload
-//
-//            reactorQueryGateway.query(
-//                GetDeliveryAddressQuery(
-//                    userId = command.userId,
-//                    addressId = command.addressId
-//                ),
-//                DeliveryAddress::class.java
-//            ).blockOptional().ifPresent { deliveryAddress ->
-//                commandMessage.andMetaData(mapOf("deliveryAddress" to deliveryAddress))
-//            }
-//
+            val command = commandMessage.payload as? StartOrderCommand
+
+            command?.let {
+                // TODO
+//                reactorQueryGateway.query(
+//                    FindRestaurantByIdQuery(
+//                        command.restaurantId,
+//                    ),
+//                    ResponseTypes.instanceOf(RestaurantResponse::class.java)
+//                )
+            }
+
             commandMessage
         }
     }
