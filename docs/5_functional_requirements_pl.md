@@ -1,8 +1,7 @@
 # Rozdział 5: Wymagania funkcjonalne
 
-W poniższym rozdziale przedstawiono wymagania funkcjonalne aplikacji.
-
-Zostały one odkryte podczas analizy przeprowadzonej podczas sesji Event Stormingu, opisanej w rozdziale drugim.
+W niniejszym rozdziale przedstawiono szczegółowe wymagania funkcjonalne aplikacji, które zostały zidentyfikowane podczas
+analizy przeprowadzonej w trakcie sesji Event Stormingu, opisanej w rozdziale drugim.
 
 ## 5.1. Lista wymagań funkcjonalnych
 
