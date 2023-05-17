@@ -20,23 +20,44 @@ class StartOrderCommandInterceptor(
             val command = commandMessage.payload as? StartOrderCommand
 
             command?.let {
-                val restaurant = reactorQueryGateway.query(
-                    FindRestaurantByIdQuery(
-                        command.restaurantId,
-                    ),
-                    ResponseTypes.optionalInstanceOf(RestaurantResponse::class.java)
-                ).share().block()!!
-
-                require(restaurant.isPresent) {
-                    "Restaurant with id ${command.restaurantId} does not exist"
-                }
-
-                require(restaurant.get().availability == RestaurantResponse.Availability.OPEN) {
-                    "Restaurant with id ${command.restaurantId} is closed"
-                }
+                requireRestaurant(it)
             }
 
             commandMessage
         }
     }
+
+    private fun requireRestaurant(command: StartOrderCommand) {
+        val restaurant = reactorQueryGateway.query(
+            FindRestaurantByIdQuery(
+                command.restaurantId,
+            ),
+            ResponseTypes.optionalInstanceOf(RestaurantResponse::class.java)
+        ).share().block()!!
+
+        require(restaurant.isPresent) {
+            "Restaurant with id ${command.restaurantId} does not exist"
+        }
+
+        require(restaurant.get().availability == RestaurantResponse.Availability.OPEN) {
+            "Restaurant with id ${command.restaurantId} is closed"
+        }
+    }
+
+//    private fun requireUser(command: StartOrderCommand) {
+//        val user = reactorQueryGateway.query(
+//            FindUserByIdQuery(
+//                command.userId,
+//            ),
+//            ResponseTypes.optionalInstanceOf(UserResponse::class.java)
+//        ).share().block()!!
+//
+//        require(user.isPresent) {
+//            "User with id ${command.userId} does not exist"
+//        }
+//
+//        require(user.get().availability == UserResponse.Availability.OPEN) {
+//            "User with id ${command.userId} is closed"
+//        }
+//    }
 }

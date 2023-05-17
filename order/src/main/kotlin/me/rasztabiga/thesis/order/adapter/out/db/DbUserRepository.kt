@@ -1,4 +1,4 @@
-package me.rasztabiga.thesis.order.adapter.out
+package me.rasztabiga.thesis.order.adapter.out.db
 
 import me.rasztabiga.thesis.order.domain.query.entity.UserEntity
 import me.rasztabiga.thesis.order.domain.query.handler.UserRepository

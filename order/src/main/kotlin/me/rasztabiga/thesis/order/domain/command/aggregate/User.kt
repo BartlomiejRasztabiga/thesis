@@ -3,14 +3,12 @@ package me.rasztabiga.thesis.order.domain.command.aggregate
 import me.rasztabiga.thesis.order.domain.command.command.CreateDeliveryAddressCommand
 import me.rasztabiga.thesis.order.domain.command.command.CreateUserCommand
 import me.rasztabiga.thesis.order.domain.command.command.DeleteDeliveryAddressCommand
-import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
 import me.rasztabiga.thesis.order.domain.command.event.DeliveryAddressCreatedEvent
 import me.rasztabiga.thesis.order.domain.command.event.DeliveryAddressDeletedEvent
 import me.rasztabiga.thesis.order.domain.command.event.UserCreatedEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
-import org.axonframework.modelling.command.AggregateLifecycle
 import org.axonframework.modelling.command.AggregateLifecycle.apply
 import org.axonframework.modelling.command.AggregateMember
 import org.axonframework.spring.stereotype.Aggregate
@@ -57,19 +55,6 @@ internal class User {
                 DeliveryAddressDeletedEvent(
                     userId = command.userId,
                     addressId = command.addressId
-                )
-            )
-        }
-    }
-
-    @CommandHandler
-    fun handle(command: StartOrderCommand) {
-        AggregateLifecycle.createNew(Order::class.java) {
-            Order(
-                StartOrderCommand(
-                    orderId = command.orderId,
-                    userId = command.userId,
-                    restaurantId = command.restaurantId
                 )
             )
         }
