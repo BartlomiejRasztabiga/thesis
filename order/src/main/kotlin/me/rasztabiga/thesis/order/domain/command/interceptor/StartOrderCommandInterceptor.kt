@@ -1,6 +1,8 @@
 package me.rasztabiga.thesis.order.domain.command.interceptor
 
+import me.rasztabiga.thesis.order.adapter.`in`.rest.api.UserResponse
 import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
+import me.rasztabiga.thesis.order.domain.query.query.FindUserByIdQuery
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.restaurant.domain.query.query.FindRestaurantByIdQuery
 import org.axonframework.commandhandling.CommandMessage
@@ -21,6 +23,7 @@ class StartOrderCommandInterceptor(
 
             command?.let {
                 requireRestaurant(it)
+                requireUser(it)
             }
 
             commandMessage
@@ -44,20 +47,16 @@ class StartOrderCommandInterceptor(
         }
     }
 
-//    private fun requireUser(command: StartOrderCommand) {
-//        val user = reactorQueryGateway.query(
-//            FindUserByIdQuery(
-//                command.userId,
-//            ),
-//            ResponseTypes.optionalInstanceOf(UserResponse::class.java)
-//        ).share().block()!!
-//
-//        require(user.isPresent) {
-//            "User with id ${command.userId} does not exist"
-//        }
-//
-//        require(user.get().availability == UserResponse.Availability.OPEN) {
-//            "User with id ${command.userId} is closed"
-//        }
-//    }
+    private fun requireUser(command: StartOrderCommand) {
+        val user = reactorQueryGateway.query(
+            FindUserByIdQuery(
+                command.userId,
+            ),
+            ResponseTypes.optionalInstanceOf(UserResponse::class.java)
+        ).share().block()!!
+
+        require(user.isPresent) {
+            "User with id ${command.userId} does not exist"
+        }
+    }
 }

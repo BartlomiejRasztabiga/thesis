@@ -20,11 +20,11 @@ import java.util.*
 
 class RestaurantTest {
 
-    private lateinit var textFixture: AggregateTestFixture<Restaurant>
+    private lateinit var testFixture: AggregateTestFixture<Restaurant>
 
     @BeforeEach
     fun setUp() {
-        textFixture = AggregateTestFixture(Restaurant::class.java)
+        testFixture = AggregateTestFixture(Restaurant::class.java)
     }
 
     @Test
@@ -39,7 +39,7 @@ class RestaurantTest {
             createRestaurantCommand.name
         )
 
-        textFixture.givenNoPriorActivity()
+        testFixture.givenNoPriorActivity()
             .`when`(createRestaurantCommand)
             .expectSuccessfulHandlerExecution()
             .expectEvents(restaurantCreatedEvent)
@@ -62,7 +62,7 @@ class RestaurantTest {
             updateRestaurantCommand.name
         )
 
-        textFixture.given(restaurantCreatedEvent)
+        testFixture.given(restaurantCreatedEvent)
             .`when`(updateRestaurantCommand)
             .expectSuccessfulHandlerExecution()
             .expectEvents(restaurantUpdatedEvent)
@@ -83,7 +83,7 @@ class RestaurantTest {
             deleteRestaurantCommand.id
         )
 
-        textFixture.given(restaurantCreatedEvent)
+        testFixture.given(restaurantCreatedEvent)
             .`when`(deleteRestaurantCommand)
             .expectSuccessfulHandlerExecution()
             .expectEvents(restaurantDeletedEvent)
@@ -108,7 +108,7 @@ class RestaurantTest {
             updateRestaurantAvailabilityCommand.availability
         )
 
-        textFixture.given(restaurantCreatedEvent)
+        testFixture.given(restaurantCreatedEvent)
             .`when`(updateRestaurantAvailabilityCommand)
             .expectSuccessfulHandlerExecution()
             .expectEvents(restaurantAvailabilityUpdatedEvent)
@@ -133,7 +133,7 @@ class RestaurantTest {
             updateRestaurantMenuCommand.menu
         )
 
-        textFixture.given(restaurantCreatedEvent)
+        testFixture.given(restaurantCreatedEvent)
             .`when`(updateRestaurantMenuCommand)
             .expectSuccessfulHandlerExecution()
             .expectEvents(restaurantMenuUpdatedEvent)

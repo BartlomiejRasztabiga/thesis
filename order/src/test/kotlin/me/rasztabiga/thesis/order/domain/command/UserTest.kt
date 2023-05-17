@@ -14,11 +14,11 @@ import java.util.*
 
 class UserTest {
 
-    private lateinit var textFixture: AggregateTestFixture<User>
+    private lateinit var testFixture: AggregateTestFixture<User>
 
     @BeforeEach
     fun setUp() {
-        textFixture = AggregateTestFixture(User::class.java)
+        testFixture = AggregateTestFixture(User::class.java)
     }
 
     @Test
@@ -33,7 +33,7 @@ class UserTest {
             createUserCommand.name
         )
 
-        textFixture.givenNoPriorActivity()
+        testFixture.givenNoPriorActivity()
             .`when`(createUserCommand)
             .expectSuccessfulHandlerExecution()
             .expectEvents(userCreatedEvent)
@@ -60,7 +60,7 @@ class UserTest {
             createDeliveryAddressCommand.additionalInfo
         )
 
-        textFixture.given(userCreatedEvent)
+        testFixture.given(userCreatedEvent)
             .`when`(createDeliveryAddressCommand)
             .expectSuccessfulHandlerExecution()
             .expectEvents(deliveryAddressCreatedEvent)
@@ -90,7 +90,7 @@ class UserTest {
             deliveryAddressCreatedEvent.addressId
         )
 
-        textFixture.given(userCreatedEvent, deliveryAddressCreatedEvent)
+        testFixture.given(userCreatedEvent, deliveryAddressCreatedEvent)
             .`when`(deleteDeliveryAddressCommand)
             .expectSuccessfulHandlerExecution()
             .expectEvents(deliveryAddressDeletedEvent)
