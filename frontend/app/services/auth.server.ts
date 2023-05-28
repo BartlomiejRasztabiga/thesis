@@ -23,6 +23,7 @@ let auth0Strategy = new Auth0Strategy(
     },
     async ({ accessToken, refreshToken, extraParams, profile }) => {
         return {
+            accessToken,
             ...profile,
             ...extraParams
         }

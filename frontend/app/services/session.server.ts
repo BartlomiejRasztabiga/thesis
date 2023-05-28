@@ -23,12 +23,19 @@ export async function getSession(request: Request) {
   return sessionStorage.getSession(cookie);
 }
 
+export async function getAccessToken(
+    request: Request
+): Promise<string | undefined> {
+  const session = await getSession(request);
+  if (!session.data.user) return undefined;
+  return session.data.user.accessToken;
+}
+
 export async function getUserId(
   request: Request
 ): Promise<User["id"] | undefined> {
   const session = await getSession(request);
   if (!session.data.user) return undefined;
-  console.log(session.data)
   return session.data.user.id;
 }
 

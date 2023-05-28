@@ -8,7 +8,6 @@ export const loader = async () => {
 
 export default function Posts() {
   const { posts } = useLoaderData<typeof loader>();
-  console.log(posts);
   return (
     <main>
       <h1>Posts</h1>
