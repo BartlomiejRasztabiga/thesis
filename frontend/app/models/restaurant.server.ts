@@ -1,8 +1,6 @@
 import invariant from "tiny-invariant";
 import {getAxios} from "~/services/axios.server";
 
-invariant(process.env.API_GATEWAY_URL, "API_GATEWAY_URL must be set");
-
 export const getRestaurants = async (request: Request): Promise<RestaurantResponse[]> => {
     const axios = await getAxios(request);
     return axios.get('/api/v1/restaurants').then((res) => res.data);
