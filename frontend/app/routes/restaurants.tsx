@@ -7,18 +7,12 @@ import {useUser} from "~/utils";
 import {getRestaurants} from "~/models/restaurant.server";
 
 export async function loader({request}: LoaderArgs) {
-    const accessToken = await getAccessToken(request);
-    if (!accessToken) {
-        throw new Error("Unauthorized");
-    }
-
-    const restaurants = await getRestaurants(accessToken);
+    const restaurants = await getRestaurants(request);
     return json({restaurants});
 }
 
 export default function RestaurantsPage() {
     const data = useLoaderData<typeof loader>();
-    const user = useUser();
 
     return (
         <div className="flex h-full min-h-screen flex-col">
@@ -26,7 +20,6 @@ export default function RestaurantsPage() {
                 <h1 className="text-3xl font-bold">
                     <Link to=".">Restaurants</Link>
                 </h1>
-                <p>{user.email}</p>
             </header>
 
             <main className="flex h-full bg-white">
