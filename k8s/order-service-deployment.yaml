@@ -16,19 +16,9 @@ spec:
         - env:
             - name: AXON_AXONSERVER_SERVERS
               value: axonserver
-            - name: SPRING_DATA_MONGODB_HOST
-              value: order-db
-            - name: SPRING_DATA_MONGODB_PORT
-              value: "27017"
-            - name: SPRING_DATA_MONGODB_DATABASE
-              value: order
-            - name: SPRING_DATA_MONGODB_USERNAME
-              value: root
-            - name: SPRING_DATA_MONGODB_PASSWORD
-              value: password
-            - name: SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE
-              value: admin
-          image: ghcr.io/bartlomiejrasztabiga/thesis/order
+            - name: SPRING_DATA_MONGODB_URI
+              value: "mongodb://root:password@order-db:27017/order?authSource=admin"
+          image: ghcr.io/bartlomiejrasztabiga/thesis/order:0.7.2
           name: order-service
           ports:
             - containerPort: 8102
