@@ -127,7 +127,7 @@ class UserControllerTest : BaseWebFluxTest() {
         every { reactorCommandGateway.send<UUID>(any()) } returns Mono.just(UUID.randomUUID())
 
         // when
-        val response = webTestClient.delete()
+        webTestClient.delete()
             .uri("/api/v1/users/1/addresses/$addressId")
             .accept(MediaType.APPLICATION_JSON)
             .exchange()

@@ -4,7 +4,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "1.8.21"
     id("java-library")
     id("maven-publish")
-    id("io.gitlab.arturbosch.detekt") version "1.23.0-RC3"
+    id("io.gitlab.arturbosch.detekt") version "1.23.0"
 }
 
 group = "me.rasztabiga.thesis"

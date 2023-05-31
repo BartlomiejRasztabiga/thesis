@@ -16,14 +16,16 @@ class SecurityConfig {
 
     @Bean
     fun springSecurityFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
-        return http.authorizeExchange()
-            .pathMatchers("/actuator/**").permitAll()
-            .anyExchange().authenticated()
-            .and()
-            .csrf().disable()
-            .cors().disable()
-            .oauth2ResourceServer().jwt().and().and()
-            .build()
+        return http.authorizeExchange {
+            it.pathMatchers("/actuator/**").permitAll()
+            it.anyExchange().authenticated()
+        }.csrf {
+            it.disable()
+        }.cors {
+            it.disable()
+        }.oauth2ResourceServer {
+            it.jwt {}
+        }.build()
     }
 }
 
@@ -34,11 +36,12 @@ class TestSecurityConfig {
 
     @Bean
     fun springSecurityFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
-        return http.authorizeExchange()
-            .anyExchange().permitAll()
-            .and()
-            .csrf().disable()
-            .cors().disable()
-            .build()
+        return http.authorizeExchange {
+            it.anyExchange().permitAll()
+        }.csrf {
+            it.disable()
+        }.cors {
+            it.disable()
+        }.build()
     }
 }

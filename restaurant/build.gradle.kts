@@ -1,11 +1,11 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.0.6"
+    id("org.springframework.boot") version "3.1.0"
     id("io.spring.dependency-management") version "1.1.0"
     id("org.jetbrains.kotlin.jvm") version "1.8.21"
     id("org.jetbrains.kotlin.plugin.spring") version "1.8.21"
-    id("io.gitlab.arturbosch.detekt") version "1.23.0-RC3"
+    id("io.gitlab.arturbosch.detekt") version "1.23.0"
 }
 
 group = "me.rasztabiga.thesis"
@@ -26,8 +26,8 @@ repositories {
     }
 }
 
-val axonVersion = "4.7.3"
-val testcontainersVersion = "1.18.1"
+val axonVersion = "4.7.4"
+val testcontainersVersion = "1.18.2"
 val kotestVersion = "5.6.2"
 
 dependencies {
