@@ -45,7 +45,7 @@ class OrderControllerTest : BaseWebFluxTest() {
     @Test
     fun `when GET is performed on order endpoint, then returns 200 OK`() {
         // given
-        val existingOrder = OrderResponse(UUID.randomUUID(), OrderResponse.OrderStatus.CREATED)
+        val existingOrder = OrderResponse(UUID.randomUUID(), UUID.randomUUID(), "", OrderResponse.OrderStatus.CREATED)
         every {
             reactorQueryGateway.query(
                 any<FindOrderByIdQuery>(),

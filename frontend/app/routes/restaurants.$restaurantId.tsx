@@ -3,6 +3,8 @@ import {json} from "@remix-run/node";
 import {Form, useLoaderData} from "@remix-run/react";
 import invariant from "tiny-invariant";
 import {getRestaurant} from "~/models/restaurant.server";
+import {getOrderId} from "~/services/session.server";
+import {getOrder, startOrder} from "~/models/order.server";
 
 export async function loader({request, params}: LoaderArgs) {
     const restaurantId = params.restaurantId;
@@ -14,11 +16,45 @@ export async function loader({request, params}: LoaderArgs) {
         throw new Response("Not Found", {status: 404});
     }
 
-    return json({restaurant});
+    // TODO load any active order, get id from session
+
+    const activeOrderId = await getOrderId(request)
+
+    let order
+
+    if (activeOrderId) {
+        order = await getOrder(request, activeOrderId)
+        console.log(order)
+    }
+
+    return json({restaurant, order});
 }
 
 export async function action({request, params}: ActionArgs) {
-    // TODO start order or add to order
+    const formData = await request.formData()
+    const {_action, ...values} = Object.fromEntries(formData)
+
+    invariant(params.restaurantId, "restaurantId not found");
+
+    if (_action === "start_order") {
+        console.log("start_order")
+        // TODO create order, save id to session
+
+        const id = await startOrder(request, "TODO userId", params.restaurantId)
+
+
+        return json({})
+    }
+
+    if (_action === "add_to_order") {
+        console.log("add_to_order")
+        // TODO add item to order
+
+        const productId = values.id
+        console.log(productId)
+
+        return json({})
+    }
 }
 
 export default function RestaurantPage() {
@@ -37,9 +73,12 @@ export default function RestaurantPage() {
                             <p className="py-6">{item.description}</p>
                             <p className="py-6">{item.price}</p>
                             <Form method="post">
+                                <input type="hidden" name="id" value={item.id}/>
                                 <button
                                     type="submit"
                                     className="rounded bg-blue-500  px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400"
+                                    name="_action"
+                                    value="add_to_order"
                                 >
                                     Add to order
                                 </button>
@@ -50,7 +89,16 @@ export default function RestaurantPage() {
                 </div>
             </div>
             <div className="h-full w-80 border-r bg-gray-50">
-                Active order details
+                <Form method="post">
+                    <button
+                        type="submit"
+                        className="rounded bg-green-500  px-4 py-2 text-white hover:bg-green-600 focus:bg-green-400"
+                        name="_action"
+                        value="start_order"
+                    >
+                        Start order
+                    </button>
+                </Form>
             </div>
         </div>
     );

@@ -19,7 +19,14 @@ internal class Order {
 
     @CommandHandler
     constructor(command: StartOrderCommand) {
-        apply(OrderStartedEvent(orderId = command.orderId, status = OrderStatus.CREATED))
+        apply(
+            OrderStartedEvent(
+                orderId = command.orderId,
+                restaurantId = command.restaurantId,
+                userId = command.userId,
+                status = OrderStatus.CREATED
+            )
+        )
     }
 
     @EventSourcingHandler

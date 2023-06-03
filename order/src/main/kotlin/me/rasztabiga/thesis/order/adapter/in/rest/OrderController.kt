@@ -34,7 +34,7 @@ class OrderController(
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyAuthority('${Scopes.ORDER.WRITE}')")
     fun startOrder(@RequestBody request: StartOrderRequest): Mono<UuidWrapper> {
-        // TODO nie zwraca id bo aggregatem jest user!
+        // TODO userId powinno przyjsc z tokenu (???)
         val command = mapToStartOrderCommand(request)
         val id = reactorCommandGateway.send<UUID>(command)
         return id.map { UuidWrapper(it) }

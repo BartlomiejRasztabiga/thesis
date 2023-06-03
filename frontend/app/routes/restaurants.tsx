@@ -1,9 +1,6 @@
 import type {LoaderArgs} from "@remix-run/node";
 import {json} from "@remix-run/node";
-import {Form, Link, NavLink, Outlet, useLoaderData} from "@remix-run/react";
-
-import {getAccessToken} from "~/services/session.server";
-import {useUser} from "~/utils";
+import {Link, NavLink, Outlet, useLoaderData} from "@remix-run/react";
 import {getRestaurants} from "~/models/restaurant.server";
 
 export async function loader({request}: LoaderArgs) {
@@ -16,10 +13,14 @@ export default function RestaurantsPage() {
 
     return (
         <div className="flex h-full min-h-screen flex-col">
+            {/* TODO export as a common header */}
             <header className="flex items-center justify-between bg-slate-800 p-4 text-white">
                 <h1 className="text-3xl font-bold">
                     <Link to=".">Restaurants</Link>
                 </h1>
+                <button>
+                    <Link to="/auth/logout">Logout</Link>
+                </button>
             </header>
 
             <main className="flex h-full bg-white">

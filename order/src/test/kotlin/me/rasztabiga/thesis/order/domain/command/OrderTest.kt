@@ -29,6 +29,8 @@ class OrderTest {
 
         val orderStartedEvent = OrderStartedEvent(
             startOrderCommand.orderId,
+            startOrderCommand.restaurantId,
+            startOrderCommand.userId,
             OrderStatus.CREATED
         )
 

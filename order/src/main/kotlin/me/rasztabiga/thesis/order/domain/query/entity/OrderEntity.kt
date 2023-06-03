@@ -8,6 +8,8 @@ import java.util.*
 data class OrderEntity(
     @Id
     val id: UUID,
+    val restaurantId: UUID,
+    val userId: String,
     val status: OrderStatus
 ) {
     enum class OrderStatus {

@@ -6,6 +6,8 @@ import java.util.*
 
 data class OrderResponse(
     val id: UUID,
+    val restaurantId: UUID,
+    val userId: String,
     val status: OrderStatus
 ) {
     enum class OrderStatus {

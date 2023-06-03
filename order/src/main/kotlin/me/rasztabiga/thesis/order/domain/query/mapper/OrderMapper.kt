@@ -9,6 +9,8 @@ object OrderMapper {
     fun mapToEntity(event: OrderStartedEvent): OrderEntity {
         return OrderEntity(
             id = event.orderId,
+            restaurantId = event.restaurantId,
+            userId = event.userId,
             status = OrderEntity.OrderStatus.valueOf(event.status.name)
         )
     }
@@ -16,6 +18,8 @@ object OrderMapper {
     fun mapToResponse(entity: OrderEntity): OrderResponse {
         return OrderResponse(
             id = entity.id,
+            restaurantId = entity.restaurantId,
+            userId = entity.userId,
             status = OrderResponse.OrderStatus.valueOf(entity.status.name)
         )
     }
