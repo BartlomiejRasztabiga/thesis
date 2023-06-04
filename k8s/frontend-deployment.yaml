@@ -15,7 +15,7 @@ spec:
       containers:
         - env:
             - name: API_GATEWAY_URL
-              value: https://thesis.rasztabiga.me/api
+              value: https://thesis.rasztabiga.me
             - name: SESSION_SECRET
               value: "0a471d50870e4085be3e64fdc627dc87"
             - name: AUTH_CALLBACK_URL
