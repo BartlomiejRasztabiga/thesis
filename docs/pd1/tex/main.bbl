@@ -1,0 +1,303 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{goossens93}{book}{}
+      \name{author}{3}{}{%
+        {{hash=0743efb276e9219ee664a9b3dbd60619}{%
+           family={Goossens},
+           familyi={G\bibinitperiod},
+           given={Michel},
+           giveni={M\bibinitperiod}}}%
+        {{hash=9355edd511e3f6fdd880ee98722a53fb}{%
+           family={Mittelbach},
+           familyi={M\bibinitperiod},
+           given={Frank},
+           giveni={F\bibinitperiod}}}%
+        {{hash=e341c89f7bb5be4f5a050618c0b63942}{%
+           family={Samarin},
+           familyi={S\bibinitperiod},
+           given={Alexander},
+           giveni={A\bibinitperiod}}}%
+      }
+      \list{location}{1}{%
+        {Reading, Massachusetts}%
+      }
+      \list{publisher}{1}{%
+        {Addison-Wesley}%
+      }
+      \strng{namehash}{369a4e878eb8157d94588ee72e0b486b}
+      \strng{fullhash}{369a4e878eb8157d94588ee72e0b486b}
+      \strng{bibnamehash}{369a4e878eb8157d94588ee72e0b486b}
+      \strng{authorbibnamehash}{369a4e878eb8157d94588ee72e0b486b}
+      \strng{authornamehash}{369a4e878eb8157d94588ee72e0b486b}
+      \strng{authorfullhash}{369a4e878eb8157d94588ee72e0b486b}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{The LaTeX Companion}
+      \field{year}{1993}
+    \endentry
+    \entry{szczypiorski2015}{article}{}
+      \name{author}{3}{}{%
+        {{hash=1bc2d2b55c37e0385dd87edf82d85452}{%
+           family={Szczypiorski},
+           familyi={S\bibinitperiod},
+           given={K.},
+           giveni={K\bibinitperiod}}}%
+        {{hash=7d58df9da5b8ae7dfc725c070d423185}{%
+           family={Janicki},
+           familyi={J\bibinitperiod},
+           given={A.},
+           giveni={A\bibinitperiod}}}%
+        {{hash=8ecc85936ce6984aaf129415227ce162}{%
+           family={Wendzel},
+           familyi={W\bibinitperiod},
+           given={S},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Journal of Communications (JCM)}%
+      }
+      \strng{namehash}{897e03db0ea018b0f6b8210b29a52e15}
+      \strng{fullhash}{897e03db0ea018b0f6b8210b29a52e15}
+      \strng{bibnamehash}{897e03db0ea018b0f6b8210b29a52e15}
+      \strng{authorbibnamehash}{897e03db0ea018b0f6b8210b29a52e15}
+      \strng{authornamehash}{897e03db0ea018b0f6b8210b29a52e15}
+      \strng{authorfullhash}{897e03db0ea018b0f6b8210b29a52e15}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Journal of Communications}
+      \field{number}{10}
+      \field{title}{{T}he {G}ood, {T}he {B}ad {A}nd {T}he {U}gly: {E}valuation of {W}i-{F}i {S}teganography}
+      \field{volume}{10}
+      \field{year}{2015}
+      \field{pages}{747\bibrangedash 752}
+      \range{pages}{6}
+    \endentry
+    \entry{duqu2011}{report}{}
+      \name{author}{4}{}{%
+        {{hash=0012436b09dfbfc40432f168356889da}{%
+           family={Bencsáth},
+           familyi={B\bibinitperiod},
+           given={B.},
+           giveni={B\bibinitperiod}}}%
+        {{hash=00e7ed996f83b52de70e8b6ab89b62c4}{%
+           family={Pék},
+           familyi={P\bibinitperiod},
+           given={G.},
+           giveni={G\bibinitperiod}}}%
+        {{hash=d16d1484bd0d0393b0e17fc98d7fc9ed}{%
+           family={Buttyán},
+           familyi={B\bibinitperiod},
+           given={L.},
+           giveni={L\bibinitperiod}}}%
+        {{hash=c1c5c6339040aa4c5276ea89b482a511}{%
+           family={M.},
+           familyi={M\bibinitperiod},
+           given={Félegyházi},
+           giveni={F\bibinitperiod}}}%
+      }
+      \list{institution}{2}{%
+        {Laboratory of Cryptography}%
+        {System Security, Hungary}%
+      }
+      \strng{namehash}{a7a781a70ef05f4f86050bef71512b5c}
+      \strng{fullhash}{fa6be5bba5a7762d30eb51b69b4938e6}
+      \strng{bibnamehash}{fa6be5bba5a7762d30eb51b69b4938e6}
+      \strng{authorbibnamehash}{fa6be5bba5a7762d30eb51b69b4938e6}
+      \strng{authornamehash}{a7a781a70ef05f4f86050bef71512b5c}
+      \strng{authorfullhash}{fa6be5bba5a7762d30eb51b69b4938e6}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{D}uqu: {A} {S}tuxnet-like malware found in the wild}
+      \field{type}{techreport}
+      \field{year}{2011}
+    \endentry
+    \entry{shs2015}{manual}{}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (13.03.2019): \url{https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf}}
+      \field{title}{{FIPS} 180-4: {S}ecure {H}ash {S}tandard ({SHS})}
+      \field{year}{2015}
+    \endentry
+    \entry{wozniak2018}{thesis}{}
+      \name{author}{1}{}{%
+        {{hash=098dcc12967fae4e45ef78066e79fd31}{%
+           family={Woźniak},
+           familyi={W\bibinitperiod},
+           given={Piotr},
+           giveni={P\bibinitperiod}}}%
+      }
+      \list{institution}{1}{%
+        {Wydział Elektroniki i Technik Informacyjnych, Politechnika Warszawska}%
+      }
+      \strng{namehash}{098dcc12967fae4e45ef78066e79fd31}
+      \strng{fullhash}{098dcc12967fae4e45ef78066e79fd31}
+      \strng{bibnamehash}{098dcc12967fae4e45ef78066e79fd31}
+      \strng{authorbibnamehash}{098dcc12967fae4e45ef78066e79fd31}
+      \strng{authornamehash}{098dcc12967fae4e45ef78066e79fd31}
+      \strng{authorfullhash}{098dcc12967fae4e45ef78066e79fd31}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{{P}rogramowanie kwadratowe w usuwaniu efektu rozmycia ruchu w fotografii cyfrowej}
+      \field{type}{mathesis}
+      \field{year}{2018}
+    \endentry
+    \entry{dcp19}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=c8f2b5903e252703c769781e41ea3573}{%
+           family={Brodzki},
+           familyi={B\bibinitperiod},
+           given={Artur\bibnamedelima M.},
+           giveni={A\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+      }
+      \strng{namehash}{c8f2b5903e252703c769781e41ea3573}
+      \strng{fullhash}{c8f2b5903e252703c769781e41ea3573}
+      \strng{bibnamehash}{c8f2b5903e252703c769781e41ea3573}
+      \strng{authorbibnamehash}{c8f2b5903e252703c769781e41ea3573}
+      \strng{authornamehash}{c8f2b5903e252703c769781e41ea3573}
+      \strng{authorfullhash}{c8f2b5903e252703c769781e41ea3573}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (14.03.2019): \url{https://github.com/ArturB/DCP-19}}
+      \field{title}{{I}mplementation of own steganography protocol {DCP}-19, loosely based on {HICCUPS}}
+      \field{year}{2019}
+    \endentry
+    \entry{benzmuller2014}{inproceedings}{}
+      \name{author}{2}{}{%
+        {{hash=a6db02cd7d536f0032fd3c74f138d504}{%
+           family={Benzmuller},
+           familyi={B\bibinitperiod},
+           given={{Ch}.},
+           giveni={C\bibinitperiod}}}%
+        {{hash=aacad15db453d200fbc0d8dd5ef77ebe}{%
+           family={Paleo},
+           familyi={P\bibinitperiod},
+           given={B.\bibnamedelimi W.},
+           giveni={B\bibinitperiod\bibinitdelim W\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {IOS Press}%
+      }
+      \strng{namehash}{2d2861aef35ef951772a6e4a6aacc734}
+      \strng{fullhash}{2d2861aef35ef951772a6e4a6aacc734}
+      \strng{bibnamehash}{2d2861aef35ef951772a6e4a6aacc734}
+      \strng{authorbibnamehash}{2d2861aef35ef951772a6e4a6aacc734}
+      \strng{authornamehash}{2d2861aef35ef951772a6e4a6aacc734}
+      \strng{authorfullhash}{2d2861aef35ef951772a6e4a6aacc734}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{European	Conference on Artificial Intelligence}
+      \field{howpublished}{Dostęp zdalny (10.04.2019): \url{http://page.mi.fu-berlin.de/cbenzmueller/papers/C40.pdf}}
+      \field{title}{Automating {Gö}del’s {O}ntological {P}roof of {G}od’s {E}xistence with {H}igher-order {A}utomated {T}heorem {P}rovers}
+      \field{year}{2014}
+    \endentry
+    \entry{goedel95}{incollection}{}
+      \name{author}{1}{}{%
+        {{hash=741b5eae8f0486fe4cfb19725eb596a0}{%
+           family={Gödel},
+           familyi={G\bibinitperiod},
+           given={Kurt},
+           giveni={K\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Oxford University Press}%
+      }
+      \strng{namehash}{741b5eae8f0486fe4cfb19725eb596a0}
+      \strng{fullhash}{741b5eae8f0486fe4cfb19725eb596a0}
+      \strng{bibnamehash}{741b5eae8f0486fe4cfb19725eb596a0}
+      \strng{authorbibnamehash}{741b5eae8f0486fe4cfb19725eb596a0}
+      \strng{authornamehash}{741b5eae8f0486fe4cfb19725eb596a0}
+      \strng{authorfullhash}{741b5eae8f0486fe4cfb19725eb596a0}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{booktitle}{Unpublished Essays and Lectures}
+      \field{title}{Texts relating to the ontological proof}
+      \field{year}{1995}
+      \field{pages}{429\bibrangedash 437}
+      \range{pages}{9}
+    \endentry
+    \entry{wang97}{inbook}{}
+      \name{author}{1}{}{%
+        {{hash=c8cf19241225247d6d07dbf8a516b8ed}{%
+           family={Wang},
+           familyi={W\bibinitperiod},
+           given={Hao},
+           giveni={H\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {A Bradford Book}%
+      }
+      \strng{namehash}{c8cf19241225247d6d07dbf8a516b8ed}
+      \strng{fullhash}{c8cf19241225247d6d07dbf8a516b8ed}
+      \strng{bibnamehash}{c8cf19241225247d6d07dbf8a516b8ed}
+      \strng{authorbibnamehash}{c8cf19241225247d6d07dbf8a516b8ed}
+      \strng{authornamehash}{c8cf19241225247d6d07dbf8a516b8ed}
+      \strng{authorfullhash}{c8cf19241225247d6d07dbf8a516b8ed}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{A Logical Journey: From Gödel to Philosophy.}
+      \field{year}{1997}
+      \field{pages}{316}
+      \range{pages}{1}
+    \endentry
+    \entry{koons2005}{unpublished}{}
+      \name{author}{1}{}{%
+        {{hash=df67383e5f81e5cc7a9f630a00674bae}{%
+           family={Koons},
+           familyi={K\bibinitperiod},
+           given={Robert\bibnamedelima C.},
+           giveni={R\bibinitperiod\bibinitdelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{df67383e5f81e5cc7a9f630a00674bae}
+      \strng{fullhash}{df67383e5f81e5cc7a9f630a00674bae}
+      \strng{bibnamehash}{df67383e5f81e5cc7a9f630a00674bae}
+      \strng{authorbibnamehash}{df67383e5f81e5cc7a9f630a00674bae}
+      \strng{authornamehash}{df67383e5f81e5cc7a9f630a00674bae}
+      \strng{authorfullhash}{df67383e5f81e5cc7a9f630a00674bae}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Dostęp zdalny (25.04.2019): \url{http://www.robkoons.net/media/69b0dd04a9d2fc6dffff80b4ffffd524.pdf}}
+      \field{title}{{S}obel on {Gö}del’s {O}ntological {P}roof}
+      \field{year}{2005}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
