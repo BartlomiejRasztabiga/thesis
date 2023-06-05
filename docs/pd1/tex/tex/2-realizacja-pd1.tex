@@ -1,46 +1,45 @@
 \clearpage % Rozdziały zaczynamy od nowej strony.
 \section{Realizacja Pracowni}
 
-% Równanie typu 'inline':
-\lipsum[2] $F = m \cdot a$ lorem ipsum dolor sit amet.
-% Równanie bez numeru
-% align oznacza wyrównanie kolejnych wierszy do '&'
-% '&' służy tylko do wyrównania i nie jest renderowany
-\begin{align*}
-    E & = mc^2 \\
-    y & = ax^2 + bx + c
-\end{align*}
-
-\lipsum[3]
-% Równanie numerowane: macierze
-\begin{align}
-    \begin{bmatrix}
-        1 & 0 & 0 \\
-        0 & 2 & 0 \\
-        0 & 0 & 3
-    \end{bmatrix} \cdot
-    \begin{bmatrix}
-        4 \\
-        5 \\
-        6
-    \end{bmatrix} =
-    \begin{bmatrix}
-        4  \\
-        10 \\
-        18
-    \end{bmatrix}
-\end{align}
-
-% Cytaty dla zapełnienia bibliografii
-\lipsum[4] Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua \cite{szczypiorski2015}, \cite{duqu2011}, \cite{shs2015}, \cite{wozniak2018}, \cite{dcp19}.
-
 % TODO pewnie to przeniosę
 \subsection{Harmonogram prac}
-\kant[1]
+
+Na początku semestru został sporządzony harmonogram prac, który został przedstawiony w tabeli \ref{table:harmonogram}.
+
+\begin{longtable}{| m{0.67\linewidth} | r |}
+    \caption{Harmonogram prac.}
+    \label{table:harmonogram} \\
+
+    \hline
+    % Nagłówek tabeli wyrównujemy do środka
+    \multicolumn{1}{c|}{Kamień milowy} & \multicolumn{1}{c|}{Przewidywana data ukończenia} \\ \hline\hline \endfirsthead \endfoot
+    \hline \endlastfoot
+
+    Zamodelowanie zdarzeń biznesowych przy pomocy techniki Event Storming & 27.03.2023 \\ \hline
+    Wstępny wybór technologii & 17.04.2023 \\ \hline
+    Przygotowanie środowiska programistycznego & 24.04.2023 \\ \hline
+    Weryfikacja wykorzystania wybranych technologii & 8.05.2023 \\ \hline
+    Ustalenie wymagań funkcjonalnych i niefunkcjonalnych & 22.05.2023 \\ \hline
+    Wykonanie makiet interfejsu użytkownika & 5.06.2023 \\ \hline
+    Ustalenie formatów i technik wymiany danych & 12.06.2023 \\ \hline
+    Przygotowanie mechanizmów uwierzytelniania i autoryzacji użytkowników & 19.06.2023 \\ \hline
+    Zaprojektowanie architektury i infrastruktury aplikacji & 26.06.2023 \\ \hline
+    Główna implementacja & 2.10.2023 \\ \hline
+    Wdrożenie produkcyjne aplikacji & 9.10.2023 \\ \hline
+    Przygotowanie i wykonanie automatycznych testów akceptacyjnych & 23.10.2023 \\ \hline
+    Przygotowanie i wykonanie automatycznych testów wydajnościowych & 6.11.2023\\ \hline
+    Przygotowanie raportu z wydajności i skalowalności systemu & 13.11.2023 \\ \hline
+    Przygotowanie wstępnego tekstu pracy inżynierskiej & 18.12.2023 \\ \hline
+    Przygotowanie finalnego tekstu pracy inżynierskiej & 8.01.2024 \\ \hline
+    Złożenie pracy inżynierskiej & 15.01.2024 \\ \hline
+\end{longtable}
+
+Zakres Pracowni Dyplomowej 1 zakończył się wraz z ukończeniem kamienia milowego \textit{Wykonanie makiet interfejsu użytkownika}.
 
 % Podrozdział pierwszego poziomu
 \subsection{Zamodelowanie zdarzeń biznesowych}
-\kant[1]
+
+W celu zrozumienia procesów oraz zidentyfikowania potencjalnych mikroserwisów w tworzonej aplikacji, przeprowadzono sesję Event Stormingu. Metoda ta umożliwia wizualizację i modelowanie procesów biznesowych w ramach systemu, co jest kluczowe przy tworzeniu złożonych systemów informatycznych. W niniejszym rozdziale przedstawione zostaną wyniki sesji Event Stormingu, która została przeprowadzona z wykorzystaniem narzędzia Miro.
 
 % Tabela wielostronicowa, 4 kolumny
 % Kolumny typu m{} oznaczają kolumny o stałej szerokości z zawijaniem wierszy

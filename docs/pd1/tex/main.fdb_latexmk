@@ -1,13 +1,13 @@
 # Fdb version 4
-["biber main"] 0 "main.bcf" "main.bbl" "main" 1685905144 -1
+["biber main"] 1685979022 "main.bcf" "main.bbl" "main" 1685979361 0
   "./bibliografia.bib" 1674810546 3263 bd172c208edaafc6fb786438bbed8743 ""
-  "main.bcf" 1685905144 108579 ea273d287993d7205560534c06cad2b3 "pdflatex"
+  "main.bcf" 1685979361 108186 bc1aff7c6d15493fbbf6debea2602119 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1685905142 "/Users/rasztabigab/SoftwareDevelopment/thesis/docs/thesis/main.tex" "main.pdf" "main" 1685905144 0
-  "/Users/rasztabigab/SoftwareDevelopment/thesis/docs/thesis/main.tex" 1685905072 4478 170a78c9828a81a5527ccc5de6a7fa97 ""
+["pdflatex"] 1685979360 "/Users/rasztabigab/SoftwareDevelopment/thesis/docs/pd1/tex/main.tex" "main.pdf" "main" 1685979361 0
+  "/Users/rasztabigab/SoftwareDevelopment/thesis/docs/pd1/tex/main.tex" 1685977777 4485 bcbeb3b5e2fe9a67c68715028708deb0 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -183,20 +183,19 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1685899635 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1685899617 7883463 4e55f90c1dc0723e70dbde2e6a11895d ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "main.aux" 1685905144 7040 1bf3bd16065d5c85f6f5fa392edb2336 "pdflatex"
-  "main.bbl" 1685901902 12130 9edfbedd2b6110b9fe3372a3c4f934f4 "biber main"
-  "main.lof" 1685905144 159 f13ed073c089254e832dc08b9f7ba1e7 "pdflatex"
-  "main.lot" 1685905144 236 c43043efe60f1903fd1c6961712fb174 "pdflatex"
-  "main.out" 1685905144 3606 79d041c6fa7f32daafb5ea01626363fc "pdflatex"
-  "main.run.xml" 1685905144 2403 538b6f202df59e7c514f7f39e5a89723 "pdflatex"
-  "main.tex" 1685905072 4478 170a78c9828a81a5527ccc5de6a7fa97 ""
-  "main.toc" 1685905144 1992 dc4d275c802b161b1054cc6faef063ed "pdflatex"
+  "main.aux" 1685979361 6262 201a5e5bd049f37a959878c41fa7495e "pdflatex"
+  "main.bbl" 1685979024 5128 670bf8b7eeff89b906842d075ebc3a88 "biber main"
+  "main.lof" 1685979361 29 1e1405008ff3f86b64f7d6ea4d45a69d "pdflatex"
+  "main.lot" 1685979361 332 e3ed045b4ad8cfe7c3745b64c51b5d26 "pdflatex"
+  "main.out" 1685979361 3606 b7f3a0241ff5df1cdf2bec62a6741353 "pdflatex"
+  "main.run.xml" 1685979361 2403 538b6f202df59e7c514f7f39e5a89723 "pdflatex"
+  "main.tex" 1685977777 4485 bcbeb3b5e2fe9a67c68715028708deb0 ""
+  "main.toc" 1685979361 1986 9a3638b82d3228963211338c4198db9f "pdflatex"
   "src/pl/header/eiti.pdf" 1674810546 69964 105a6f84868d9a51737c8f17fcc1d7a4 ""
   "src/pl/title/pd1.pdf" 1685900961 4236 3869331fb4f664cd83640231ff5fc749 ""
   "src/wut-thesis.cls" 1685901046 13663 342dd3945cd585a5933e143ac28cd161 ""
-  "tex/1-wstep.tex" 1685901558 2844 7aa8c651f47c59a9f2c1672ace28a94f ""
-  "tex/2-realizacja-pd1.tex" 1685905142 7740 bf0d66ef6036c07ce8f8c6a59a6e2fc8 ""
-  "tex/img//logopw.png" 1674810546 290227 a543b8efa718394712cda89b22f32f71 ""
+  "tex/1-wybor-tematu.tex" 1685978546 2481 a993839e52e3ff4e9d700b3c9d9d0da9 ""
+  "tex/2-realizacja-pd1.tex" 1685979359 9186 25afcea4f0a20b6c2db109f33b8c64fb ""
   (generated)
   "main.aux"
   "main.bcf"
