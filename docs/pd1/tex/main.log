@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.6.4)  5 JUN 2023 17:36
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.6.4)  5 JUN 2023 22:18
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1056,12 +1056,12 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `futs' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-<src/pl/header/eiti.pdf, id=78, 483.72722pt x 76.8471pt>
+<src/pl/header/eiti.pdf, id=105, 483.72722pt x 76.8471pt>
 File: src/pl/header/eiti.pdf Graphic file (type pdf)
 <use src/pl/header/eiti.pdf>
 Package pdftex.def Info: src/pl/header/eiti.pdf  used on input line 60.
 (pdftex.def)             Requested size: 441.01775pt x 70.06229pt.
-<src/pl/title/pd1.pdf, id=79, 483.72722pt x 105.39375pt>
+<src/pl/title/pd1.pdf, id=106, 483.72722pt x 105.39375pt>
 File: src/pl/title/pd1.pdf Graphic file (type pdf)
 <use src/pl/title/pd1.pdf>
 Package pdftex.def Info: src/pl/title/pd1.pdf  used on input line 60.
@@ -1111,61 +1111,70 @@ LaTeX Font Info:    Font shape `U/futm/m/n' will be
 ] [4
 
 
-] (./tex/1-wybor-tematu.tex
-LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 9.19998pt on input line 33.
-LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 6.99199pt on input line 33.
-LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
-(Font)              scaled to size 5.51999pt on input line 33.
-LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 9.19998pt on input line 33.
-LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 6.99199pt on input line 33.
-LaTeX Font Info:    Font shape `U/futm/m/n' will be
-(Font)              scaled to size 5.51999pt on input line 33.
-) (./tex/2-realizacja-pd1.tex [5
+] (./tex/1-wybor-tematu.tex) (./tex/2-realizacja-pd1.tex [5
 
 ]
-Overfull \hbox (36.99512pt too wide) in alignment at lines 9--15
+Overfull \hbox (36.99512pt too wide) in alignment at lines 8--14
  [] [] 
  []
 
 
-Overfull \hbox (36.99512pt too wide) in alignment at lines 15--15
+Overfull \hbox (36.99512pt too wide) in alignment at lines 14--14
  [] [] 
  []
 
 
-Overfull \hbox (36.99512pt too wide) in alignment at lines 15--16
+Overfull \hbox (36.99512pt too wide) in alignment at lines 14--15
  [] [] 
  []
 
 
-Overfull \hbox (36.99512pt too wide) in alignment at lines 16--35
+Overfull \hbox (36.99512pt too wide) in alignment at lines 15--34
  [] [] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 54--54
-[]|\T1/futs/m/n/12 (+20) Wariant
  []
 
 [6
 
-] [7] [8] [9] [10]) [11] [12
+]
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 13.24796pt on input line 54.
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 9.19998pt on input line 54.
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 7.35999pt on input line 54.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 13.24796pt on input line 54.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 9.19998pt on input line 54.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 7.35999pt on input line 54.
+ [7]
+<tex/img//event_storming.png, id=183, 3237.09375pt x 1244.65pt>
+File: tex/img//event_storming.png Graphic file (type png)
+<use tex/img//event_storming.png>
+Package pdftex.def Info: tex/img//event_storming.png  used on input line 130.
+(pdftex.def)             Requested size: 441.01775pt x 169.55884pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [8 <./tex/img//event_storming.png>] [9] [10])
+Overfull \hbox (479.30449pt too wide) in paragraph at lines 266--96
+[]\T1/futs/m/n/12 (-20) [https://app.moqups.com/RYLOPOCmzPSdH4d1AcSDx7lCwa3Wlhhj/view/page/a2a00afc0](https://app.moqups.com/RYLOPOCmzPSdH4d1AcSDx7lCwa3Wlhhj/view/page/a2a00afc0).
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 266--96
+
+ []
+
+[11] [12
 
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 101.
- (/usr/local/texlive/2023/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
-)
-Package microtype Info: Loading generic protrusion settings for font family
-(microtype)             `cmtt' (encoding: T1).
-(microtype)             For optimal results, create family-specific settings.
-(microtype)             See the microtype manual for details.
- [13{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}] (./main.lof)
+
+LaTeX Warning: Empty bibliography on input line 101.
+
+(./main.lof)
 \tf@lof=\write6
 \openout6 = `main.lof'.
 
@@ -1173,28 +1182,32 @@ Package microtype Info: Loading generic protrusion settings for font family
 \tf@lot=\write7
 \openout7 = `main.lot'.
 
- [14
+ (./main.lol)
+\tf@lol=\write8
+\openout8 = `main.lol'.
+
+ [13
 
 ] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: B7F3A0241FF5DF1CDF2BEC62A6741353;3606.
+(rerunfilecheck)             Checksum: 10D59A5C05532C38D97826205DF63F46;4866.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 27834 strings out of 476025
- 488139 string characters out of 5790018
- 1879388 words of memory out of 5000000
- 47539 multiletter control sequences out of 15000+600000
- 613665 words of font info for 281 fonts, out of 8000000 for 9000
+ 27537 strings out of 476025
+ 482496 string characters out of 5790018
+ 1868388 words of memory out of 5000000
+ 47308 multiletter control sequences out of 15000+600000
+ 605016 words of font info for 245 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 123i,14n,120p,1101b,1828s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2023/texmf-dist/fonts/type1/public/fourier/fourier-mex.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/fourier/fourier-mlit.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on main.pdf (14 pages, 206853 bytes).
+ 123i,12n,120p,1101b,1828s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb>
+Output written on main.pdf (13 pages, 593992 bytes).
 PDF statistics:
- 281 PDF objects out of 1000 (max. 8388607)
- 240 compressed objects within 3 object streams
- 53 named destinations out of 1000 (max. 500000)
- 74403 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 247 PDF objects out of 1000 (max. 8388607)
+ 213 compressed objects within 3 object streams
+ 39 named destinations out of 1000 (max. 500000)
+ 59616 words of extra memory for PDF output out of 61914 (max. 10000000)
 

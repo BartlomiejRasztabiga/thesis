@@ -220,6 +220,7 @@
 	\AtBeginDocument{
 		\renewcommand{\listfigurename}{Spis rysunków}
 		\renewcommand{\listtablename}{Spis tabel}
+        \renewcommand{\lstlistlistingname}{Spis listingów}
 		\renewcommand{\tablename}{Tabela}
 	}
 }

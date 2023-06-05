@@ -3,18 +3,25 @@
 \contentsline {section}{\numberline {2\relax .\enspace }Realizacja Pracowni}{6}{section.2}%
 \contentsline {subsection}{\numberline {2.1\relax .\enspace }Harmonogram prac}{6}{subsection.2.1}%
 \contentsline {subsection}{\numberline {2.2\relax .\enspace }Zamodelowanie zdarzeń biznesowych}{6}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3\relax .\enspace }Wstępny wybór technologii}{8}{subsection.2.3}%
-\contentsline {subsubsection}{\numberline {2.3.1\relax .\enspace }Część serwerowa}{8}{subsubsection.2.3.1}%
-\contentsline {subsubsection}{\numberline {2.3.2\relax .\enspace }Część kliencka}{8}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.2.1\relax .\enspace }Wstęp}{6}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2\relax .\enspace }Narzędzie Miro}{7}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3\relax .\enspace }Identyfikacja kontekstów granicznych (Bounded Context)}{7}{subsubsection.2.2.3}%
+\contentsline {subsubsection}{\numberline {2.2.4\relax .\enspace }Analiza procesów}{7}{subsubsection.2.2.4}%
+\contentsline {subsubsection}{\numberline {2.2.5\relax .\enspace }Reprezentacja graficzna}{8}{subsubsection.2.2.5}%
+\contentsline {subsection}{\numberline {2.3\relax .\enspace }Wstępny wybór technologii}{9}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1\relax .\enspace }Część serwerowa}{9}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2\relax .\enspace }Część kliencka}{9}{subsubsection.2.3.2}%
 \contentsline {subsection}{\numberline {2.4\relax .\enspace }Przygotowanie środowiska programistycznego}{9}{subsection.2.4}%
 \contentsline {subsubsection}{\numberline {2.4.1\relax .\enspace }Środowisko lokalne}{9}{subsubsection.2.4.1}%
 \contentsline {subsubsection}{\numberline {2.4.2\relax .\enspace }Środowisko wdrożeniowe}{9}{subsubsection.2.4.2}%
 \contentsline {subsection}{\numberline {2.5\relax .\enspace }Weryfikacja wykorzystania wybranych technologii}{10}{subsection.2.5}%
+\contentsline {subsubsection}{\numberline {2.5.1\relax .\enspace }Część serwerowa}{10}{subsubsection.2.5.1}%
+\contentsline {subsubsection}{\numberline {2.5.2\relax .\enspace }Część kliencka}{10}{subsubsection.2.5.2}%
 \contentsline {subsection}{\numberline {2.6\relax .\enspace }Ustalenie wymagań funkcjonalnych i niefunkcjonalnych}{10}{subsection.2.6}%
 \contentsline {subsubsection}{\numberline {2.6.1\relax .\enspace }Wymagania funkcjonalne}{10}{subsubsection.2.6.1}%
-\contentsline {subsubsection}{\numberline {2.6.2\relax .\enspace }Wymagania niefunkcjonalne}{10}{subsubsection.2.6.2}%
+\contentsline {subsubsection}{\numberline {2.6.2\relax .\enspace }Wymagania niefunkcjonalne}{11}{subsubsection.2.6.2}%
 \contentsline {subsection}{\numberline {2.7\relax .\enspace }Wykonanie makiet interfejsu użytkownika}{11}{subsection.2.7}%
-\contentsline {section}{Bibliografia}{13}{section*.2}%
-\contentsline {section}{Wykaz symboli i skrótów}{14}{section*.3}%
-\contentsline {section}{Spis rysunków}{14}{section*.3}%
-\contentsline {section}{Spis tabel}{14}{section*.3}%
+\contentsline {section}{Wykaz symboli i skrótów}{13}{section*.2}%
+\contentsline {section}{Spis rysunków}{13}{section*.2}%
+\contentsline {section}{Spis tabel}{13}{section*.2}%
+\contentsline {section}{Spis listingów}{13}{section*.2}%
