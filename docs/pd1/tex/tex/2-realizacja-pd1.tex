@@ -3,7 +3,7 @@
 
 \subsection{Harmonogram prac}
 
-Na początku semestru został sporządzony harmonogram prac, który został przedstawiony w tabeli \ref{table:harmonogram}.
+Na początku semestru sporządzono harmonogram prac, który został przedstawiony w tabeli \ref{table:harmonogram}.
 
 \begin{longtable}{| m{0.67\linewidth} | r |}
     \caption{Harmonogram prac.}
@@ -38,47 +38,47 @@ Zakres Pracowni Dyplomowej 1 zakończył się wraz z ukończeniem kamienia milow
 % Podrozdział pierwszego poziomu
 \subsection{Zamodelowanie zdarzeń biznesowych}
 
-\subsubsection{Wstęp}
+\subsubsection{Event Storming}
 
-W celu zrozumienia procesów oraz zidentyfikowania potencjalnych mikroserwisów w tworzonej aplikacji, przeprowadzono sesję Event Stormingu. Metoda ta umożliwia wizualizację i modelowanie procesów biznesowych w ramach systemu, co jest kluczowe przy tworzeniu złożonych systemów informatycznych. W niniejszym rozdziale przedstawione zostaną wyniki sesji Event Stormingu, która została przeprowadzona z wykorzystaniem narzędzia Miro.
+W celu zrozumienia procesów oraz zidentyfikowania potencjalnych mikroserwisów w tworzonej aplikacji przeprowadzono sesję Event Stormingu \cite{eventstorming}. Metoda ta umożliwia wizualizację i modelowanie procesów biznesowych w ramach systemu, co jest kluczowe przy tworzeniu złożonych systemów informatycznych. W niniejszym rozdziale przedstawione zostaną wyniki sesji Event Stormingu, która została przeprowadzona z wykorzystaniem narzędzia Miro.
 
 \subsubsection{Narzędzie Miro}
 
-Miro to interaktywna platforma do współpracy, umożliwiająca tworzenie tablic z notatkami, rysunkami i diagramami. Wybór tego narzędzia był podyktowany jego prostotą użytkowania oraz możliwościami wizualizacji modelu związanego z Event Stormingiem.
+Miro \cite{miro} to interaktywna platforma webowa, umożliwiająca tworzenie tablic z notatkami, rysunkami i diagramami. Wybór tego narzędzia był podyktowany jego prostotą użytkowania oraz możliwościami wizualizacji efektów.
 
 \subsubsection{Identyfikacja kontekstów granicznych (Bounded Context)}
 
-W wyniku sesji Event Stormingu zidentyfikowano pięć kontekstów granicznych (Bounded Context), które będą kluczowe dla tworzonej aplikacji. Są to:
+W wyniku sesji Event Stormingu zidentyfikowano pięć kontekstów granicznych (Bounded Context \cite{boundedcontext}), które będą kluczowe dla tworzonej aplikacji. Są to:
 
-\begin{itemize}
-    \item Restaurant - obejmuje zarządzanie restauracjami, menu i dostępnością produktów
-    \item Order - odpowiada za proces zamówienia, takie jak składanie, modyfikowanie i anulowanie zamówień
-    \item Delivery - koncentruje się na logistyce dostaw, monitorowaniu statusu dostawy oraz komunikacji z dostawcą. Zarządza również bazą dostawców
-    \item Payment - zarządza procesem płatności, obejmuje różne metody płatności oraz obsługę transakcji. Obsługuje wszelkie rozliczenia w ramach systemu
-    \item User - dotyczy zarządzania kontami użytkowników, uwierzytelniania oraz zarządzania uprawnieniami
-    \item Invoice - odpowiada za generowanie faktur
-\end{itemize}
+\textbf{Restaurant} (\textit{Restauracja}) - obejmuje zarządzanie restauracjami, menu oraz definicją i dostępnością produktów,
+
+\textbf{Order} (\textit{Zamówienie}) - odpowiada za proces zamówienia, jego składanie, modyfikowanie, anulowanie oraz koordynuje cały proces przygotowania zamówienia do momentu dostawy,
+
+\textbf{Delivery} (\textit{Dostawa}) - koncentruje się na logistyce dostaw, monitorowaniu statusu dostawy oraz komunikacji z dostawcą. Zarządza również bazą dostawców,
+
+\textbf{Payment} (\textit{Płatność}) - zarządza procesem płatności, obejmuje różne metody płatności oraz obsługę transakcji. Obsługuje wszelkie rozliczenia w ramach systemu,
+
+\textbf{Invoice} (\textit{Faktura}) - odpowiada za generowanie faktur i rachunków dla użytkowników, restauracji oraz dostawców.
 
 \subsubsection{Analiza procesów}
 
-
-Każdy z wyżej wymienionych kontekstów granicznych został poddany analizie procesów, które występują w ramach danej domeny. W trakcie analizy zidentyfikowano następujące kluczowe zdarzenia:
+Każdy z wyżej wymienionych kontekstów granicznych został poddany analizie procesów, które występują w ramach danej domeny. W trakcie analizy zidentyfikowano następujące kluczowe procesy:
 
 \begin{itemize}
     \item Restaurant
     \begin{itemize}
         \item Dodanie nowej restauracji
-        \item Aktualizacja informacji o restauracji
-        \item Dodanie/aktualizacja menu
-        \item Zmiana dostępności restauracji
+        \item Aktualizacja informacji o restauracji, np. godziny otwarcia lub opis
+        \item Dodanie/aktualizacja menu oraz cennika
+        \item Zmiana dostępności restauracji (otwarcie/zamknięcie)
         \item Przyjęcie lub odrzucenie zamówienia przez restaurację
-        \item Aktualizacja statusu zamówienia (gotowe do odbioru)
+        \item Oznaczenie zamówienia jako gotowe do odbioru
     \end{itemize}
     
     \item Order
     \begin{itemize}
         \item Utworzenie nowego zamówienia
-        \item Modyfikacja zamówienia
+        \item Modyfikacja zamówienia (dodanie/usunięcie produktu)
         \item Anulowanie zamówienia
         \item Finalizacja zamówienia
     \end{itemize}
@@ -87,7 +87,7 @@ Każdy z wyżej wymienionych kontekstów granicznych został poddany analizie pr
     \begin{itemize}
         \item Dodanie nowego dostawcy
         \item Aktualizacja informacji o dostawcy
-        \item Zmiana dostępności dostawy
+        \item Zmiana dostępności dostawcy
         \item Przypisanie dostawcy do zamówienia
         \item Wytyczenie trasy dostawy
         \item Odbiór zamówienia przez dostawcę
@@ -105,14 +105,6 @@ Każdy z wyżej wymienionych kontekstów granicznych został poddany analizie pr
         \item Wypłata środków do dostawcy
     \end{itemize}
     
-    \item User
-    \begin{itemize}
-        \item Rejestracja nowego użytkownika
-        \item Logowanie użytkownika
-        \item Aktualizacja danych użytkownika (metody płatności, adresy dostawy, preferencje)
-        \item Usunięcie konta użytkownika
-    \end{itemize}
-    
     \item Invoice
     \begin{itemize}
         \item Generowanie faktury dla restauracji
@@ -124,10 +116,10 @@ Każdy z wyżej wymienionych kontekstów granicznych został poddany analizie pr
 
 \subsubsection{Reprezentacja graficzna}
 
-Na rysunku \ref{fig:event-storming} przedstawiono wynik sesji Event Stormingu w postaci diagramu wygenerowanego przy pomocy narzędzia Miro.
+Na rysunku \ref{fig:event-storming} przedstawiono fragment wyniku sesji Event Stormingu w postaci diagramu wygenerowanego przy pomocy narzędzia Miro.
 
 \begin{figure}[!h]
-    \centering \includegraphics[width=1.0\linewidth]{event_storming.png}
+    \centering \includegraphics[width=1.0\linewidth]{event_storming_fragment.jpg}
     \caption{Reprezentacja graficzna efektów sesji Event Stormingu}
     \label{fig:event-storming}
 \end{figure}
@@ -137,11 +129,17 @@ Na rysunku \ref{fig:event-storming} przedstawiono wynik sesji Event Stormingu w 
 % Nagłówki kolejnych poziomów, dla zapełnienia spisu treści
 \subsection{Wstępny wybór technologii}
 
-Całość rozwiązania została wdrożona przy pomocy narzędzia Kubernetes. W celu zautomatyzowania procesu wdrażania wykorzystano platformę Ciągłej Integracji/Ciągłego Wdrażania GitHub Actions. W celu monitorowania oraz obserwalności aplikacji wykorzystano narzędzie Prometheus, Grafana oraz Loki.
+Wstępny wybór technologii został dokonany na podstawie analizy wymagań funkcjonalnych i niefunkcjonalnych oraz doświadczenia Autora. 
+
+W celu zapewnienia wydajności i skalowalności systemu zdecydowano się na architekturę opartą o zdarzenia. W tym celu wybrano framework Axon Framework \cite{axonframework}, który służy do tworzenia aplikacji opartych o techniki CQRS \cite{cqrs} i Event Sourcing \cite{eventsourcing}, które pomagają w procesie implementacji skalowalnych i łatwo utrzymywalnych złożonych systemów informatycznych. Dodatkowo Axon Framework jest zintegrowany z frameworkiem Spring Boot \cite{springboot}, który jest jednym z najpopularniejszych frameworków do tworzenia aplikacji na platformę JVM \cite{jvm}.
+
+Jako, że baza danych przy zastosowaniu Event Sourcingu pełni jedynie funkcję magazynu danych w warstwie prezentacji, zastosowano dokumentową bazę NoSQL \cite{nosql} - MongoDB \cite{mongodb}. Wybór ten podyktowany jest głównie wydajnością i skalowalnością bazy danych oraz najbliższym rzeczywistości formacie danych - JSON \cite{json}. Identyczny format zastosowano w warstwie komunikacji pomiędzy komponentami.
+
+W części klienckiej zastosowano bibliotekę do tworzenia webowych interfejsów graficznych - React \cite{react} wraz z pomocniczym frameworkiem Remix \cite{remix}, umożliwiającym przygotowywanie widoków po stronie serwera, co znacząco wpływa na wydajność rozwiązania.
 
 \subsubsection{Część serwerowa}
 
-Język programowania: Kotlin
+Język programowania: Kotlin \cite{kotlin}
 
 Frameworki: Axon Framework + Spring Boot
 
@@ -153,40 +151,44 @@ Baza danych: MongoDB
 
 Język programowania: TypeScript
 
-Framework: Remix + React
+Frameworki: Remix + React
+
+\subsubsection{Wdrożenie i infrastruktura}
+
+Całość rozwiązania została wdrożona w postaci kontenerów przy pomocy narzędzi Docker \cite{docker} i Kubernetes \cite{kubernetes}. W celu zautomatyzowania procesu wdrażania wykorzystano platformę Ciągłej Integracji/Ciągłego Wdrażania GitHub Actions \cite{githubactions}. Dla spełnienia wymagań monitorowania oraz obserwowalności aplikacji wykorzystano narzędzia Prometheus \cite{prometheus}, Grafana \cite{grafana} oraz Loki \cite{loki}.
 
 \subsection{Przygotowanie środowiska programistycznego}
 
-W celu efektywnej pracy nad projektem przygotowano środowisko programistyczne używane do rozwoju i wdrożenia aplikacji. Środowisko programistyczne można podzielić na dwa rodzaje: lokalne i zdalne (wdrożeniowe).
+Dla zagwarantowania efektywnej pracy nad projektem przygotowano środowisko programistyczne używane do rozwoju i wdrożenia aplikacji. Środowisko to można podzielić na dwa rodzaje: lokalne i zdalne (wdrożeniowe).
 
 \subsubsection{Środowisko lokalne}
 
-Środowisko lokalne składa się z następujących elementów:
+Środowisko lokalne używane jest do rozwoju aplikacji na maszynie programisty. Składa się z następujących elementów:
 
 \begin{itemize}
     \item System operacyjny: MacOS
-    \item Zintegrowane środowisko programistyczne (IDE): IntelliJ IDEA
-    \item Środowisko uruchomieniowe: Docker + Docker Compose
+    \item Zintegrowane środowisko programistyczne (IDE): IntelliJ IDEA \cite{intellij}
+    \item Środowisko uruchomieniowe: Docker + Docker Compose \cite{dockercompose}
 \end{itemize}
 
-IDE IntelliJ IDEA jest używane do pisania, testowania i debugowania kodu. Docker i Docker Compose służą do tworzenia i zarządzania skonteneryzowanymi środowiskami dla aplikacji.
+IDE IntelliJ IDEA jest używane do pisania, testowania i debugowania kodu. Docker i Docker Compose służą do tworzenia i zarządzania kontenerami komponentów aplikacji.
 
 \subsubsection{Środowisko wdrożeniowe}
 
-Środowisko zdalne jest używane do wdrożenia aplikacji do produkcji. Środowisko zdalne składa się z następujących elementów:
+Środowisko zdalne jest używane do produkcyjnego wdrażania aplikacji po każdym commicie do repozytorium git \cite{git}. Środowisko to składa się z następujących elementów:
 
 \begin{itemize}
-    \item System operacyjny: Ubuntu 22.04
-    \item Specyfikacja maszyny: 4vCPU, 12GB RAM, 50GB SSD
+    \item System operacyjny: Ubuntu 22.04 \cite{ubuntu2204}
+    \item Specyfikacja maszyny: 4 wirtualne rdzenie AMD EPYC Milan, 12 GB pamięci RAM, 50 GB przestrzeni dyskowej
     \item Lokalizacja: Sztokholm, Szwecja
-    \item Klaster Kubernetes: MicroK8s
+    \item Oprogramowanie klastra Kubernetes: MicroK8s \cite{microk8s}
 \end{itemize}
 
-Środowisko zdalne jest hostowane na maszynie o wyższych specyfikacjach, aby zapewnić płynne działanie aplikacji w produkcji. Lokalizacja maszyny to Sztokholm, Szwecja, a działa ona na klastrze Kubernetes MicroK8s. Klastry Kubernetes są używane do zarządzania wdrożeniem aplikacji w sposób skalowalny i niezawodny.
+Środowisko zdalne będzie docelowo hostowane na maszynach o wyższych specyfikacjach niż lokalnie, aby zapewnić płynne działanie aplikacji w produkcji. Lokalizacja maszyny to Sztokholm, Szwecja, a działa ona na prywatnym klastrze Kubernetes przy użyciu narzędzia MicroK8s. Klaster Kubernetes jest używany w celu orkiestracji kontenerów z komponentami aplikacji, ich niezależnego wdrażania i skalowania.
 
 \subsection{Weryfikacja wykorzystania wybranych technologii}
 
-Weryfikacja została przeprowadzona na przykładzie serwisów "Restaurant" i "Order", które są odpowiedzialny za zarządzanie listą restauracji, ich menu oraz zamówieniami. W ramach projektu zaimplementowano zarówno część serwerową, jak i kliencką.
+Weryfikacja została przeprowadzona na przykładzie minimalnych wersji serwisów "Restaurant" i "Order", które są odpowiedzialne za zarządzanie listą restauracji, ich menu oraz zamówieniami. W ramach weryfikacji zaimplementowano zarówno część serwerową, jak i kliencką.
 
 Wybór technologii okazał się trafiony, co umożliwiło implementację wszystkich funkcjonalności w sposób prosty i intuicyjny. Ponadto, wybrane technologie umożliwiły łatwe rozszerzanie aplikacji o nowe funkcje.
 
@@ -197,13 +199,9 @@ Zbudowany fragment systemu został wdrożony na środowisko produkcyjne.
 W ramach części serwerowej zaimplementowano następujące funkcjonalności:
 
 \begin{itemize}
-    \item Dodawanie restauracji
-    \item Usuwanie restauracji
-    \item Aktualizowanie informacji o restauracji
-    \item Aktualizowanie menu restauracji
-    \item Zmiana dostępności restauracji (otwarta / zamknięta)
-    \item Pobieranie listy restauracji
-    \item Pobieranie szczegółów restauracji wraz z menu
+    \item Dodawanie, aktualizowanie, zmiana dostępności i usuwanie restauracji,
+    \item Aktualizowanie menu restauracji,
+    \item Pobieranie listy i detali restauracji wraz z menu.
 \end{itemize}
 
 \subsubsection{Część kliencka}
@@ -211,9 +209,8 @@ W ramach części serwerowej zaimplementowano następujące funkcjonalności:
 Część kliencka obejmuje następujące funkcjonalności:
 
 \begin{itemize}
-    \item Uwierzytelnianie użytkownika
-    \item Wyświetlanie listy restauracji
-    \item Wyświetlanie szczegółów restauracji
+    \item Uwierzytelnianie użytkownika przy pomocy platformy Auth0,
+    \item Wyświetlanie listy i detali restauracji.
 \end{itemize}
 
 \subsection{Ustalenie wymagań funkcjonalnych i niefunkcjonalnych}
@@ -222,45 +219,68 @@ Wymagania funkcjonalne i niefunkcjonalne zostały zidentyfikowane podczas analiz
 
 \subsubsection{Wymagania funkcjonalne}
 
+\textbf{Jako administrator systemu}
 \begin{itemize}
-    \item Jako administrator, mogę dodać nową restaurację i jej managera
-    \item Jako manager restauracji, mogę zaktualizować jej detale
-    \item Jako manager restauracji, mogę dodać nowe menu
-    \item Jako manager restauracji, mogę zaktualizować jej dostępność (otwarta/zamknięta)
-    \item Jako dostawca, mogę zarejestrować się w systemie
-    \item Jako dostawca, mogę zaktualizować swój status (dostępny/niedostępny)
-    \item Jako zamawiający, mogę zarejestrować się w systemie
-    \item Jako zamawiający, mogę dodać metodę płatności
-    \item Jako zamawiający, mogę dodać detale dostawy
-    \item Jako zamawiający, mogę rozpocząć proces zamówienia wybierając restaurację
-    \item Jako zamawiający, mogę wybrać dania z menu
-    \item Jako zamawiający, mogę złożyć zamówienie
-    \item Jako zamawiający, mogę opłacić zamówienie
-    \item Jako zamawiający, mogę podejrzeć status zamówienia
-    \item Jako manager restauracji, mogę przyjąć albo odrzucić zamówienie
-    \item Jako manager restauracji, mogę zaktualizować status zamówienia
-    \item Jako dostawca, mogę przyjąć albo odrzucić zamówienie
-    \item Jako dostawca, mogę zaktualizować status dostawy
-    \item Jako dostawca, mogę wypłacić środki za dostarczone zamówienia i otrzymać fakturę
-    \item Jako manager restauracji, mogę wypłacić środki za zamówienia i otrzymać fakturę
-    \item Jako zamawiający, mogę otrzymać fakturę za zamówienie
+    \item mogę dodać nową restaurację i jej managera.
+\end{itemize}
+
+\textbf{Jako manager restauracji}
+\begin{itemize}
+    \item mogę zaktualizować jej detale,
+    \item mogę dodać nowe menu,
+    \item mogę zaktualizować jej dostępność (otwarta/zamknięta),
+    \item mogę przyjąć albo odrzucić zamówienie,
+    \item mogę zaktualizować status zamówienia,
+    \item mogę wypłacić środki za zamówienia i otrzymać fakturę.
+\end{itemize}
+
+\textbf{Jako dostawca}
+\begin{itemize}
+    \item mogę zarejestrować się w systemie,
+    \item mogę zaktualizować swój status (dostępny/niedostępny),
+    \item mogę przyjąć albo odrzucić zamówienie,
+    \item mogę zaktualizować status dostawy,
+    \item mogę wypłacić środki za dostarczone zamówienia i otrzymać fakturę.
+\end{itemize}
+
+\textbf{Jako zamawiający}
+\begin{itemize}
+    \item mogę zarejestrować się w systemie,
+    \item mogę dodać metodę płatności,
+    \item mogę dodać detale dostawy,
+    \item mogę rozpocząć proces zamówienia wybierając restaurację,
+    \item mogę wybrać dania z menu,
+    \item mogę złożyć zamówienie,
+    \item mogę opłacić zamówienie,
+    \item mogę podejrzeć status zamówienia,
+    \item mogę otrzymać fakturę za zamówienie.
 \end{itemize}
 
 \subsubsection{Wymagania niefunkcjonalne}
 
-\begin{itemize}
-    \item Skalowalność - każdy z komponentów systemu powinien być skalowalny w zależności od obciążenia. Np. każdy mikroserwis powinien móc być replikowany
-    \item Wysoka dostępność - jeżeli jeden mikroserwis nie jest dostępny, inne mikroserwisy powinny nadal działać poprawnie
-    \item Bezpieczeństwo - aplikacja powinna zapewniać odpowiednie zabezpieczenia w celu ochrony poufności, integralności i dostępności danych. Na przykład, dostęp do mikroserwisów powinien być chroniony przez autoryzację i uwierzytelnianie, a dane powinny być szyfrowane w tranzycie
-    \item Monitorowanie i logowanie - aplikacja powinna umożliwiać monitorowanie i logowanie zdarzeń w celu analizy i debugowania. Na przykład, każdy mikroserwis powinien logować swoje zdarzenia w centralnym repozytorium, a aplikacja powinna umożliwiać monitorowanie stanu mikroserwisów
-    \item Wydajność - system powinien umożliwiać na przetwarzanie minimum 10 żądań na sekundę
-    \item Synchronizacja i spójność danych - system powinien zapewniać spójność danych na przełomie mikroserwisów
-    \item Testowalność - system powinien być łatwy do testowania, zarówno jednostkowo jak i integracyjnie
-\end{itemize}
+
+\textbf{Skalowalność} - każdy z komponentów systemu powinien być skalowalny w zależności od obciążenia. Każdy mikroserwis powinien móc być replikowany
+
+\textbf{Wysoka dostępność} - jeżeli jeden mikroserwis nie jest dostępny, inne mikroserwisy powinny nadal działać poprawnie
+
+\textbf{Bezpieczeństwo} - aplikacja powinna zapewniać odpowiednie zabezpieczenia w celu ochrony poufności, integralności i dostępności danych. Dostęp do mikroserwisów powinien być chroniony przez autoryzację i uwierzytelnianie, a dane powinny być szyfrowane w tranzycie
+
+\textbf{Monitorowanie i logowanie} - aplikacja powinna umożliwiać monitorowanie i logowanie zdarzeń w celu analizy i debugowania. Każdy mikroserwis powinien logować swoje zdarzenia w centralnym repozytorium, a system powinien umożliwiać monitorowanie stanu mikroserwisów
+
+\textbf{Wydajność} - system powinien umożliwiać równoległe przetwarzanie minimum 10 dowolnych żądań na sekundę
+
+\textbf{Synchronizacja i spójność danych} - system powinien zapewniać spójność danych pomiędzy mikroserwisami
+    
+\textbf{Testowalność} - system powinien być łatwy do testowania, zarówno jednostkowo, jak i integracyjnie
 
 \subsection{Wykonanie makiet interfejsu użytkownika}
 
-Makiety interfejsu użytkownika zostały wykonane w programie moqups.com
+Fragmentaryczne makiety interfejsu użytkownika zostały wykonane w programie moqups \cite{moqups} przy użyciu techniki wireframingu \cite{wireframing}.
 
-% TODO zamienic na link
-[https://app.moqups.com/RYLOPOCmzPSdH4d1AcSDx7lCwa3Wlhhj/view/page/a2a00afc0](https://app.moqups.com/RYLOPOCmzPSdH4d1AcSDx7lCwa3Wlhhj/view/page/a2a00afc0).
+Na rysunku \ref{fig:mockups} przedstawiono makietę ekranu finalizacji zamówienia.
+
+\begin{figure}[!h]
+    \centering \includegraphics[width=0.7\linewidth]{mockups_fragment.png}
+    \caption{Fragment makiety interfejsu użytkownika}
+    \label{fig:mockups}
+\end{figure}

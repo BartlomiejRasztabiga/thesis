@@ -97,6 +97,8 @@
 %---------------
 % Bibliografia
 %---------------
+\nocite{*}
+
 \cleardoublepage % Zaczynamy od nieparzystej strony
 \printbibliography
 \clearpage
@@ -107,10 +109,12 @@
 % generuje właściwy tytuł sekcji, w zależności od języka.
 % Makro \acronym dodaje skrót/symbol do listy,
 % zapewniając podstawowe formatowanie.
-\acronymlist
-\acronym{EiTI}{Wydział Elektroniki i Technik Informacyjnych}
-\acronym{PW}{Politechnika Warszawska}
-\vspace{0.8cm}
+
+% TODO zbędne na razie
+% \acronymlist
+% \acronym{EiTI}{Wydział Elektroniki i Technik Informacyjnych}
+% \acronym{PW}{Politechnika Warszawska}
+% \vspace{0.8cm}
 
 %--------------------------------------
 % Spisy: rysunków, tabel, załączników
@@ -121,8 +125,10 @@
 \vspace{1cm}         % vertical space
 \listoftablestoc     % Spis tabel.
 \vspace{1cm}
-\addcontentsline{toc}{section}{Spis listingów}  % Spis listingów.
-\lstlistoflistings
+
+% TODO zbędne na razie
+% \addcontentsline{toc}{section}{Spis listingów}  % Spis listingów.
+% \lstlistoflistings
 
 % TODO spis listingów w source codzie templatki
 
