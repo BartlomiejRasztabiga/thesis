@@ -165,6 +165,13 @@
       \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://kotlinlang.org}}
       \field{title}{Język Kotlin}
     \endentry
+    \entry{typescript}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://www.typescriptlang.org}}
+      \field{title}{Język TypeScript}
+    \endentry
     \entry{docker}{misc}{}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
@@ -194,8 +201,8 @@
       \field{title}{Narzędzie Prometheus}
     \endentry
     \entry{grafana}{misc}{}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labeltitlesource}{title}
       \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://grafana.com}}
       \field{title}{Narzędzie Grafana}
@@ -242,6 +249,13 @@
       \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://microk8s.io}}
       \field{title}{Klaster Kubernetes - MicroK8s}
     \endentry
+    \entry{auth0}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://auth0.com}}
+      \field{title}{Platforma Auth0}
+    \endentry
     \entry{moqups}{misc}{}
       \field{sortinit}{2}
       \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
@@ -273,28 +287,12 @@
       \strng{authorbibnamehash}{6f41df64eb0dc4855be70172368604c2}
       \strng{authornamehash}{6f41df64eb0dc4855be70172368604c2}
       \strng{authorfullhash}{6f41df64eb0dc4855be70172368604c2}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Clean Architecture: A Craftsman's Guide to Software Structure and Design}
       \field{year}{2017}
-      \true{nocite}
-    \endentry
-    \entry{typescript}{misc}{}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
-      \field{labeltitlesource}{title}
-      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://www.typescriptlang.org}}
-      \field{title}{Język TypeScript}
-      \true{nocite}
-    \endentry
-    \entry{auth0}{misc}{}
-      \field{sortinit}{5}
-      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
-      \field{labeltitlesource}{title}
-      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://auth0.com}}
-      \field{title}{Platforma Auth0}
       \true{nocite}
     \endentry
   \enddatalist

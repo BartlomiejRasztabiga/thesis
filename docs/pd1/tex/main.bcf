@@ -2379,20 +2379,22 @@
     <bcf:citekey order="12" intorder="1">react</bcf:citekey>
     <bcf:citekey order="13" intorder="1">remix</bcf:citekey>
     <bcf:citekey order="14" intorder="1">kotlin</bcf:citekey>
-    <bcf:citekey order="15" intorder="1">docker</bcf:citekey>
-    <bcf:citekey order="16" intorder="1">kubernetes</bcf:citekey>
-    <bcf:citekey order="17" intorder="1">githubactions</bcf:citekey>
-    <bcf:citekey order="18" intorder="1">prometheus</bcf:citekey>
-    <bcf:citekey order="19" intorder="1">grafana</bcf:citekey>
-    <bcf:citekey order="20" intorder="1">loki</bcf:citekey>
-    <bcf:citekey order="21" intorder="1">intellij</bcf:citekey>
-    <bcf:citekey order="22" intorder="1">dockercompose</bcf:citekey>
-    <bcf:citekey order="23" intorder="1">git</bcf:citekey>
-    <bcf:citekey order="24" intorder="1">ubuntu2204</bcf:citekey>
-    <bcf:citekey order="25" intorder="1">microk8s</bcf:citekey>
-    <bcf:citekey order="26" intorder="1">moqups</bcf:citekey>
-    <bcf:citekey order="27" intorder="1">wireframing</bcf:citekey>
-    <bcf:citekey order="28" intorder="1" nocite="1">*</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">typescript</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">docker</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">kubernetes</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">githubactions</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">prometheus</bcf:citekey>
+    <bcf:citekey order="20" intorder="1">grafana</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">loki</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">intellij</bcf:citekey>
+    <bcf:citekey order="23" intorder="1">dockercompose</bcf:citekey>
+    <bcf:citekey order="24" intorder="1">git</bcf:citekey>
+    <bcf:citekey order="25" intorder="1">ubuntu2204</bcf:citekey>
+    <bcf:citekey order="26" intorder="1">microk8s</bcf:citekey>
+    <bcf:citekey order="27" intorder="1">auth0</bcf:citekey>
+    <bcf:citekey order="28" intorder="1">moqups</bcf:citekey>
+    <bcf:citekey order="29" intorder="1">wireframing</bcf:citekey>
+    <bcf:citekey order="30" intorder="1" nocite="1">*</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">
