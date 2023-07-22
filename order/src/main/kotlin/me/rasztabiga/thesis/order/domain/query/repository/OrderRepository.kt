@@ -1,4 +1,4 @@
-package me.rasztabiga.thesis.order.domain.query.handler
+package me.rasztabiga.thesis.order.domain.query.repository
 
 import me.rasztabiga.thesis.order.domain.query.entity.OrderEntity
 import java.util.UUID

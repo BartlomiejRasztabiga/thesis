@@ -1,4 +1,4 @@
-package me.rasztabiga.thesis.restaurant.config
+package me.rasztabiga.thesis.shared.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration

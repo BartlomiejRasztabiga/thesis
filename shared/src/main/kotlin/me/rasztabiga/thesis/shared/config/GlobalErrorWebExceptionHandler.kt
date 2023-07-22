@@ -1,4 +1,4 @@
-package me.rasztabiga.thesis.order.config
+package me.rasztabiga.thesis.shared.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import org.axonframework.commandhandling.CommandExecutionException
@@ -14,7 +14,6 @@ import org.springframework.http.HttpStatus.NOT_FOUND
 import org.springframework.http.MediaType
 import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
-import java.util.concurrent.ExecutionException
 
 @Configuration
 @Order(Ordered.HIGHEST_PRECEDENCE)
