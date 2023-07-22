@@ -1,7 +1,7 @@
 package me.rasztabiga.thesis.restaurant.domain.query
 
 import me.rasztabiga.thesis.restaurant.domain.query.entity.RestaurantEntity
-import me.rasztabiga.thesis.restaurant.domain.query.handler.RestaurantRepository
+import me.rasztabiga.thesis.restaurant.domain.query.repository.RestaurantRepository
 import reactor.core.publisher.Flux
 import java.util.*
 

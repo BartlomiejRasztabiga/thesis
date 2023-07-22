@@ -1,7 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    id("org.springframework.boot") version "3.1.0"
+    id("io.spring.dependency-management") version "1.1.0"
     id("org.jetbrains.kotlin.jvm") version "1.8.21"
+    id("org.jetbrains.kotlin.plugin.spring") version "1.8.21"
     id("java-library")
     id("maven-publish")
     id("io.gitlab.arturbosch.detekt") version "1.23.0"
@@ -18,8 +21,19 @@ repositories {
     mavenCentral()
 }
 
-dependencies {
+val axonVersion = "4.7.4"
 
+dependencies {
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("org.axonframework:axon-spring-boot-starter")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom("org.axonframework:axon-bom:${axonVersion}")
+    }
 }
 
 publishing {

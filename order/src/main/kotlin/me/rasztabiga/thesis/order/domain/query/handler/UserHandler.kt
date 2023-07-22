@@ -10,6 +10,7 @@ import me.rasztabiga.thesis.order.domain.query.mapper.UserMapper.mapToEntity
 import me.rasztabiga.thesis.order.domain.query.mapper.UserMapper.mapToResponse
 import me.rasztabiga.thesis.order.domain.query.query.FindAllUsersQuery
 import me.rasztabiga.thesis.order.domain.query.query.FindUserByIdQuery
+import me.rasztabiga.thesis.order.domain.query.repository.UserRepository
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler

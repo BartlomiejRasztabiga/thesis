@@ -12,6 +12,7 @@ import me.rasztabiga.thesis.restaurant.domain.query.mapper.RestaurantMapper.mapT
 import me.rasztabiga.thesis.restaurant.domain.query.mapper.RestaurantMapper.mapToResponse
 import me.rasztabiga.thesis.restaurant.domain.query.query.FindAllRestaurantsQuery
 import me.rasztabiga.thesis.restaurant.domain.query.query.FindRestaurantByIdQuery
+import me.rasztabiga.thesis.restaurant.domain.query.repository.RestaurantRepository
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler

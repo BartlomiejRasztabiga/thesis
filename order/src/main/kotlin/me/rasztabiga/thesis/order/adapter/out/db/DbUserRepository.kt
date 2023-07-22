@@ -1,7 +1,7 @@
 package me.rasztabiga.thesis.order.adapter.out.db
 
 import me.rasztabiga.thesis.order.domain.query.entity.UserEntity
-import me.rasztabiga.thesis.order.domain.query.handler.UserRepository
+import me.rasztabiga.thesis.order.domain.query.repository.UserRepository
 import me.rasztabiga.thesis.order.infrastructure.db.SpringDataUserRepository
 import org.springframework.stereotype.Service
 import reactor.core.publisher.Flux

@@ -1,4 +1,4 @@
-package me.rasztabiga.thesis.restaurant.domain.query.handler
+package me.rasztabiga.thesis.restaurant.domain.query.repository
 
 import me.rasztabiga.thesis.restaurant.domain.query.entity.RestaurantEntity
 import reactor.core.publisher.Flux

@@ -6,6 +6,7 @@ import me.rasztabiga.thesis.order.domain.query.exception.OrderNotFoundException
 import me.rasztabiga.thesis.order.domain.query.mapper.OrderMapper.mapToEntity
 import me.rasztabiga.thesis.order.domain.query.mapper.OrderMapper.mapToResponse
 import me.rasztabiga.thesis.order.domain.query.query.FindOrderByIdQuery
+import me.rasztabiga.thesis.order.domain.query.repository.OrderRepository
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler
