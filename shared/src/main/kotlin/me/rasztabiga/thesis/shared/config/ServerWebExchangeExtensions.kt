@@ -1,9 +1,9 @@
-package me.rasztabiga.thesis.order.config
+package me.rasztabiga.thesis.shared.config
 
 import org.springframework.web.server.ServerWebExchange
 
 fun ServerWebExchange.getUserId(): String {
-    return getAttribute<String>(USER_ID) ?: throw IllegalStateException("User id not found")
+    return getAttribute<String>(USER_ID) ?: error("User id not found")
 }
 
 fun ServerWebExchange.setUserId(userId: String) {
