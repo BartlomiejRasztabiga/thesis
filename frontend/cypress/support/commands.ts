@@ -3,7 +3,6 @@ import { faker } from "@faker-js/faker";
 declare global {
   namespace Cypress {
     interface Chainable {
-
       /**
        * Extends the standard visit command to wait for the page to load
        *

@@ -1,7 +1,7 @@
 import { Authenticator } from "remix-auth";
 import { Auth0Strategy } from "remix-auth-auth0";
 
-import {sessionStorage} from "~/services/session.server";
+import { sessionStorage } from "~/services/session.server";
 import invariant from "tiny-invariant";
 
 invariant(process.env.AUTH_CALLBACK_URL, "AUTH_CALLBACK_URL must be set");
@@ -13,21 +13,22 @@ invariant(process.env.AUTH_CLIENT_SECRET, "AUTH_CLIENT_SECRET must be set");
 export const authenticator = new Authenticator<any>(sessionStorage);
 
 let auth0Strategy = new Auth0Strategy(
-    {
-        callbackURL: process.env.AUTH_CALLBACK_URL,
-        clientID: process.env.AUTH_CLIENT_ID,
-        clientSecret: process.env.AUTH_CLIENT_SECRET,
-        domain: "rasztabigab.eu.auth0.com",
-        scope: "openid profile email read:restaurants write:restaurants read:users write:users read:orders write:orders",
-        audience: "https://thesis.rasztabiga.me/api"
-    },
-    async ({ accessToken, refreshToken, extraParams, profile }) => {
-        return {
-            accessToken,
-            ...profile,
-            ...extraParams
-        }
-    }
+  {
+    callbackURL: process.env.AUTH_CALLBACK_URL,
+    clientID: process.env.AUTH_CLIENT_ID,
+    clientSecret: process.env.AUTH_CLIENT_SECRET,
+    domain: "rasztabigab.eu.auth0.com",
+    scope:
+      "openid profile email read:restaurants write:restaurants read:users write:users read:orders write:orders",
+    audience: "https://thesis.rasztabiga.me/api",
+  },
+  async ({ accessToken, refreshToken, extraParams, profile }) => {
+    return {
+      accessToken,
+      ...profile,
+      ...extraParams,
+    };
+  },
 );
 
 authenticator.use(auth0Strategy);
