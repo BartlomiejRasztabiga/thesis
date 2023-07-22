@@ -1,8 +1,7 @@
 import { faker } from "@faker-js/faker";
 
 describe("smoke tests", () => {
-  afterEach(() => {
-  });
+  afterEach(() => {});
 
   it("should allow you to make a note", () => {
     const testNote = {

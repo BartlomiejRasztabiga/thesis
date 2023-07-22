@@ -30,6 +30,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.axonframework:axon-spring-boot-starter")
+    implementation("org.axonframework.extensions.kotlin:axon-kotlin")
+    implementation("org.axonframework.extensions.reactor:axon-reactor-spring-boot-starter")
+    implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 }
 
 dependencyManagement {
