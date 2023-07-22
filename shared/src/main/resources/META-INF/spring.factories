@@ -1,0 +1,5 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+me.rasztabiga.thesis.shared.security.SecurityConfig,\
+me.rasztabiga.thesis.shared.security.TestSecurityConfig,\
+me.rasztabiga.thesis.shared.config.ErrorWebExceptionHandler,\
+me.rasztabiga.thesis.shared.config.XStreamConfig
