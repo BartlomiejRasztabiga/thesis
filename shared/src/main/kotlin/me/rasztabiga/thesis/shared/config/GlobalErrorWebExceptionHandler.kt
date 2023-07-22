@@ -1,8 +1,6 @@
 package me.rasztabiga.thesis.shared.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import org.axonframework.commandhandling.CommandExecutionException
-import org.axonframework.queryhandling.QueryExecutionException
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.Ordered
@@ -33,10 +31,25 @@ class GlobalErrorWebExceptionHandler(
 
     // TODO Can I make it better? Currently Axon swallows all of my original exceptions
 
-    // TODO this switch has stopped working
     private fun createError(ex: Throwable): ApiError {
-        return when (ex) {
-            is CommandExecutionException -> {
+        return when {
+            ex::class.java.name == "org.axonframework.commandhandling.CommandExecutionException" -> {
+                when {
+                    ex.localizedMessage.contains("not found") -> {
+                        ApiError(ex.message!!, NOT_FOUND)
+                    }
+
+                    ex.localizedMessage.contains("OUT_OF_RANGE") -> {
+                        ApiError("Aggregate identifier must be unique", BAD_REQUEST)
+                    }
+
+                    else -> {
+                        ApiError(ex.message!!, INTERNAL_SERVER_ERROR)
+                    }
+                }
+            }
+
+            ex::class.java.name == "org.axonframework.queryhandling.QueryExecutionException" -> {
                 when {
                     ex.localizedMessage.contains("not found") -> {
                         ApiError(ex.message!!, NOT_FOUND)
@@ -48,19 +61,7 @@ class GlobalErrorWebExceptionHandler(
                 }
             }
 
-            is QueryExecutionException -> {
-                when {
-                    ex.localizedMessage.contains("not found") -> {
-                        ApiError(ex.message!!, NOT_FOUND)
-                    }
-
-                    else -> {
-                        ApiError(ex.message!!, INTERNAL_SERVER_ERROR)
-                    }
-                }
-            }
-
-            is IllegalArgumentException -> {
+            ex is IllegalArgumentException -> {
                 ApiError(ex.message!!, BAD_REQUEST)
             }
 

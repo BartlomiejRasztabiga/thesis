@@ -1,4 +1,4 @@
-package me.rasztabiga.thesis.order.config
+package me.rasztabiga.thesis.shared.config
 
 import org.springframework.security.core.context.ReactiveSecurityContextHolder
 import org.springframework.security.oauth2.jwt.Jwt
