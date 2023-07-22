@@ -2,7 +2,7 @@ package me.rasztabiga.thesis.restaurant
 
 import com.ninjasquad.springmockk.MockkBean
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.RestaurantController
-import me.rasztabiga.thesis.restaurant.config.TestSecurityConfig
+import me.rasztabiga.thesis.shared.security.TestSecurityConfig
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway
 import org.springframework.beans.factory.annotation.Autowired
