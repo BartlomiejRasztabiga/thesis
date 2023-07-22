@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     id("org.springframework.boot") version "3.1.0"
@@ -15,6 +16,7 @@ group = "me.rasztabiga.thesis"
 java {
     sourceCompatibility = JavaVersion.VERSION_17
     targetCompatibility = JavaVersion.VERSION_17
+    withSourcesJar()
 }
 
 repositories {
@@ -35,6 +37,9 @@ dependencyManagement {
         mavenBom("org.axonframework:axon-bom:${axonVersion}")
     }
 }
+
+val bootJar: BootJar by tasks
+bootJar.enabled = false
 
 publishing {
     publications {
