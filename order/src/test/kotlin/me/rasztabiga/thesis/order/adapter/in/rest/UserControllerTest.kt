@@ -24,8 +24,8 @@ class UserControllerTest : BaseWebFluxTest() {
     @Test
     fun `when POST is performed on users endpoint, then returns 201 CREATED`() {
         // given
-        val request = CreateUserRequest("1", "User")
-        every { reactorCommandGateway.send<String>(any()) } returns Mono.just(request.id)
+        val request = CreateUserRequest("User")
+        every { reactorCommandGateway.send<String>(any()) } returns Mono.just("1")
 
         // when
         val response = webTestClient.post()
@@ -40,7 +40,7 @@ class UserControllerTest : BaseWebFluxTest() {
 
         // then
         response shouldNotBe null
-        response!!.id shouldBe request.id
+        response!!.id shouldBe "1"
     }
 
     @Test
