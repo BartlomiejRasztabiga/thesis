@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 import java.util.*
 
@@ -57,8 +58,11 @@ class UserController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyAuthority('${Scopes.USER.WRITE}')")
-    fun createUser(@RequestBody request: CreateUserRequest): Mono<StringIdWrapper> {
-        val command = mapToCreateUserCommand(request)
+    fun createUser(
+        @RequestBody request: CreateUserRequest,
+        exchange: ServerWebExchange
+    ): Mono<StringIdWrapper> {
+        val command = mapToCreateUserCommand(request, exchange)
         val id = reactorCommandGateway.send<String>(command)
         return id.map { StringIdWrapper(it) }
     }

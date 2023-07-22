@@ -4,15 +4,17 @@ package me.rasztabiga.thesis.order.adapter.`in`.rest.mapper
 
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.CreateDeliveryAddressRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.CreateUserRequest
+import me.rasztabiga.thesis.order.config.getUserId
 import me.rasztabiga.thesis.order.domain.command.command.CreateDeliveryAddressCommand
 import me.rasztabiga.thesis.order.domain.command.command.CreateUserCommand
 import me.rasztabiga.thesis.order.domain.command.command.DeleteDeliveryAddressCommand
+import org.springframework.web.server.ServerWebExchange
 import java.util.*
 
 object UserControllerMapper {
-    fun mapToCreateUserCommand(request: CreateUserRequest): CreateUserCommand {
+    fun mapToCreateUserCommand(request: CreateUserRequest, exchange: ServerWebExchange): CreateUserCommand {
         return CreateUserCommand(
-            id = request.id,
+            id = exchange.getUserId(),
             name = request.name
         )
     }

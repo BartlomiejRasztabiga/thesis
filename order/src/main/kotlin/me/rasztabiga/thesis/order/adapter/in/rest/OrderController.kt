@@ -4,7 +4,6 @@ package me.rasztabiga.thesis.order.adapter.`in`.rest
 
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.StartOrderRequest
-import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToStartOrderCommand
 import me.rasztabiga.thesis.order.domain.query.query.FindOrderByIdQuery
 import me.rasztabiga.thesis.shared.UuidWrapper
@@ -21,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 import java.util.*
 
@@ -33,9 +33,11 @@ class OrderController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyAuthority('${Scopes.ORDER.WRITE}')")
-    fun startOrder(@RequestBody request: StartOrderRequest): Mono<UuidWrapper> {
-        // TODO userId powinno przyjsc z tokenu (???)
-        val command = mapToStartOrderCommand(request)
+    fun startOrder(
+        @RequestBody request: StartOrderRequest,
+        exchange: ServerWebExchange
+    ): Mono<UuidWrapper> {
+        val command = mapToStartOrderCommand(request, exchange)
         val id = reactorCommandGateway.send<UUID>(command)
         return id.map { UuidWrapper(it) }
     }
