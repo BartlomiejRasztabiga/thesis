@@ -42,7 +42,9 @@ export async function action({ request, params }: ActionArgs) {
 
     const id = await startOrder(request, "TODO userId", params.restaurantId);
 
-    return json({});
+    return json({
+      orderId: id,
+    });
   }
 
   if (_action === "add_to_order") {

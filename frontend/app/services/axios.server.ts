@@ -1,4 +1,5 @@
-import axios, { Axios } from "axios";
+import type { Axios } from "axios";
+import axios from "axios";
 
 import invariant from "tiny-invariant";
 import { getAccessToken } from "~/services/session.server";

@@ -1,14 +1,7 @@
-import { faker } from "@faker-js/faker";
-
 describe("smoke tests", () => {
   afterEach(() => {});
 
   it("should allow you to make a note", () => {
-    const testNote = {
-      title: faker.lorem.words(1),
-      body: faker.lorem.sentences(1),
-    };
-
     cy.visitAndCheck("/");
 
     // cy.findByRole("link", { name: /notes/i }).click();
