@@ -1,4 +1,3 @@
-import invariant from "tiny-invariant";
 import { getAxios } from "~/services/axios.server";
 
 export const getRestaurants = async (

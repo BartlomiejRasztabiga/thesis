@@ -1,6 +1,5 @@
-import invariant from "tiny-invariant";
 import { getAxios } from "~/services/axios.server";
-import { UuidWrapper } from "~/models/utils.server";
+import type { UuidWrapper } from "~/models/utils.server";
 
 export const getOrder = async (
   request: Request,
