@@ -3,7 +3,7 @@ package me.rasztabiga.thesis.order
 import com.ninjasquad.springmockk.MockkBean
 import me.rasztabiga.thesis.order.adapter.`in`.rest.OrderController
 import me.rasztabiga.thesis.order.adapter.`in`.rest.UserController
-import me.rasztabiga.thesis.order.config.TestSecurityConfig
+import me.rasztabiga.thesis.shared.security.TestSecurityConfig
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway
 import org.springframework.beans.factory.annotation.Autowired

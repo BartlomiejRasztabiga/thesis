@@ -2,8 +2,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
-    id("org.springframework.boot") version "3.1.0"
-    id("io.spring.dependency-management") version "1.1.0"
+    id("org.springframework.boot") version "3.1.2"
+    id("io.spring.dependency-management") version "1.1.2"
     id("org.jetbrains.kotlin.jvm") version "1.8.21"
     id("org.jetbrains.kotlin.plugin.spring") version "1.8.21"
     id("java-library")
@@ -23,7 +23,7 @@ repositories {
     mavenCentral()
 }
 
-val axonVersion = "4.7.4"
+val axonVersion = "4.8.0"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
