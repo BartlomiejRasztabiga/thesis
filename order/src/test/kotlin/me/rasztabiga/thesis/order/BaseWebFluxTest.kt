@@ -1,6 +1,7 @@
 package me.rasztabiga.thesis.order
 
 import com.ninjasquad.springmockk.MockkBean
+import me.rasztabiga.thesis.shared.config.TestUserContextWebFilter
 import me.rasztabiga.thesis.shared.security.TestSecurityConfig
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway
@@ -11,7 +12,7 @@ import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.reactive.server.WebTestClient
 
 @WebFluxTest
-@Import(TestSecurityConfig::class)
+@Import(TestSecurityConfig::class, TestUserContextWebFilter::class)
 @ActiveProfiles("test")
 open class BaseWebFluxTest {
 
