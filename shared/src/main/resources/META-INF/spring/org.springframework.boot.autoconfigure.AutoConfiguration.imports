@@ -2,3 +2,4 @@ me.rasztabiga.thesis.shared.security.SecurityConfig
 me.rasztabiga.thesis.shared.security.TestSecurityConfig
 me.rasztabiga.thesis.shared.config.GlobalErrorWebExceptionHandler
 me.rasztabiga.thesis.shared.config.XStreamConfig
+me.rasztabiga.thesis.shared.config.TestUserContextWebFilter
