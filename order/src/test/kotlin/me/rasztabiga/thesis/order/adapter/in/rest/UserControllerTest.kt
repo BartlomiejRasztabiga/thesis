@@ -5,12 +5,12 @@ package me.rasztabiga.thesis.order.adapter.`in`.rest
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.mockk.every
-import me.rasztabiga.thesis.order.BaseWebFluxTest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.CreateDeliveryAddressRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.CreateUserRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.UserResponse
 import me.rasztabiga.thesis.order.domain.query.query.FindAllUsersQuery
 import me.rasztabiga.thesis.order.domain.query.query.FindUserByIdQuery
+import me.rasztabiga.thesis.shared.BaseWebFluxTest
 import me.rasztabiga.thesis.shared.StringIdWrapper
 import me.rasztabiga.thesis.shared.UuidWrapper
 import org.axonframework.messaging.responsetypes.ResponseTypes
