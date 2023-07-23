@@ -10,8 +10,8 @@ export const sessionStorage = createCookieSessionStorage({
     path: "/",
     sameSite: "lax",
     secrets: [process.env.SESSION_SECRET],
-    secure: process.env.NODE_ENV === "production",
-  },
+    secure: process.env.NODE_ENV === "production"
+  }
 });
 
 export async function getSession(request: Request) {
@@ -25,7 +25,7 @@ export async function destroySession(request: Request) {
 }
 
 export async function getAccessToken(
-  request: Request,
+  request: Request
 ): Promise<string | undefined> {
   const session = await getSession(request);
   if (!session.data.user) return undefined;
@@ -43,13 +43,13 @@ export async function getUser(request: Request) {
   if (userId === undefined) return null;
 
   return {
-    id: userId,
+    id: userId
   };
 }
 
 export async function requireUserId(
   request: Request,
-  redirectTo: string = new URL(request.url).pathname,
+  redirectTo: string = new URL(request.url).pathname
 ) {
   const userId = await getUserId(request);
   if (!userId) {
@@ -59,7 +59,6 @@ export async function requireUserId(
   return userId;
 }
 
-// TODO w ten sposob?
 export async function setOrderId(request: Request, orderId: string) {
   const session = await getSession(request);
   session.set("orderId", orderId);

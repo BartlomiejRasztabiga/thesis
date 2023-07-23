@@ -11,12 +11,11 @@ export const getOrder = async (
 
 export const startOrder = async (
   request: Request,
-  userId: string,
   restaurantId: string,
 ): Promise<UuidWrapper> => {
   const axios = await getAxios(request);
   return axios
-    .post(`/api/v1/orders`, { userId, restaurantId })
+    .post(`/api/v1/orders`, { restaurantId })
     .then((res) => res.data);
 };
 

@@ -3,7 +3,7 @@ import { json } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { getRestaurant } from "~/models/restaurant.server";
-import { getOrderId } from "~/services/session.server";
+import { getOrderId, setOrderId } from "~/services/session.server";
 import { getOrder, startOrder } from "~/models/order.server";
 
 export async function loader({ request, params }: LoaderArgs) {
@@ -16,18 +16,15 @@ export async function loader({ request, params }: LoaderArgs) {
     throw new Response("Not Found", { status: 404 });
   }
 
-  // TODO load any active order, get id from session
-
   const activeOrderId = await getOrderId(request);
 
-  let order;
+  let activeOrder;
 
   if (activeOrderId) {
-    order = await getOrder(request, activeOrderId);
-    console.log(order);
+    activeOrder = await getOrder(request, activeOrderId);
   }
 
-  return json({ restaurant, order });
+  return json({ restaurant, activeOrder });
 }
 
 export async function action({ request, params }: ActionArgs) {
@@ -37,14 +34,19 @@ export async function action({ request, params }: ActionArgs) {
   invariant(params.restaurantId, "restaurantId not found");
 
   if (_action === "start_order") {
-    console.log("start_order");
-    // TODO create order, save id to session
+    const orderId = await startOrder(request, params.restaurantId);
+    const setCookie = await setOrderId(request, orderId.id);
 
-    const id = await startOrder(request, "TODO userId", params.restaurantId);
-
-    return json({
-      orderId: id,
-    });
+    return json(
+      {
+        orderId: orderId
+      },
+      {
+        headers: {
+          // only necessary with cookieSessionStorage
+          "Set-Cookie": setCookie
+        }
+      });
   }
 
   if (_action === "add_to_order") {
@@ -77,9 +79,10 @@ export default function RestaurantPage() {
                 <input type="hidden" name="id" value={item.id} />
                 <button
                   type="submit"
-                  className="rounded bg-blue-500  px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400"
+                  className={`rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400 ${!data.activeOrder && "opacity-50"}`}
                   name="_action"
                   value="add_to_order"
+                  disabled={!data.activeOrder}
                 >
                   Add to order
                 </button>
@@ -90,16 +93,22 @@ export default function RestaurantPage() {
         </div>
       </div>
       <div className="h-full w-80 border-r bg-gray-50">
-        <Form method="post">
-          <button
-            type="submit"
-            className="rounded bg-green-500  px-4 py-2 text-white hover:bg-green-600 focus:bg-green-400"
-            name="_action"
-            value="start_order"
-          >
-            Start order
-          </button>
-        </Form>
+        {data.activeOrder ?
+          (
+            <p className="text-lg text-center">Your order</p>
+          ) :
+          (
+            <Form method="post">
+              <button
+                type="submit"
+                className="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600 focus:bg-green-400"
+                name="_action"
+                value="start_order"
+              >
+                Start order
+              </button>
+            </Form>
+          )}
       </div>
     </div>
   );

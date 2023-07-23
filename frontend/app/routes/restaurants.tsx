@@ -1,7 +1,8 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
+import { NavLink, Outlet, useLoaderData } from "@remix-run/react";
 import { getRestaurants } from "~/models/restaurant.server";
+import Navbar from "~/components/Navbar";
 
 export async function loader({ request }: LoaderArgs) {
   const restaurants = await getRestaurants(request);
@@ -13,15 +14,7 @@ export default function RestaurantsPage() {
 
   return (
     <div className="flex h-full min-h-screen flex-col">
-      {/* TODO export as a common header */}
-      <header className="flex items-center justify-between bg-slate-800 p-4 text-white">
-        <h1 className="text-3xl font-bold">
-          <Link to=".">Restaurants</Link>
-        </h1>
-        <button>
-          <Link to="/auth/logout">Logout</Link>
-        </button>
-      </header>
+      <Navbar />
 
       <main className="flex h-full bg-white">
         <div className="h-full w-80 border-r bg-gray-50">
