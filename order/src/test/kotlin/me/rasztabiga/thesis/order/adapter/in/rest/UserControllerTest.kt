@@ -121,17 +121,17 @@ class UserControllerTest : BaseWebFluxTest() {
     }
 
     @Test
-    fun `when DELETE is performed on delivery addresses endpoint, then returns 200 OK`() {
+    fun `when DELETE is performed on delivery addresses endpoint, then returns 204 NO_CONTENT`() {
         // given
         val addressId = UUID.randomUUID()
-        every { reactorCommandGateway.send<UUID>(any()) } returns Mono.just(UUID.randomUUID())
+        every { reactorCommandGateway.send<Void>(any()) } returns Mono.empty()
 
         // when
         webTestClient.delete()
             .uri("/api/v1/users/1/addresses/$addressId")
             .accept(MediaType.APPLICATION_JSON)
             .exchange()
-            .expectStatus().isOk
+            .expectStatus().isNoContent
 
         // then
     }

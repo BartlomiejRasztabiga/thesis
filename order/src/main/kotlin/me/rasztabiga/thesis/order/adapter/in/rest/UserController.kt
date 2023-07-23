@@ -80,13 +80,13 @@ class UserController(
     }
 
     @DeleteMapping("/{userId}/addresses/{addressId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasAnyAuthority('${Scopes.USER.WRITE}')")
     fun deleteDeliveryAddress(
         @PathVariable userId: String,
         @PathVariable addressId: UUID
-    ): Mono<UuidWrapper> {
+    ): Mono<Void> {
         val command = mapToDeleteDeliveryAddressCommand(userId, addressId)
-        val id = reactorCommandGateway.send<UUID>(command)
-        return id.map { UuidWrapper(it) }
+        return reactorCommandGateway.send(command)
     }
 }

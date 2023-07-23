@@ -56,6 +56,7 @@ class OrderController(
     }
 
     @PostMapping("/{orderId}/items")
+    @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyAuthority('${Scopes.ORDER.WRITE}')")
     fun addOrderItem(
         @PathVariable orderId: UUID,
@@ -68,6 +69,7 @@ class OrderController(
     }
 
     @DeleteMapping("/{orderId}/items/{orderItemId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasAnyAuthority('${Scopes.ORDER.WRITE}')")
     fun deleteOrderItem(
         @PathVariable orderId: UUID,

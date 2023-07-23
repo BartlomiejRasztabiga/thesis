@@ -5,6 +5,7 @@ package me.rasztabiga.thesis.order.adapter.`in`.rest
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.mockk.every
+import me.rasztabiga.thesis.order.adapter.`in`.rest.api.AddOrderItemRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.StartOrderRequest
 import me.rasztabiga.thesis.order.domain.query.query.FindOrderByIdQuery
@@ -67,5 +68,45 @@ class OrderControllerTest : BaseWebFluxTest() {
         response shouldNotBe null
         response!!.id shouldBe existingOrder.id
         response.status shouldBe existingOrder.status
+    }
+
+    @Test
+    fun `when POST is performed on order items endpoint, then returns 201 CREATED`() {
+        // given
+        val request = AddOrderItemRequest(UUID.randomUUID())
+        val orderId = UUID.randomUUID()
+        every { reactorCommandGateway.send<UUID>(any()) } returns Mono.just(orderId)
+
+        // when
+        val response = webTestClient.post()
+            .uri("/api/v1/orders/$orderId/items")
+            .body(Mono.just(request), StartOrderRequest::class.java)
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .expectStatus().isCreated
+            .expectBody(UuidWrapper::class.java)
+            .returnResult()
+            .responseBody
+
+        // then
+        response shouldNotBe null
+        response!!.id shouldNotBe null
+    }
+
+    @Test
+    fun `when DELETE is performed on order items endpoint, then returns 204 NO_CONTENT`() {
+        // given
+        val orderId = UUID.randomUUID()
+        val orderItemId = UUID.randomUUID()
+        every { reactorCommandGateway.send<Void>(any()) } returns Mono.empty()
+
+        // when
+        webTestClient.delete()
+            .uri("/api/v1/orders/$orderId/items/$orderItemId")
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .expectStatus().isNoContent
+
+        // then
     }
 }
