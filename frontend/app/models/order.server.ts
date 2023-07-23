@@ -14,9 +14,7 @@ export const startOrder = async (
   restaurantId: string,
 ): Promise<UuidWrapper> => {
   const axios = await getAxios(request);
-  return axios
-    .post(`/api/v1/orders`, { restaurantId })
-    .then((res) => res.data);
+  return axios.post(`/api/v1/orders`, { restaurantId }).then((res) => res.data);
 };
 
 interface OrderResponse {

@@ -13,6 +13,6 @@ export default defineConfig({
     setupFiles: ["./test/setup-test-env.ts"],
     coverage: {
       provider: "v8",
-    }
+    },
   },
 });

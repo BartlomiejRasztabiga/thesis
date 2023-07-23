@@ -39,14 +39,15 @@ export async function action({ request, params }: ActionArgs) {
 
     return json(
       {
-        orderId: orderId
+        orderId: orderId,
       },
       {
         headers: {
           // only necessary with cookieSessionStorage
-          "Set-Cookie": setCookie
-        }
-      });
+          "Set-Cookie": setCookie,
+        },
+      },
+    );
   }
 
   if (_action === "add_to_order") {
@@ -79,7 +80,9 @@ export default function RestaurantPage() {
                 <input type="hidden" name="id" value={item.id} />
                 <button
                   type="submit"
-                  className={`rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400 ${!data.activeOrder && "opacity-50"}`}
+                  className={`rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400 ${
+                    !data.activeOrder && "opacity-50"
+                  }`}
                   name="_action"
                   value="add_to_order"
                   disabled={!data.activeOrder}
@@ -93,22 +96,20 @@ export default function RestaurantPage() {
         </div>
       </div>
       <div className="h-full w-80 border-r bg-gray-50">
-        {data.activeOrder ?
-          (
-            <p className="text-lg text-center">Your order</p>
-          ) :
-          (
-            <Form method="post">
-              <button
-                type="submit"
-                className="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600 focus:bg-green-400"
-                name="_action"
-                value="start_order"
-              >
-                Start order
-              </button>
-            </Form>
-          )}
+        {data.activeOrder ? (
+          <p className="text-lg text-center">Your order</p>
+        ) : (
+          <Form method="post">
+            <button
+              type="submit"
+              className="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600 focus:bg-green-400"
+              name="_action"
+              value="start_order"
+            >
+              Start order
+            </button>
+          </Form>
+        )}
       </div>
     </div>
   );

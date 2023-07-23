@@ -1,6 +1,5 @@
 describe("smoke tests", () => {
   afterEach(() => {});
 
-  it("should allow you to start an order", () => {
-  });
+  it("should allow you to start an order", () => {});
 });
