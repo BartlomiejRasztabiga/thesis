@@ -1,5 +1,5 @@
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { Form, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { getRestaurant } from "~/models/restaurant.server";
@@ -34,16 +34,14 @@ export async function action({ request, params }: ActionArgs) {
   invariant(params.restaurantId, "restaurantId not found");
 
   if (_action === "start_order") {
-    console.log("start_order")
+    console.log("start_order");
     const orderId = await startOrder(request, params.restaurantId);
-    console.log("order_id: " + orderId)
+    console.log("order_id: " + orderId.id);
     const setCookie = await setOrderId(request, orderId.id);
-    console.log("setCookie: " + setCookie)
+    console.log("setCookie: " + setCookie);
 
-    return json(
-      {
-        orderId: orderId
-      },
+    return redirect(
+      `/restaurants/${params.restaurantId}`,
       {
         headers: {
           // only necessary with cookieSessionStorage
