@@ -4,7 +4,7 @@ import { Form, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { getRestaurant } from "~/models/restaurant.server";
 import { getOrderId, setOrderId } from "~/services/session.server";
-import { getOrder, startOrder } from "~/models/order.server";
+import { addOrderItem, deleteOrderItem, getOrder, startOrder } from "~/models/order.server";
 
 export async function loader({ request, params }: LoaderArgs) {
   const restaurantId = params.restaurantId;
@@ -39,23 +39,37 @@ export async function action({ request, params }: ActionArgs) {
 
     return json(
       {
-        orderId: orderId,
+        orderId: orderId
       },
       {
         headers: {
           // only necessary with cookieSessionStorage
-          "Set-Cookie": setCookie,
-        },
-      },
+          "Set-Cookie": setCookie
+        }
+      }
     );
   }
 
-  if (_action === "add_to_order") {
-    console.log("add_to_order");
-    // TODO add item to order
+  if (_action === "add_order_item") {
+    const activeOrderId = await getOrderId(request);
+    invariant(activeOrderId, "activeOrderId not found");
 
-    const productId = values.id;
-    console.log(productId);
+    const productId = values.id as string;
+    invariant(productId, "productId not found");
+
+    await addOrderItem(request, activeOrderId, productId);
+
+    return json({});
+  }
+
+  if (_action === "delete_order_item") {
+    const activeOrderId = await getOrderId(request);
+    invariant(activeOrderId, "activeOrderId not found");
+
+    const orderItemId = values.id as string;
+    invariant(orderItemId, "orderItemId not found");
+
+    await deleteOrderItem(request, activeOrderId, orderItemId);
 
     return json({});
   }
@@ -63,6 +77,8 @@ export async function action({ request, params }: ActionArgs) {
 
 export default function RestaurantPage() {
   const data = useLoaderData<typeof loader>();
+
+  let orderSum = 0;
 
   return (
     <div className="flex h-full bg-white">
@@ -84,7 +100,7 @@ export default function RestaurantPage() {
                     !data.activeOrder && "opacity-50"
                   }`}
                   name="_action"
-                  value="add_to_order"
+                  value="add_order_item"
                   disabled={!data.activeOrder}
                 >
                   Add to order
@@ -96,8 +112,49 @@ export default function RestaurantPage() {
         </div>
       </div>
       <div className="h-full w-80 border-r bg-gray-50">
+
         {data.activeOrder ? (
-          <p className="text-lg text-center">Your order</p>
+          <>
+            <p className="text-lg text-center mb-4">Your order</p>
+            {data.activeOrder.items.map((item) => {
+              const menuItem = data.restaurant.menu.find((menuItem) => menuItem.id === item.productId);
+              invariant(menuItem, "menuItem not found");
+
+              orderSum += menuItem.price;
+
+              return (
+                <Form method="post">
+                  <input type="hidden" name="id" value={item.id} />
+                  <div key={item.id} className="flex flex-row items-center justify-between">
+                    <p className="flex-grow"> 1x {menuItem.name}, {menuItem.price} PLN</p>
+                    <button
+                      type="submit"
+                      className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600 focus:bg-red-400"
+                      name="_action"
+                      value="delete_order_item"
+                    >
+                      {/* TODO add proper icons */}
+                      🗑
+                    </button>
+                    <hr className="my-4" />
+                  </div>
+                </Form>
+              );
+            })}
+            <p className="text-lg text-center">Total: {orderSum} PLN</p>
+
+            {/* TODO center */}
+            <Form method="post">
+              <button
+                type="submit"
+                className="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600 focus:bg-green-400"
+                name="_action"
+                value="finalize_order"
+              >
+                Finalize order
+              </button>
+            </Form>
+          </>
         ) : (
           <Form method="post">
             <button

@@ -15,6 +15,7 @@ data class OrderResponse(
         CREATED
     }
 
+    // TODO maybe we should aggregate all the product data here (price etc.)
     data class OrderItem(
         val id: UUID,
         val productId: UUID
