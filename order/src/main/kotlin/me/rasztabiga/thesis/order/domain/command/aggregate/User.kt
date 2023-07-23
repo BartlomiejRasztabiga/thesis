@@ -23,7 +23,7 @@ internal class User {
     @AggregateMember
     private val deliveryAddresses: MutableList<DeliveryAddress> = mutableListOf()
 
-    constructor()
+    private constructor()
 
     @CommandHandler
     constructor(command: CreateUserCommand) {

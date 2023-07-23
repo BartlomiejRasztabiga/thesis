@@ -21,7 +21,7 @@ class OrderControllerTest : BaseWebFluxTest() {
     @Test
     fun `when POST is performed on orders endpoint, then returns 201 CREATED`() {
         // given
-        val request = StartOrderRequest("1", UUID.randomUUID())
+        val request = StartOrderRequest(UUID.randomUUID())
         val orderId = UUID.randomUUID()
         every { reactorCommandGateway.send<UUID>(any()) } returns Mono.just(orderId)
 
@@ -44,7 +44,8 @@ class OrderControllerTest : BaseWebFluxTest() {
     @Test
     fun `when GET is performed on order endpoint, then returns 200 OK`() {
         // given
-        val existingOrder = OrderResponse(UUID.randomUUID(), UUID.randomUUID(), "", OrderResponse.OrderStatus.CREATED)
+        val existingOrder =
+            OrderResponse(UUID.randomUUID(), UUID.randomUUID(), "", OrderResponse.OrderStatus.CREATED, emptyList())
         every {
             reactorQueryGateway.query(
                 any<FindOrderByIdQuery>(),

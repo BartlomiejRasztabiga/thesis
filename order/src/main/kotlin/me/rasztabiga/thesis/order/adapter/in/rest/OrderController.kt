@@ -2,8 +2,10 @@
 
 package me.rasztabiga.thesis.order.adapter.`in`.rest
 
+import me.rasztabiga.thesis.order.adapter.`in`.rest.api.AddOrderItemRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.StartOrderRequest
+import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToAddOrderItemCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToStartOrderCommand
 import me.rasztabiga.thesis.order.domain.query.query.FindOrderByIdQuery
 import me.rasztabiga.thesis.shared.UuidWrapper
@@ -49,6 +51,19 @@ class OrderController(
             FindOrderByIdQuery(orderId),
             ResponseTypes.instanceOf(OrderResponse::class.java)
         )
+    }
+
+    @PostMapping("/{orderId}/items")
+    @PreAuthorize("hasAnyAuthority('${Scopes.ORDER.WRITE}')")
+    fun addOrderItem(
+        @PathVariable orderId: UUID,
+        @RequestBody request: AddOrderItemRequest,
+        exchange: ServerWebExchange
+    ): Mono<OrderResponse> {
+        // TODO verify that the order belongs to the user
+        val command = mapToAddOrderItemCommand(orderId, request, exchange)
+        return reactorCommandGateway.send<UUID>(command)
+            .flatMap { getOrder(orderId) }
     }
 }
 

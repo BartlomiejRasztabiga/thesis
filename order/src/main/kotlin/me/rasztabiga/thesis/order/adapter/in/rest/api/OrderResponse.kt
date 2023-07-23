@@ -8,9 +8,15 @@ data class OrderResponse(
     val id: UUID,
     val restaurantId: UUID,
     val userId: String,
-    val status: OrderStatus
+    val status: OrderStatus,
+    val items: List<OrderItem>
 ) {
     enum class OrderStatus {
         CREATED
     }
+
+    data class OrderItem(
+        val id: UUID,
+        val productId: UUID
+    )
 }

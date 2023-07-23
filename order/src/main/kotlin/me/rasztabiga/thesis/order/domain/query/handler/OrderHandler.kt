@@ -1,7 +1,9 @@
 package me.rasztabiga.thesis.order.domain.query.handler
 
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.OrderResponse
+import me.rasztabiga.thesis.order.domain.command.event.OrderItemAddedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
+import me.rasztabiga.thesis.order.domain.query.entity.OrderEntity
 import me.rasztabiga.thesis.order.domain.query.exception.OrderNotFoundException
 import me.rasztabiga.thesis.order.domain.query.mapper.OrderMapper.mapToEntity
 import me.rasztabiga.thesis.order.domain.query.mapper.OrderMapper.mapToResponse
@@ -22,6 +24,13 @@ class OrderHandler(
     @EventHandler
     fun on(event: OrderStartedEvent) {
         val entity = mapToEntity(event)
+        orderRepository.save(entity)
+    }
+
+    @EventHandler
+    fun on(event: OrderItemAddedEvent) {
+        val entity = orderRepository.load(event.orderId) ?: throw OrderNotFoundException(event.orderId)
+        entity.items.add(OrderEntity.OrderItem(event.orderItemId, event.productId))
         orderRepository.save(entity)
     }
 
