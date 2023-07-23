@@ -3,8 +3,8 @@
 		"_postman_id": "ff86a588-b504-4f6c-b390-0a5617428b88",
 		"name": "Thesis",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "1388028",
-		"_collection_link": "https://symmetricaltest.postman.co/workspace/Symmetrical~11210755-3eaa-48a2-bc79-e1ff032e261e/collection/1388028-ff86a588-b504-4f6c-b390-0a5617428b88?action=share&creator=1388028&source=collection_link"
+		"_exporter_id": "19345317",
+		"_collection_link": "https://symmetricaltest.postman.co/workspace/Symmetrical~11210755-3eaa-48a2-bc79-e1ff032e261e/collection/1388028-ff86a588-b504-4f6c-b390-0a5617428b88?action=share&creator=19345317&source=collection_link"
 	},
 	"item": [
 		{
@@ -269,7 +269,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"menu\": [\n        {\n            \"name\": \"Product #1\",\n            \"description\": \"Description\",\n            \"price\": 21.37\n        }\n    ]\n}",
+							"raw": "{\n    \"menu\": [\n        {\n            \"name\": \"Product #1\",\n            \"description\": \"Description\",\n            \"price\": 21.37\n        },\n        {\n            \"name\": \"Product #2\",\n            \"description\": \"Description 2\",\n            \"price\": 23.37\n        }\n    ]\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -313,6 +313,18 @@
 				},
 				{
 					"name": "Get restaurant",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"product_id\", jsonData.menu[0].id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -405,7 +417,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": \"{{$guid}}\",\n    \"name\": \"{{$randomFullName}}\"\n}",
+							"raw": "{\n    \"name\": \"{{$randomFullName}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -559,7 +571,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userId\": \"{{user_id}}\",\n    \"restaurantId\": \"{{restaurant_id}}\"\n}",
+							"raw": "{\n    \"restaurantId\": \"{{restaurant_id}}\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -587,8 +599,7 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									"var jsonData = pm.response.json();",
-									"pm.collectionVariables.set(\"order_id\", jsonData.id);"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -619,6 +630,81 @@
 								"v1",
 								"orders",
 								"{{order_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add order item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"order_item_id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"productId\": \"{{product_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/orders/{{order_id}}/items",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"{{order_id}}",
+								"items"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete order item",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/orders/{{order_id}}/items/{{order_item_id}}",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"{{order_id}}",
+								"items",
+								"{{order_item_id}}"
 							]
 						}
 					},
@@ -657,6 +743,26 @@
 			]
 		}
 	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
 	"variable": [
 		{
 			"key": "restaurant_manager_access_token",
@@ -676,6 +782,18 @@
 		},
 		{
 			"key": "delivery_address_id",
+			"value": ""
+		},
+		{
+			"key": "order_id",
+			"value": ""
+		},
+		{
+			"key": "product_id",
+			"value": ""
+		},
+		{
+			"key": "order_item_id",
 			"value": ""
 		}
 	]

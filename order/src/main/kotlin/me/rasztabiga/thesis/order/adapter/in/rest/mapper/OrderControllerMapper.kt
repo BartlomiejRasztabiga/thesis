@@ -5,6 +5,7 @@ package me.rasztabiga.thesis.order.adapter.`in`.rest.mapper
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.AddOrderItemRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.StartOrderRequest
 import me.rasztabiga.thesis.order.domain.command.command.AddOrderItemCommand
+import me.rasztabiga.thesis.order.domain.command.command.DeleteOrderItemCommand
 import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
 import me.rasztabiga.thesis.shared.config.getUserId
 import org.springframework.web.server.ServerWebExchange
@@ -32,6 +33,18 @@ object OrderControllerMapper {
             userId = exchange.getUserId(),
             orderItemId = UUID.randomUUID(),
             productId = request.productId
+        )
+    }
+
+    fun mapToDeleteOrderItemCommand(
+        orderId: UUID,
+        orderItemId: UUID,
+        exchange: ServerWebExchange
+    ): DeleteOrderItemCommand {
+        return DeleteOrderItemCommand(
+            orderId = orderId,
+            userId = exchange.getUserId(),
+            orderItemId = orderItemId
         )
     }
 }

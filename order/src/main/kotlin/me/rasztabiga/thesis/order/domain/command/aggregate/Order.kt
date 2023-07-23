@@ -1,8 +1,10 @@
 package me.rasztabiga.thesis.order.domain.command.aggregate
 
 import me.rasztabiga.thesis.order.domain.command.command.AddOrderItemCommand
+import me.rasztabiga.thesis.order.domain.command.command.DeleteOrderItemCommand
 import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemAddedEvent
+import me.rasztabiga.thesis.order.domain.command.event.OrderItemDeletedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
@@ -50,6 +52,21 @@ internal class Order {
         )
     }
 
+    @CommandHandler
+    fun handle(command: DeleteOrderItemCommand) {
+        require(this.userId == command.userId) { "Order can be updated only by the user who created it." }
+        require(this.status == OrderStatus.CREATED) { "Order can be updated only if it's in CREATED status." }
+
+        this.items.find { it.orderItemId == command.orderItemId }?.let {
+            apply(
+                OrderItemDeletedEvent(
+                    orderId = command.orderId,
+                    orderItemId = command.orderItemId
+                )
+            )
+        }
+    }
+
     @EventSourcingHandler
     fun on(event: OrderStartedEvent) {
         this.id = event.orderId
@@ -59,6 +76,11 @@ internal class Order {
 
     @EventSourcingHandler
     fun on(event: OrderItemAddedEvent) {
-        items.add(OrderItem(event.orderItemId, event.productId))
+        this.items.add(OrderItem(event.orderItemId, event.productId))
+    }
+
+    @EventSourcingHandler
+    fun on(event: OrderItemDeletedEvent) {
+        this.items.removeIf { it.orderItemId == event.orderItemId }
     }
 }
