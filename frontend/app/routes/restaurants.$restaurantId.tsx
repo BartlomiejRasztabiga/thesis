@@ -40,15 +40,12 @@ export async function action({ request, params }: ActionArgs) {
     const setCookie = await setOrderId(request, orderId.id);
     console.log("setCookie: " + setCookie);
 
-    return redirect(
-      `/restaurants/${params.restaurantId}`,
-      {
-        headers: {
-          // only necessary with cookieSessionStorage
-          "Set-Cookie": setCookie
-        }
+    return json({}, {
+      headers: {
+        // only necessary with cookieSessionStorage
+        "Set-Cookie": setCookie
       }
-    );
+    });
   }
 
   if (_action === "add_order_item") {
