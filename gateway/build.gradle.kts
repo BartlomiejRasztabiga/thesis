@@ -5,7 +5,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.1.2"
 	id("org.jetbrains.kotlin.jvm") version "1.8.21"
 	id("org.jetbrains.kotlin.plugin.spring") version "1.8.21"
-	id("io.gitlab.arturbosch.detekt") version "1.23.0"
+	id("io.gitlab.arturbosch.detekt") version "1.23.1"
 }
 
 group = "me.rasztabiga.thesis"
