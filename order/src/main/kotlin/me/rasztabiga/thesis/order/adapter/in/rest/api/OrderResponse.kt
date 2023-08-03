@@ -12,7 +12,8 @@ data class OrderResponse(
     val items: List<OrderItem>
 ) {
     enum class OrderStatus {
-        CREATED
+        CREATED,
+        CANCELED
     }
 
     // TODO maybe we should aggregate all the product data here (price etc.)

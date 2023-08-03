@@ -3,8 +3,10 @@ package me.rasztabiga.thesis.order.domain.command
 import me.rasztabiga.thesis.order.domain.command.aggregate.Order
 import me.rasztabiga.thesis.order.domain.command.aggregate.OrderStatus
 import me.rasztabiga.thesis.order.domain.command.command.AddOrderItemCommand
+import me.rasztabiga.thesis.order.domain.command.command.CancelOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.DeleteOrderItemCommand
 import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
+import me.rasztabiga.thesis.order.domain.command.event.OrderCanceledEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemAddedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemDeletedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
@@ -102,5 +104,29 @@ class OrderTest {
             .`when`(deleteOrderItemCommand)
             .expectSuccessfulHandlerExecution()
             .expectEvents(orderItemDeletedEvent)
+    }
+
+    @Test
+    fun `should cancel order`() {
+        val orderStartedEvent = OrderStartedEvent(
+            UUID.randomUUID(),
+            UUID.randomUUID(),
+            "userId",
+            OrderStatus.CREATED
+        )
+
+        val cancelOrderCommand = CancelOrderCommand(
+            orderStartedEvent.orderId,
+            orderStartedEvent.userId
+        )
+
+        val orderCanceledEvent = OrderCanceledEvent(
+            cancelOrderCommand.orderId
+        )
+
+        testFixture.given(orderStartedEvent)
+            .`when`(cancelOrderCommand)
+            .expectSuccessfulHandlerExecution()
+            .expectEvents(orderCanceledEvent)
     }
 }

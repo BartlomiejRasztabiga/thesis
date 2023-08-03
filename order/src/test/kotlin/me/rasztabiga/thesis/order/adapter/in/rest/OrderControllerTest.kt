@@ -109,4 +109,20 @@ class OrderControllerTest : BaseWebFluxTest() {
 
         // then
     }
+
+    @Test
+    fun `when DELETE is performed on order endpoint, then returns 204 NO_CONTENT`() {
+        // given
+        val orderId = UUID.randomUUID()
+        every { reactorCommandGateway.send<Void>(any()) } returns Mono.empty()
+
+        // when
+        webTestClient.delete()
+            .uri("/api/v1/orders/$orderId")
+            .accept(MediaType.APPLICATION_JSON)
+            .exchange()
+            .expectStatus().isNoContent
+
+        // then
+    }
 }

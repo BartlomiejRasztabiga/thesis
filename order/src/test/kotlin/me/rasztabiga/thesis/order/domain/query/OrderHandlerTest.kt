@@ -2,7 +2,9 @@ package me.rasztabiga.thesis.order.domain.query
 
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import me.rasztabiga.thesis.order.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.order.domain.command.aggregate.OrderStatus
+import me.rasztabiga.thesis.order.domain.command.event.OrderCanceledEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemAddedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemDeletedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
@@ -68,5 +70,22 @@ class OrderHandlerTest {
         order shouldNotBe null
         order!!.id shouldBe orderStartedEvent.orderId
         order.items.size shouldBe 0
+    }
+
+    @Test
+    fun `given order canceled event, when handling FindOrderByIdQuery, then returns order`() {
+        // given
+        val orderStartedEvent = OrderStartedEvent(UUID.randomUUID(), UUID.randomUUID(), "", OrderStatus.CREATED)
+        orderHandler.on(orderStartedEvent)
+        val orderCanceledEvent = OrderCanceledEvent(orderStartedEvent.orderId)
+        orderHandler.on(orderCanceledEvent)
+
+        // when
+        val order = orderHandler.handle(FindOrderByIdQuery(orderStartedEvent.orderId)).block()
+
+        // then
+        order shouldNotBe null
+        order!!.id shouldBe orderStartedEvent.orderId
+        order.status shouldBe OrderResponse.OrderStatus.CANCELED
     }
 }

@@ -1,8 +1,10 @@
 package me.rasztabiga.thesis.order.domain.command.aggregate
 
 import me.rasztabiga.thesis.order.domain.command.command.AddOrderItemCommand
+import me.rasztabiga.thesis.order.domain.command.command.CancelOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.DeleteOrderItemCommand
 import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
+import me.rasztabiga.thesis.order.domain.command.event.OrderCanceledEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemAddedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemDeletedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
@@ -34,6 +36,18 @@ internal class Order {
                 restaurantId = command.restaurantId,
                 userId = command.userId,
                 status = OrderStatus.CREATED
+            )
+        )
+    }
+
+    @CommandHandler
+    fun handle(command: CancelOrderCommand) {
+        require(this.userId == command.userId) { "Order can be canceled only by the user who created it." }
+        require(this.status == OrderStatus.CREATED) { "Order can be canceled only if it's in CREATED status." }
+
+        apply(
+            OrderCanceledEvent(
+                orderId = command.orderId
             )
         )
     }
@@ -72,6 +86,11 @@ internal class Order {
         this.id = event.orderId
         this.userId = event.userId
         this.status = event.status
+    }
+
+    @EventSourcingHandler
+    fun on(event: OrderCanceledEvent) {
+        this.status = OrderStatus.CANCELED
     }
 
     @EventSourcingHandler

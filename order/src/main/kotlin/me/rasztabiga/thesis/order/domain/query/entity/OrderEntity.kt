@@ -10,11 +10,12 @@ data class OrderEntity(
     val id: UUID,
     val restaurantId: UUID,
     val userId: String,
-    val status: OrderStatus,
+    var status: OrderStatus,
     val items: MutableList<OrderItem>
 ) {
     enum class OrderStatus {
-        CREATED
+        CREATED,
+        CANCELED
     }
 
     data class OrderItem(

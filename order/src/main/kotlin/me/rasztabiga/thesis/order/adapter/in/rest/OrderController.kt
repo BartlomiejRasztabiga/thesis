@@ -6,6 +6,7 @@ import me.rasztabiga.thesis.order.adapter.`in`.rest.api.AddOrderItemRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.StartOrderRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToAddOrderItemCommand
+import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToCancelOrderCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToDeleteOrderItemCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToStartOrderCommand
 import me.rasztabiga.thesis.order.domain.query.query.FindOrderByIdQuery
@@ -53,6 +54,17 @@ class OrderController(
             FindOrderByIdQuery(orderId),
             ResponseTypes.instanceOf(OrderResponse::class.java)
         )
+    }
+
+    @DeleteMapping("/{orderId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @PreAuthorize("hasAnyAuthority('${Scopes.ORDER.WRITE}')")
+    fun cancelOrder(
+        @PathVariable orderId: UUID,
+        exchange: ServerWebExchange
+    ): Mono<Void> {
+        val command = mapToCancelOrderCommand(orderId, exchange)
+        return reactorCommandGateway.send(command)
     }
 
     @PostMapping("/{orderId}/items")
