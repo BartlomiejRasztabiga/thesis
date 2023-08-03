@@ -117,9 +117,9 @@ export default function RestaurantPage() {
               orderSum += menuItem.price;
 
               return (
-                <Form method="post">
+                <Form method="post" key={item.id}>
                   <input type="hidden" name="id" value={item.id} />
-                  <div key={item.id} className="flex flex-row items-center justify-between">
+                  <div className="flex flex-row items-center justify-between">
                     <p className="flex-grow"> 1x {menuItem.name}, {menuItem.price} PLN</p>
                     <button
                       type="submit"

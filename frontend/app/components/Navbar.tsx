@@ -1,4 +1,4 @@
-import { Link, NavLink, useLocation } from "@remix-run/react";
+import { Link, NavLink } from "@remix-run/react";
 
 export default function Navbar() {
   return (

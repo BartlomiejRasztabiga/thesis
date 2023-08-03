@@ -43,7 +43,12 @@ internal class Order {
     @CommandHandler
     fun handle(command: CancelOrderCommand) {
         require(this.userId == command.userId) { "Order can be canceled only by the user who created it." }
-        require(this.status == OrderStatus.CREATED) { "Order can be canceled only if it's in CREATED status." }
+        require(
+            this.status in setOf(
+                OrderStatus.CREATED,
+                OrderStatus.FINALIZED
+            )
+        ) { "Order can be canceled only if it's in CREATED or FINALIZED status." }
 
         apply(
             OrderCanceledEvent(
@@ -88,6 +93,7 @@ internal class Order {
         this.status = event.status
     }
 
+    @Suppress("UnusedParameter")
     @EventSourcingHandler
     fun on(event: OrderCanceledEvent) {
         this.status = OrderStatus.CANCELED
