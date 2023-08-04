@@ -29,7 +29,7 @@
   ],
   "dependencies": {
     "@remix-run/node": "^1.19.1",
-    "@remix-run/react": "^1.19.1",
+    "@remix-run/react": "^1.19.2",
     "@remix-run/serve": "^1.19.1",
     "@remix-run/server-runtime": "^1.19.1",
     "axios": "^1.4.0",
