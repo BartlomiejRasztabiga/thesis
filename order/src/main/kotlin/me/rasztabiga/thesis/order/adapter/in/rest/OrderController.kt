@@ -71,7 +71,6 @@ class OrderController(
     }
 
     @PutMapping("/{orderId}/finalize")
-    @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyAuthority('${Scopes.ORDER.WRITE}')")
     fun finalizeOrder(
         @PathVariable orderId: UUID,
