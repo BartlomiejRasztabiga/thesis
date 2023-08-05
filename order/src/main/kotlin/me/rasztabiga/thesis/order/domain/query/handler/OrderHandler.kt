@@ -2,6 +2,7 @@ package me.rasztabiga.thesis.order.domain.query.handler
 
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.order.domain.command.event.OrderCanceledEvent
+import me.rasztabiga.thesis.order.domain.command.event.OrderFinalizedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemAddedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemDeletedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
@@ -11,6 +12,7 @@ import me.rasztabiga.thesis.order.domain.query.mapper.OrderMapper.mapToEntity
 import me.rasztabiga.thesis.order.domain.query.mapper.OrderMapper.mapToResponse
 import me.rasztabiga.thesis.order.domain.query.query.FindOrderByIdQuery
 import me.rasztabiga.thesis.order.domain.query.repository.OrderRepository
+import me.rasztabiga.thesis.restaurant.domain.command.event.OrderTotalCalculatedEvent
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler
@@ -56,6 +58,20 @@ class OrderHandler(
         return orderRepository.load(query.orderId)
             ?.let { Mono.just(mapToResponse(it)) }
             ?: Mono.error(OrderNotFoundException(query.orderId))
+    }
+
+    @EventHandler
+    fun on(event: OrderFinalizedEvent) {
+        val entity = getOrder(event.orderId)
+        entity.status = OrderEntity.OrderStatus.FINALIZED
+        orderRepository.save(entity)
+    }
+
+    @EventHandler
+    fun on(event: OrderTotalCalculatedEvent) {
+        val entity = getOrder(event.orderId)
+        entity.total = event.total
+        orderRepository.save(entity)
     }
 
     private fun getOrder(orderId: UUID): OrderEntity {

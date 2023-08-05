@@ -15,6 +15,7 @@ import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType
 import reactor.core.publisher.Mono
+import java.math.BigDecimal
 import java.util.*
 
 class OrderControllerTest : BaseWebFluxTest() {
@@ -46,7 +47,14 @@ class OrderControllerTest : BaseWebFluxTest() {
     fun `when GET is performed on order endpoint, then returns 200 OK`() {
         // given
         val existingOrder =
-            OrderResponse(UUID.randomUUID(), UUID.randomUUID(), "", OrderResponse.OrderStatus.CREATED, emptyList())
+            OrderResponse(
+                UUID.randomUUID(),
+                UUID.randomUUID(),
+                "",
+                OrderResponse.OrderStatus.CREATED,
+                emptyList(),
+                BigDecimal.ZERO
+            )
         every {
             reactorQueryGateway.query(
                 any<FindOrderByIdQuery>(),

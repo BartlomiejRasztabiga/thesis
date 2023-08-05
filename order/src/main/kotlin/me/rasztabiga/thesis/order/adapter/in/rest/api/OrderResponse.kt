@@ -2,6 +2,7 @@
 
 package me.rasztabiga.thesis.order.adapter.`in`.rest.api
 
+import java.math.BigDecimal
 import java.util.*
 
 data class OrderResponse(
@@ -9,11 +10,13 @@ data class OrderResponse(
     val restaurantId: UUID,
     val userId: String,
     val status: OrderStatus,
-    val items: List<OrderItem>
+    val items: List<OrderItem>,
+    val total: BigDecimal
 ) {
     enum class OrderStatus {
         CREATED,
-        CANCELED
+        CANCELED,
+        FINALIZED
     }
 
     // TODO maybe we should aggregate all the product data here (price etc.)

@@ -1,5 +1,6 @@
 package me.rasztabiga.thesis.restaurant.domain.command
 
+import me.rasztabiga.thesis.order.domain.command.command.CalculateOrderTotalCommand
 import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Availability
 import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Product
 import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Restaurant
@@ -8,6 +9,7 @@ import me.rasztabiga.thesis.restaurant.domain.command.command.DeleteRestaurantCo
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantAvailabilityCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantMenuCommand
+import me.rasztabiga.thesis.restaurant.domain.command.event.OrderTotalCalculatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantDeletedEvent
@@ -16,6 +18,7 @@ import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantUpdatedEve
 import org.axonframework.test.aggregate.AggregateTestFixture
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import java.math.BigDecimal
 import java.util.*
 
 class RestaurantTest {
@@ -137,5 +140,41 @@ class RestaurantTest {
             .`when`(updateRestaurantMenuCommand)
             .expectSuccessfulHandlerExecution()
             .expectEvents(restaurantMenuUpdatedEvent)
+    }
+
+    @Test
+    fun `should calculate order total`() {
+        val restaurantId = UUID.randomUUID()
+
+        val restaurantCreatedEvent = RestaurantCreatedEvent(
+            restaurantId,
+            "Restaurant"
+        )
+
+        val restaurantMenuUpdatedEvent = RestaurantMenuUpdatedEvent(
+            restaurantCreatedEvent.id,
+            listOf(Product(UUID.randomUUID(), "Product", "Description", 10.0))
+        )
+
+        val calculateOrderTotalCommand = CalculateOrderTotalCommand(
+            UUID.randomUUID(),
+            restaurantId,
+            listOf(
+                CalculateOrderTotalCommand.OrderItem(
+                    UUID.randomUUID(),
+                    restaurantMenuUpdatedEvent.menu[0].id
+                )
+            )
+        )
+
+        val orderTotalCalculatedEvent = OrderTotalCalculatedEvent(
+            calculateOrderTotalCommand.orderId,
+            BigDecimal.valueOf(10.0)
+        )
+
+        testFixture.given(restaurantCreatedEvent, restaurantMenuUpdatedEvent)
+            .`when`(calculateOrderTotalCommand)
+            .expectSuccessfulHandlerExecution()
+            .expectEvents(orderTotalCalculatedEvent)
     }
 }

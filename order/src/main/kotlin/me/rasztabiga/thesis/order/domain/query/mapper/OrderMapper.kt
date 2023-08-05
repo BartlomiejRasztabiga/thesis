@@ -3,6 +3,7 @@ package me.rasztabiga.thesis.order.domain.query.mapper
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
 import me.rasztabiga.thesis.order.domain.query.entity.OrderEntity
+import java.math.BigDecimal
 
 object OrderMapper {
 
@@ -12,7 +13,8 @@ object OrderMapper {
             restaurantId = event.restaurantId,
             userId = event.userId,
             status = OrderEntity.OrderStatus.valueOf(event.status.name),
-            items = mutableListOf()
+            items = mutableListOf(),
+            total = BigDecimal.ZERO
         )
     }
 
@@ -27,7 +29,8 @@ object OrderMapper {
                     it.id,
                     it.productId
                 )
-            }
+            },
+            total = entity.total
         )
     }
 }

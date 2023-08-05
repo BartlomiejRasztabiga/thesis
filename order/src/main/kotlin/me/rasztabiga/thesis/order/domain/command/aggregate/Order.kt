@@ -131,4 +131,10 @@ internal class Order {
     fun on(event: OrderItemDeletedEvent) {
         this.items.removeIf { it.orderItemId == event.orderItemId }
     }
+
+    @Suppress("UnusedParameter")
+    @EventSourcingHandler
+    fun on(event: OrderFinalizedEvent) {
+        this.status = OrderStatus.FINALIZED
+    }
 }

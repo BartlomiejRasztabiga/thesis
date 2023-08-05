@@ -5,8 +5,10 @@ import me.rasztabiga.thesis.order.domain.command.aggregate.OrderStatus
 import me.rasztabiga.thesis.order.domain.command.command.AddOrderItemCommand
 import me.rasztabiga.thesis.order.domain.command.command.CancelOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.DeleteOrderItemCommand
+import me.rasztabiga.thesis.order.domain.command.command.FinalizeOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
 import me.rasztabiga.thesis.order.domain.command.event.OrderCanceledEvent
+import me.rasztabiga.thesis.order.domain.command.event.OrderFinalizedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemAddedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemDeletedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
@@ -128,5 +130,43 @@ class OrderTest {
             .`when`(cancelOrderCommand)
             .expectSuccessfulHandlerExecution()
             .expectEvents(orderCanceledEvent)
+    }
+
+    @Test
+    fun `should finalize order`() {
+        val orderStartedEvent = OrderStartedEvent(
+            UUID.randomUUID(),
+            UUID.randomUUID(),
+            "userId",
+            OrderStatus.CREATED
+        )
+
+        val orderItemAddedEvent = OrderItemAddedEvent(
+            orderStartedEvent.orderId,
+            UUID.randomUUID(),
+            UUID.randomUUID()
+        )
+
+        val finalizeOrderCommand = FinalizeOrderCommand(
+            orderStartedEvent.orderId,
+            orderStartedEvent.userId,
+            orderStartedEvent.restaurantId
+        )
+
+        val orderFinalizedEvent = OrderFinalizedEvent(
+            orderStartedEvent.orderId,
+            orderStartedEvent.restaurantId,
+            listOf(
+                OrderFinalizedEvent.OrderItem(
+                    orderItemAddedEvent.orderItemId,
+                    orderItemAddedEvent.productId
+                )
+            )
+        )
+
+        testFixture.given(orderStartedEvent, orderItemAddedEvent)
+            .`when`(finalizeOrderCommand)
+            .expectSuccessfulHandlerExecution()
+            .expectEvents(orderFinalizedEvent)
     }
 }

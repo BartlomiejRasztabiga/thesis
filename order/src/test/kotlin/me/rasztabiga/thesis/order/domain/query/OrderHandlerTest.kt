@@ -5,12 +5,15 @@ import io.kotest.matchers.shouldNotBe
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.order.domain.command.aggregate.OrderStatus
 import me.rasztabiga.thesis.order.domain.command.event.OrderCanceledEvent
+import me.rasztabiga.thesis.order.domain.command.event.OrderFinalizedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemAddedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemDeletedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
 import me.rasztabiga.thesis.order.domain.query.handler.OrderHandler
 import me.rasztabiga.thesis.order.domain.query.query.FindOrderByIdQuery
+import me.rasztabiga.thesis.restaurant.domain.command.event.OrderTotalCalculatedEvent
 import org.junit.jupiter.api.Test
+import java.math.BigDecimal
 import java.util.*
 
 class OrderHandlerTest {
@@ -87,5 +90,40 @@ class OrderHandlerTest {
         order shouldNotBe null
         order!!.id shouldBe orderStartedEvent.orderId
         order.status shouldBe OrderResponse.OrderStatus.CANCELED
+    }
+
+    @Test
+    fun `given order finalized event, when handling FindOrderByIdQuery, then returns order`() {
+        // given
+        val orderStartedEvent = OrderStartedEvent(UUID.randomUUID(), UUID.randomUUID(), "", OrderStatus.CREATED)
+        orderHandler.on(orderStartedEvent)
+        val orderFinalizedEvent =
+            OrderFinalizedEvent(orderStartedEvent.orderId, orderStartedEvent.restaurantId, emptyList())
+        orderHandler.on(orderFinalizedEvent)
+
+        // when
+        val order = orderHandler.handle(FindOrderByIdQuery(orderStartedEvent.orderId)).block()
+
+        // then
+        order shouldNotBe null
+        order!!.id shouldBe orderStartedEvent.orderId
+        order.status shouldBe OrderResponse.OrderStatus.FINALIZED
+    }
+
+    @Test
+    fun `given order total calculated event, when handling FindOrderByIdQuery, then returns order`() {
+        // given
+        val orderStartedEvent = OrderStartedEvent(UUID.randomUUID(), UUID.randomUUID(), "", OrderStatus.CREATED)
+        orderHandler.on(orderStartedEvent)
+        val orderTotalCalculatedEvent = OrderTotalCalculatedEvent(orderStartedEvent.orderId, BigDecimal.valueOf(10.0))
+        orderHandler.on(orderTotalCalculatedEvent)
+
+        // when
+        val order = orderHandler.handle(FindOrderByIdQuery(orderStartedEvent.orderId)).block()
+
+        // then
+        order shouldNotBe null
+        order!!.id shouldBe orderStartedEvent.orderId
+        order.total shouldBe orderTotalCalculatedEvent.total
     }
 }
