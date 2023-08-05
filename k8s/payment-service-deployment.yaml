@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment-service
+  template:
+    metadata:
+      labels:
+        app: payment-service
+    spec:
+      containers:
+        - env:
+            - name: AXON_AXONSERVER_SERVERS
+              value: axonserver
+            - name: SPRING_DATA_MONGODB_URI
+              value: "mongodb://root:password@payment-db:27017/payment?authSource=admin"
+          image: ghcr.io/bartlomiejrasztabiga/thesis/payment:latest
+          name: payment-service
+          ports:
+            - containerPort: 8103
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8103
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8103
+            initialDelaySeconds: 30
+            periodSeconds: 10
+      restartPolicy: Always

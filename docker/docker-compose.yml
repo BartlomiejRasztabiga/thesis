@@ -78,6 +78,35 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=password
       - MONGO_INITDB_DATABASE=order
+
+  payment-service:
+    image: ghcr.io/bartlomiejrasztabiga/thesis/payment:latest
+    build:
+      context: ../payment
+      dockerfile: Dockerfile
+    ports:
+      - '8103:8103'
+    depends_on:
+      - axonserver
+    environment:
+      - AXON_AXONSERVER_SERVERS=axonserver
+      - SPRING_DATA_MONGODB_HOST=payment-db
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_DATABASE=payment
+      - SPRING_DATA_MONGODB_USERNAME=root
+      - SPRING_DATA_MONGODB_PASSWORD=password
+      - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=admin
+
+  payment-db:
+    image: mongo:6.0.5
+    ports:
+      - '27103:27017'
+    volumes:
+      - order-db-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=payment
 volumes:
   axonserver-data:
   axonserver-events:

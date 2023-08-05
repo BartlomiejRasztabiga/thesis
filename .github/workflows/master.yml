@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        service: [restaurant, order, gateway]
+        service: [restaurant, order, gateway, payment]
     defaults:
       run:
         working-directory: ${{ matrix.service }}
@@ -180,10 +180,12 @@ jobs:
           manifests: |
             k8s/restaurant-service-deployment.yaml
             k8s/order-service-deployment.yaml
+            k8s/payment-service-deployment.yaml
             k8s/gateway-deployment.yaml
             k8s/frontend-deployment.yaml
           images: |
             ghcr.io/bartlomiejrasztabiga/thesis/restaurant:${{ env.VERSION }}
             ghcr.io/bartlomiejrasztabiga/thesis/order:${{ env.VERSION }}
+            ghcr.io/bartlomiejrasztabiga/thesis/payment:${{ env.VERSION }}
             ghcr.io/bartlomiejrasztabiga/thesis/gateway:${{ env.VERSION }}
             ghcr.io/bartlomiejrasztabiga/thesis/frontend:${{ env.VERSION }}

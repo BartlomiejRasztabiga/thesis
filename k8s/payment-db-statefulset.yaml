@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: payment-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment-db
+  serviceName: payment-db
+  template:
+    metadata:
+      labels:
+        app: payment-db
+    spec:
+      containers:
+        - image: mongo:6.0.5
+          name: payment-db
+          ports:
+            - containerPort: 27101
+          volumeMounts:
+            - mountPath: /data/db
+              name: payment-db-data
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: root
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: password
+            - name: MONGO_INITDB_DATABASE
+              value: payment
+      restartPolicy: Always
+      volumes:
+        - name: payment-db-data
+          persistentVolumeClaim:
+            claimName: payment-db-data

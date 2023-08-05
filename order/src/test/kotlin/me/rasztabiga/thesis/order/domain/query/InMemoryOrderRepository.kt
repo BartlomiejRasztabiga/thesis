@@ -2,6 +2,7 @@ package me.rasztabiga.thesis.order.domain.query
 
 import me.rasztabiga.thesis.order.domain.query.entity.OrderEntity
 import me.rasztabiga.thesis.order.domain.query.repository.OrderRepository
+import me.rasztabiga.thesis.shared.BaseInMemoryRepository
 import java.util.*
 
 class InMemoryOrderRepository : OrderRepository,

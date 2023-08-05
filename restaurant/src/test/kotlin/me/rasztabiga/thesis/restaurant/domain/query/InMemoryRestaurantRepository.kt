@@ -2,6 +2,7 @@ package me.rasztabiga.thesis.restaurant.domain.query
 
 import me.rasztabiga.thesis.restaurant.domain.query.entity.RestaurantEntity
 import me.rasztabiga.thesis.restaurant.domain.query.repository.RestaurantRepository
+import me.rasztabiga.thesis.shared.BaseInMemoryRepository
 import reactor.core.publisher.Flux
 import java.util.*
 

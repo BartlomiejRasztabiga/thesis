@@ -2,6 +2,7 @@ package me.rasztabiga.thesis.order.domain.query
 
 import me.rasztabiga.thesis.order.domain.query.entity.UserEntity
 import me.rasztabiga.thesis.order.domain.query.repository.UserRepository
+import me.rasztabiga.thesis.shared.BaseInMemoryRepository
 import reactor.core.publisher.Flux
 
 class InMemoryUserRepository : UserRepository,
