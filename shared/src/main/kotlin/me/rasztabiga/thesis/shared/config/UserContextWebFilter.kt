@@ -17,7 +17,7 @@ class UserContextWebFilter : WebFilter {
             .mapNotNull { it.authentication.principal }
             .cast(Jwt::class.java)
             .doOnNext {
-                val userId = it.subject
+                val userId = it.subject.removePrefix("auth0|")
                 exchange.setUserId(userId)
             }
             .then(chain.filter(exchange))
