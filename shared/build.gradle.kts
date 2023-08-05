@@ -33,7 +33,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
     implementation("org.axonframework:axon-spring-boot-starter")
 
-
+    testFixturesImplementation(kotlin("reflect"))
     testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
     testFixturesImplementation("org.axonframework.extensions.reactor:axon-reactor-spring-boot-starter")
     testFixturesImplementation("io.projectreactor:reactor-test")
