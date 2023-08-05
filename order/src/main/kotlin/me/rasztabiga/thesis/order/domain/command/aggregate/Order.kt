@@ -3,8 +3,10 @@ package me.rasztabiga.thesis.order.domain.command.aggregate
 import me.rasztabiga.thesis.order.domain.command.command.AddOrderItemCommand
 import me.rasztabiga.thesis.order.domain.command.command.CancelOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.DeleteOrderItemCommand
+import me.rasztabiga.thesis.order.domain.command.command.FinalizeOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
 import me.rasztabiga.thesis.order.domain.command.event.OrderCanceledEvent
+import me.rasztabiga.thesis.order.domain.command.event.OrderFinalizedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemAddedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemDeletedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
@@ -21,6 +23,7 @@ internal class Order {
     @AggregateIdentifier
     private lateinit var id: UUID
     private lateinit var userId: String
+    private lateinit var restaurantId: UUID
     private lateinit var status: OrderStatus
 
     @AggregateMember
@@ -86,10 +89,30 @@ internal class Order {
         }
     }
 
+    @CommandHandler
+    fun handle(command: FinalizeOrderCommand) {
+        require(this.userId == command.userId) { "Order can be finalized only by the user who created it." }
+        require(this.status == OrderStatus.CREATED) { "Order can be finalized only if it's in CREATED status." }
+
+        apply(
+            OrderFinalizedEvent(
+                orderId = command.orderId,
+                restaurantId = this.restaurantId,
+                items = this.items.map {
+                    OrderFinalizedEvent.OrderItem(
+                        orderItemId = it.orderItemId,
+                        productId = it.productId
+                    )
+                }
+            )
+        )
+    }
+
     @EventSourcingHandler
     fun on(event: OrderStartedEvent) {
         this.id = event.orderId
         this.userId = event.userId
+        this.restaurantId = event.restaurantId
         this.status = event.status
     }
 

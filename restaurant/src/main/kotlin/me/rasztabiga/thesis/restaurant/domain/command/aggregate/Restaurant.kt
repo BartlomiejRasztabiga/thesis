@@ -1,10 +1,12 @@
 package me.rasztabiga.thesis.restaurant.domain.command.aggregate
 
+import me.rasztabiga.thesis.order.domain.command.command.CalculateOrderTotalCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.CreateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.DeleteRestaurantCommand
-import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantMenuCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantAvailabilityCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantCommand
+import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantMenuCommand
+import me.rasztabiga.thesis.restaurant.domain.command.event.OrderTotalCalculatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantDeletedEvent
@@ -16,6 +18,7 @@ import org.axonframework.modelling.command.AggregateIdentifier
 import org.axonframework.modelling.command.AggregateLifecycle.apply
 import org.axonframework.modelling.command.AggregateLifecycle.markDeleted
 import org.axonframework.spring.stereotype.Aggregate
+import java.math.BigDecimal
 import java.util.*
 
 @Aggregate
@@ -56,6 +59,18 @@ internal class Restaurant {
         }
 
         apply(RestaurantMenuUpdatedEvent(id = command.id, menu = command.menu))
+    }
+
+    @CommandHandler
+    fun handle(command: CalculateOrderTotalCommand) {
+        var total = BigDecimal.ZERO
+        command.items.forEach { item ->
+            val productInMenu = menu.find { it.id == item.productId }
+            require(productInMenu != null) { "Product with id ${item.productId} does not exist in menu" }
+            total += productInMenu.price.toBigDecimal()
+        }
+
+        apply(OrderTotalCalculatedEvent(orderId = command.orderId, total = total))
     }
 
     @EventSourcingHandler

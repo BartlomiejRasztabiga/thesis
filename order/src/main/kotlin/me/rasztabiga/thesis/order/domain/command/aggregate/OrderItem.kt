@@ -9,7 +9,7 @@ internal class OrderItem {
     var orderItemId: UUID
         private set
 
-    private var productId: UUID
+    var productId: UUID
 
     constructor(orderItemId: UUID, productId: UUID) {
         this.orderItemId = orderItemId

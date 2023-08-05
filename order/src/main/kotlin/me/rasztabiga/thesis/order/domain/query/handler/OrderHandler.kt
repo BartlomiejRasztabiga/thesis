@@ -16,6 +16,7 @@ import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler
 import org.springframework.stereotype.Component
 import reactor.core.publisher.Mono
+import java.util.*
 
 @Component
 @ProcessingGroup("order")
@@ -31,21 +32,21 @@ class OrderHandler(
 
     @EventHandler
     fun on(event: OrderCanceledEvent) {
-        val entity = orderRepository.load(event.orderId) ?: throw OrderNotFoundException(event.orderId)
+        val entity = getOrder(event.orderId)
         entity.status = OrderEntity.OrderStatus.CANCELED
         orderRepository.save(entity)
     }
 
     @EventHandler
     fun on(event: OrderItemAddedEvent) {
-        val entity = orderRepository.load(event.orderId) ?: throw OrderNotFoundException(event.orderId)
+        val entity = getOrder(event.orderId)
         entity.items.add(OrderEntity.OrderItem(event.orderItemId, event.productId))
         orderRepository.save(entity)
     }
 
     @EventHandler
     fun on(event: OrderItemDeletedEvent) {
-        val entity = orderRepository.load(event.orderId) ?: throw OrderNotFoundException(event.orderId)
+        val entity = getOrder(event.orderId)
         entity.items.removeIf { it.id == event.orderItemId }
         orderRepository.save(entity)
     }
@@ -55,5 +56,9 @@ class OrderHandler(
         return orderRepository.load(query.orderId)
             ?.let { Mono.just(mapToResponse(it)) }
             ?: Mono.error(OrderNotFoundException(query.orderId))
+    }
+
+    private fun getOrder(orderId: UUID): OrderEntity {
+        return orderRepository.load(orderId) ?: throw OrderNotFoundException(orderId)
     }
 }

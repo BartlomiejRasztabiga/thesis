@@ -22,6 +22,7 @@ class StartOrderCommandInterceptor(
             val command = commandMessage.payload as? StartOrderCommand
 
             command?.let {
+                // TODO do both in parallel
                 requireRestaurant(it)
                 requireUser(it)
             }

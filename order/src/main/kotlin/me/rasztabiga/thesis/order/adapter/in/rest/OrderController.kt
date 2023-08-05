@@ -3,11 +3,13 @@
 package me.rasztabiga.thesis.order.adapter.`in`.rest
 
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.AddOrderItemRequest
+import me.rasztabiga.thesis.order.adapter.`in`.rest.api.FinalizeOrderRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.StartOrderRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToAddOrderItemCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToCancelOrderCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToDeleteOrderItemCommand
+import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToFinalizeOrderCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToStartOrderCommand
 import me.rasztabiga.thesis.order.domain.query.query.FindOrderByIdQuery
 import me.rasztabiga.thesis.shared.UuidWrapper
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
@@ -65,6 +68,19 @@ class OrderController(
     ): Mono<Void> {
         val command = mapToCancelOrderCommand(orderId, exchange)
         return reactorCommandGateway.send(command)
+    }
+
+    @PutMapping("/{orderId}/finalize")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAnyAuthority('${Scopes.ORDER.WRITE}')")
+    fun finalizeOrder(
+        @PathVariable orderId: UUID,
+        @RequestBody request: FinalizeOrderRequest,
+        exchange: ServerWebExchange
+    ): Mono<UuidWrapper> {
+        val command = mapToFinalizeOrderCommand(orderId, request, exchange)
+        val id = reactorCommandGateway.send<UUID>(command)
+        return id.map { UuidWrapper(it) }
     }
 
     @PostMapping("/{orderId}/items")
