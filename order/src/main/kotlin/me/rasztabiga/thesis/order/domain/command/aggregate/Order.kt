@@ -114,7 +114,9 @@ internal class Order {
     @CommandHandler
     fun handle(command: MarkOrderAsPaidCommand) {
         require(this.userId == command.userId) { "Order can be marked as paid only by the user who created it." }
-        require(this.status == OrderStatus.FINALIZED) { "Order can be marked as paid only if it's in FINALIZED status." }
+        require(this.status == OrderStatus.FINALIZED) {
+            "Order can be marked as paid only if it's in FINALIZED status."
+        }
 
         apply(
             OrderPaidEvent(

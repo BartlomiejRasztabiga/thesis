@@ -155,6 +155,7 @@ class OrderTest {
 
         val orderFinalizedEvent = OrderFinalizedEvent(
             orderStartedEvent.orderId,
+            orderStartedEvent.userId,
             orderStartedEvent.restaurantId,
             listOf(
                 OrderFinalizedEvent.OrderItem(

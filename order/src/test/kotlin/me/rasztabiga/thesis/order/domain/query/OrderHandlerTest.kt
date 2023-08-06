@@ -98,7 +98,12 @@ class OrderHandlerTest {
         val orderStartedEvent = OrderStartedEvent(UUID.randomUUID(), UUID.randomUUID(), "", OrderStatus.CREATED)
         orderHandler.on(orderStartedEvent)
         val orderFinalizedEvent =
-            OrderFinalizedEvent(orderStartedEvent.orderId, orderStartedEvent.restaurantId, emptyList())
+            OrderFinalizedEvent(
+                orderStartedEvent.orderId,
+                orderStartedEvent.userId,
+                orderStartedEvent.restaurantId,
+                emptyList()
+            )
         orderHandler.on(orderFinalizedEvent)
 
         // when
