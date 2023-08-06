@@ -1,10 +1,10 @@
 package me.rasztabiga.thesis.order.domain.command.interceptor
 
-import me.rasztabiga.thesis.order.adapter.`in`.rest.api.UserResponse
 import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
-import me.rasztabiga.thesis.order.domain.query.query.FindUserByIdQuery
-import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantResponse
-import me.rasztabiga.thesis.restaurant.domain.query.query.FindRestaurantByIdQuery
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UserResponse
+import me.rasztabiga.thesis.shared.domain.query.query.FindRestaurantByIdQuery
+import me.rasztabiga.thesis.shared.domain.query.query.FindUserByIdQuery
 import org.axonframework.commandhandling.CommandMessage
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway
 import org.axonframework.messaging.MessageDispatchInterceptor

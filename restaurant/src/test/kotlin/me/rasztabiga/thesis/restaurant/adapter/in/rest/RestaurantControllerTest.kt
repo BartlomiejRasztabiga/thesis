@@ -7,14 +7,14 @@ import io.kotest.matchers.shouldNotBe
 import io.mockk.every
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.Availability
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.CreateRestaurantRequest
-import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantAvailabilityRequest
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantMenuRequest
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantRequest
 import me.rasztabiga.thesis.restaurant.domain.query.query.FindAllRestaurantsQuery
-import me.rasztabiga.thesis.restaurant.domain.query.query.FindRestaurantByIdQuery
 import me.rasztabiga.thesis.shared.BaseWebFluxTest
 import me.rasztabiga.thesis.shared.UuidWrapper
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
+import me.rasztabiga.thesis.shared.domain.query.query.FindRestaurantByIdQuery
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType

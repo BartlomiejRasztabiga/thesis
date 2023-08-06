@@ -102,7 +102,7 @@ services:
     ports:
       - '27103:27017'
     volumes:
-      - order-db-data:/data/db
+      - payment-db-data:/data/db
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=password
@@ -113,3 +113,4 @@ volumes:
   axonserver-config:
   restaurant-db-data:
   order-db-data:
+  payment-db-data:

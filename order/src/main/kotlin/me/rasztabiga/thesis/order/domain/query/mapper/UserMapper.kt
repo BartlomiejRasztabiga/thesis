@@ -1,8 +1,8 @@
 package me.rasztabiga.thesis.order.domain.query.mapper
 
-import me.rasztabiga.thesis.order.adapter.`in`.rest.api.UserResponse
-import me.rasztabiga.thesis.order.domain.command.event.UserCreatedEvent
 import me.rasztabiga.thesis.order.domain.query.entity.UserEntity
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UserResponse
+import me.rasztabiga.thesis.shared.domain.command.event.UserCreatedEvent
 
 object UserMapper {
 

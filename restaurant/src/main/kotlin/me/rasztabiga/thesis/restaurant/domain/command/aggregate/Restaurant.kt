@@ -1,17 +1,17 @@
 package me.rasztabiga.thesis.restaurant.domain.command.aggregate
 
-import me.rasztabiga.thesis.order.domain.command.command.CalculateOrderTotalCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.CreateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.DeleteRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantAvailabilityCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantMenuCommand
-import me.rasztabiga.thesis.restaurant.domain.command.event.OrderTotalCalculatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantDeletedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantMenuUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantUpdatedEvent
+import me.rasztabiga.thesis.shared.domain.command.command.CalculateOrderTotalCommand
+import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier

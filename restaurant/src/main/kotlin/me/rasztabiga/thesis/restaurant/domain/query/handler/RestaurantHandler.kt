@@ -1,6 +1,5 @@
 package me.rasztabiga.thesis.restaurant.domain.query.handler
 
-import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantDeletedEvent
@@ -11,8 +10,9 @@ import me.rasztabiga.thesis.restaurant.domain.query.exception.RestaurantNotFound
 import me.rasztabiga.thesis.restaurant.domain.query.mapper.RestaurantMapper.mapToEntity
 import me.rasztabiga.thesis.restaurant.domain.query.mapper.RestaurantMapper.mapToResponse
 import me.rasztabiga.thesis.restaurant.domain.query.query.FindAllRestaurantsQuery
-import me.rasztabiga.thesis.restaurant.domain.query.query.FindRestaurantByIdQuery
 import me.rasztabiga.thesis.restaurant.domain.query.repository.RestaurantRepository
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
+import me.rasztabiga.thesis.shared.domain.query.query.FindRestaurantByIdQuery
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler

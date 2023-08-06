@@ -1,6 +1,5 @@
 package me.rasztabiga.thesis.restaurant.domain.command
 
-import me.rasztabiga.thesis.order.domain.command.command.CalculateOrderTotalCommand
 import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Availability
 import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Product
 import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Restaurant
@@ -9,12 +8,13 @@ import me.rasztabiga.thesis.restaurant.domain.command.command.DeleteRestaurantCo
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantAvailabilityCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantMenuCommand
-import me.rasztabiga.thesis.restaurant.domain.command.event.OrderTotalCalculatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantDeletedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantMenuUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantUpdatedEvent
+import me.rasztabiga.thesis.shared.domain.command.command.CalculateOrderTotalCommand
+import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
 import org.axonframework.test.aggregate.AggregateTestFixture
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test

@@ -4,7 +4,6 @@ import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.Availability
-import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Product
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
@@ -14,7 +13,8 @@ import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantUpdatedEve
 import me.rasztabiga.thesis.restaurant.domain.query.exception.RestaurantNotFoundException
 import me.rasztabiga.thesis.restaurant.domain.query.handler.RestaurantHandler
 import me.rasztabiga.thesis.restaurant.domain.query.query.FindAllRestaurantsQuery
-import me.rasztabiga.thesis.restaurant.domain.query.query.FindRestaurantByIdQuery
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
+import me.rasztabiga.thesis.shared.domain.query.query.FindRestaurantByIdQuery
 import org.junit.jupiter.api.Test
 import java.util.*
 import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Availability as DomainAvailability

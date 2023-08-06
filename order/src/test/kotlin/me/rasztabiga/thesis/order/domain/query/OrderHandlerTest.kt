@@ -11,7 +11,7 @@ import me.rasztabiga.thesis.order.domain.command.event.OrderItemDeletedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
 import me.rasztabiga.thesis.order.domain.query.handler.OrderHandler
 import me.rasztabiga.thesis.order.domain.query.query.FindOrderByIdQuery
-import me.rasztabiga.thesis.restaurant.domain.command.event.OrderTotalCalculatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 import java.util.*
