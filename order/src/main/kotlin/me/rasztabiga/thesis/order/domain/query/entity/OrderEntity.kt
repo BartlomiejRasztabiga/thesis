@@ -13,7 +13,8 @@ data class OrderEntity(
     val userId: String,
     var status: OrderStatus,
     val items: MutableList<OrderItem>,
-    var total: BigDecimal
+    var total: BigDecimal?,
+    var paymentId: UUID?
 ) {
     enum class OrderStatus {
         CREATED,

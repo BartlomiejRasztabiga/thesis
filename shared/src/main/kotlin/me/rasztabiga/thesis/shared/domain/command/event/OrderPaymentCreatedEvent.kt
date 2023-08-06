@@ -5,7 +5,7 @@ import java.math.BigDecimal
 import java.util.*
 
 @Revision("1.0")
-data class PaymentCreatedEvent(
+data class OrderPaymentCreatedEvent(
     val id: UUID,
     val orderId: UUID,
     val payeeId: String,

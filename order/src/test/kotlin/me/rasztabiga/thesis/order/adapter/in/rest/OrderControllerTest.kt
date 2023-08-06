@@ -53,7 +53,8 @@ class OrderControllerTest : BaseWebFluxTest() {
                 "",
                 OrderResponse.OrderStatus.CREATED,
                 emptyList(),
-                BigDecimal.ZERO
+                BigDecimal.ZERO,
+                null
             )
         every {
             reactorQueryGateway.query(

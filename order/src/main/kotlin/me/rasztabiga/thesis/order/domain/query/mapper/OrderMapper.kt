@@ -14,7 +14,8 @@ object OrderMapper {
             userId = event.userId,
             status = OrderEntity.OrderStatus.valueOf(event.status.name),
             items = mutableListOf(),
-            total = BigDecimal.ZERO
+            total = null,
+            paymentId = null
         )
     }
 
@@ -30,7 +31,8 @@ object OrderMapper {
                     it.productId
                 )
             },
-            total = entity.total
+            total = entity.total,
+            paymentId = entity.paymentId
         )
     }
 }

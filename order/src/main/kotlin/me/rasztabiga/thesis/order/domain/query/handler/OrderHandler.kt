@@ -13,6 +13,7 @@ import me.rasztabiga.thesis.order.domain.query.mapper.OrderMapper.mapToResponse
 import me.rasztabiga.thesis.order.domain.query.query.FindOrderByIdQuery
 import me.rasztabiga.thesis.order.domain.query.repository.OrderRepository
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.PaymentCreatedEvent
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler
@@ -71,6 +72,13 @@ class OrderHandler(
     fun on(event: OrderTotalCalculatedEvent) {
         val entity = getOrder(event.orderId)
         entity.total = event.total
+        orderRepository.save(entity)
+    }
+
+    @EventHandler
+    fun on(event: PaymentCreatedEvent) {
+        val entity = getOrder(event.orderId)
+        entity.paymentId = event.id
         orderRepository.save(entity)
     }
 

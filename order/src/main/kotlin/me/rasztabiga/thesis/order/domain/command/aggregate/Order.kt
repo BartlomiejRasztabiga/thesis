@@ -97,6 +97,7 @@ internal class Order {
         apply(
             OrderFinalizedEvent(
                 orderId = command.orderId,
+                userId = command.userId,
                 restaurantId = this.restaurantId,
                 items = this.items.map {
                     OrderFinalizedEvent.OrderItem(
