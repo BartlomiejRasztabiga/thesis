@@ -17,7 +17,8 @@ data class OrderResponse(
     enum class OrderStatus {
         CREATED,
         CANCELED,
-        FINALIZED
+        FINALIZED,
+        PAID
     }
 
     // TODO maybe we should aggregate all the product data here (price etc.)

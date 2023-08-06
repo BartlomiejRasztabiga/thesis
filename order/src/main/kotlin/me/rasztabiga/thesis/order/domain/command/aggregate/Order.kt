@@ -4,12 +4,14 @@ import me.rasztabiga.thesis.order.domain.command.command.AddOrderItemCommand
 import me.rasztabiga.thesis.order.domain.command.command.CancelOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.DeleteOrderItemCommand
 import me.rasztabiga.thesis.order.domain.command.command.FinalizeOrderCommand
+import me.rasztabiga.thesis.order.domain.command.command.MarkOrderAsPaidCommand
 import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
 import me.rasztabiga.thesis.order.domain.command.event.OrderCanceledEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderFinalizedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemAddedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemDeletedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderPaidEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
@@ -105,6 +107,18 @@ internal class Order {
                         productId = it.productId
                     )
                 }
+            )
+        )
+    }
+
+    @CommandHandler
+    fun handle(command: MarkOrderAsPaidCommand) {
+        require(this.userId == command.userId) { "Order can be marked as paid only by the user who created it." }
+        require(this.status == OrderStatus.FINALIZED) { "Order can be marked as paid only if it's in FINALIZED status." }
+
+        apply(
+            OrderPaidEvent(
+                orderId = command.orderId
             )
         )
     }

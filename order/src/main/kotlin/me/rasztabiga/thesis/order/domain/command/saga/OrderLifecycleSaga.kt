@@ -1,9 +1,13 @@
 package me.rasztabiga.thesis.order.domain.command.saga
 
+import me.rasztabiga.thesis.order.domain.command.command.MarkOrderAsPaidCommand
 import me.rasztabiga.thesis.order.domain.command.event.OrderFinalizedEvent
 import me.rasztabiga.thesis.shared.domain.command.command.CalculateOrderTotalCommand
-import me.rasztabiga.thesis.shared.domain.command.command.CreatePaymentCommand
+import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderPaymentCommand
+import me.rasztabiga.thesis.shared.domain.command.command.CreateRestaurantOrderCommand
+import me.rasztabiga.thesis.shared.domain.command.event.OrderPaidEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.PaymentPaidEvent
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.modelling.saga.SagaEventHandler
@@ -42,7 +46,7 @@ class OrderLifecycleSaga {
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: OrderTotalCalculatedEvent) {
         commandGateway.sendAndWait<Void>(
-            CreatePaymentCommand(
+            CreateOrderPaymentCommand(
                 id = UUID.randomUUID(),
                 orderId = event.orderId,
                 payeeId = this.userId,
@@ -50,4 +54,25 @@ class OrderLifecycleSaga {
             )
         )
     }
+
+    @SagaEventHandler(associationProperty = "orderId")
+    fun on(event: PaymentPaidEvent) {
+        commandGateway.sendAndWait<Void>(
+            MarkOrderAsPaidCommand(
+                orderId = event.orderId,
+                userId = this.userId
+            )
+        )
+    }
+
+    @SagaEventHandler(associationProperty = "orderId")
+    fun on(event: OrderPaidEvent) {
+        commandGateway.sendAndWait<Void>(
+            CreateRestaurantOrderCommand(
+                orderId = event.orderId
+            )
+        )
+    }
+
+    // TODO end saga
 }

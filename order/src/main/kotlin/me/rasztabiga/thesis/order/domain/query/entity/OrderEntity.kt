@@ -19,7 +19,8 @@ data class OrderEntity(
     enum class OrderStatus {
         CREATED,
         CANCELED,
-        FINALIZED
+        FINALIZED,
+        PAID
     }
 
     data class OrderItem(

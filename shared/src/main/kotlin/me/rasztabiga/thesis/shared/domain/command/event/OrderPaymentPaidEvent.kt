@@ -4,7 +4,7 @@ import org.axonframework.serialization.Revision
 import java.util.*
 
 @Revision("1.0")
-data class PaymentPaidEvent(
+data class OrderPaymentPaidEvent(
     val paymentId: UUID,
     val orderId: UUID
 )
