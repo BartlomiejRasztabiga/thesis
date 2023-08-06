@@ -11,6 +11,7 @@ import me.rasztabiga.thesis.order.domain.query.query.FindAllUsersQuery
 import me.rasztabiga.thesis.shared.StringIdWrapper
 import me.rasztabiga.thesis.shared.UuidWrapper
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UserResponse
+import me.rasztabiga.thesis.shared.config.getUserId
 import me.rasztabiga.thesis.shared.domain.query.query.FindUserByIdQuery
 import me.rasztabiga.thesis.shared.security.Scopes
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
@@ -51,6 +52,15 @@ class UserController(
     fun getUser(@PathVariable userId: String): Mono<UserResponse> {
         return reactorQueryGateway.query(
             FindUserByIdQuery(userId),
+            ResponseTypes.instanceOf(UserResponse::class.java)
+        )
+    }
+
+    @GetMapping("/me")
+    @PreAuthorize("hasAnyAuthority('${Scopes.USER.READ}')")
+    fun getCurrentUser(exchange: ServerWebExchange): Mono<UserResponse> {
+        return reactorQueryGateway.query(
+            FindUserByIdQuery(exchange.getUserId()),
             ResponseTypes.instanceOf(UserResponse::class.java)
         )
     }

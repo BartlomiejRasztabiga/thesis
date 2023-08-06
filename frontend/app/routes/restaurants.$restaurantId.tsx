@@ -1,10 +1,11 @@
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { Form, Link, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { getRestaurant } from "~/models/restaurant.server";
 import { clearOrderId, getOrderId, setOrderId } from "~/services/session.server";
-import { addOrderItem, cancelOrder, deleteOrderItem, getOrder, startOrder } from "~/models/order.server";
+import { addOrderItem, cancelOrder, deleteOrderItem, finalizeOrder, getOrder, startOrder } from "~/models/order.server";
+import { getCurrentUser } from "~/models/user.server";
 
 export async function loader({ request, params }: LoaderArgs) {
   const restaurantId = params.restaurantId;
@@ -24,7 +25,9 @@ export async function loader({ request, params }: LoaderArgs) {
     activeOrder = await getOrder(request, activeOrderId);
   }
 
-  return json({ restaurant, activeOrder });
+  const currentUser = await getCurrentUser(request);
+
+  return json({ restaurant, activeOrder, currentUser });
 }
 
 export async function action({ request, params }: ActionArgs) {
@@ -48,11 +51,26 @@ export async function action({ request, params }: ActionArgs) {
     const activeOrderId = await getOrderId(request);
     invariant(activeOrderId, "activeOrderId not found");
 
-    console.log(activeOrderId);
-
     await cancelOrder(request, activeOrderId);
 
     return json({}, {
+      headers: {
+        // only necessary with cookieSessionStorage
+        "Set-Cookie": await clearOrderId(request)
+      }
+    });
+  }
+
+  if (_action === "finalize_order") {
+    const activeOrderId = await getOrderId(request);
+    invariant(activeOrderId, "activeOrderId not found");
+
+    const deliveryAddressId = values.address as string;
+    invariant(deliveryAddressId, "deliveryAddressId not found");
+
+    await finalizeOrder(request, activeOrderId, deliveryAddressId);
+
+    return redirect(`/orders/${activeOrderId}/payment`, {
       headers: {
         // only necessary with cookieSessionStorage
         "Set-Cookie": await clearOrderId(request)
@@ -145,9 +163,13 @@ export default function RestaurantPage() {
           );
         })}
         <p className="text-lg text-center">Total: {orderSum} PLN</p>
-
-        {/* TODO center */}
         <Form method="post">
+          <select className="select select-bordered w-full max-w-xs" name="address">
+            {data.currentUser.deliveryAddresses.map((address) => (
+              <option key={address.id} value={address.id}>{address.address}</option>
+            ))}
+          </select>
+          {/* TODO center */}
           <button
             type="submit"
             className="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600 focus:bg-green-400"

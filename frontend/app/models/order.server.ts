@@ -25,6 +25,15 @@ export const cancelOrder = async (
   return axios.delete(`/api/v1/orders/${orderId}`).then((res) => res.data);
 };
 
+export const finalizeOrder = async (
+  request: Request,
+  orderId: string,
+  deliveryAddressId: string
+): Promise<UuidWrapper> => {
+  const axios = await getAxios(request);
+  return axios.put(`/api/v1/orders/${orderId}/finalize`, { deliveryAddressId }).then((res) => res.data);
+};
+
 export const addOrderItem = async (
   request: Request,
   orderId: string,
@@ -49,6 +58,8 @@ interface OrderResponse {
   userId: string;
   status: string;
   items: OrderItemResponse[];
+  total: number;
+  paymentId: string;
 }
 
 interface OrderItemResponse {
