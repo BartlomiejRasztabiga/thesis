@@ -1,4 +1,4 @@
-package me.rasztabiga.thesis.restaurant.domain.command.event
+package me.rasztabiga.thesis.shared.domain.command.event
 
 import org.axonframework.serialization.Revision
 import java.math.BigDecimal

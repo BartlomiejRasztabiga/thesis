@@ -1,4 +1,4 @@
-package me.rasztabiga.thesis.restaurant.domain.query.query
+package me.rasztabiga.thesis.shared.domain.query.query
 
 import java.util.*
 
