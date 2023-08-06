@@ -17,6 +17,14 @@ export const startOrder = async (
   return axios.post(`/api/v1/orders`, { restaurantId }).then((res) => res.data);
 };
 
+export const cancelOrder = async (
+  request: Request,
+  orderId: string
+): Promise<UuidWrapper> => {
+  const axios = await getAxios(request);
+  return axios.delete(`/api/v1/orders/${orderId}`).then((res) => res.data);
+};
+
 export const addOrderItem = async (
   request: Request,
   orderId: string,

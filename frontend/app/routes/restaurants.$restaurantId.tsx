@@ -1,10 +1,10 @@
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Form, useLoaderData } from "@remix-run/react";
+import { Form, Link, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { getRestaurant } from "~/models/restaurant.server";
-import { getOrderId, setOrderId } from "~/services/session.server";
-import { addOrderItem, deleteOrderItem, getOrder, startOrder } from "~/models/order.server";
+import { clearOrderId, getOrderId, setOrderId } from "~/services/session.server";
+import { addOrderItem, cancelOrder, deleteOrderItem, getOrder, startOrder } from "~/models/order.server";
 
 export async function loader({ request, params }: LoaderArgs) {
   const restaurantId = params.restaurantId;
@@ -39,7 +39,23 @@ export async function action({ request, params }: ActionArgs) {
     return json({}, {
       headers: {
         // only necessary with cookieSessionStorage
-        "Set-Cookie":  await setOrderId(request, orderId.id)
+        "Set-Cookie": await setOrderId(request, orderId.id)
+      }
+    });
+  }
+
+  if (_action === "cancel_order") {
+    const activeOrderId = await getOrderId(request);
+    invariant(activeOrderId, "activeOrderId not found");
+
+    console.log(activeOrderId);
+
+    await cancelOrder(request, activeOrderId);
+
+    return json({}, {
+      headers: {
+        // only necessary with cookieSessionStorage
+        "Set-Cookie": await clearOrderId(request)
       }
     });
   }
@@ -74,6 +90,85 @@ export default function RestaurantPage() {
 
   let orderSum = 0;
 
+  let activeOrderRestaurantSelected = data.activeOrder && data.restaurant.id === data.activeOrder.restaurantId;
+
+  const getContent = () => {
+    if (!data.activeOrder) return (
+      <Form method="post">
+        <button
+          type="submit"
+          className="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600 focus:bg-green-400"
+          name="_action"
+          value="start_order"
+        >
+          Start order
+        </button>
+      </Form>
+    );
+
+    if (!activeOrderRestaurantSelected) return (
+      <>
+        <p className="text-lg text-center mb-4">You have an active order from another restaurant</p>
+        <Link to={`/restaurants/${data.activeOrder.restaurantId}`}
+              className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400">
+          Go to active order
+        </Link>
+      </>
+    );
+
+    if (activeOrderRestaurantSelected) return (
+      <>
+        <p className="text-lg text-center mb-4">Your order</p>
+        {data.activeOrder.items.map((item) => {
+          const menuItem = data.restaurant.menu.find((menuItem) => menuItem.id === item.productId);
+          invariant(menuItem, "menuItem not found");
+
+          orderSum += menuItem.price;
+
+          return (
+            <Form method="post" key={item.id}>
+              <input type="hidden" name="id" value={item.id} />
+              <div className="flex flex-row items-center justify-between">
+                <p className="flex-grow"> 1x {menuItem.name}, {menuItem.price} PLN</p>
+                <button
+                  type="submit"
+                  className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600 focus:bg-red-400"
+                  name="_action"
+                  value="delete_order_item"
+                >
+                  {/* TODO add proper icons */}
+                  🗑
+                </button>
+                <hr className="my-4" />
+              </div>
+            </Form>
+          );
+        })}
+        <p className="text-lg text-center">Total: {orderSum} PLN</p>
+
+        {/* TODO center */}
+        <Form method="post">
+          <button
+            type="submit"
+            className="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600 focus:bg-green-400"
+            name="_action"
+            value="finalize_order"
+          >
+            Finalize order
+          </button>
+          <button
+            type="submit"
+            className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600 focus:bg-red-400"
+            name="_action"
+            value="cancel_order"
+          >
+            Cancel order
+          </button>
+        </Form>
+      </>
+    );
+  };
+
   return (
     <div className="flex h-full bg-white">
       <div className="border-r flex-1 mr-2">
@@ -91,11 +186,11 @@ export default function RestaurantPage() {
                 <button
                   type="submit"
                   className={`rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400 ${
-                    !data.activeOrder && "opacity-50"
+                    !activeOrderRestaurantSelected && "opacity-50"
                   }`}
                   name="_action"
                   value="add_order_item"
-                  disabled={!data.activeOrder}
+                  disabled={!activeOrderRestaurantSelected}
                 >
                   Add to order
                 </button>
@@ -106,61 +201,7 @@ export default function RestaurantPage() {
         </div>
       </div>
       <div className="h-full w-80 border-r bg-gray-50">
-
-        {data.activeOrder ? (
-          <>
-            <p className="text-lg text-center mb-4">Your order</p>
-            {data.activeOrder.items.map((item) => {
-              const menuItem = data.restaurant.menu.find((menuItem) => menuItem.id === item.productId);
-              invariant(menuItem, "menuItem not found");
-
-              orderSum += menuItem.price;
-
-              return (
-                <Form method="post" key={item.id}>
-                  <input type="hidden" name="id" value={item.id} />
-                  <div className="flex flex-row items-center justify-between">
-                    <p className="flex-grow"> 1x {menuItem.name}, {menuItem.price} PLN</p>
-                    <button
-                      type="submit"
-                      className="rounded bg-red-500 px-4 py-2 text-white hover:bg-red-600 focus:bg-red-400"
-                      name="_action"
-                      value="delete_order_item"
-                    >
-                      {/* TODO add proper icons */}
-                      🗑
-                    </button>
-                    <hr className="my-4" />
-                  </div>
-                </Form>
-              );
-            })}
-            <p className="text-lg text-center">Total: {orderSum} PLN</p>
-
-            {/* TODO center */}
-            <Form method="post">
-              <button
-                type="submit"
-                className="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600 focus:bg-green-400"
-                name="_action"
-                value="finalize_order"
-              >
-                Finalize order
-              </button>
-            </Form>
-          </>
-        ) : (
-          <Form method="post">
-            <button
-              type="submit"
-              className="rounded bg-green-500 px-4 py-2 text-white hover:bg-green-600 focus:bg-green-400"
-              name="_action"
-              value="start_order"
-            >
-              Start order
-            </button>
-          </Form>
-        )}
+        {getContent()}
       </div>
     </div>
   );

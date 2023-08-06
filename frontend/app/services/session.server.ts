@@ -69,3 +69,9 @@ export async function getOrderId(request: Request) {
   const session = await getSession(request);
   return session.get("orderId");
 }
+
+export async function clearOrderId(request: Request) {
+  const session = await getSession(request);
+  session.unset("orderId");
+  return sessionStorage.commitSession(session);
+}
