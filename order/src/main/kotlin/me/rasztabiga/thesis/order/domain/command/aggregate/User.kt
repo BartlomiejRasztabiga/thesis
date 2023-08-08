@@ -27,7 +27,7 @@ internal class User {
 
     @CommandHandler
     constructor(command: CreateUserCommand) {
-        apply(UserCreatedEvent(id = command.id, name = command.name))
+        apply(UserCreatedEvent(userId = command.id, name = command.name))
     }
 
     @CommandHandler
@@ -62,7 +62,7 @@ internal class User {
 
     @EventSourcingHandler
     fun on(event: UserCreatedEvent) {
-        this.id = event.id
+        this.id = event.userId
         this.name = event.name
     }
 

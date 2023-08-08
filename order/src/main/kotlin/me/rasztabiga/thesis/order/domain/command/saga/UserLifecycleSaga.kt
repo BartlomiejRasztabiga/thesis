@@ -21,7 +21,7 @@ class UserLifecycleSaga {
     @StartSaga
     @SagaEventHandler(associationProperty = "userId")
     fun on(event: UserCreatedEvent) {
-        commandGateway.sendAndWait<Void>(CreatePayeeCommand(id = event.id))
+        commandGateway.sendAndWait<Void>(CreatePayeeCommand(id = event.userId))
     }
 
     @Suppress("UnusedParameter")

@@ -47,14 +47,14 @@ class UserTest {
         )
 
         val createDeliveryAddressCommand = CreateDeliveryAddressCommand(
-            userCreatedEvent.id,
+            userCreatedEvent.userId,
             UUID.randomUUID(),
             "Address",
             "Additional info"
         )
 
         val deliveryAddressCreatedEvent = DeliveryAddressCreatedEvent(
-            userCreatedEvent.id,
+            userCreatedEvent.userId,
             createDeliveryAddressCommand.addressId,
             createDeliveryAddressCommand.address,
             createDeliveryAddressCommand.additionalInfo
@@ -74,19 +74,19 @@ class UserTest {
         )
 
         val deliveryAddressCreatedEvent = DeliveryAddressCreatedEvent(
-            userCreatedEvent.id,
+            userCreatedEvent.userId,
             UUID.randomUUID(),
             "address",
             "additional info"
         )
 
         val deleteDeliveryAddressCommand = DeleteDeliveryAddressCommand(
-            userCreatedEvent.id,
+            userCreatedEvent.userId,
             deliveryAddressCreatedEvent.addressId
         )
 
         val deliveryAddressDeletedEvent = DeliveryAddressDeletedEvent(
-            userCreatedEvent.id,
+            userCreatedEvent.userId,
             deliveryAddressCreatedEvent.addressId
         )
 

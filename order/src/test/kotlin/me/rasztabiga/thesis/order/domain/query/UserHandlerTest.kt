@@ -29,7 +29,7 @@ class UserHandlerTest {
         // then
         users shouldNotBe null
         users!!.size shouldBe 1
-        users[0].id shouldBe userCreatedEvent.id
+        users[0].id shouldBe userCreatedEvent.userId
         users[0].name shouldBe userCreatedEvent.name
     }
 
@@ -40,11 +40,11 @@ class UserHandlerTest {
         userHandler.on(userCreatedEvent)
 
         // when
-        val user = userHandler.handle(FindUserByIdQuery(userCreatedEvent.id)).block()
+        val user = userHandler.handle(FindUserByIdQuery(userCreatedEvent.userId)).block()
 
         // then
         user shouldNotBe null
-        user!!.id shouldBe userCreatedEvent.id
+        user!!.id shouldBe userCreatedEvent.userId
         user.name shouldBe userCreatedEvent.name
     }
 
@@ -58,11 +58,11 @@ class UserHandlerTest {
         userHandler.on(deliveryAddressCreatedEvent)
 
         // when
-        val user = userHandler.handle(FindUserByIdQuery(userCreatedEvent.id)).block()
+        val user = userHandler.handle(FindUserByIdQuery(userCreatedEvent.userId)).block()
 
         // then
         user shouldNotBe null
-        user!!.id shouldBe userCreatedEvent.id
+        user!!.id shouldBe userCreatedEvent.userId
         user.deliveryAddresses.size shouldBe 1
         user.deliveryAddresses[0].id shouldBe deliveryAddressCreatedEvent.addressId
         user.deliveryAddresses[0].address shouldBe deliveryAddressCreatedEvent.address
@@ -81,11 +81,11 @@ class UserHandlerTest {
         userHandler.on(deliveryAddressDeletedEvent)
 
         // when
-        val user = userHandler.handle(FindUserByIdQuery(userCreatedEvent.id)).block()
+        val user = userHandler.handle(FindUserByIdQuery(userCreatedEvent.userId)).block()
 
         // then
         user shouldNotBe null
-        user!!.id shouldBe userCreatedEvent.id
+        user!!.id shouldBe userCreatedEvent.userId
         user.deliveryAddresses.size shouldBe 0
     }
 }

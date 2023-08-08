@@ -10,6 +10,8 @@ import me.rasztabiga.thesis.shared.domain.command.command.DeleteOrderPaymentComm
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaidEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaymentPaidEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderPreparedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderRejectedEvent
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.modelling.saga.EndSaga
@@ -97,6 +99,17 @@ class OrderLifecycleSaga {
         )
     }
 
+    @Suppress("UnusedParameter")
+    @SagaEventHandler(associationProperty = "orderId")
+    fun on(event: RestaurantOrderRejectedEvent) {
+        // TODO revert payment and end saga
+    }
+
+    @Suppress("UnusedParameter")
+    @SagaEventHandler(associationProperty = "orderId")
+    fun on(event: RestaurantOrderPreparedEvent) {
+        // TODO create order delivery
+    }
 
     // TODO end saga on order delivered?
 }

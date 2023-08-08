@@ -18,11 +18,11 @@ internal class Payee {
 
     @CommandHandler
     constructor(command: CreatePayeeCommand) {
-        apply(PayeeCreatedEvent(id = command.id))
+        apply(PayeeCreatedEvent(userId = command.id))
     }
 
     @EventSourcingHandler
     fun on(event: PayeeCreatedEvent) {
-        this.id = event.id
+        this.id = event.userId
     }
 }

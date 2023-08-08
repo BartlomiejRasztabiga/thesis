@@ -75,8 +75,14 @@ internal class OrderPayment {
 
     @Suppress("UnusedParameter")
     @EventSourcingHandler
-    fun on(event: OrderPaymentPaidEvent) {
+    fun on(event: OrderPaymentDeletedEvent) {
         markDeleted()
+    }
+
+    @Suppress("UnusedParameter")
+    @EventSourcingHandler
+    fun on(event: OrderPaymentPaidEvent) {
+        this.status = PaymentStatus.PAID
     }
 
     enum class PaymentStatus {

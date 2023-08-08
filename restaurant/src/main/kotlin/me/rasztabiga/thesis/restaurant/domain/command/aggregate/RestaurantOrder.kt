@@ -1,6 +1,8 @@
 package me.rasztabiga.thesis.restaurant.domain.command.aggregate
 
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderPreparedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.command.AcceptRestaurantOrderCommand
+import me.rasztabiga.thesis.restaurant.domain.command.command.PrepareRestaurantOrderCommand
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantOrderCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.command.CreateRestaurantOrderCommand
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
@@ -38,13 +40,35 @@ internal class RestaurantOrder {
         )
     }
 
+    @CommandHandler
+    fun handle(command: PrepareRestaurantOrderCommand) {
+        apply(
+            RestaurantOrderPreparedEvent(
+                orderId = command.orderId,
+                restaurantId = command.restaurantId
+            )
+        )
+    }
+
     @EventSourcingHandler
     fun on(event: RestaurantOrderCreatedEvent) {
         this.id = event.orderId
         this.status = OrderStatus.NEW
     }
 
+    @Suppress("UnusedParameter")
+    @EventSourcingHandler
+    fun on(event: RestaurantOrderAcceptedEvent) {
+        this.status = OrderStatus.ACCEPTED
+    }
+
+    @Suppress("UnusedParameter")
+    @EventSourcingHandler
+    fun on(event: RestaurantOrderPreparedEvent) {
+        this.status = OrderStatus.PREPARED
+    }
+
     enum class OrderStatus {
-        NEW
+        NEW, ACCEPTED, PREPARED
     }
 }
