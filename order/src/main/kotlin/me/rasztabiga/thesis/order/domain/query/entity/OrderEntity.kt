@@ -20,7 +20,8 @@ data class OrderEntity(
         CREATED,
         CANCELED,
         FINALIZED,
-        PAID
+        PAID,
+        CONFIRMED
     }
 
     data class OrderItem(

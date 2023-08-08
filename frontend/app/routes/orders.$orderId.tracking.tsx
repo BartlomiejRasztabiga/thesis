@@ -1,13 +1,10 @@
-import { Form, useActionData, useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "@remix-run/react";
 import React from "react";
-import type { ActionArgs, LoaderArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import type { LoaderArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import Navbar from "~/components/Navbar";
-import { cancelOrder, getOrder } from "~/models/order.server";
+import { getOrder } from "~/models/order.server";
 import invariant from "tiny-invariant";
-import { getRestaurant } from "~/models/restaurant.server";
-import { clearOrderId } from "~/services/session.server";
-import { payPayment } from "~/models/payment.server";
 
 export async function loader({ request, params }: LoaderArgs) {
   const activeOrderId = params.orderId;
@@ -17,11 +14,6 @@ export async function loader({ request, params }: LoaderArgs) {
   invariant(order, "order not found");
 
   return json({ order });
-}
-
-export async function action({ request, params }: ActionArgs) {
-  const formData = await request.formData();
-  const { _action, ...values } = Object.fromEntries(formData);
 }
 
 export default function OrderTrackingPage() {

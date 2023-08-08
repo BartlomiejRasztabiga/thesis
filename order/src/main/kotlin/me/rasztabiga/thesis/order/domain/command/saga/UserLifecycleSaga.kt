@@ -1,9 +1,11 @@
 package me.rasztabiga.thesis.order.domain.command.saga
 
 import me.rasztabiga.thesis.shared.domain.command.command.CreatePayeeCommand
+import me.rasztabiga.thesis.shared.domain.command.event.PayeeCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.UserCreatedEvent
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.config.ProcessingGroup
+import org.axonframework.modelling.saga.EndSaga
 import org.axonframework.modelling.saga.SagaEventHandler
 import org.axonframework.modelling.saga.StartSaga
 import org.axonframework.spring.stereotype.Saga
@@ -17,8 +19,15 @@ class UserLifecycleSaga {
     private lateinit var commandGateway: CommandGateway
 
     @StartSaga
-    @SagaEventHandler(associationProperty = "id")
+    @SagaEventHandler(associationProperty = "userId")
     fun on(event: UserCreatedEvent) {
         commandGateway.sendAndWait<Void>(CreatePayeeCommand(id = event.id))
+    }
+
+    @Suppress("UnusedParameter")
+    @EndSaga
+    @SagaEventHandler(associationProperty = "userId")
+    fun on(event: PayeeCreatedEvent) {
+        // do nothing
     }
 }

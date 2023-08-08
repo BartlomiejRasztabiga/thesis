@@ -6,6 +6,7 @@ import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.CreateRestaurantReq
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantAvailabilityRequest
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantMenuRequest
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantRequest
+import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToAcceptOrderCommand
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToCreateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToDeleteRestaurantCommand
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToUpdateRestaurantAvailabilityCommand
@@ -104,6 +105,17 @@ class RestaurantController(
         @PathVariable restaurantId: UUID
     ): Mono<UuidWrapper> {
         val command = mapToUpdateRestaurantMenuCommand(request, restaurantId)
+        val id = reactorCommandGateway.send<UUID>(command)
+        return id.map { UuidWrapper(it) }
+    }
+
+    @PutMapping("/{restaurantId}/orders/{orderId}/accept")
+    @PreAuthorize("hasAnyAuthority('${RESTAURANT.WRITE}')")
+    fun acceptOrder(
+        @PathVariable restaurantId: UUID,
+        @PathVariable orderId: UUID
+    ): Mono<UuidWrapper> {
+        val command = mapToAcceptOrderCommand(restaurantId, orderId)
         val id = reactorCommandGateway.send<UUID>(command)
         return id.map { UuidWrapper(it) }
     }

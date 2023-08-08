@@ -1,13 +1,16 @@
 package me.rasztabiga.thesis.restaurant.domain.command.aggregate
 
 import me.rasztabiga.thesis.restaurant.domain.command.command.PayPaymentCommand
+import me.rasztabiga.thesis.restaurant.domain.command.event.OrderPaymentDeletedEvent
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderPaymentCommand
+import me.rasztabiga.thesis.shared.domain.command.command.DeleteOrderPaymentCommand
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaymentCreatedEvent
-import me.rasztabiga.thesis.shared.domain.command.event.PaymentPaidEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderPaymentPaidEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
 import org.axonframework.modelling.command.AggregateLifecycle.apply
+import org.axonframework.modelling.command.AggregateLifecycle.markDeleted
 import org.axonframework.spring.stereotype.Aggregate
 import java.math.BigDecimal
 import java.util.*
@@ -45,9 +48,18 @@ internal class OrderPayment {
         // TODO call payment gateway
 
         apply(
-            PaymentPaidEvent(
+            OrderPaymentPaidEvent(
                 paymentId = command.paymentId,
                 orderId = this.orderId
+            )
+        )
+    }
+
+    @CommandHandler
+    fun handle(command: DeleteOrderPaymentCommand) {
+        apply(
+            OrderPaymentDeletedEvent(
+                id = command.paymentId
             )
         )
     }
@@ -59,6 +71,12 @@ internal class OrderPayment {
         this.payeeId = event.payeeId
         this.amount = event.amount
         this.status = PaymentStatus.NEW
+    }
+
+    @Suppress("UnusedParameter")
+    @EventSourcingHandler
+    fun on(event: OrderPaymentPaidEvent) {
+        markDeleted()
     }
 
     enum class PaymentStatus {

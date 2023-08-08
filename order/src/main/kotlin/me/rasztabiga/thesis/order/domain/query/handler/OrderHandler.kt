@@ -15,6 +15,7 @@ import me.rasztabiga.thesis.order.domain.query.repository.OrderRepository
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaidEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaymentCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Component
 import reactor.core.publisher.Mono
 import java.util.*
 
+@Suppress("TooManyFunctions")
 @Component
 @ProcessingGroup("order")
 class OrderHandler(
@@ -87,6 +89,13 @@ class OrderHandler(
     fun on(event: OrderPaidEvent) {
         val entity = getOrder(event.orderId)
         entity.status = OrderEntity.OrderStatus.PAID
+        orderRepository.save(entity)
+    }
+
+    @EventHandler
+    fun on(event: RestaurantOrderAcceptedEvent) {
+        val entity = getOrder(event.orderId)
+        entity.status = OrderEntity.OrderStatus.CONFIRMED
         orderRepository.save(entity)
     }
 
