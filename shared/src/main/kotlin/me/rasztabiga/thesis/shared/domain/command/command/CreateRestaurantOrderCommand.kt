@@ -5,6 +5,7 @@ import java.util.*
 
 data class CreateRestaurantOrderCommand(
     @TargetAggregateIdentifier val orderId: UUID,
+    val restaurantId: UUID,
     val items: List<OrderItem>
 ) {
     data class OrderItem(
