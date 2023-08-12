@@ -25,7 +25,7 @@ internal class RestaurantOrder {
     constructor(command: CreateRestaurantOrderCommand) {
         apply(
             RestaurantOrderCreatedEvent(
-                orderId = command.orderId,
+                restaurantOrderId = command.orderId,
                 items = command.items.map {
                     OrderItem(
                         productId = it.productId
@@ -42,7 +42,7 @@ internal class RestaurantOrder {
 
         apply(
             RestaurantOrderAcceptedEvent(
-                orderId = command.orderId,
+                orderId = command.restaurantOrderId,
                 restaurantId = command.restaurantId
             )
         )
@@ -54,7 +54,7 @@ internal class RestaurantOrder {
 
         apply(
             RestaurantOrderPreparedEvent(
-                orderId = command.orderId,
+                orderId = command.restaurantOrderId,
                 restaurantId = command.restaurantId
             )
         )
@@ -62,7 +62,7 @@ internal class RestaurantOrder {
 
     @EventSourcingHandler
     fun on(event: RestaurantOrderCreatedEvent) {
-        this.id = event.orderId
+        this.id = event.restaurantOrderId
         this.status = OrderStatus.NEW
     }
 

@@ -104,6 +104,8 @@ class OrderLifecycleSaga {
             FindOrderByIdQuery(event.orderId), ResponseTypes.instanceOf(OrderResponse::class.java)
         ).join()
 
+        // TODO aggregate id must be unique?
+        // TODO associate restaurantOrderId with saga?
         commandGateway.sendAndWait<Void>(
             CreateRestaurantOrderCommand(
                 orderId = event.orderId,

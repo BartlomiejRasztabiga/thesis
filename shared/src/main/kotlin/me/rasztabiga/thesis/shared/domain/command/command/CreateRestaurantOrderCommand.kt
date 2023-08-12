@@ -4,7 +4,7 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier
 import java.util.*
 
 data class CreateRestaurantOrderCommand(
-    @TargetAggregateIdentifier val orderId: UUID,
+    @TargetAggregateIdentifier val restaurantOrderId: UUID,
     val restaurantId: UUID,
     val items: List<OrderItem>
 ) {

@@ -9,7 +9,7 @@ object RestaurantOrderMapper {
 
     fun mapToEntity(event: RestaurantOrderCreatedEvent): RestaurantOrderEntity {
         return RestaurantOrderEntity(
-            id = event.orderId,
+            id = event.restaurantOrderId,
             restaurantId = event.restaurantId,
             items = event.items.map {
                 RestaurantOrderEntity.OrderItem(

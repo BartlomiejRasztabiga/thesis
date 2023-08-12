@@ -70,7 +70,7 @@ object RestaurantControllerMapper {
     ): AcceptRestaurantOrderCommand {
         return AcceptRestaurantOrderCommand(
             restaurantId = restaurantId,
-            orderId = orderId
+            restaurantOrderId = orderId
         )
     }
 }

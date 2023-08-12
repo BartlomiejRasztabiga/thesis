@@ -6,7 +6,7 @@ import java.util.*
 
 @Revision("2.0")
 data class RestaurantOrderCreatedEvent(
-    val orderId: UUID,
+    val restaurantOrderId: UUID,
     val items: List<OrderItem>,
     val restaurantId: UUID
 )
