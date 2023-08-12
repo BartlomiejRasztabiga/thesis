@@ -1,11 +1,11 @@
 package me.rasztabiga.thesis.restaurant.domain.command.aggregate
 
-import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderPreparedEvent
 import me.rasztabiga.thesis.restaurant.domain.command.command.AcceptRestaurantOrderCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.PrepareRestaurantOrderCommand
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantOrderCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.command.CreateRestaurantOrderCommand
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderPreparedEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
@@ -25,13 +25,21 @@ internal class RestaurantOrder {
     constructor(command: CreateRestaurantOrderCommand) {
         apply(
             RestaurantOrderCreatedEvent(
-                orderId = command.orderId
+                orderId = command.orderId,
+                items = command.items.map {
+                    OrderItem(
+                        productId = it.productId
+                    )
+                },
+                restaurantId = command.restaurantId
             )
         )
     }
 
     @CommandHandler
     fun handle(command: AcceptRestaurantOrderCommand) {
+        require(this.status == OrderStatus.NEW) { "Order can be accepted only if it's in NEW status." }
+
         apply(
             RestaurantOrderAcceptedEvent(
                 orderId = command.orderId,
@@ -42,6 +50,8 @@ internal class RestaurantOrder {
 
     @CommandHandler
     fun handle(command: PrepareRestaurantOrderCommand) {
+        require(this.status == OrderStatus.ACCEPTED) { "Order can be prepared only if it's in ACCEPTED status." }
+
         apply(
             RestaurantOrderPreparedEvent(
                 orderId = command.orderId,

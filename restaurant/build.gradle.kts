@@ -31,7 +31,7 @@ val testcontainersVersion = "1.18.3"
 val kotestVersion = "5.6.2"
 
 dependencies {
-    implementation("me.rasztabiga.thesis:shared:0.10.14")
+    implementation("me.rasztabiga.thesis:shared:0.10.18")
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -48,9 +48,8 @@ dependencies {
     implementation("org.dom4j:dom4j:2.1.4")
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib"))
-    runtimeOnly("org.springframework.boot:spring-boot-devtools")
 
-    testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.10.14"))
+    testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.10.18"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.axonframework:axon-test")

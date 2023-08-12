@@ -1,6 +1,8 @@
 package me.rasztabiga.thesis.shared.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import org.axonframework.commandhandling.CommandExecutionException
+import org.axonframework.queryhandling.QueryExecutionException
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.Ordered
@@ -32,8 +34,8 @@ class GlobalErrorWebExceptionHandler(
     // TODO Can I make it better? Currently Axon swallows all of my original exceptions
 
     private fun createError(ex: Throwable): ApiError {
-        return when {
-            ex::class.java.name == "org.axonframework.commandhandling.CommandExecutionException" -> {
+        return when (ex) {
+            is CommandExecutionException -> {
                 when {
                     ex.localizedMessage.contains("not found") -> {
                         ApiError(ex.message!!, NOT_FOUND)
@@ -49,7 +51,7 @@ class GlobalErrorWebExceptionHandler(
                 }
             }
 
-            ex::class.java.name == "org.axonframework.queryhandling.QueryExecutionException" -> {
+            is QueryExecutionException -> {
                 when {
                     ex.localizedMessage.contains("not found") -> {
                         ApiError(ex.message!!, NOT_FOUND)
@@ -61,7 +63,7 @@ class GlobalErrorWebExceptionHandler(
                 }
             }
 
-            ex is IllegalArgumentException -> {
+            is IllegalArgumentException -> {
                 ApiError(ex.message!!, BAD_REQUEST)
             }
 

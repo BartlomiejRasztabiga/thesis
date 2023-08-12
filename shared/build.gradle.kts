@@ -28,21 +28,21 @@ val axonVersion = "4.8.1"
 val kotestVersion = "5.6.2"
 
 dependencies {
-    api("org.springframework.boot:spring-boot-starter-webflux")
-    api("org.springframework.boot:spring-boot-starter-security")
-    api("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
-    api("org.axonframework:axon-spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-webflux")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+    implementation("org.axonframework:axon-spring-boot-starter")
 
-    testFixturesApi(kotlin("reflect"))
-    testFixturesApi("org.springframework.boot:spring-boot-starter-test")
-    testFixturesApi("org.axonframework.extensions.reactor:axon-reactor-spring-boot-starter")
-    testFixturesApi("io.projectreactor:reactor-test")
-    testFixturesApi("org.axonframework:axon-test")
-    testFixturesApi("org.testcontainers:junit-jupiter")
-    testFixturesApi("io.kotest:kotest-runner-junit5:$kotestVersion")
-    testFixturesApi("io.kotest:kotest-assertions-core:$kotestVersion")
-    testFixturesApi("io.mockk:mockk:1.13.5")
-    testFixturesApi("com.ninja-squad:springmockk:4.0.2")
+    testFixturesImplementation(kotlin("reflect"))
+    testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
+    testFixturesImplementation("org.axonframework.extensions.reactor:axon-reactor-spring-boot-starter")
+    testFixturesImplementation("io.projectreactor:reactor-test")
+    testFixturesImplementation("org.axonframework:axon-test")
+    testFixturesImplementation("org.testcontainers:junit-jupiter")
+    testFixturesImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+    testFixturesImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+    testFixturesImplementation("io.mockk:mockk:1.13.5")
+    testFixturesImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 
 dependencyManagement {

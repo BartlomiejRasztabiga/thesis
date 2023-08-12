@@ -1,8 +1,10 @@
 package me.rasztabiga.thesis.order.domain.command.saga
 
+import me.rasztabiga.thesis.order.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.order.domain.command.command.MarkOrderAsPaidCommand
 import me.rasztabiga.thesis.order.domain.command.event.OrderCanceledEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderFinalizedEvent
+import me.rasztabiga.thesis.order.domain.query.query.FindOrderByIdQuery
 import me.rasztabiga.thesis.shared.domain.command.command.CalculateOrderTotalCommand
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderPaymentCommand
 import me.rasztabiga.thesis.shared.domain.command.command.CreateRestaurantOrderCommand
@@ -14,9 +16,11 @@ import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderPreparedE
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderRejectedEvent
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.config.ProcessingGroup
+import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.modelling.saga.EndSaga
 import org.axonframework.modelling.saga.SagaEventHandler
 import org.axonframework.modelling.saga.StartSaga
+import org.axonframework.queryhandling.QueryGateway
 import org.axonframework.spring.stereotype.Saga
 import org.springframework.beans.factory.annotation.Autowired
 import java.util.*
@@ -28,6 +32,10 @@ class OrderLifecycleSaga {
     @Autowired
     @Transient
     private lateinit var commandGateway: CommandGateway
+
+    @Autowired
+    @Transient
+    private lateinit var queryGateway: QueryGateway
 
     private lateinit var userId: String
     private lateinit var paymentId: UUID
@@ -92,9 +100,19 @@ class OrderLifecycleSaga {
 
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: OrderPaidEvent) {
+        val order = queryGateway.query(
+            FindOrderByIdQuery(event.orderId), ResponseTypes.instanceOf(OrderResponse::class.java)
+        ).join()
+
         commandGateway.sendAndWait<Void>(
             CreateRestaurantOrderCommand(
-                orderId = event.orderId
+                orderId = event.orderId,
+                restaurantId = order.restaurantId,
+                items = order.items.map {
+                    CreateRestaurantOrderCommand.OrderItem(
+                        productId = it.productId
+                    )
+                }
             )
         )
     }
