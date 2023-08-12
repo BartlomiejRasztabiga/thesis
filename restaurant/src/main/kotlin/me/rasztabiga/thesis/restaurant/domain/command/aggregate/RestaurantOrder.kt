@@ -25,7 +25,7 @@ internal class RestaurantOrder {
     constructor(command: CreateRestaurantOrderCommand) {
         apply(
             RestaurantOrderCreatedEvent(
-                restaurantOrderId = command.orderId,
+                restaurantOrderId = command.restaurantOrderId,
                 items = command.items.map {
                     OrderItem(
                         productId = it.productId
@@ -42,7 +42,7 @@ internal class RestaurantOrder {
 
         apply(
             RestaurantOrderAcceptedEvent(
-                orderId = command.restaurantOrderId,
+                restaurantOrderId = command.restaurantOrderId,
                 restaurantId = command.restaurantId
             )
         )
@@ -54,7 +54,7 @@ internal class RestaurantOrder {
 
         apply(
             RestaurantOrderPreparedEvent(
-                orderId = command.restaurantOrderId,
+                restaurantOrderId = command.restaurantOrderId,
                 restaurantId = command.restaurantId
             )
         )

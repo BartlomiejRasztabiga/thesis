@@ -6,5 +6,6 @@ import java.util.UUID
 @Revision("1.0")
 data class RestaurantOrderAcceptedEvent(
     val restaurantOrderId: UUID,
+    val orderId: UUID,
     val restaurantId: UUID
 )

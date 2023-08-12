@@ -19,6 +19,7 @@ import org.axonframework.config.ProcessingGroup
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.modelling.saga.EndSaga
 import org.axonframework.modelling.saga.SagaEventHandler
+import org.axonframework.modelling.saga.SagaLifecycle
 import org.axonframework.modelling.saga.StartSaga
 import org.axonframework.queryhandling.QueryGateway
 import org.axonframework.spring.stereotype.Saga
@@ -39,6 +40,7 @@ class OrderLifecycleSaga {
 
     private lateinit var userId: String
     private lateinit var paymentId: UUID
+    private lateinit var restaurantOrderId: UUID
 
     @StartSaga
     @SagaEventHandler(associationProperty = "orderId")
@@ -104,11 +106,14 @@ class OrderLifecycleSaga {
             FindOrderByIdQuery(event.orderId), ResponseTypes.instanceOf(OrderResponse::class.java)
         ).join()
 
+        restaurantOrderId = UUID.randomUUID()
+        SagaLifecycle.associateWith("restaurantOrderId", restaurantOrderId.toString())
+
         // TODO aggregate id must be unique?
         // TODO associate restaurantOrderId with saga?
         commandGateway.sendAndWait<Void>(
             CreateRestaurantOrderCommand(
-                orderId = event.orderId,
+                restaurantOrderId = restaurantOrderId,
                 restaurantId = order.restaurantId,
                 items = order.items.map {
                     CreateRestaurantOrderCommand.OrderItem(
@@ -120,14 +125,16 @@ class OrderLifecycleSaga {
     }
 
     @Suppress("UnusedParameter")
-    @SagaEventHandler(associationProperty = "orderId")
+    @SagaEventHandler(associationProperty = "restaurantOrderId")
     fun on(event: RestaurantOrderRejectedEvent) {
+        println("RestaurantOrderRejectedEvent")
         // TODO revert payment and end saga
     }
 
     @Suppress("UnusedParameter")
-    @SagaEventHandler(associationProperty = "orderId")
+    @SagaEventHandler(associationProperty = "restaurantOrderId")
     fun on(event: RestaurantOrderPreparedEvent) {
+        println("RestaurantOrderPreparedEvent")
         // TODO create order delivery
     }
 

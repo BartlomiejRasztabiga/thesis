@@ -22,7 +22,7 @@ object RestaurantOrderMapper {
 
     fun mapToResponse(entity: RestaurantOrderEntity): RestaurantOrderResponse {
         return RestaurantOrderResponse(
-            orderId = entity.id,
+            restaurantOrderId = entity.id,
             items = entity.items.map {
                 OrderItem(
                     productId = it.productId
