@@ -17,6 +17,7 @@ import java.util.*
 internal class RestaurantOrder {
     @AggregateIdentifier
     private lateinit var id: UUID
+    private lateinit var orderId: UUID
     private lateinit var status: OrderStatus
 
     private constructor()
@@ -26,6 +27,7 @@ internal class RestaurantOrder {
         apply(
             RestaurantOrderCreatedEvent(
                 restaurantOrderId = command.restaurantOrderId,
+                orderId = command.orderId,
                 items = command.items.map {
                     OrderItem(
                         productId = it.productId
@@ -43,6 +45,7 @@ internal class RestaurantOrder {
         apply(
             RestaurantOrderAcceptedEvent(
                 restaurantOrderId = command.restaurantOrderId,
+                orderId = this.orderId,
                 restaurantId = command.restaurantId
             )
         )
@@ -63,6 +66,7 @@ internal class RestaurantOrder {
     @EventSourcingHandler
     fun on(event: RestaurantOrderCreatedEvent) {
         this.id = event.restaurantOrderId
+        this.orderId = event.orderId
         this.status = OrderStatus.NEW
     }
 
