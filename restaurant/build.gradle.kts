@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("org.springframework.boot") version "3.1.2"
-    id("io.spring.dependency-management") version "1.1.2"
+    id("io.spring.dependency-management") version "1.1.3"
     id("org.jetbrains.kotlin.jvm") version "1.9.0"
     id("org.jetbrains.kotlin.plugin.spring") version "1.9.0"
     id("io.gitlab.arturbosch.detekt") version "1.23.1"
@@ -31,7 +31,7 @@ val testcontainersVersion = "1.18.3"
 val kotestVersion = "5.6.2"
 
 dependencies {
-    implementation("me.rasztabiga.thesis:shared:0.10.22")
+    implementation("me.rasztabiga.thesis:shared:0.10.23")
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -49,7 +49,7 @@ dependencies {
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib"))
 
-    testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.10.22"))
+    testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.10.23"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.axonframework:axon-test")
