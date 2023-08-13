@@ -18,7 +18,10 @@ data class OrderResponse(
         CREATED,
         CANCELED,
         FINALIZED,
-        PAID
+        PAID,
+        CONFIRMED,
+        REJECTED,
+        PREPARED
     }
 
     // TODO maybe we should aggregate all the product data here (price etc.)

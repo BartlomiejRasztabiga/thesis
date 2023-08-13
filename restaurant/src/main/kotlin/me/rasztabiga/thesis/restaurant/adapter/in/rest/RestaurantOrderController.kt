@@ -4,6 +4,8 @@ package me.rasztabiga.thesis.restaurant.adapter.`in`.rest
 
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantOrderResponse
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantOrderControllerMapper.mapToAcceptOrderCommand
+import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantOrderControllerMapper.mapToPrepareOrderCommand
+import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantOrderControllerMapper.mapToRejectOrderCommand
 import me.rasztabiga.thesis.restaurant.domain.query.query.FindAllRestaurantOrdersByRestaurantQuery
 import me.rasztabiga.thesis.shared.UuidWrapper
 import me.rasztabiga.thesis.shared.security.Scopes.RESTAURANT
@@ -42,6 +44,28 @@ class RestaurantOrderController(
         @PathVariable orderId: UUID
     ): Mono<UuidWrapper> {
         val command = mapToAcceptOrderCommand(restaurantId, orderId)
+        val id = reactorCommandGateway.send<UUID>(command)
+        return id.map { UuidWrapper(it) }
+    }
+
+    @PutMapping("/{orderId}/reject")
+    @PreAuthorize("hasAnyAuthority('${RESTAURANT.WRITE}')")
+    fun rejectOrder(
+        @PathVariable restaurantId: UUID,
+        @PathVariable orderId: UUID
+    ): Mono<UuidWrapper> {
+        val command = mapToRejectOrderCommand(restaurantId, orderId)
+        val id = reactorCommandGateway.send<UUID>(command)
+        return id.map { UuidWrapper(it) }
+    }
+
+    @PutMapping("/{orderId}/prepare")
+    @PreAuthorize("hasAnyAuthority('${RESTAURANT.WRITE}')")
+    fun prepareOrder(
+        @PathVariable restaurantId: UUID,
+        @PathVariable orderId: UUID
+    ): Mono<UuidWrapper> {
+        val command = mapToPrepareOrderCommand(restaurantId, orderId)
         val id = reactorCommandGateway.send<UUID>(command)
         return id.map { UuidWrapper(it) }
     }

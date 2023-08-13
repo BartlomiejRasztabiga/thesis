@@ -17,6 +17,7 @@ import me.rasztabiga.thesis.shared.domain.command.event.OrderPaidEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaymentCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderPreparedEvent
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler
@@ -97,6 +98,13 @@ class OrderHandler(
     fun on(event: RestaurantOrderAcceptedEvent) {
         val entity = getOrder(event.orderId)
         entity.status = OrderEntity.OrderStatus.CONFIRMED
+        orderRepository.save(entity)
+    }
+
+    @EventHandler
+    fun on(event: RestaurantOrderPreparedEvent) {
+        val entity = getOrder(event.orderId)
+        entity.status = OrderEntity.OrderStatus.PREPARED
         orderRepository.save(entity)
     }
 

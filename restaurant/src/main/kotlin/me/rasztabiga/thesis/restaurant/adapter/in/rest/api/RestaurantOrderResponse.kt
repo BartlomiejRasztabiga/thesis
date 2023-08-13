@@ -8,6 +8,6 @@ data class RestaurantOrderResponse(
     val status: RestaurantOrderStatus
 ) {
     enum class RestaurantOrderStatus {
-        NEW, ACCEPTED, PREPARED
+        NEW, ACCEPTED, PREPARED, REJECTED
     }
 }
