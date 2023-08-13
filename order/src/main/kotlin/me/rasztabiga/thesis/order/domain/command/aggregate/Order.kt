@@ -5,11 +5,13 @@ import me.rasztabiga.thesis.order.domain.command.command.CancelOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.DeleteOrderItemCommand
 import me.rasztabiga.thesis.order.domain.command.command.FinalizeOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.MarkOrderAsPaidCommand
+import me.rasztabiga.thesis.order.domain.command.command.RejectOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
 import me.rasztabiga.thesis.order.domain.command.event.OrderCanceledEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderFinalizedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemAddedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemDeletedEvent
+import me.rasztabiga.thesis.order.domain.command.event.OrderRejectedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaidEvent
 import org.axonframework.commandhandling.CommandHandler
@@ -125,6 +127,17 @@ internal class Order {
         )
     }
 
+    @CommandHandler
+    fun handle(command: RejectOrderCommand) {
+        require(this.status == OrderStatus.PAID) { "Order can be rejected only if it's in PAID status." }
+
+        apply(
+            OrderRejectedEvent(
+                orderId = command.orderId
+            )
+        )
+    }
+
     @EventSourcingHandler
     fun on(event: OrderStartedEvent) {
         this.id = event.orderId
@@ -153,5 +166,10 @@ internal class Order {
     @EventSourcingHandler
     fun on(event: OrderFinalizedEvent) {
         this.status = OrderStatus.FINALIZED
+    }
+
+    @EventSourcingHandler
+    fun on(event: OrderPaidEvent) {
+        this.status = OrderStatus.PAID
     }
 }

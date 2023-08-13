@@ -2,6 +2,7 @@ package me.rasztabiga.thesis.order.domain.command.saga
 
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.order.domain.command.command.MarkOrderAsPaidCommand
+import me.rasztabiga.thesis.order.domain.command.command.RejectOrderCommand
 import me.rasztabiga.thesis.order.domain.command.event.OrderCanceledEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderFinalizedEvent
 import me.rasztabiga.thesis.order.domain.query.query.FindOrderByIdQuery
@@ -19,7 +20,6 @@ import org.axonframework.config.ProcessingGroup
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.modelling.saga.EndSaga
 import org.axonframework.modelling.saga.SagaEventHandler
-import org.axonframework.modelling.saga.SagaLifecycle
 import org.axonframework.modelling.saga.StartSaga
 import org.axonframework.queryhandling.QueryGateway
 import org.axonframework.spring.stereotype.Saga
@@ -124,11 +124,25 @@ class OrderLifecycleSaga {
         )
     }
 
-    @Suppress("UnusedParameter")
+    @EndSaga
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: RestaurantOrderRejectedEvent) {
-        println("RestaurantOrderRejectedEvent")
-        // TODO revert payment and end saga
+        try {
+            commandGateway.sendAndWait<Void>(
+                DeleteOrderPaymentCommand(
+                    paymentId = paymentId
+                )
+            )
+        } catch (e: Exception) {
+            // TODO payment not found
+            // ignore
+        }
+
+        commandGateway.sendAndWait<Void>(
+            RejectOrderCommand(
+                orderId = event.orderId
+            )
+        )
     }
 
     @Suppress("UnusedParameter")

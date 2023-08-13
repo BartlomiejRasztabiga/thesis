@@ -19,4 +19,8 @@ class DbRestaurantOrderRepository(
     override fun loadAllByRestaurantId(restaurantId: UUID): Flux<RestaurantOrderEntity> {
         return springDataRestaurantOrderRepository.findAllByRestaurantId(restaurantId)
     }
+
+    override fun load(id: UUID): RestaurantOrderEntity? {
+        return springDataRestaurantOrderRepository.findById(id).block()
+    }
 }

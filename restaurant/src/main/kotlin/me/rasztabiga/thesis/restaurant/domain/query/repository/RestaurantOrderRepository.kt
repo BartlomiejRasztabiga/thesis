@@ -9,4 +9,6 @@ interface RestaurantOrderRepository {
     fun save(restaurant: RestaurantOrderEntity)
 
     fun loadAllByRestaurantId(restaurantId: UUID): Flux<RestaurantOrderEntity>
+
+    fun load(id: UUID): RestaurantOrderEntity?
 }

@@ -2,10 +2,12 @@ package me.rasztabiga.thesis.restaurant.domain.command.aggregate
 
 import me.rasztabiga.thesis.restaurant.domain.command.command.AcceptRestaurantOrderCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.PrepareRestaurantOrderCommand
+import me.rasztabiga.thesis.restaurant.domain.command.command.RejectRestaurantOrderCommand
 import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantOrderCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.command.CreateRestaurantOrderCommand
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderPreparedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderRejectedEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
@@ -52,12 +54,25 @@ internal class RestaurantOrder {
     }
 
     @CommandHandler
+    fun handle(command: RejectRestaurantOrderCommand) {
+        require(this.status == OrderStatus.NEW) { "Order can be rejected only if it's in NEW status." }
+
+        apply(
+            RestaurantOrderRejectedEvent(
+                restaurantOrderId = command.restaurantOrderId,
+                orderId = this.orderId
+            )
+        )
+    }
+
+    @CommandHandler
     fun handle(command: PrepareRestaurantOrderCommand) {
         require(this.status == OrderStatus.ACCEPTED) { "Order can be prepared only if it's in ACCEPTED status." }
 
         apply(
             RestaurantOrderPreparedEvent(
                 restaurantOrderId = command.restaurantOrderId,
+                orderId = this.orderId,
                 restaurantId = command.restaurantId
             )
         )
@@ -78,11 +93,17 @@ internal class RestaurantOrder {
 
     @Suppress("UnusedParameter")
     @EventSourcingHandler
+    fun on(event: RestaurantOrderRejectedEvent) {
+        this.status = OrderStatus.REJECTED
+    }
+
+    @Suppress("UnusedParameter")
+    @EventSourcingHandler
     fun on(event: RestaurantOrderPreparedEvent) {
         this.status = OrderStatus.PREPARED
     }
 
     enum class OrderStatus {
-        NEW, ACCEPTED, PREPARED
+        NEW, ACCEPTED, REJECTED, PREPARED
     }
 }

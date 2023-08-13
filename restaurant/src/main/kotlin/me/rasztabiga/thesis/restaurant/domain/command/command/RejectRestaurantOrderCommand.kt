@@ -4,5 +4,5 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier
 import java.util.UUID
 
 data class RejectRestaurantOrderCommand(
-    @TargetAggregateIdentifier val orderId: UUID
+    @TargetAggregateIdentifier val restaurantOrderId: UUID
 )

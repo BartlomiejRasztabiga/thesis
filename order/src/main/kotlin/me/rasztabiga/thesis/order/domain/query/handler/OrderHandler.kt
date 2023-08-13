@@ -5,6 +5,7 @@ import me.rasztabiga.thesis.order.domain.command.event.OrderCanceledEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderFinalizedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemAddedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemDeletedEvent
+import me.rasztabiga.thesis.order.domain.command.event.OrderRejectedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
 import me.rasztabiga.thesis.order.domain.query.entity.OrderEntity
 import me.rasztabiga.thesis.order.domain.query.exception.OrderNotFoundException
@@ -96,6 +97,13 @@ class OrderHandler(
     fun on(event: RestaurantOrderAcceptedEvent) {
         val entity = getOrder(event.orderId)
         entity.status = OrderEntity.OrderStatus.CONFIRMED
+        orderRepository.save(entity)
+    }
+
+    @EventHandler
+    fun on(event: OrderRejectedEvent) {
+        val entity = getOrder(event.orderId)
+        entity.status = OrderEntity.OrderStatus.REJECTED
         orderRepository.save(entity)
     }
 

@@ -8,7 +8,6 @@ import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantMen
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantRequest
 import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Availability
 import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Product
-import me.rasztabiga.thesis.restaurant.domain.command.command.AcceptRestaurantOrderCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.CreateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.DeleteRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantAvailabilityCommand
@@ -61,16 +60,6 @@ object RestaurantControllerMapper {
                     price = it.price
                 )
             }
-        )
-    }
-
-    fun mapToAcceptOrderCommand(
-        restaurantId: UUID,
-        orderId: UUID
-    ): AcceptRestaurantOrderCommand {
-        return AcceptRestaurantOrderCommand(
-            restaurantId = restaurantId,
-            restaurantOrderId = orderId
         )
     }
 }
