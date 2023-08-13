@@ -124,6 +124,7 @@ class OrderLifecycleSaga {
         )
     }
 
+    @Suppress("TooGenericExceptionCaught", "SwallowedException")
     @EndSaga
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: RestaurantOrderRejectedEvent) {

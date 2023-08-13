@@ -22,6 +22,7 @@ import org.axonframework.modelling.command.AggregateMember
 import org.axonframework.spring.stereotype.Aggregate
 import java.util.*
 
+@Suppress("TooManyFunctions")
 @Aggregate
 internal class Order {
     @AggregateIdentifier
@@ -168,6 +169,7 @@ internal class Order {
         this.status = OrderStatus.FINALIZED
     }
 
+    @Suppress("UnusedParameter")
     @EventSourcingHandler
     fun on(event: OrderPaidEvent) {
         this.status = OrderStatus.PAID

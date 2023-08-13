@@ -7,6 +7,10 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "gradle"
+    directory: "/delivery"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "gradle"
     directory: "/order"
     schedule:
       interval: "daily"
