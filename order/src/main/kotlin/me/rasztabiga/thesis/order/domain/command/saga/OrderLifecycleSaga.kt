@@ -107,13 +107,13 @@ class OrderLifecycleSaga {
         ).join()
 
         restaurantOrderId = UUID.randomUUID()
-        SagaLifecycle.associateWith("restaurantOrderId", restaurantOrderId.toString())
 
         // TODO aggregate id must be unique?
         // TODO associate restaurantOrderId with saga?
         commandGateway.sendAndWait<Void>(
             CreateRestaurantOrderCommand(
                 restaurantOrderId = restaurantOrderId,
+                orderId = event.orderId,
                 restaurantId = order.restaurantId,
                 items = order.items.map {
                     CreateRestaurantOrderCommand.OrderItem(
@@ -125,14 +125,14 @@ class OrderLifecycleSaga {
     }
 
     @Suppress("UnusedParameter")
-    @SagaEventHandler(associationProperty = "restaurantOrderId")
+    @SagaEventHandler(associationProperty = "orderId")
     fun on(event: RestaurantOrderRejectedEvent) {
         println("RestaurantOrderRejectedEvent")
         // TODO revert payment and end saga
     }
 
     @Suppress("UnusedParameter")
-    @SagaEventHandler(associationProperty = "restaurantOrderId")
+    @SagaEventHandler(associationProperty = "orderId")
     fun on(event: RestaurantOrderPreparedEvent) {
         println("RestaurantOrderPreparedEvent")
         // TODO create order delivery
