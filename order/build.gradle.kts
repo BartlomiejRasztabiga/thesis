@@ -26,7 +26,7 @@ repositories {
     }
 }
 
-val axonVersion = "4.8.1"
+val axonVersion = "4.8.2"
 val testcontainersVersion = "1.18.3"
 val kotestVersion = "5.6.2"
 
