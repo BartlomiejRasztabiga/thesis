@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: delivery-db
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: delivery-db
+  serviceName: delivery-db
+  template:
+    metadata:
+      labels:
+        app: delivery-db
+    spec:
+      containers:
+        - image: mongo:6.0.5
+          name: delivery-db
+          ports:
+            - containerPort: 27101
+          volumeMounts:
+            - mountPath: /data/db
+              name: delivery-db-data
+          env:
+            - name: MONGO_INITDB_ROOT_USERNAME
+              value: root
+            - name: MONGO_INITDB_ROOT_PASSWORD
+              value: password
+            - name: MONGO_INITDB_DATABASE
+              value: delivery
+      restartPolicy: Always
+      volumes:
+        - name: delivery-db-data
+          persistentVolumeClaim:
+            claimName: delivery-db-data

@@ -18,6 +18,10 @@ spec:
               value: http://restaurant-service:8101
             - name: URI_ORDER
               value: http://order-service:8102
+            - name: URI_PAYMENT
+              value: http://payment-service:8103
+            - name: URI_DELIVERY
+              value: http://delivery-service:8104
           image: ghcr.io/bartlomiejrasztabiga/thesis/gateway
           name: gateway
           ports:
