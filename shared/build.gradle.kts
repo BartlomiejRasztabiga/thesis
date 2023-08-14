@@ -24,7 +24,7 @@ repositories {
     mavenCentral()
 }
 
-val axonVersion = "4.8.1"
+val axonVersion = "4.8.2"
 val kotestVersion = "5.6.2"
 
 dependencies {
@@ -41,7 +41,7 @@ dependencies {
     testFixturesImplementation("org.testcontainers:junit-jupiter")
     testFixturesImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testFixturesImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
-    testFixturesImplementation("io.mockk:mockk:1.13.5")
+    testFixturesImplementation("io.mockk:mockk:1.13.6")
     testFixturesImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 
