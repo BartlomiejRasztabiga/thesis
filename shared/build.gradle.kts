@@ -41,7 +41,7 @@ dependencies {
     testFixturesImplementation("org.testcontainers:junit-jupiter")
     testFixturesImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testFixturesImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
-    testFixturesImplementation("io.mockk:mockk:1.13.6")
+    testFixturesImplementation("io.mockk:mockk:1.13.7")
     testFixturesImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 
