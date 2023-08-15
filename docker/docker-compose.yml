@@ -107,6 +107,35 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=password
       - MONGO_INITDB_DATABASE=payment
+  
+  delivery-service:
+    image: ghcr.io/bartlomiejrasztabiga/thesis/delivery:latest
+    build:
+      context: ../delivery
+      dockerfile: Dockerfile
+    ports:
+      - '8104:8104'
+    depends_on:
+      - axonserver
+    environment:
+      - AXON_AXONSERVER_SERVERS=axonserver
+      - SPRING_DATA_MONGODB_HOST=delivery-db
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_DATABASE=delivery
+      - SPRING_DATA_MONGODB_USERNAME=root
+      - SPRING_DATA_MONGODB_PASSWORD=password
+      - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=admin
+
+  delivery-db:
+    image: mongo:6.0.5
+    ports:
+      - '27104:27017'
+    volumes:
+      - delivery-db-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=delivery
 volumes:
   axonserver-data:
   axonserver-events:
@@ -114,3 +143,4 @@ volumes:
   restaurant-db-data:
   order-db-data:
   payment-db-data:
+  delivery-db-data:

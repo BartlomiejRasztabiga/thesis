@@ -32,6 +32,10 @@ class GatewayConfiguration {
                 it.path("/api/v1/deliveries/**")
                     .uri(uriConfiguration.delivery)
             }
+            .route("courier") {
+                it.path("/api/v1/couriers/**")
+                    .uri(uriConfiguration.delivery)
+            }
             .build()
     }
 }
