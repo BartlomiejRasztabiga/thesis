@@ -17,6 +17,16 @@ export const getRestaurant = async (
     .then((res) => res.data);
 };
 
+export const getRestaurantOrders = async (
+  request: Request,
+  restaurantId: string,
+): Promise<RestaurantOrderResponse[]> => {
+  const axios = await getAxios(request);
+  return axios
+    .get(`/api/v1/restaurants/${restaurantId}/orders`)
+    .then((res) => res.data);
+}
+
 interface RestaurantResponse {
   id: string;
   name: string;
@@ -34,4 +44,21 @@ interface MenuEntryResponse {
 enum Availability {
   OPEN = "OPEN",
   CLOSED = "CLOSED",
+}
+
+interface RestaurantOrderResponse {
+  restaurantOrderId: string;
+  items: RestaurantOrderItemResponse[];
+  status: RestaurantOrderStatus;
+}
+
+interface RestaurantOrderItemResponse {
+  productId: string;
+}
+
+enum RestaurantOrderStatus {
+  NEW = "NEW",
+  ACCEPTED = "ACCEPTED",
+  PREPARED = "PREPARED",
+  REJECTED = "REJECTED",
 }

@@ -57,7 +57,7 @@ export async function action({ request, params }: ActionArgs) {
   if (_action === "cancel") {
     await cancelOrder(request, params.orderId);
 
-    return redirect(`/restaurants/`, {
+    return redirect(`/ordering/restaurants/`, {
       headers: {
         // only necessary with cookieSessionStorage
         "Set-Cookie": await clearOrderId(request)

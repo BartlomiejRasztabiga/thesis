@@ -127,7 +127,7 @@ export default function RestaurantPage() {
     if (!activeOrderRestaurantSelected) return (
       <>
         <p className="text-lg text-center mb-4">You have an active order from another restaurant</p>
-        <Link to={`/restaurants/${data.activeOrder.restaurantId}`}
+        <Link to={`/ordering/restaurants/${data.activeOrder.restaurantId}`}
               className="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400">
           Go to active order
         </Link>
