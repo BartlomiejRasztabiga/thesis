@@ -1,7 +1,9 @@
 package me.rasztabiga.thesis.delivery.domain.query.handler
 
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.api.CourierResponse
+import me.rasztabiga.thesis.delivery.domain.command.event.CourierAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.delivery.domain.command.event.CourierCreatedEvent
+import me.rasztabiga.thesis.delivery.domain.query.entity.CourierEntity
 import me.rasztabiga.thesis.delivery.domain.query.exception.CourierNotFoundException
 import me.rasztabiga.thesis.delivery.domain.query.mapper.CourierMapper.mapToEntity
 import me.rasztabiga.thesis.delivery.domain.query.mapper.CourierMapper.mapToResponse
@@ -25,10 +27,21 @@ class CourierHandler(
         courierRepository.save(entity)
     }
 
+    @EventHandler
+    fun on(event: CourierAvailabilityUpdatedEvent) {
+        val entity = getCourier(event.id)
+        entity.availability = CourierEntity.Availability.valueOf(event.availability.name)
+        courierRepository.save(entity)
+    }
+
     @QueryHandler
     fun handle(query: FindCourierByIdQuery): Mono<CourierResponse> {
         return courierRepository.load(query.courierId)
             ?.let { Mono.just(mapToResponse(it)) }
             ?: Mono.error(CourierNotFoundException(query.courierId))
+    }
+
+    private fun getCourier(id: String): CourierEntity {
+        return courierRepository.load(id) ?: throw CourierNotFoundException(id)
     }
 }
