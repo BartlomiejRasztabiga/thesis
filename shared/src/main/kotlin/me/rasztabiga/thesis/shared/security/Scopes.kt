@@ -6,6 +6,7 @@ object Scopes {
     val USER = UserScopes
     val ORDER = OrderScopes
     val DELIVERY = DeliveryScopes
+    val COURIER = CourierScopes
 
     object RestaurantScopes {
         private const val RESTAURANTS = "restaurants"
@@ -33,6 +34,13 @@ object Scopes {
 
         const val READ = "${SCOPE}_read:${DELIVERIES}"
         const val WRITE = "${SCOPE}_write:${DELIVERIES}"
+    }
+
+    object CourierScopes {
+        private const val COURIERS = "couriers"
+
+        const val READ = "${SCOPE}_read:${COURIERS}"
+        const val WRITE = "${SCOPE}_write:${COURIERS}"
     }
 
     private const val SCOPE = "SCOPE"
