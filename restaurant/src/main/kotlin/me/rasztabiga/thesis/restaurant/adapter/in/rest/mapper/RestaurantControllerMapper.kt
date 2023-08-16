@@ -19,7 +19,8 @@ object RestaurantControllerMapper {
     fun mapToCreateRestaurantCommand(request: CreateRestaurantRequest): CreateRestaurantCommand {
         return CreateRestaurantCommand(
             id = request.id,
-            name = request.name
+            name = request.name,
+            address = request.address
         )
     }
 

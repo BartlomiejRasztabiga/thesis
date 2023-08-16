@@ -13,7 +13,7 @@ data class OrderResponse(
     val items: List<OrderItem>,
     val total: BigDecimal?,
     val paymentId: UUID?,
-    val deliveryAddressId: UUID
+    val deliveryAddressId: UUID?
 ) {
     enum class OrderStatus {
         CREATED,

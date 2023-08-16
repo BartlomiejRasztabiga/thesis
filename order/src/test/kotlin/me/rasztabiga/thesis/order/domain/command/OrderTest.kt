@@ -162,7 +162,8 @@ class OrderTest {
                     orderItemAddedEvent.orderItemId,
                     orderItemAddedEvent.productId
                 )
-            )
+            ),
+            UUID.randomUUID()
         )
 
         testFixture.given(orderStartedEvent, orderItemAddedEvent)

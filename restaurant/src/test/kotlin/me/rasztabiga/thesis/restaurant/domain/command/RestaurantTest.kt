@@ -34,12 +34,14 @@ class RestaurantTest {
     fun `should create restaurant`() {
         val createRestaurantCommand = CreateRestaurantCommand(
             UUID.randomUUID(),
-            "Restaurant"
+            "Restaurant",
+            "address"
         )
 
         val restaurantCreatedEvent = RestaurantCreatedEvent(
             createRestaurantCommand.id,
-            createRestaurantCommand.name
+            createRestaurantCommand.name,
+            createRestaurantCommand.address
         )
 
         testFixture.givenNoPriorActivity()
@@ -57,7 +59,8 @@ class RestaurantTest {
 
         val restaurantCreatedEvent = RestaurantCreatedEvent(
             updateRestaurantCommand.id,
-            updateRestaurantCommand.name
+            updateRestaurantCommand.name,
+            "address"
         )
 
         val restaurantUpdatedEvent = RestaurantUpdatedEvent(
@@ -79,7 +82,8 @@ class RestaurantTest {
 
         val restaurantCreatedEvent = RestaurantCreatedEvent(
             deleteRestaurantCommand.id,
-            "Restaurant"
+            "Restaurant",
+            "address"
         )
 
         val restaurantDeletedEvent = RestaurantDeletedEvent(
@@ -103,7 +107,8 @@ class RestaurantTest {
 
         val restaurantCreatedEvent = RestaurantCreatedEvent(
             restaurantId,
-            "Restaurant"
+            "Restaurant",
+            "address"
         )
 
         val restaurantAvailabilityUpdatedEvent = RestaurantAvailabilityUpdatedEvent(
@@ -128,7 +133,8 @@ class RestaurantTest {
 
         val restaurantCreatedEvent = RestaurantCreatedEvent(
             restaurantId,
-            "Restaurant"
+            "Restaurant",
+            "address"
         )
 
         val restaurantMenuUpdatedEvent = RestaurantMenuUpdatedEvent(
@@ -148,7 +154,8 @@ class RestaurantTest {
 
         val restaurantCreatedEvent = RestaurantCreatedEvent(
             restaurantId,
-            "Restaurant"
+            "Restaurant",
+            "address"
         )
 
         val restaurantMenuUpdatedEvent = RestaurantMenuUpdatedEvent(

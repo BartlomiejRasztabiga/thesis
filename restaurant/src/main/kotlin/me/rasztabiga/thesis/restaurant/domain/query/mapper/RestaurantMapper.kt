@@ -23,7 +23,8 @@ object RestaurantMapper {
             availability = RestaurantResponse.Availability.valueOf(entity.availability.name),
             menu = entity.menu.map {
                 RestaurantResponse.Product(it.id, it.name, it.description, it.price)
-            }
+            },
+            address = entity.address
         )
     }
 }

@@ -102,7 +102,8 @@ class OrderHandlerTest {
                 orderStartedEvent.orderId,
                 orderStartedEvent.userId,
                 orderStartedEvent.restaurantId,
-                emptyList()
+                emptyList(),
+                UUID.randomUUID()
             )
         orderHandler.on(orderFinalizedEvent)
 

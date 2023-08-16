@@ -15,7 +15,8 @@ object OrderMapper {
             status = OrderEntity.OrderStatus.valueOf(event.status.name),
             items = mutableListOf(),
             total = null,
-            paymentId = null
+            paymentId = null,
+            deliveryAddressId = null
         )
     }
 
@@ -32,7 +33,8 @@ object OrderMapper {
                 )
             },
             total = entity.total,
-            paymentId = entity.paymentId
+            paymentId = entity.paymentId,
+            deliveryAddressId = entity.deliveryAddressId
         )
     }
 }

@@ -28,7 +28,7 @@ class RestaurantHandlerTest {
     @Test
     fun `given restaurant created event, when handling FindAllRestaurantsQuery, then returns restaurant`() {
         // given
-        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant")
+        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant", "address")
         restaurantHandler.on(restaurantCreatedEvent)
 
         // when
@@ -44,7 +44,7 @@ class RestaurantHandlerTest {
     @Test
     fun `given restaurant created event, when handling FindRestaurantByIdQuery, then returns restaurant`() {
         // given
-        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant")
+        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant", "address")
         restaurantHandler.on(restaurantCreatedEvent)
 
         // when
@@ -59,7 +59,7 @@ class RestaurantHandlerTest {
     @Test
     fun `given restaurant updated event, when handling FindRestaurantByIdQuery, then returns updated restaurant`() {
         // given
-        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant")
+        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant", "address")
         val restaurantUpdatedEvent = RestaurantUpdatedEvent(restaurantCreatedEvent.id, "New name")
         restaurantHandler.on(restaurantCreatedEvent)
         restaurantHandler.on(restaurantUpdatedEvent)
@@ -76,7 +76,7 @@ class RestaurantHandlerTest {
     @Test
     fun `given restaurant deleted event, when handling FindRestaurantByIdQuery, then throws`() {
         // given
-        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant")
+        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant", "address")
         val restaurantDeletedEvent = RestaurantDeletedEvent(restaurantCreatedEvent.id)
         restaurantHandler.on(restaurantCreatedEvent)
         restaurantHandler.on(restaurantDeletedEvent)
@@ -107,7 +107,7 @@ class RestaurantHandlerTest {
     @Test
     fun `given restaurant availability updated event, when handling FindRestaurantByIdQuery, then returns updated restaurant`() {
         // given
-        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant")
+        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant", "address")
         val restaurantAvailabilityUpdatedEvent =
             RestaurantAvailabilityUpdatedEvent(restaurantCreatedEvent.id, DomainAvailability.OPEN)
         restaurantHandler.on(restaurantCreatedEvent)
@@ -126,7 +126,7 @@ class RestaurantHandlerTest {
     @Test
     fun `given restaurant menu updated event, when handling FindRestaurantByIdQuery, then returns updated restaurant`() {
         // given
-        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant")
+        val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant", "address")
         val restaurantMenuUpdatedEvent = RestaurantMenuUpdatedEvent(
             restaurantCreatedEvent.id,
             listOf(Product(UUID.randomUUID(), "Product", "description", 1.0))
