@@ -13,6 +13,7 @@ import me.rasztabiga.thesis.shared.domain.command.command.DeleteOrderPaymentComm
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaidEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaymentPaidEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderPreparedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderRejectedEvent
 import org.axonframework.commandhandling.gateway.CommandGateway
@@ -120,6 +121,15 @@ class OrderLifecycleSaga {
                         productId = it.productId
                     )
                 }
+            )
+        )
+    }
+
+    @SagaEventHandler
+    fun on(event: RestaurantOrderAcceptedEvent) {
+        commandGateway.sendAndWait<Void>(
+            CreateOrderDeliveryOfferCommand(
+
             )
         )
     }

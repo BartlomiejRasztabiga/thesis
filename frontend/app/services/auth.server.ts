@@ -20,14 +20,14 @@ let auth0Strategy = new Auth0Strategy(
     domain: "rasztabigab.eu.auth0.com",
     scope:
       "openid profile email read:restaurants write:restaurants read:users write:users read:orders write:orders",
-    audience: "https://thesis.rasztabiga.me/api"
+    audience: "https://thesis.rasztabiga.me/api",
   },
   async ({ accessToken, refreshToken, extraParams, profile }) => {
     return {
       id: profile.id,
-      accessToken: accessToken
+      accessToken: accessToken,
     };
-  }
+  },
 );
 
 authenticator.use(auth0Strategy);

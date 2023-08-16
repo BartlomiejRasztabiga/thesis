@@ -1,7 +1,7 @@
 import { getAxios } from "~/services/axios.server";
 
 export const getRestaurants = async (
-  request: Request
+  request: Request,
 ): Promise<RestaurantResponse[]> => {
   const axios = await getAxios(request);
   return axios.get("/api/v1/restaurants").then((res) => res.data);
@@ -9,7 +9,7 @@ export const getRestaurants = async (
 
 export const getRestaurant = async (
   request: Request,
-  restaurantId: string
+  restaurantId: string,
 ): Promise<RestaurantResponse> => {
   const axios = await getAxios(request);
   return axios
@@ -19,7 +19,7 @@ export const getRestaurant = async (
 
 export const getRestaurantOrders = async (
   request: Request,
-  restaurantId: string
+  restaurantId: string,
 ): Promise<RestaurantOrderResponse[]> => {
   const axios = await getAxios(request);
   return axios
@@ -30,33 +30,39 @@ export const getRestaurantOrders = async (
 export const acceptRestaurantOrder = async (
   request: Request,
   restaurantId: string,
-  restaurantOrderId: string
+  restaurantOrderId: string,
 ): Promise<void> => {
   const axios = await getAxios(request);
   return axios
-    .put(`/api/v1/restaurants/${restaurantId}/orders/${restaurantOrderId}/accept`)
+    .put(
+      `/api/v1/restaurants/${restaurantId}/orders/${restaurantOrderId}/accept`,
+    )
     .then((res) => res.data);
 };
 
 export const rejectRestaurantOrder = async (
   request: Request,
   restaurantId: string,
-  restaurantOrderId: string
+  restaurantOrderId: string,
 ): Promise<void> => {
   const axios = await getAxios(request);
   return axios
-    .put(`/api/v1/restaurants/${restaurantId}/orders/${restaurantOrderId}/reject`)
+    .put(
+      `/api/v1/restaurants/${restaurantId}/orders/${restaurantOrderId}/reject`,
+    )
     .then((res) => res.data);
 };
 
 export const prepareRestaurantOrder = async (
   request: Request,
   restaurantId: string,
-  restaurantOrderId: string
+  restaurantOrderId: string,
 ): Promise<void> => {
   const axios = await getAxios(request);
   return axios
-    .put(`/api/v1/restaurants/${restaurantId}/orders/${restaurantOrderId}/prepare`)
+    .put(
+      `/api/v1/restaurants/${restaurantId}/orders/${restaurantOrderId}/prepare`,
+    )
     .then((res) => res.data);
 };
 

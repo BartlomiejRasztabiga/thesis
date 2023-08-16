@@ -11,5 +11,5 @@ module.exports = {
     v2_dev: true,
   },
   ignoredRouteFiles: ["**/.*", "**/*.css", "**/*.test.{js,jsx,ts,tsx}"],
-  tailwind: true
+  tailwind: true,
 };

@@ -3,7 +3,8 @@ import React, { useEffect } from "react";
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import Navbar from "~/components/Navbar";
-import { getOrder, OrderResponse } from "~/models/order.server";
+import type { OrderResponse } from "~/models/order.server";
+import { getOrder } from "~/models/order.server";
 import invariant from "tiny-invariant";
 
 export async function loader({ request, params }: LoaderArgs) {
@@ -29,7 +30,7 @@ export default function OrderTrackingPage() {
     return () => {
       clearInterval(timer);
     };
-  }, []);
+  }, [revalidator]);
 
   // TODO live update order status
 
@@ -43,8 +44,10 @@ export default function OrderTrackingPage() {
         return "Restaurant has rejected your order. Full refund will be issued shortly.";
       case "PREPARED":
         return "Your order is ready for pickup!";
+      default:
+        return "";
     }
-  }
+  };
 
   return (
     <div className="flex h-full min-h-screen flex-col">
@@ -62,14 +65,10 @@ export default function OrderTrackingPage() {
               <hr className="my-4" />
               <div>
                 <h4 className="text-xl font-bold">Order #{data.order.id}</h4>
-                <p className="text-gray-500">
-                  {getOrderSummary(data.order)}
-                </p>
+                <p className="text-gray-500">{getOrderSummary(data.order)}</p>
               </div>
             </div>
-            <div className="h-full w-80 border-r bg-gray-50">
-
-            </div>
+            <div className="h-full w-80 border-r bg-gray-50"></div>
           </div>
         </div>
       </main>

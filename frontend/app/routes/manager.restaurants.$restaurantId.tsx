@@ -2,13 +2,13 @@ import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, Link, useLoaderData, useRevalidator } from "@remix-run/react";
 import invariant from "tiny-invariant";
+import type { RestaurantOrderResponse } from "~/models/restaurant.server";
 import {
   acceptRestaurantOrder,
   getRestaurant,
   getRestaurantOrders,
   prepareRestaurantOrder,
   rejectRestaurantOrder,
-  RestaurantOrderResponse
 } from "~/models/restaurant.server";
 import React, { useEffect } from "react";
 
@@ -61,7 +61,9 @@ export default function RestaurantManagerPage() {
 
   const revalidator = useRevalidator();
 
-  const activeOrders = data.orders.filter((order) => ["NEW", "ACCEPTED", "PREPARED"].includes(order.status));
+  const activeOrders = data.orders.filter((order) =>
+    ["NEW", "ACCEPTED", "PREPARED"].includes(order.status),
+  );
 
   // TODO good enough for now
   useEffect(() => {
@@ -71,23 +73,45 @@ export default function RestaurantManagerPage() {
     return () => {
       clearInterval(timer);
     };
-  }, []);
+  }, [revalidator]);
 
   const getActionButtons = (order: RestaurantOrderResponse) => {
-    const className = "rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400 mx-2";
+    const className =
+      "rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400 mx-2";
 
     switch (order.status) {
       case "NEW":
         return (
           <>
-            <button type="submit" className={className} name="_action" value="accept">Accept</button>
-            <button type="submit" className={className} name="_action" value="reject">Reject</button>
+            <button
+              type="submit"
+              className={className}
+              name="_action"
+              value="accept"
+            >
+              Accept
+            </button>
+            <button
+              type="submit"
+              className={className}
+              name="_action"
+              value="reject"
+            >
+              Reject
+            </button>
           </>
         );
       case "ACCEPTED":
         return (
           <>
-            <button type="submit" className={className} name="_action" value="prepare">Ready</button>
+            <button
+              type="submit"
+              className={className}
+              name="_action"
+              value="prepare"
+            >
+              Ready
+            </button>
           </>
         );
 
@@ -118,40 +142,45 @@ export default function RestaurantManagerPage() {
               <table className="table table-zebra">
                 {/* head */}
                 <thead>
-                <tr>
-                  <th>Order ID</th>
-                  <th>Products</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Products</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
                 </thead>
                 <tbody>
-                {activeOrders.map((order) => (
-
-                  <tr key={order.restaurantOrderId}>
-                    <th>{order.restaurantOrderId}</th>
-                    <th>
-                      {order.items.map((item, key) => {
-                        const product = data.restaurant.menu.find((product) => product.id === item.productId);
-                        if (!product) {
-                          return null;
-                        }
-                        return (
-                          <div key={key}>
-                            <p>{product.name}</p>
-                          </div>
-                        );
-                      })}
-                    </th>
-                    <th>{order.status}</th>
-                    <th>
-                      <Form method="post">
-                        <input type="hidden" name="restaurantOrderId" value={order.restaurantOrderId} />
-                        {getActionButtons(order)}
-                      </Form>
-                    </th>
-                  </tr>
-                ))}
+                  {activeOrders.map((order) => (
+                    <tr key={order.restaurantOrderId}>
+                      <th>{order.restaurantOrderId}</th>
+                      <th>
+                        {order.items.map((item, key) => {
+                          const product = data.restaurant.menu.find(
+                            (product) => product.id === item.productId,
+                          );
+                          if (!product) {
+                            return null;
+                          }
+                          return (
+                            <div key={key}>
+                              <p>{product.name}</p>
+                            </div>
+                          );
+                        })}
+                      </th>
+                      <th>{order.status}</th>
+                      <th>
+                        <Form method="post">
+                          <input
+                            type="hidden"
+                            name="restaurantOrderId"
+                            value={order.restaurantOrderId}
+                          />
+                          {getActionButtons(order)}
+                        </Form>
+                      </th>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
