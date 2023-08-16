@@ -5,4 +5,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../../shared/src/testFixtures/kotlin" isTestSource="false" />
     </content>
   </component>
+  <component name="SonarLintModuleSettings">
+    <option name="uniqueId" value="1319e57f-b4a0-4d82-8bfd-93bb103f0294" />
+  </component>
 </module>
