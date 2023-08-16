@@ -70,7 +70,7 @@ export async function action({ request, params }: ActionArgs) {
 
     await finalizeOrder(request, activeOrderId, deliveryAddressId);
 
-    return redirect(`/orders/${activeOrderId}/payment`, {
+    return redirect(`/ordering/orders/${activeOrderId}/payment`, {
       headers: {
         // only necessary with cookieSessionStorage
         "Set-Cookie": await clearOrderId(request)

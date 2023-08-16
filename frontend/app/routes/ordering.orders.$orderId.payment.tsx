@@ -48,7 +48,7 @@ export async function action({ request, params }: ActionArgs) {
     console.log(order);
 
     if (order.status == "PAID") {
-      return redirect(`/orders/${order.id}/tracking`);
+      return redirect(`/ordering/orders/${order.id}/tracking`);
     } else {
       return json({ error: "Payment failed" });
     }

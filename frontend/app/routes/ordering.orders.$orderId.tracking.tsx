@@ -1,9 +1,9 @@
-import { useLoaderData } from "@remix-run/react";
-import React from "react";
+import { useLoaderData, useRevalidator } from "@remix-run/react";
+import React, { useEffect } from "react";
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import Navbar from "~/components/Navbar";
-import { getOrder } from "~/models/order.server";
+import { getOrder, OrderResponse } from "~/models/order.server";
 import invariant from "tiny-invariant";
 
 export async function loader({ request, params }: LoaderArgs) {
@@ -19,7 +19,32 @@ export async function loader({ request, params }: LoaderArgs) {
 export default function OrderTrackingPage() {
   const data = useLoaderData<typeof loader>();
 
+  const revalidator = useRevalidator();
+
+  // TODO good enough for now
+  useEffect(() => {
+    const timer = setInterval(() => {
+      revalidator.revalidate();
+    }, 5000);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
   // TODO live update order status
+
+  const getOrderSummary = (order: OrderResponse): string => {
+    switch (order.status) {
+      case "PAID":
+        return "Restaurant has seen your order...";
+      case "CONFIRMED":
+        return "Your order is being prepared...";
+      case "REJECTED":
+        return "Restaurant has rejected your order. Full refund will be issued shortly.";
+      case "PREPARED":
+        return "Your order is ready for pickup!";
+    }
+  }
 
   return (
     <div className="flex h-full min-h-screen flex-col">
@@ -38,7 +63,7 @@ export default function OrderTrackingPage() {
               <div>
                 <h4 className="text-xl font-bold">Order #{data.order.id}</h4>
                 <p className="text-gray-500">
-                  Your order is being prepared
+                  {getOrderSummary(data.order)}
                 </p>
               </div>
             </div>

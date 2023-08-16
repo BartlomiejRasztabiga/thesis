@@ -52,7 +52,7 @@ export const deleteOrderItem = async (
   return axios.delete(`/api/v1/orders/${orderId}/items/${orderItemId}`).then((res) => res.data);
 };
 
-interface OrderResponse {
+export interface OrderResponse {
   id: string;
   restaurantId: string;
   userId: string;
@@ -65,4 +65,14 @@ interface OrderResponse {
 interface OrderItemResponse {
   id: string;
   productId: string;
+}
+
+enum OrderStatus {
+  CREATED = "CREATED",
+  CANCELED = "CANCELED",
+  FINALIZED = "FINALIZED",
+  PAID = "PAID",
+  CONFIRMED = "CONFIRMED",
+  REJECTED = "REJECTED",
+  PREPARED = "PREPARED",
 }
