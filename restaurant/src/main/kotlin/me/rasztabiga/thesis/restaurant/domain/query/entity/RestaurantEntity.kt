@@ -10,7 +10,8 @@ data class RestaurantEntity(
     val id: UUID,
     val name: String,
     val availability: Availability,
-    val menu: List<Product>
+    val menu: List<Product>,
+    val address: String
 ) {
     enum class Availability {
         OPEN,

@@ -34,7 +34,7 @@ internal class Restaurant {
 
     @CommandHandler
     constructor(command: CreateRestaurantCommand) {
-        apply(RestaurantCreatedEvent(id = command.id, name = command.name))
+        apply(RestaurantCreatedEvent(id = command.id, name = command.name, address = command.address))
     }
 
     @CommandHandler

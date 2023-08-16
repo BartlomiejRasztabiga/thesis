@@ -14,7 +14,8 @@ data class OrderEntity(
     var status: OrderStatus,
     val items: MutableList<OrderItem>,
     var total: BigDecimal?,
-    var paymentId: UUID?
+    var paymentId: UUID?,
+    var deliveryAddressId: UUID?
 ) {
     enum class OrderStatus {
         CREATED,

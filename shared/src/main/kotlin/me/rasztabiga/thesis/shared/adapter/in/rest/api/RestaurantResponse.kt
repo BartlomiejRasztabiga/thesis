@@ -8,7 +8,8 @@ data class RestaurantResponse(
     val id: UUID,
     val name: String,
     val availability: Availability,
-    val menu: List<Product>
+    val menu: List<Product>,
+    val address: String
 ) {
     data class Product(
         val id: UUID,

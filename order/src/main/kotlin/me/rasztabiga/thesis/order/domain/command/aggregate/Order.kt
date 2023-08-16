@@ -109,7 +109,8 @@ internal class Order {
                         orderItemId = it.orderItemId,
                         productId = it.productId
                     )
-                }
+                },
+                deliveryAddressId = command.deliveryAddressId
             )
         )
     }

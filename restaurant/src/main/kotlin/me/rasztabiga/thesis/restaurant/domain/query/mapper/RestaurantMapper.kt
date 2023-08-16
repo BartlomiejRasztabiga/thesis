@@ -8,19 +8,20 @@ object RestaurantMapper {
 
     fun mapToEntity(event: RestaurantCreatedEvent): RestaurantEntity {
         return RestaurantEntity(
-            event.id,
-            event.name,
-            RestaurantEntity.Availability.CLOSED,
-            emptyList()
+            id = event.id,
+            name = event.name,
+            availability = RestaurantEntity.Availability.CLOSED,
+            menu = emptyList(),
+            address = event.address
         )
     }
 
     fun mapToResponse(entity: RestaurantEntity): RestaurantResponse {
         return RestaurantResponse(
-            entity.id,
-            entity.name,
-            RestaurantResponse.Availability.valueOf(entity.availability.name),
-            entity.menu.map {
+            id = entity.id,
+            name = entity.name,
+            availability = RestaurantResponse.Availability.valueOf(entity.availability.name),
+            menu = entity.menu.map {
                 RestaurantResponse.Product(it.id, it.name, it.description, it.price)
             }
         )

@@ -70,6 +70,7 @@ class OrderHandler(
     fun on(event: OrderFinalizedEvent) {
         val entity = getOrder(event.orderId)
         entity.status = OrderEntity.OrderStatus.FINALIZED
+        entity.deliveryAddressId = event.deliveryAddressId
         orderRepository.save(entity)
     }
 

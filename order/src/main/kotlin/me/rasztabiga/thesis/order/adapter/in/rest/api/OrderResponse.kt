@@ -12,7 +12,8 @@ data class OrderResponse(
     val status: OrderStatus,
     val items: List<OrderItem>,
     val total: BigDecimal?,
-    val paymentId: UUID?
+    val paymentId: UUID?,
+    val deliveryAddressId: UUID
 ) {
     enum class OrderStatus {
         CREATED,
