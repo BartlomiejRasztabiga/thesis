@@ -130,7 +130,6 @@ export default function RestaurantManagerPage() {
 
                   <tr key={order.restaurantOrderId}>
                     <th>{order.restaurantOrderId}</th>
-                    <th>{order.status}</th>
                     <th>
                       {order.items.map((item, key) => {
                         const product = data.restaurant.menu.find((product) => product.id === item.productId);
@@ -144,6 +143,7 @@ export default function RestaurantManagerPage() {
                         );
                       })}
                     </th>
+                    <th>{order.status}</th>
                     <th>
                       <Form method="post">
                         <input type="hidden" name="restaurantOrderId" value={order.restaurantOrderId} />
