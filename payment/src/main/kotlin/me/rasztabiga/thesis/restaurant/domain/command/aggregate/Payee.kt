@@ -11,6 +11,7 @@ import org.axonframework.spring.stereotype.Aggregate
 @Aggregate
 internal class Payee {
 
+    // TODO wszystko z tego jest potrzebne?
     @AggregateIdentifier
     private lateinit var id: String
 

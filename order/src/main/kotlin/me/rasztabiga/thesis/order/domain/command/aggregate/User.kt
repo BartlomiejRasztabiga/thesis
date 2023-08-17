@@ -16,6 +16,7 @@ import org.axonframework.spring.stereotype.Aggregate
 @Aggregate
 internal class User {
 
+    // TODO wszystko z tego jest potrzebne?
     @AggregateIdentifier
     private lateinit var id: String
     private lateinit var name: String

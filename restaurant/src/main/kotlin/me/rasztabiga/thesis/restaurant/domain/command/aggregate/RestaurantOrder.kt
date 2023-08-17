@@ -17,6 +17,8 @@ import java.util.*
 
 @Aggregate
 internal class RestaurantOrder {
+
+    // TODO wszystko z tego jest potrzebne?
     @AggregateIdentifier
     private lateinit var id: UUID
     private lateinit var orderId: UUID
