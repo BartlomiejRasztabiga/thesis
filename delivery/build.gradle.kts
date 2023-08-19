@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.util.*
 
 plugins {
     id("org.springframework.boot") version "3.1.2"
@@ -21,8 +20,8 @@ repositories {
     maven {
         url = uri("https://maven.pkg.github.com/bartlomiejrasztabiga/thesis")
         credentials {
-            username = "BartlomiejRasztabiga"
-            password = Base64.getDecoder().decode("Z2hwX3luMXdFd3Mxc1QwTzJTVjk2T3F2Q0dFdXN1OVJWNTBHWk1pTQ==").toString()
+            username = System.getenv("GITHUB_ACTOR") ?: project.findProperty("GITHUB_ACTOR").toString()
+            password = System.getenv("GITHUB_TOKEN") ?: project.findProperty("GITHUB_TOKEN").toString()
         }
     }
 }
