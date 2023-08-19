@@ -13,8 +13,8 @@ data class OrderDeliveryEntity(
     val orderId: UUID,
     val restaurantAddress: String,
     val deliveryAddress: String,
-    val status: DeliveryStatus,
+    var status: DeliveryStatus,
     val courierFee: BigDecimal,
-    val courierId: String?,
+    var courierId: String?,
     val courierIdsDeclined: MutableList<String>
 )

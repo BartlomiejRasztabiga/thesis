@@ -1,8 +1,10 @@
 package me.rasztabiga.thesis.delivery.domain.query.handler
 
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.api.OrderDeliveryResponse
-import me.rasztabiga.thesis.delivery.domain.command.command.RejectDeliveryOfferCommand
+import me.rasztabiga.thesis.delivery.domain.command.aggregate.DeliveryStatus
+import me.rasztabiga.thesis.delivery.domain.command.event.OrderDeliveryAcceptedEvent
 import me.rasztabiga.thesis.delivery.domain.command.event.OrderDeliveryCreatedEvent
+import me.rasztabiga.thesis.delivery.domain.command.event.OrderDeliveryPickedUpEvent
 import me.rasztabiga.thesis.delivery.domain.command.event.OrderDeliveryRejectedEvent
 import me.rasztabiga.thesis.delivery.domain.query.entity.OrderDeliveryEntity
 import me.rasztabiga.thesis.delivery.domain.query.exception.DeliveryNotFoundException
@@ -17,7 +19,7 @@ import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler
 import org.springframework.stereotype.Component
 import reactor.core.publisher.Mono
-import java.util.UUID
+import java.util.*
 
 @Component
 @ProcessingGroup("orderdelivery")
@@ -36,6 +38,21 @@ class OrderDeliveryHandler(
     fun on(event: OrderDeliveryRejectedEvent) {
         val entity = getDelivery(event.deliveryId)
         entity.courierIdsDeclined.add(event.courierId)
+        orderDeliveryRepository.save(entity)
+    }
+
+    @EventHandler
+    fun on(event: OrderDeliveryAcceptedEvent) {
+        val entity = getDelivery(event.deliveryId)
+        entity.courierId = event.courierId
+        entity.status = DeliveryStatus.ACCEPTED
+        orderDeliveryRepository.save(entity)
+    }
+
+    @EventHandler
+    fun on(event: OrderDeliveryPickedUpEvent) {
+        val entity = getDelivery(event.deliveryId)
+        entity.status = DeliveryStatus.PICKED_UP
         orderDeliveryRepository.save(entity)
     }
 
