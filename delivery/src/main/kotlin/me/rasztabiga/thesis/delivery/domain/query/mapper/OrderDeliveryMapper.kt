@@ -16,7 +16,7 @@ object OrderDeliveryMapper {
             status = DeliveryStatus.OFFER,
             courierFee = event.courierFee,
             courierId = null,
-            courierIdsDeclined = emptyList()
+            courierIdsDeclined = mutableListOf()
         )
     }
 

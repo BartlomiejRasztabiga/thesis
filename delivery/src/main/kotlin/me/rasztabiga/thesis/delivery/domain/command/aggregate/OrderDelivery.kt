@@ -1,6 +1,8 @@
 package me.rasztabiga.thesis.delivery.domain.command.aggregate
 
+import me.rasztabiga.thesis.delivery.domain.command.command.RejectDeliveryOfferCommand
 import me.rasztabiga.thesis.delivery.domain.command.event.OrderDeliveryCreatedEvent
+import me.rasztabiga.thesis.delivery.domain.command.event.OrderDeliveryRejectedEvent
 import me.rasztabiga.thesis.delivery.domain.command.port.CalculateDeliveryFeePort
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderDeliveryOfferCommand
 import org.axonframework.commandhandling.CommandHandler
@@ -22,7 +24,8 @@ class OrderDelivery {
     private lateinit var deliveryAddress: String
     private lateinit var status: DeliveryStatus
     private lateinit var courierFee: BigDecimal
-    @Suppress("UnusedPrivateProperty") private var courierId: String? = null
+    @Suppress("UnusedPrivateProperty")
+    private var courierId: String? = null
 
     private constructor()
 
@@ -37,6 +40,18 @@ class OrderDelivery {
                 restaurantAddress = command.restaurantAddress,
                 deliveryAddress = command.deliveryAddress,
                 courierFee = baseFee
+            )
+        )
+    }
+
+    @CommandHandler
+    fun handle(command: RejectDeliveryOfferCommand) {
+        require(this.status == DeliveryStatus.OFFER) { "Delivery can be rejected only if it's in OFFER status." }
+
+        apply(
+            OrderDeliveryRejectedEvent(
+                deliveryId = command.id,
+                courierId = command.courierId
             )
         )
     }
