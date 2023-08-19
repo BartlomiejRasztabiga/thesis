@@ -4,15 +4,15 @@ package me.rasztabiga.thesis.order.adapter.`in`.rest
 
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.AddOrderItemRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.FinalizeOrderRequest
-import me.rasztabiga.thesis.order.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.StartOrderRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToAddOrderItemCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToCancelOrderCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToDeleteOrderItemCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToFinalizeOrderCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToStartOrderCommand
-import me.rasztabiga.thesis.order.domain.query.query.FindOrderByIdQuery
 import me.rasztabiga.thesis.shared.UuidWrapper
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
+import me.rasztabiga.thesis.shared.domain.query.query.FindOrderByIdQuery
 import me.rasztabiga.thesis.shared.security.Scopes
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway

@@ -8,6 +8,7 @@ import me.rasztabiga.thesis.restaurant.domain.query.mapper.RestaurantOrderMapper
 import me.rasztabiga.thesis.restaurant.domain.query.mapper.RestaurantOrderMapper.mapToResponse
 import me.rasztabiga.thesis.restaurant.domain.query.query.FindAllRestaurantOrdersByRestaurantQuery
 import me.rasztabiga.thesis.restaurant.domain.query.repository.RestaurantOrderRepository
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryPickedUpEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderPreparedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderRejectedEvent
@@ -51,6 +52,13 @@ class RestaurantOrderHandler(
         restaurantOrderRepository.save(entity)
     }
 
+    @EventHandler
+    fun on(event: OrderDeliveryPickedUpEvent) {
+        val entity = getOrderByOrderId(event.orderId)
+        entity.status = RestaurantOrderEntity.OrderStatus.PICKED_UP
+        restaurantOrderRepository.save(entity)
+    }
+
     @QueryHandler
     fun handle(query: FindAllRestaurantOrdersByRestaurantQuery): Flux<RestaurantOrderResponse> {
         return restaurantOrderRepository.loadAllByRestaurantId(query.restaurantId).map { mapToResponse(it) }
@@ -58,5 +66,9 @@ class RestaurantOrderHandler(
 
     private fun getOrder(id: UUID): RestaurantOrderEntity {
         return restaurantOrderRepository.load(id) ?: throw RestaurantOrderNotFoundException(id)
+    }
+
+    private fun getOrderByOrderId(orderId: UUID): RestaurantOrderEntity {
+        return restaurantOrderRepository.loadByOrderId(orderId) ?: throw RestaurantOrderNotFoundException(orderId)
     }
 }

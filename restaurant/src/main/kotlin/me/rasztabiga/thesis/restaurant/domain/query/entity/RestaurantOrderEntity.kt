@@ -8,12 +8,13 @@ import java.util.*
 data class RestaurantOrderEntity(
     @Id
     val id: UUID,
+    val orderId: UUID,
     val restaurantId: UUID,
     val items: List<OrderItem>,
     var status: OrderStatus
 ) {
     enum class OrderStatus {
-        NEW, ACCEPTED, PREPARED, REJECTED
+        NEW, ACCEPTED, PREPARED, REJECTED, PICKED_UP
     }
 
     data class OrderItem(

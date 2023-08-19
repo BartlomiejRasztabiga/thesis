@@ -23,4 +23,8 @@ class DbRestaurantOrderRepository(
     override fun load(id: UUID): RestaurantOrderEntity? {
         return springDataRestaurantOrderRepository.findById(id).block()
     }
+
+    override fun loadByOrderId(orderId: UUID): RestaurantOrderEntity? {
+        return springDataRestaurantOrderRepository.findByOrderId(orderId).block()
+    }
 }

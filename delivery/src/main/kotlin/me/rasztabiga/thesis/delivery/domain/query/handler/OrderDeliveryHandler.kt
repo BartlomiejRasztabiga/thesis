@@ -2,9 +2,7 @@ package me.rasztabiga.thesis.delivery.domain.query.handler
 
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.delivery.domain.command.aggregate.DeliveryStatus
-import me.rasztabiga.thesis.delivery.domain.command.event.OrderDeliveryAcceptedEvent
 import me.rasztabiga.thesis.delivery.domain.command.event.OrderDeliveryCreatedEvent
-import me.rasztabiga.thesis.delivery.domain.command.event.OrderDeliveryPickedUpEvent
 import me.rasztabiga.thesis.delivery.domain.command.event.OrderDeliveryRejectedEvent
 import me.rasztabiga.thesis.delivery.domain.query.entity.OrderDeliveryEntity
 import me.rasztabiga.thesis.delivery.domain.query.exception.DeliveryNotFoundException
@@ -12,8 +10,11 @@ import me.rasztabiga.thesis.delivery.domain.query.exception.SuitableDeliveryOffe
 import me.rasztabiga.thesis.delivery.domain.query.mapper.OrderDeliveryMapper.mapToEntity
 import me.rasztabiga.thesis.delivery.domain.query.mapper.OrderDeliveryMapper.mapToResponse
 import me.rasztabiga.thesis.delivery.domain.query.port.DistanceCalculatorPort
+import me.rasztabiga.thesis.delivery.domain.query.query.FindCurrentDeliveryQuery
 import me.rasztabiga.thesis.delivery.domain.query.query.FindSuitableDeliveryOfferQuery
 import me.rasztabiga.thesis.delivery.domain.query.repository.OrderDeliveryRepository
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAcceptedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryPickedUpEvent
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler
@@ -68,6 +69,13 @@ class OrderDeliveryHandler(
         }
 
         return Mono.just(mapToResponse(bestOffer))
+    }
+
+    @QueryHandler
+    fun handle(query: FindCurrentDeliveryQuery): Mono<OrderDeliveryResponse> {
+        return orderDeliveryRepository.loadCurrentDeliveryByCourierId(query.courierId)
+            ?.let { Mono.just(mapToResponse(it)) }
+            ?: Mono.error(DeliveryNotFoundException())
     }
 
     private fun getDelivery(deliveryId: UUID): OrderDeliveryEntity {

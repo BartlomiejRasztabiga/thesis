@@ -22,7 +22,10 @@ data class OrderResponse(
         PAID,
         CONFIRMED,
         REJECTED,
-        PREPARED
+        PREPARED,
+        COURIER_ASSIGNED,
+        PICKED_UP,
+        DELIVERED
     }
 
     // TODO maybe we should aggregate all the product data here (price etc.)

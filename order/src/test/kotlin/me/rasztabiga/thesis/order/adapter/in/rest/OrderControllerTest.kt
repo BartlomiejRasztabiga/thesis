@@ -6,11 +6,11 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.mockk.every
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.AddOrderItemRequest
-import me.rasztabiga.thesis.order.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.StartOrderRequest
-import me.rasztabiga.thesis.order.domain.query.query.FindOrderByIdQuery
 import me.rasztabiga.thesis.shared.BaseWebFluxTest
 import me.rasztabiga.thesis.shared.UuidWrapper
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
+import me.rasztabiga.thesis.shared.domain.query.query.FindOrderByIdQuery
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType

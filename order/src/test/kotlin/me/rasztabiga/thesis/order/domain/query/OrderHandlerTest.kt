@@ -2,7 +2,6 @@ package me.rasztabiga.thesis.order.domain.query
 
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import me.rasztabiga.thesis.order.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.order.domain.command.aggregate.OrderStatus
 import me.rasztabiga.thesis.order.domain.command.event.OrderCanceledEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderFinalizedEvent
@@ -10,8 +9,9 @@ import me.rasztabiga.thesis.order.domain.command.event.OrderItemAddedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemDeletedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
 import me.rasztabiga.thesis.order.domain.query.handler.OrderHandler
-import me.rasztabiga.thesis.order.domain.query.query.FindOrderByIdQuery
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
+import me.rasztabiga.thesis.shared.domain.query.query.FindOrderByIdQuery
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
 import java.util.*

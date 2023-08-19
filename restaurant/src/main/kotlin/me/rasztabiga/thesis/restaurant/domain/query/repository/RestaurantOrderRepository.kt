@@ -11,4 +11,6 @@ interface RestaurantOrderRepository {
     fun loadAllByRestaurantId(restaurantId: UUID): Flux<RestaurantOrderEntity>
 
     fun load(id: UUID): RestaurantOrderEntity?
+
+    fun loadByOrderId(orderId: UUID): RestaurantOrderEntity?
 }

@@ -7,6 +7,7 @@ import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.OrderDeliveryContr
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.OrderDeliveryControllerMapper.mapToDeliverDeliveryCommand
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.OrderDeliveryControllerMapper.mapToPickupDeliveryCommand
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.OrderDeliveryControllerMapper.mapToRejectDeliveryOfferCommand
+import me.rasztabiga.thesis.delivery.domain.query.query.FindCurrentDeliveryQuery
 import me.rasztabiga.thesis.delivery.domain.query.query.FindSuitableDeliveryOfferQuery
 import me.rasztabiga.thesis.shared.UuidWrapper
 import me.rasztabiga.thesis.shared.config.getUserId
@@ -41,6 +42,19 @@ class OrderDeliveryController(
             FindSuitableDeliveryOfferQuery(
                 courierId = exchange.getUserId(),
                 courierAddress = courierAddress
+            ),
+            ResponseTypes.instanceOf(OrderDeliveryResponse::class.java)
+        )
+    }
+
+    @GetMapping("/current")
+    @PreAuthorize("hasAnyAuthority('${COURIER.READ}')")
+    fun getCurrentDelivery(
+        exchange: ServerWebExchange
+    ): Mono<OrderDeliveryResponse> {
+        return reactorQueryGateway.query(
+            FindCurrentDeliveryQuery(
+                courierId = exchange.getUserId()
             ),
             ResponseTypes.instanceOf(OrderDeliveryResponse::class.java)
         )

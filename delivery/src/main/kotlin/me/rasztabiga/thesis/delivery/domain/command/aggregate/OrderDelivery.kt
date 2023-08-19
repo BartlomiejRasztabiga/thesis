@@ -7,6 +7,7 @@ import me.rasztabiga.thesis.delivery.domain.command.command.RejectDeliveryOfferC
 import me.rasztabiga.thesis.delivery.domain.command.event.OrderDeliveryCreatedEvent
 import me.rasztabiga.thesis.delivery.domain.command.event.OrderDeliveryRejectedEvent
 import me.rasztabiga.thesis.delivery.domain.command.port.CalculateDeliveryFeePort
+import me.rasztabiga.thesis.delivery.domain.command.port.OrderPreparedVerifierPort
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderDeliveryOfferCommand
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryDeliveredEvent
@@ -68,21 +69,26 @@ class OrderDelivery {
         apply(
             OrderDeliveryAcceptedEvent(
                 deliveryId = command.id,
+                orderId = this.orderId,
                 courierId = command.courierId
             )
         )
     }
 
     @CommandHandler
-    fun handle(command: PickupDeliveryCommand) {
+    fun handle(command: PickupDeliveryCommand, orderPreparedVerifierPort: OrderPreparedVerifierPort) {
         require(this.status == DeliveryStatus.ACCEPTED) { "Delivery can be picked up only if it's in ACCEPTED status." }
         require(this.courierId == command.courierId) {
             "Delivery can be picked up only by the courier who accepted it."
+        }
+        require(orderPreparedVerifierPort.isOrderPrepared(this.orderId)) {
+            "Delivery can be picked up only if the order is prepared."
         }
 
         apply(
             OrderDeliveryPickedUpEvent(
                 deliveryId = command.id,
+                orderId = this.orderId,
                 courierId = command.courierId
             )
         )
@@ -100,6 +106,7 @@ class OrderDelivery {
         apply(
             OrderDeliveryDeliveredEvent(
                 deliveryId = command.id,
+                orderId = this.orderId,
                 courierId = command.courierId
             )
         )

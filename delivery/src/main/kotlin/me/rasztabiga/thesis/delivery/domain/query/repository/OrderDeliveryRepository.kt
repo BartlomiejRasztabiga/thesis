@@ -9,4 +9,6 @@ interface OrderDeliveryRepository {
     fun load(id: UUID): OrderDeliveryEntity?
 
     fun loadOffers(): List<OrderDeliveryEntity>
+
+    fun loadCurrentDeliveryByCourierId(courierId: String): OrderDeliveryEntity?
 }

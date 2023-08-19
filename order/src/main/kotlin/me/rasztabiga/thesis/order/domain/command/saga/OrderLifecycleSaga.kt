@@ -1,11 +1,10 @@
 package me.rasztabiga.thesis.order.domain.command.saga
 
-import me.rasztabiga.thesis.order.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.order.domain.command.command.MarkOrderAsPaidCommand
 import me.rasztabiga.thesis.order.domain.command.command.RejectOrderCommand
 import me.rasztabiga.thesis.order.domain.command.event.OrderCanceledEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderFinalizedEvent
-import me.rasztabiga.thesis.order.domain.query.query.FindOrderByIdQuery
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UserResponse
 import me.rasztabiga.thesis.shared.domain.command.command.CalculateOrderTotalCommand
@@ -19,6 +18,7 @@ import me.rasztabiga.thesis.shared.domain.command.event.OrderPaymentPaidEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderRejectedEvent
+import me.rasztabiga.thesis.shared.domain.query.query.FindOrderByIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindRestaurantByIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindUserByIdQuery
 import org.axonframework.commandhandling.gateway.CommandGateway

@@ -1,6 +1,5 @@
 package me.rasztabiga.thesis.order.domain.query.handler
 
-import me.rasztabiga.thesis.order.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.order.domain.command.event.OrderCanceledEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderFinalizedEvent
 import me.rasztabiga.thesis.order.domain.command.event.OrderItemAddedEvent
@@ -11,8 +10,8 @@ import me.rasztabiga.thesis.order.domain.query.entity.OrderEntity
 import me.rasztabiga.thesis.order.domain.query.exception.OrderNotFoundException
 import me.rasztabiga.thesis.order.domain.query.mapper.OrderMapper.mapToEntity
 import me.rasztabiga.thesis.order.domain.query.mapper.OrderMapper.mapToResponse
-import me.rasztabiga.thesis.order.domain.query.query.FindOrderByIdQuery
 import me.rasztabiga.thesis.order.domain.query.repository.OrderRepository
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryDeliveredEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryPickedUpEvent
@@ -21,6 +20,7 @@ import me.rasztabiga.thesis.shared.domain.command.event.OrderPaymentCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderPreparedEvent
+import me.rasztabiga.thesis.shared.domain.query.query.FindOrderByIdQuery
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler
@@ -122,14 +122,14 @@ class OrderHandler(
     @EventHandler
     fun on(event: OrderDeliveryAcceptedEvent) {
         val entity = getOrder(event.orderId)
-        entity.status = OrderEntity.OrderStatus.PAID
+        entity.status = OrderEntity.OrderStatus.COURIER_ASSIGNED
         orderRepository.save(entity)
     }
 
     @EventHandler
     fun on(event: OrderDeliveryPickedUpEvent) {
         val entity = getOrder(event.orderId)
-        entity.status = OrderEntity.OrderStatus.DELIVERED
+        entity.status = OrderEntity.OrderStatus.PICKED_UP
         orderRepository.save(entity)
     }
 

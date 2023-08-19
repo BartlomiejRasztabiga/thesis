@@ -24,7 +24,10 @@ data class OrderEntity(
         PAID,
         CONFIRMED,
         REJECTED,
-        PREPARED
+        PREPARED,
+        COURIER_ASSIGNED,
+        PICKED_UP,
+        DELIVERED
     }
 
     data class OrderItem(
