@@ -1,5 +1,6 @@
 package me.rasztabiga.thesis.delivery.adapter.out.db
 
+import me.rasztabiga.thesis.delivery.domain.command.aggregate.DeliveryStatus
 import me.rasztabiga.thesis.delivery.domain.query.entity.OrderDeliveryEntity
 import me.rasztabiga.thesis.delivery.domain.query.repository.OrderDeliveryRepository
 import me.rasztabiga.thesis.delivery.infrastructure.db.SpringDataOrderDeliveryRepository
@@ -16,5 +17,9 @@ class DbOrderDeliveryRepository(
 
     override fun load(id: UUID): OrderDeliveryEntity? {
         return springDataOrderDeliveryRepository.findById(id).block()
+    }
+
+    override fun loadOffers(): List<OrderDeliveryEntity> {
+        return springDataOrderDeliveryRepository.findAllByStatus(DeliveryStatus.OFFER).collectList().block() ?: listOf()
     }
 }

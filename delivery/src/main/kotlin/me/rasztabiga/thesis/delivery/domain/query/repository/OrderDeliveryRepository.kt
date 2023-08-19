@@ -7,4 +7,6 @@ interface OrderDeliveryRepository {
     fun save(delivery: OrderDeliveryEntity)
 
     fun load(id: UUID): OrderDeliveryEntity?
+
+    fun loadOffers(): List<OrderDeliveryEntity>
 }

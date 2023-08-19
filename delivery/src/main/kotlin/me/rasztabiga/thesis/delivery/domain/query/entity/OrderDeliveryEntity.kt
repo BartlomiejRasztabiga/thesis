@@ -15,5 +15,6 @@ data class OrderDeliveryEntity(
     val deliveryAddress: String,
     val status: DeliveryStatus,
     val courierFee: BigDecimal,
-    val courierId: String?
+    val courierId: String?,
+    val courierIdsDeclined: List<String>
 )

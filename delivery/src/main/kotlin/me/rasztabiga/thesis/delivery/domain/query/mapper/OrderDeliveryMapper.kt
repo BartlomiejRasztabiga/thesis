@@ -15,7 +15,8 @@ object OrderDeliveryMapper {
             deliveryAddress = event.deliveryAddress,
             status = DeliveryStatus.OFFER,
             courierFee = event.courierFee,
-            courierId = null
+            courierId = null,
+            courierIdsDeclined = emptyList()
         )
     }
 
