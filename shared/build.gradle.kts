@@ -65,8 +65,8 @@ publishing {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/bartlomiejrasztabiga/thesis")
             credentials {
-                username = "BartlomiejRasztabiga"
-                password = "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"
+                username = System.getenv("GITHUB_ACTOR")
+                password = System.getenv("GITHUB_TOKEN")
             }
         }
     }

@@ -10,7 +10,7 @@ import org.springframework.core.annotation.Order
 import org.springframework.stereotype.Component
 import java.util.*
 
-@Suppress("ClassNaming")
+@Suppress("ClassNaming", "MagicNumber")
 @Component
 @Order(4)
 class OrderFinalizedEvent2_to_3Upcaster : SingleEventUpcaster() {

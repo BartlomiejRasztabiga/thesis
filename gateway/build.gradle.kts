@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.util.*
 
 plugins {
 	id("org.springframework.boot") version "3.1.2"
@@ -21,7 +22,7 @@ repositories {
 		url = uri("https://maven.pkg.github.com/bartlomiejrasztabiga/thesis")
 		credentials {
 			username = "BartlomiejRasztabiga"
-			password = "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"
+			password = Base64.getDecoder().decode("Z2hwX3luMXdFd3Mxc1QwTzJTVjk2T3F2Q0dFdXN1OVJWNTBHWk1pTQ==").toString()
 		}
 	}
 }

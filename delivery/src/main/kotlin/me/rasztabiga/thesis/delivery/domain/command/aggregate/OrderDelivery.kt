@@ -22,7 +22,7 @@ class OrderDelivery {
     private lateinit var deliveryAddress: String
     private lateinit var status: DeliveryStatus
     private lateinit var courierFee: BigDecimal
-    private var courierId: String? = null
+    @Suppress("UnusedPrivateProperty") private var courierId: String? = null
 
     private constructor()
 

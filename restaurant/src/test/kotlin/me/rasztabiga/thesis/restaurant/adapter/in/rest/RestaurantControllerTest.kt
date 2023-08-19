@@ -49,7 +49,13 @@ class RestaurantControllerTest : BaseWebFluxTest() {
     fun `when GET is performed on restaurants endpoint, then returns 200 OK`() {
         // given
         val existingRestaurant =
-            RestaurantResponse(UUID.randomUUID(), "Restaurant", RestaurantResponse.Availability.CLOSED, listOf(), "address")
+            RestaurantResponse(
+                UUID.randomUUID(),
+                "Restaurant",
+                RestaurantResponse.Availability.CLOSED,
+                listOf(),
+                "address"
+            )
         every {
             reactorQueryGateway.query(
                 any<FindAllRestaurantsQuery>(),
@@ -78,7 +84,13 @@ class RestaurantControllerTest : BaseWebFluxTest() {
     fun `when GET is performed on restaurant endpoint, then returns 200 OK`() {
         // given
         val existingRestaurant =
-            RestaurantResponse(UUID.randomUUID(), "Restaurant", RestaurantResponse.Availability.CLOSED, listOf(), "address")
+            RestaurantResponse(
+                UUID.randomUUID(),
+                "Restaurant",
+                RestaurantResponse.Availability.CLOSED,
+                listOf(),
+                "address"
+            )
         every {
             reactorQueryGateway.query(
                 any<FindRestaurantByIdQuery>(),

@@ -150,7 +150,7 @@ class OrderTest {
         val finalizeOrderCommand = FinalizeOrderCommand(
             orderStartedEvent.orderId,
             orderStartedEvent.userId,
-            orderStartedEvent.restaurantId
+            UUID.randomUUID()
         )
 
         val orderFinalizedEvent = OrderFinalizedEvent(
@@ -163,7 +163,7 @@ class OrderTest {
                     orderItemAddedEvent.productId
                 )
             ),
-            UUID.randomUUID()
+            finalizeOrderCommand.deliveryAddressId
         )
 
         testFixture.given(orderStartedEvent, orderItemAddedEvent)

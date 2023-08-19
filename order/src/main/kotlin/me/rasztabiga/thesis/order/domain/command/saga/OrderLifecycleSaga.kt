@@ -33,6 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.lang.IllegalStateException
 import java.util.*
 
+@Suppress("TooManyFunctions")
 @Saga
 @ProcessingGroup("ordersaga")
 class OrderLifecycleSaga {
