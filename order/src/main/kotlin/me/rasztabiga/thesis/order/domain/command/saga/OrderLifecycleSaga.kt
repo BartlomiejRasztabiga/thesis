@@ -13,11 +13,11 @@ import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderDeliveryOff
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderPaymentCommand
 import me.rasztabiga.thesis.shared.domain.command.command.CreateRestaurantOrderCommand
 import me.rasztabiga.thesis.shared.domain.command.command.DeleteOrderPaymentCommand
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryDeliveredEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaidEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaymentPaidEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
-import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderPreparedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderRejectedEvent
 import me.rasztabiga.thesis.shared.domain.query.query.FindRestaurantByIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindUserByIdQuery
@@ -30,7 +30,6 @@ import org.axonframework.modelling.saga.StartSaga
 import org.axonframework.queryhandling.QueryGateway
 import org.axonframework.spring.stereotype.Saga
 import org.springframework.beans.factory.annotation.Autowired
-import java.lang.IllegalStateException
 import java.util.*
 
 @Suppress("TooManyFunctions")
@@ -175,13 +174,11 @@ class OrderLifecycleSaga {
     }
 
     @Suppress("UnusedParameter")
+    @EndSaga
     @SagaEventHandler(associationProperty = "orderId")
-    fun on(event: RestaurantOrderPreparedEvent) {
-        println("RestaurantOrderPreparedEvent")
-        // TODO create order delivery
+    fun on(event: OrderDeliveryDeliveredEvent) {
+        // do nothing for now
     }
-
-    // TODO end saga on order delivered?
 
     private fun getOrder(orderId: UUID): OrderResponse {
         return queryGateway.query(

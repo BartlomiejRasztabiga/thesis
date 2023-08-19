@@ -7,5 +7,6 @@ import java.util.*
 @Revision("1.0")
 data class OrderDeliveryPickedUpEvent(
     val deliveryId: UUID,
+    val orderId: UUID,
     val courierId: String
 )

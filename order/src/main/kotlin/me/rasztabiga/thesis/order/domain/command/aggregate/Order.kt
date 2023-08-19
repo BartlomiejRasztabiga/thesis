@@ -117,6 +117,7 @@ internal class Order {
         )
     }
 
+    // TODO is it required?
     @CommandHandler
     fun handle(command: MarkOrderAsPaidCommand) {
         require(this.userId == command.userId) { "Order can be marked as paid only by the user who created it." }
@@ -131,6 +132,7 @@ internal class Order {
         )
     }
 
+    // TODO is it required?
     @CommandHandler
     fun handle(command: RejectOrderCommand) {
         require(this.status == OrderStatus.PAID) { "Order can be rejected only if it's in PAID status." }

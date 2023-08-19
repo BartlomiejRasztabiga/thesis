@@ -23,7 +23,7 @@ internal class OrderPayment {
     @AggregateIdentifier
     private lateinit var id: UUID
     private lateinit var payeeId: String
-    private lateinit var orderId: UUID
+    private lateinit var orderId: UUID // TODO remove?
     private lateinit var amount: BigDecimal
     private lateinit var status: PaymentStatus
 

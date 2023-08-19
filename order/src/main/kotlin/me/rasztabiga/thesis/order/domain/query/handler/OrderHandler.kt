@@ -13,6 +13,9 @@ import me.rasztabiga.thesis.order.domain.query.mapper.OrderMapper.mapToEntity
 import me.rasztabiga.thesis.order.domain.query.mapper.OrderMapper.mapToResponse
 import me.rasztabiga.thesis.order.domain.query.query.FindOrderByIdQuery
 import me.rasztabiga.thesis.order.domain.query.repository.OrderRepository
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAcceptedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryDeliveredEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryPickedUpEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaidEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaymentCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
@@ -113,6 +116,27 @@ class OrderHandler(
     fun on(event: OrderRejectedEvent) {
         val entity = getOrder(event.orderId)
         entity.status = OrderEntity.OrderStatus.REJECTED
+        orderRepository.save(entity)
+    }
+
+    @EventHandler
+    fun on(event: OrderDeliveryAcceptedEvent) {
+        val entity = getOrder(event.orderId)
+        entity.status = OrderEntity.OrderStatus.PAID
+        orderRepository.save(entity)
+    }
+
+    @EventHandler
+    fun on(event: OrderDeliveryPickedUpEvent) {
+        val entity = getOrder(event.orderId)
+        entity.status = OrderEntity.OrderStatus.DELIVERED
+        orderRepository.save(entity)
+    }
+
+    @EventHandler
+    fun on(event: OrderDeliveryDeliveredEvent) {
+        val entity = getOrder(event.orderId)
+        entity.status = OrderEntity.OrderStatus.DELIVERED
         orderRepository.save(entity)
     }
 

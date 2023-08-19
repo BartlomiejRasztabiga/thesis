@@ -4,13 +4,13 @@ import me.rasztabiga.thesis.delivery.domain.command.command.AcceptDeliveryOfferC
 import me.rasztabiga.thesis.delivery.domain.command.command.DeliverDeliveryCommand
 import me.rasztabiga.thesis.delivery.domain.command.command.PickupDeliveryCommand
 import me.rasztabiga.thesis.delivery.domain.command.command.RejectDeliveryOfferCommand
-import me.rasztabiga.thesis.delivery.domain.command.event.OrderDeliveryAcceptedEvent
 import me.rasztabiga.thesis.delivery.domain.command.event.OrderDeliveryCreatedEvent
-import me.rasztabiga.thesis.delivery.domain.command.event.OrderDeliveryDeliveredEvent
-import me.rasztabiga.thesis.delivery.domain.command.event.OrderDeliveryPickedUpEvent
 import me.rasztabiga.thesis.delivery.domain.command.event.OrderDeliveryRejectedEvent
 import me.rasztabiga.thesis.delivery.domain.command.port.CalculateDeliveryFeePort
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderDeliveryOfferCommand
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAcceptedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryDeliveredEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryPickedUpEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
@@ -25,7 +25,7 @@ class OrderDelivery {
     // TODO wszystko z tego jest potrzebne?
     @AggregateIdentifier
     private lateinit var id: UUID
-    private lateinit var orderId: UUID
+    private lateinit var orderId: UUID // TODO remove?
     private lateinit var restaurantAddress: String
     private lateinit var deliveryAddress: String
     private lateinit var status: DeliveryStatus
