@@ -10,11 +10,6 @@ class AxonOrderPreparedVerifierAdapter(
     private val queryGateway: QueryGateway
 ) : OrderPreparedVerifierPort {
     override fun isOrderPrepared(orderId: UUID): Boolean {
-        return queryGateway.query(
-            FindOrder(
-                orderId = orderId
-            ),
-            Boolean::class.java
-        ).join()
+        val order = queryGateway.query(FindOrderByIdQuery(orderId), ResponseTypes.instanceOf(OrderResponse))
     }
 }
