@@ -30,6 +30,7 @@ import org.axonframework.modelling.saga.StartSaga
 import org.axonframework.queryhandling.QueryGateway
 import org.axonframework.spring.stereotype.Saga
 import org.springframework.beans.factory.annotation.Autowired
+import java.lang.IllegalStateException
 import java.util.*
 
 @Saga
@@ -136,7 +137,7 @@ class OrderLifecycleSaga {
         val restaurant = getRestaurant(order.restaurantId)
 
         val deliveryAddress = user.deliveryAddresses.find { it.id == order.deliveryAddressId }
-            ?: throw RuntimeException("Delivery address not found")
+        checkNotNull(deliveryAddress) { "Delivery address not found" }
 
         deliveryId = UUID.randomUUID()
 
