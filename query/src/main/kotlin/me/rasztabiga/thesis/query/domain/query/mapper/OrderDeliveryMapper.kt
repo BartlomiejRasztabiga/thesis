@@ -1,9 +1,9 @@
 package me.rasztabiga.thesis.query.domain.query.mapper
 
-import me.rasztabiga.thesis.delivery.adapter.`in`.rest.api.OrderDeliveryResponse
-import me.rasztabiga.thesis.delivery.domain.command.aggregate.DeliveryStatus
-import me.rasztabiga.thesis.delivery.domain.command.event.OrderDeliveryCreatedEvent
-import me.rasztabiga.thesis.delivery.domain.query.entity.OrderDeliveryEntity
+import me.rasztabiga.thesis.query.adapter.`in`.rest.api.OrderDeliveryResponse
+import me.rasztabiga.thesis.query.domain.query.entity.DeliveryStatus
+import me.rasztabiga.thesis.query.domain.query.entity.OrderDeliveryEntity
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryCreatedEvent
 
 object OrderDeliveryMapper {
 

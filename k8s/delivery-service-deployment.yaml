@@ -16,8 +16,6 @@ spec:
         - env:
             - name: AXON_AXONSERVER_SERVERS
               value: axonserver
-            - name: SPRING_DATA_MONGODB_URI
-              value: "mongodb://root:password@delivery-db:27017/delivery?authSource=admin"
           image: ghcr.io/bartlomiejrasztabiga/thesis/delivery:latest
           name: delivery-service
           ports:

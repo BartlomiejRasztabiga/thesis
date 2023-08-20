@@ -1,6 +1,6 @@
 package me.rasztabiga.thesis.query.domain.query.repository
 
-import me.rasztabiga.thesis.delivery.domain.query.entity.OrderDeliveryEntity
+import me.rasztabiga.thesis.query.domain.query.entity.OrderDeliveryEntity
 import java.util.*
 
 interface OrderDeliveryRepository {

@@ -2,8 +2,8 @@ package me.rasztabiga.thesis.delivery.domain.command.aggregate
 
 import me.rasztabiga.thesis.delivery.domain.command.command.CreateCourierCommand
 import me.rasztabiga.thesis.delivery.domain.command.command.UpdateCourierAvailabilityCommand
-import me.rasztabiga.thesis.delivery.domain.command.event.CourierAvailabilityUpdatedEvent
-import me.rasztabiga.thesis.delivery.domain.command.event.CourierCreatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.CourierAvailabilityUpdatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.CourierCreatedEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
@@ -28,7 +28,12 @@ internal class Courier {
 
     @CommandHandler
     fun handle(command: UpdateCourierAvailabilityCommand) {
-        apply(CourierAvailabilityUpdatedEvent(id = command.id, availability = command.availability))
+        apply(
+            CourierAvailabilityUpdatedEvent(
+                id = command.id,
+                availability = CourierAvailabilityUpdatedEvent.Availability.valueOf(command.availability.name)
+            )
+        )
     }
 
     @EventSourcingHandler

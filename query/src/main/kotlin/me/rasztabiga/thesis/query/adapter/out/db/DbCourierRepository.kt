@@ -1,8 +1,8 @@
-package me.rasztabiga.thesis.delivery.adapter.out.db
+package me.rasztabiga.thesis.query.adapter.out.db
 
-import me.rasztabiga.thesis.delivery.domain.query.entity.CourierEntity
-import me.rasztabiga.thesis.delivery.domain.query.repository.CourierRepository
-import me.rasztabiga.thesis.delivery.infrastructure.db.SpringDataCourierRepository
+import me.rasztabiga.thesis.query.domain.query.entity.CourierEntity
+import me.rasztabiga.thesis.query.domain.query.repository.CourierRepository
+import me.rasztabiga.thesis.query.infrastructure.db.SpringDataCourierRepository
 import org.springframework.stereotype.Service
 
 @Service

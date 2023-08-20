@@ -1,9 +1,9 @@
-package me.rasztabiga.thesis.delivery.adapter.out.db
+package me.rasztabiga.thesis.query.adapter.out.db
 
-import me.rasztabiga.thesis.delivery.domain.command.aggregate.DeliveryStatus
-import me.rasztabiga.thesis.delivery.domain.query.entity.OrderDeliveryEntity
-import me.rasztabiga.thesis.delivery.domain.query.repository.OrderDeliveryRepository
-import me.rasztabiga.thesis.delivery.infrastructure.db.SpringDataOrderDeliveryRepository
+import me.rasztabiga.thesis.query.domain.query.entity.DeliveryStatus
+import me.rasztabiga.thesis.query.domain.query.entity.OrderDeliveryEntity
+import me.rasztabiga.thesis.query.domain.query.repository.OrderDeliveryRepository
+import me.rasztabiga.thesis.query.infrastructure.db.SpringDataOrderDeliveryRepository
 import org.springframework.stereotype.Service
 import java.util.*
 

@@ -1,9 +1,14 @@
 package me.rasztabiga.thesis.query.domain.query.handler
 
+import me.rasztabiga.thesis.query.adapter.`in`.rest.api.CourierResponse
+import me.rasztabiga.thesis.query.domain.query.entity.CourierEntity
 import me.rasztabiga.thesis.query.domain.query.exception.CourierNotFoundException
 import me.rasztabiga.thesis.query.domain.query.mapper.CourierMapper.mapToEntity
 import me.rasztabiga.thesis.query.domain.query.mapper.CourierMapper.mapToResponse
+import me.rasztabiga.thesis.query.domain.query.query.FindCourierByIdQuery
 import me.rasztabiga.thesis.query.domain.query.repository.CourierRepository
+import me.rasztabiga.thesis.shared.domain.command.event.CourierAvailabilityUpdatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.CourierCreatedEvent
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler

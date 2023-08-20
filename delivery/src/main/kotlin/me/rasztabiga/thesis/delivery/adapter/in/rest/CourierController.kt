@@ -2,21 +2,15 @@
 
 package me.rasztabiga.thesis.delivery.adapter.`in`.rest
 
-import me.rasztabiga.thesis.delivery.adapter.`in`.rest.api.CourierResponse
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.api.CreateCourierRequest
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.api.UpdateCourierAvailabilityRequest
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.CourierControllerMapper.mapToCreateCourierCommand
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.CourierControllerMapper.mapToUpdateCourierAvailabilityCommand
-import me.rasztabiga.thesis.delivery.domain.query.query.FindCourierByIdQuery
 import me.rasztabiga.thesis.shared.StringIdWrapper
-import me.rasztabiga.thesis.shared.config.getUserId
 import me.rasztabiga.thesis.shared.security.Scopes.COURIER
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
-import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway
-import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.springframework.http.HttpStatus
 import org.springframework.security.access.prepost.PreAuthorize
-import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
@@ -29,18 +23,8 @@ import reactor.core.publisher.Mono
 @RestController
 @RequestMapping("/api/v1/couriers")
 class CourierController(
-    private val reactorCommandGateway: ReactorCommandGateway,
-    private val reactorQueryGateway: ReactorQueryGateway
+    private val reactorCommandGateway: ReactorCommandGateway
 ) {
-    @GetMapping("/me")
-    @PreAuthorize("hasAnyAuthority('${COURIER.READ}')")
-    fun getCurrentCourier(exchange: ServerWebExchange): Mono<CourierResponse> {
-        return reactorQueryGateway.query(
-            FindCourierByIdQuery(exchange.getUserId()),
-            ResponseTypes.instanceOf(CourierResponse::class.java)
-        )
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyAuthority('${COURIER.WRITE}')")

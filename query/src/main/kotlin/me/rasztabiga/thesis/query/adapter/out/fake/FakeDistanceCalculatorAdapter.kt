@@ -1,6 +1,6 @@
-package me.rasztabiga.thesis.delivery.adapter.out.fake
+package me.rasztabiga.thesis.query.adapter.out.fake
 
-import me.rasztabiga.thesis.delivery.domain.query.port.DistanceCalculatorPort
+import me.rasztabiga.thesis.query.domain.query.port.DistanceCalculatorPort
 import org.springframework.stereotype.Service
 
 @Service
