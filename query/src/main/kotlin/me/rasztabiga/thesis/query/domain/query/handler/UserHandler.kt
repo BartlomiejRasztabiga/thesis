@@ -1,13 +1,13 @@
 package me.rasztabiga.thesis.query.domain.query.handler
 
-import me.rasztabiga.thesis.order.domain.command.event.DeliveryAddressCreatedEvent
-import me.rasztabiga.thesis.order.domain.command.event.DeliveryAddressDeletedEvent
-import me.rasztabiga.thesis.order.domain.query.entity.UserEntity
+import me.rasztabiga.thesis.query.domain.query.entity.UserEntity
+import me.rasztabiga.thesis.shared.domain.command.event.DeliveryAddressCreatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.DeliveryAddressDeletedEvent
 import me.rasztabiga.thesis.query.domain.query.exception.UserNotFoundException
 import me.rasztabiga.thesis.query.domain.query.mapper.UserMapper.mapToEntity
 import me.rasztabiga.thesis.query.domain.query.mapper.UserMapper.mapToResponse
-import me.rasztabiga.thesis.order.domain.query.query.FindAllUsersQuery
-import me.rasztabiga.thesis.order.domain.query.repository.UserRepository
+import me.rasztabiga.thesis.query.domain.query.query.FindAllUsersQuery
+import me.rasztabiga.thesis.query.domain.query.repository.UserRepository
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UserResponse
 import me.rasztabiga.thesis.shared.domain.command.event.UserCreatedEvent
 import me.rasztabiga.thesis.shared.domain.query.query.FindUserByIdQuery

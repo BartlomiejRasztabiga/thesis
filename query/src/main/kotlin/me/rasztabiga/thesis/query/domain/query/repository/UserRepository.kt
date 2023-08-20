@@ -1,6 +1,6 @@
 package me.rasztabiga.thesis.query.domain.query.repository
 
-import me.rasztabiga.thesis.order.domain.query.entity.UserEntity
+import me.rasztabiga.thesis.query.domain.query.entity.UserEntity
 import reactor.core.publisher.Flux
 
 interface UserRepository {

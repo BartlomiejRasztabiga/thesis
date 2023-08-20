@@ -1,7 +1,7 @@
 package me.rasztabiga.thesis.query.domain.query.repository
 
-import me.rasztabiga.thesis.order.domain.query.entity.OrderEntity
-import java.util.UUID
+import me.rasztabiga.thesis.query.domain.query.entity.OrderEntity
+import java.util.*
 
 interface OrderRepository {
 

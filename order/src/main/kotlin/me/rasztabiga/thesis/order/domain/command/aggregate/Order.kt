@@ -7,12 +7,12 @@ import me.rasztabiga.thesis.order.domain.command.command.FinalizeOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.MarkOrderAsPaidCommand
 import me.rasztabiga.thesis.order.domain.command.command.RejectOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
-import me.rasztabiga.thesis.order.domain.command.event.OrderCanceledEvent
-import me.rasztabiga.thesis.order.domain.command.event.OrderFinalizedEvent
-import me.rasztabiga.thesis.order.domain.command.event.OrderItemAddedEvent
-import me.rasztabiga.thesis.order.domain.command.event.OrderItemDeletedEvent
-import me.rasztabiga.thesis.order.domain.command.event.OrderRejectedEvent
-import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderCanceledEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderFinalizedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderItemAddedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderItemDeletedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderRejectedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderStartedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaidEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
@@ -45,7 +45,7 @@ internal class Order {
                 orderId = command.orderId,
                 restaurantId = command.restaurantId,
                 userId = command.userId,
-                status = OrderStatus.CREATED
+                status = OrderStartedEvent.OrderStatus.CREATED
             )
         )
     }
@@ -149,7 +149,7 @@ internal class Order {
         this.id = event.orderId
         this.userId = event.userId
         this.restaurantId = event.restaurantId
-        this.status = event.status
+        this.status = OrderStatus.valueOf(event.status.name)
     }
 
     @Suppress("UnusedParameter")

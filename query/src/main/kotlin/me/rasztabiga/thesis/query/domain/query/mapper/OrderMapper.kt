@@ -1,9 +1,8 @@
 package me.rasztabiga.thesis.query.domain.query.mapper
 
-import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
-import me.rasztabiga.thesis.order.domain.query.entity.OrderEntity
+import me.rasztabiga.thesis.query.domain.query.entity.OrderEntity
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
-import java.math.BigDecimal
+import me.rasztabiga.thesis.shared.domain.command.event.OrderStartedEvent
 
 object OrderMapper {
 
