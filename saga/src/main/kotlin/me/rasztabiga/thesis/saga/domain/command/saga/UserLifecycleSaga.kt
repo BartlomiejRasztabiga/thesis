@@ -10,6 +10,7 @@ import org.axonframework.modelling.saga.SagaEventHandler
 import org.axonframework.modelling.saga.StartSaga
 import org.axonframework.spring.stereotype.Saga
 import org.springframework.beans.factory.annotation.Autowired
+import java.util.UUID
 
 @Saga
 @ProcessingGroup("usersaga")
@@ -18,10 +19,14 @@ class UserLifecycleSaga {
     @Autowired
     private lateinit var commandGateway: CommandGateway
 
+    private lateinit var payeeId: UUID
+
     @StartSaga
     @SagaEventHandler(associationProperty = "userId")
     fun on(event: UserCreatedEvent) {
-        commandGateway.sendAndWait<Void>(CreatePayeeCommand(id = event.userId))
+        payeeId = UUID.randomUUID()
+
+        commandGateway.sendAndWait<Void>(CreatePayeeCommand(id = payeeId, userId = event.userId))
     }
 
     @Suppress("UnusedParameter")
