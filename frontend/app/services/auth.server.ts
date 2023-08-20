@@ -19,7 +19,7 @@ let auth0Strategy = new Auth0Strategy(
     clientSecret: process.env.AUTH_CLIENT_SECRET,
     domain: "rasztabigab.eu.auth0.com",
     scope:
-      "openid profile email read:restaurants write:restaurants read:users write:users read:orders write:orders",
+      "openid profile email read:restaurants write:restaurants read:users write:users read:orders write:orders read:deliveries write:deliveries read:couriers write:couriers",
     audience: "https://thesis.rasztabiga.me/api",
   },
   async ({ accessToken, refreshToken, extraParams, profile }) => {

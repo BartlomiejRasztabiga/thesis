@@ -44,6 +44,10 @@ export default function OrderTrackingPage() {
         return "Restaurant has rejected your order. Full refund will be issued shortly.";
       case "PREPARED":
         return "Your order is ready for pickup!";
+      case "PICKED_UP":
+        return "Your order is on its way!";
+      case "DELIVERED":
+        return "Your order has been delivered!";
       default:
         return "";
     }
