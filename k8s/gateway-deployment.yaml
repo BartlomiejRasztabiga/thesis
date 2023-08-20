@@ -22,6 +22,8 @@ spec:
               value: http://payment-service:8103
             - name: URI_DELIVERY
               value: http://delivery-service:8104
+            - name: URI_QUERY
+              value: http://query-service:8105
           image: ghcr.io/bartlomiejrasztabiga/thesis/gateway
           name: gateway
           ports:

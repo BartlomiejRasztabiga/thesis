@@ -6,6 +6,7 @@ uri:
   order: http://localhost:8102
   payment: http://localhost:8103
   delivery: http://localhost:8104
+  query: http://localhost:8105
 
 management:
   endpoint:

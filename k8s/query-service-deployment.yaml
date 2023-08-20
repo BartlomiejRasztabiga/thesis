@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: query-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: query-service
+  template:
+    metadata:
+      labels:
+        app: query-service
+    spec:
+      containers:
+        - env:
+            - name: AXON_AXONSERVER_SERVERS
+              value: axonserver
+            - name: SPRING_DATA_MONGODB_URI
+              value: "mongodb://root:password@query-db:27017/query?authSource=admin"
+          image: ghcr.io/bartlomiejrasztabiga/thesis/query:latest
+          name: query-service
+          ports:
+            - containerPort: 8105
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8105
+            initialDelaySeconds: 30
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8105
+            initialDelaySeconds: 30
+            periodSeconds: 10
+      restartPolicy: Always

@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        service: [restaurant, order, gateway, payment, delivery]
+        service: [restaurant, order, gateway, payment, delivery, query]
     defaults:
       run:
         working-directory: ${{ matrix.service }}
@@ -185,6 +185,7 @@ jobs:
             k8s/delivery-service-deployment.yaml
             k8s/order-service-deployment.yaml
             k8s/payment-service-deployment.yaml
+            k8s/query-service-deployment.yaml
             k8s/gateway-deployment.yaml
             k8s/frontend-deployment.yaml
           images: |
@@ -192,5 +193,6 @@ jobs:
             ghcr.io/bartlomiejrasztabiga/thesis/delivery:${{ env.VERSION }}
             ghcr.io/bartlomiejrasztabiga/thesis/order:${{ env.VERSION }}
             ghcr.io/bartlomiejrasztabiga/thesis/payment:${{ env.VERSION }}
+            ghcr.io/bartlomiejrasztabiga/thesis/query:${{ env.VERSION }}
             ghcr.io/bartlomiejrasztabiga/thesis/gateway:${{ env.VERSION }}
             ghcr.io/bartlomiejrasztabiga/thesis/frontend:${{ env.VERSION }}

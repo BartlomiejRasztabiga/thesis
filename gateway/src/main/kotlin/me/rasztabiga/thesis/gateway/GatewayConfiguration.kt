@@ -12,6 +12,12 @@ class GatewayConfiguration {
     @Bean
     fun routes(builder: RouteLocatorBuilder, uriConfiguration: UriConfiguration): RouteLocator {
         return builder.routes()
+            .route("query") {
+                it.method("GET")
+                    .and()
+                    .path("/api/v1/**")
+                    .uri(uriConfiguration.query)
+            }
             .route("restaurant") {
                 it.path("/api/v1/restaurants/**")
                     .uri(uriConfiguration.restaurant)

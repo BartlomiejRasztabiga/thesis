@@ -9,5 +9,6 @@ data class UriConfiguration(
     val restaurant: String,
     val order: String,
     val payment: String,
-    val delivery: String
+    val delivery: String,
+    val query: String
 )
