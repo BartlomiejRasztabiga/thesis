@@ -122,7 +122,7 @@ class OrderHandler(
     @EventHandler
     fun on(event: OrderDeliveryAcceptedEvent) {
         val entity = getOrder(event.orderId)
-        entity.status = OrderEntity.OrderStatus.COURIER_ASSIGNED
+        entity.courierId = event.courierId
         orderRepository.save(entity)
     }
 

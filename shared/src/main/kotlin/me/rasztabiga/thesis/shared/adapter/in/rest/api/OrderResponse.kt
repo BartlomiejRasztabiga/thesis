@@ -13,7 +13,8 @@ data class OrderResponse(
     val items: List<OrderItem>,
     val total: BigDecimal?,
     val paymentId: UUID?,
-    val deliveryAddressId: UUID?
+    val deliveryAddressId: UUID?,
+    val courierId: String?
 ) {
     enum class OrderStatus {
         CREATED,
@@ -23,7 +24,6 @@ data class OrderResponse(
         CONFIRMED,
         REJECTED,
         PREPARED,
-        COURIER_ASSIGNED,
         PICKED_UP,
         DELIVERED
     }
