@@ -13,6 +13,7 @@ import me.rasztabiga.thesis.query.domain.query.query.FindSuitableDeliveryOfferQu
 import me.rasztabiga.thesis.query.domain.query.repository.OrderDeliveryRepository
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryCreatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryDeliveredEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryPickedUpEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryRejectedEvent
 import org.axonframework.config.ProcessingGroup
@@ -54,6 +55,13 @@ class OrderDeliveryHandler(
     fun on(event: OrderDeliveryPickedUpEvent) {
         val entity = getDelivery(event.deliveryId)
         entity.status = DeliveryStatus.PICKED_UP
+        orderDeliveryRepository.save(entity)
+    }
+
+    @EventHandler
+    fun on(event: OrderDeliveryDeliveredEvent) {
+        val entity = getDelivery(event.deliveryId)
+        entity.status = DeliveryStatus.DELIVERED
         orderDeliveryRepository.save(entity)
     }
 

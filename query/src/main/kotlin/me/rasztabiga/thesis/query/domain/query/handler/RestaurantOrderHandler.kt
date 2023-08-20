@@ -7,6 +7,7 @@ import me.rasztabiga.thesis.query.domain.query.mapper.RestaurantOrderMapper.mapT
 import me.rasztabiga.thesis.query.domain.query.mapper.RestaurantOrderMapper.mapToResponse
 import me.rasztabiga.thesis.query.domain.query.query.FindAllRestaurantOrdersByRestaurantQuery
 import me.rasztabiga.thesis.query.domain.query.repository.RestaurantOrderRepository
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryDeliveredEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryPickedUpEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderCreatedEvent
@@ -56,6 +57,13 @@ class RestaurantOrderHandler(
     fun on(event: OrderDeliveryPickedUpEvent) {
         val entity = getOrderByOrderId(event.orderId)
         entity.status = RestaurantOrderEntity.OrderStatus.PICKED_UP
+        restaurantOrderRepository.save(entity)
+    }
+
+    @EventHandler
+    fun on(event: OrderDeliveryDeliveredEvent) {
+        val entity = getOrderByOrderId(event.orderId)
+        entity.status = RestaurantOrderEntity.OrderStatus.DELIVERED
         restaurantOrderRepository.save(entity)
     }
 

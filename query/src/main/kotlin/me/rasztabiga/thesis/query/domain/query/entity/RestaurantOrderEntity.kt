@@ -14,7 +14,7 @@ data class RestaurantOrderEntity(
     var status: OrderStatus
 ) {
     enum class OrderStatus {
-        NEW, ACCEPTED, PREPARED, REJECTED, PICKED_UP
+        NEW, ACCEPTED, PREPARED, REJECTED, PICKED_UP, DELIVERED
     }
 
     data class OrderItem(
