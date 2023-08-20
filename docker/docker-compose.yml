@@ -73,12 +73,6 @@ services:
       - axonserver
     environment:
       - AXON_AXONSERVER_SERVERS=axonserver
-      - SPRING_DATA_MONGODB_HOST=payment-db
-      - SPRING_DATA_MONGODB_PORT=27017
-      - SPRING_DATA_MONGODB_DATABASE=payment
-      - SPRING_DATA_MONGODB_USERNAME=root
-      - SPRING_DATA_MONGODB_PASSWORD=password
-      - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=admin
 
   payment-db:
     image: mongo:6.0.5
