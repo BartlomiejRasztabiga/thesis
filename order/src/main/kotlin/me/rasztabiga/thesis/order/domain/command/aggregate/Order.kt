@@ -4,9 +4,9 @@ import me.rasztabiga.thesis.order.domain.command.command.AddOrderItemCommand
 import me.rasztabiga.thesis.order.domain.command.command.CancelOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.DeleteOrderItemCommand
 import me.rasztabiga.thesis.order.domain.command.command.FinalizeOrderCommand
-import me.rasztabiga.thesis.order.domain.command.command.MarkOrderAsPaidCommand
-import me.rasztabiga.thesis.order.domain.command.command.RejectOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
+import me.rasztabiga.thesis.shared.domain.command.command.MarkOrderAsPaidCommand
+import me.rasztabiga.thesis.shared.domain.command.command.RejectOrderCommand
 import me.rasztabiga.thesis.shared.domain.command.event.OrderCanceledEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderFinalizedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderItemAddedEvent

@@ -7,23 +7,26 @@ import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
 import org.axonframework.modelling.command.AggregateLifecycle.apply
 import org.axonframework.spring.stereotype.Aggregate
+import java.util.*
 
 @Aggregate
 internal class Payee {
 
     // TODO wszystko z tego jest potrzebne?
     @AggregateIdentifier
-    private lateinit var id: String
+    private lateinit var id: UUID
+    private lateinit var userId: String
 
     private constructor()
 
     @CommandHandler
     constructor(command: CreatePayeeCommand) {
-        apply(PayeeCreatedEvent(userId = command.id))
+        apply(PayeeCreatedEvent(id = command.id, userId = command.userId))
     }
 
     @EventSourcingHandler
     fun on(event: PayeeCreatedEvent) {
-        this.id = event.userId
+        this.id = event.id
+        this.userId = event.userId
     }
 }

@@ -8,6 +8,8 @@ import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderDeliveryOff
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderPaymentCommand
 import me.rasztabiga.thesis.shared.domain.command.command.CreateRestaurantOrderCommand
 import me.rasztabiga.thesis.shared.domain.command.command.DeleteOrderPaymentCommand
+import me.rasztabiga.thesis.shared.domain.command.command.MarkOrderAsPaidCommand
+import me.rasztabiga.thesis.shared.domain.command.command.RejectOrderCommand
 import me.rasztabiga.thesis.shared.domain.command.event.OrderCanceledEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryDeliveredEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderFinalizedEvent

@@ -4,4 +4,5 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier
 
 data class CreatePayeeCommand(
     @TargetAggregateIdentifier val id: String,
+    val userId: String
 )

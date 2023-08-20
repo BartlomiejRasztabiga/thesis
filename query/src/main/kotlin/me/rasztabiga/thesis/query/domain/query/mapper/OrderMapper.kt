@@ -34,7 +34,8 @@ object OrderMapper {
             },
             total = entity.total,
             paymentId = entity.paymentId,
-            deliveryAddressId = entity.deliveryAddressId
+            deliveryAddressId = entity.deliveryAddressId,
+            courierId = entity.courierId
         )
     }
 }
