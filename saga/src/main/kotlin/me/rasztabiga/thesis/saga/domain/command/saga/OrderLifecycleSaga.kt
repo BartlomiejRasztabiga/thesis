@@ -1,7 +1,5 @@
-package me.rasztabiga.thesis.order.domain.command.saga
+package me.rasztabiga.thesis.saga.domain.command.saga
 
-import me.rasztabiga.thesis.order.domain.command.command.MarkOrderAsPaidCommand
-import me.rasztabiga.thesis.order.domain.command.command.RejectOrderCommand
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UserResponse

@@ -1,4 +1,4 @@
-package me.rasztabiga.thesis.order.domain.command.saga
+package me.rasztabiga.thesis.saga.domain.command.saga
 
 import me.rasztabiga.thesis.shared.domain.command.command.CreatePayeeCommand
 import me.rasztabiga.thesis.shared.domain.command.event.PayeeCreatedEvent

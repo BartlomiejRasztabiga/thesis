@@ -8,6 +8,7 @@
     <file type="web" url="file://$PROJECT_DIR$/payment" />
     <file type="web" url="file://$PROJECT_DIR$/query" />
     <file type="web" url="file://$PROJECT_DIR$/restaurant" />
+    <file type="web" url="file://$PROJECT_DIR$/saga" />
     <file type="web" url="file://$PROJECT_DIR$/shared" />
   </component>
   <component name="PDMPlugin">

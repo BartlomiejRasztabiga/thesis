@@ -97,8 +97,38 @@ services:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=password
       - MONGO_INITDB_DATABASE=query
+      
+  saga-service:
+    image: ghcr.io/bartlomiejrasztabiga/thesis/saga:latest
+    build:
+      context: ../saga
+      dockerfile: Dockerfile
+    ports:
+      - '8106:8106'
+    depends_on:
+      - axonserver
+    environment:
+      - AXON_AXONSERVER_SERVERS=axonserver
+      - SPRING_DATA_MONGODB_HOST=saga-db
+      - SPRING_DATA_MONGODB_PORT=27017
+      - SPRING_DATA_MONGODB_DATABASE=saga
+      - SPRING_DATA_MONGODB_USERNAME=root
+      - SPRING_DATA_MONGODB_PASSWORD=password
+      - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=admin
+
+  saga-db:
+    image: mongo:6.0.5
+    ports:
+      - '27106:27017'
+    volumes:
+      - saga-db-data:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_DATABASE=saga
 volumes:
   axonserver-data:
   axonserver-events:
   axonserver-config:
   query-db-data:
+  saga-db-data:
