@@ -4,7 +4,7 @@ import me.rasztabiga.thesis.order.domain.command.aggregate.OrderStatus
 import org.axonframework.serialization.Revision
 import java.util.*
 
-@Revision("3.0")
+@Revision("1.0")
 data class OrderStartedEvent(
     val orderId: UUID,
     val restaurantId: UUID,

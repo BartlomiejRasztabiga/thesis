@@ -32,23 +32,6 @@ services:
       - axonserver
     environment:
       - AXON_AXONSERVER_SERVERS=axonserver
-      - SPRING_DATA_MONGODB_HOST=restaurant-db
-      - SPRING_DATA_MONGODB_PORT=27017
-      - SPRING_DATA_MONGODB_DATABASE=restaurant
-      - SPRING_DATA_MONGODB_USERNAME=root
-      - SPRING_DATA_MONGODB_PASSWORD=password
-      - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=admin
-
-  restaurant-db:
-    image: mongo:6.0.5
-    ports:
-      - '27101:27017'
-    volumes:
-      - restaurant-db-data:/data/db
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=password
-      - MONGO_INITDB_DATABASE=restaurant
 
   order-service:
     image: ghcr.io/bartlomiejrasztabiga/thesis/order:latest
@@ -152,7 +135,6 @@ volumes:
   axonserver-data:
   axonserver-events:
   axonserver-config:
-  restaurant-db-data:
   order-db-data:
   payment-db-data:
   query-db-data:

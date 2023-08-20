@@ -11,18 +11,12 @@ import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantContro
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToUpdateRestaurantAvailabilityCommand
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToUpdateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper.RestaurantControllerMapper.mapToUpdateRestaurantMenuCommand
-import me.rasztabiga.thesis.restaurant.domain.query.query.FindAllRestaurantsQuery
 import me.rasztabiga.thesis.shared.UuidWrapper
-import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
-import me.rasztabiga.thesis.shared.domain.query.query.FindRestaurantByIdQuery
 import me.rasztabiga.thesis.shared.security.Scopes.RESTAURANT
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
-import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway
-import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.springframework.http.HttpStatus
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
@@ -36,28 +30,8 @@ import java.util.*
 @RestController
 @RequestMapping("/api/v1/restaurants")
 class RestaurantController(
-    private val reactorCommandGateway: ReactorCommandGateway,
-    private val reactorQueryGateway: ReactorQueryGateway
+    private val reactorCommandGateway: ReactorCommandGateway
 ) {
-
-    @GetMapping
-    @PreAuthorize("hasAnyAuthority('${RESTAURANT.READ}')")
-    fun getRestaurants(): Mono<List<RestaurantResponse>> {
-        return reactorQueryGateway.query(
-            FindAllRestaurantsQuery(),
-            ResponseTypes.multipleInstancesOf(RestaurantResponse::class.java)
-        )
-    }
-
-    @GetMapping("/{restaurantId}")
-    @PreAuthorize("hasAnyAuthority('${RESTAURANT.READ}')")
-    fun getRestaurant(@PathVariable restaurantId: UUID): Mono<RestaurantResponse> {
-        return reactorQueryGateway.query(
-            FindRestaurantByIdQuery(restaurantId),
-            ResponseTypes.instanceOf(RestaurantResponse::class.java)
-        )
-    }
-
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyAuthority('${RESTAURANT.WRITE}')")
