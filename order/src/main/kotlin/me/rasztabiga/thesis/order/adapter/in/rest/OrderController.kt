@@ -11,16 +11,11 @@ import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToFinalizeOrderCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToStartOrderCommand
 import me.rasztabiga.thesis.shared.UuidWrapper
-import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
-import me.rasztabiga.thesis.shared.domain.query.query.FindOrderByIdQuery
 import me.rasztabiga.thesis.shared.security.Scopes
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
-import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway
-import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.springframework.http.HttpStatus
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.DeleteMapping
-import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
@@ -35,8 +30,7 @@ import java.util.*
 @RestController
 @RequestMapping("/api/v1/orders")
 class OrderController(
-    private val reactorCommandGateway: ReactorCommandGateway,
-    private val reactorQueryGateway: ReactorQueryGateway
+    private val reactorCommandGateway: ReactorCommandGateway
 ) {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -48,15 +42,6 @@ class OrderController(
         val command = mapToStartOrderCommand(request, exchange)
         val id = reactorCommandGateway.send<UUID>(command)
         return id.map { UuidWrapper(it) }
-    }
-
-    @GetMapping("/{orderId}")
-    @PreAuthorize("hasAnyAuthority('${Scopes.ORDER.READ}')")
-    fun getOrder(@PathVariable orderId: UUID): Mono<OrderResponse> {
-        return reactorQueryGateway.query(
-            FindOrderByIdQuery(orderId),
-            ResponseTypes.instanceOf(OrderResponse::class.java)
-        )
     }
 
     @DeleteMapping("/{orderId}")

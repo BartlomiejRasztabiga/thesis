@@ -16,8 +16,6 @@ spec:
         - env:
             - name: AXON_AXONSERVER_SERVERS
               value: axonserver
-            - name: SPRING_DATA_MONGODB_URI
-              value: "mongodb://root:password@order-db:27017/order?authSource=admin"
           image: ghcr.io/bartlomiejrasztabiga/thesis/order:0.7.2
           name: order-service
           ports:

@@ -44,23 +44,6 @@ services:
       - axonserver
     environment:
       - AXON_AXONSERVER_SERVERS=axonserver
-      - SPRING_DATA_MONGODB_HOST=order-db
-      - SPRING_DATA_MONGODB_PORT=27017
-      - SPRING_DATA_MONGODB_DATABASE=order
-      - SPRING_DATA_MONGODB_USERNAME=root
-      - SPRING_DATA_MONGODB_PASSWORD=password
-      - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=admin
-
-  order-db:
-    image: mongo:6.0.5
-    ports:
-      - '27102:27017'
-    volumes:
-      - order-db-data:/data/db
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=password
-      - MONGO_INITDB_DATABASE=order
 
   payment-service:
     image: ghcr.io/bartlomiejrasztabiga/thesis/payment:latest
@@ -73,17 +56,6 @@ services:
       - axonserver
     environment:
       - AXON_AXONSERVER_SERVERS=axonserver
-
-  payment-db:
-    image: mongo:6.0.5
-    ports:
-      - '27103:27017'
-    volumes:
-      - payment-db-data:/data/db
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=root
-      - MONGO_INITDB_ROOT_PASSWORD=password
-      - MONGO_INITDB_DATABASE=payment
   
   delivery-service:
     image: ghcr.io/bartlomiejrasztabiga/thesis/delivery:latest
@@ -129,6 +101,4 @@ volumes:
   axonserver-data:
   axonserver-events:
   axonserver-config:
-  order-db-data:
-  payment-db-data:
   query-db-data:
