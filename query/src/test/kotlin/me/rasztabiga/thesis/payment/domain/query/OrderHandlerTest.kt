@@ -2,14 +2,13 @@ package me.rasztabiga.thesis.payment.domain.query
 
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import me.rasztabiga.thesis.order.domain.command.aggregate.OrderStatus
-import me.rasztabiga.thesis.order.domain.command.event.OrderCanceledEvent
-import me.rasztabiga.thesis.order.domain.command.event.OrderFinalizedEvent
-import me.rasztabiga.thesis.order.domain.command.event.OrderItemAddedEvent
-import me.rasztabiga.thesis.order.domain.command.event.OrderItemDeletedEvent
-import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
-import me.rasztabiga.thesis.order.domain.query.handler.OrderHandler
+import me.rasztabiga.thesis.query.domain.query.handler.OrderHandler
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
+import me.rasztabiga.thesis.shared.domain.command.event.OrderCanceledEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderFinalizedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderItemAddedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderItemDeletedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderStartedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
 import me.rasztabiga.thesis.shared.domain.query.query.FindOrderByIdQuery
 import org.junit.jupiter.api.Test
@@ -25,7 +24,8 @@ class OrderHandlerTest {
     @Test
     fun `given order started event, when handling FindOrderByIdQuery, then returns order`() {
         // given
-        val orderStartedEvent = OrderStartedEvent(UUID.randomUUID(), UUID.randomUUID(), "", OrderStatus.CREATED)
+        val orderStartedEvent =
+            OrderStartedEvent(UUID.randomUUID(), UUID.randomUUID(), "", OrderStartedEvent.OrderStatus.CREATED)
         orderHandler.on(orderStartedEvent)
 
         // when
@@ -40,7 +40,8 @@ class OrderHandlerTest {
     @Test
     fun `given order item added event, when handling FindOrderByIdQuery, then returns order`() {
         // given
-        val orderStartedEvent = OrderStartedEvent(UUID.randomUUID(), UUID.randomUUID(), "", OrderStatus.CREATED)
+        val orderStartedEvent =
+            OrderStartedEvent(UUID.randomUUID(), UUID.randomUUID(), "", OrderStartedEvent.OrderStatus.CREATED)
         orderHandler.on(orderStartedEvent)
         val orderItemAddedEvent = OrderItemAddedEvent(orderStartedEvent.orderId, UUID.randomUUID(), UUID.randomUUID())
         orderHandler.on(orderItemAddedEvent)
@@ -59,7 +60,8 @@ class OrderHandlerTest {
     @Test
     fun `given order item deleted event, when handling FindOrderByIdQuery, then returns order`() {
         // given
-        val orderStartedEvent = OrderStartedEvent(UUID.randomUUID(), UUID.randomUUID(), "", OrderStatus.CREATED)
+        val orderStartedEvent =
+            OrderStartedEvent(UUID.randomUUID(), UUID.randomUUID(), "", OrderStartedEvent.OrderStatus.CREATED)
         orderHandler.on(orderStartedEvent)
         val orderItemAddedEvent = OrderItemAddedEvent(orderStartedEvent.orderId, UUID.randomUUID(), UUID.randomUUID())
         orderHandler.on(orderItemAddedEvent)
@@ -78,7 +80,8 @@ class OrderHandlerTest {
     @Test
     fun `given order canceled event, when handling FindOrderByIdQuery, then returns order`() {
         // given
-        val orderStartedEvent = OrderStartedEvent(UUID.randomUUID(), UUID.randomUUID(), "", OrderStatus.CREATED)
+        val orderStartedEvent =
+            OrderStartedEvent(UUID.randomUUID(), UUID.randomUUID(), "", OrderStartedEvent.OrderStatus.CREATED)
         orderHandler.on(orderStartedEvent)
         val orderCanceledEvent = OrderCanceledEvent(orderStartedEvent.orderId)
         orderHandler.on(orderCanceledEvent)
@@ -95,7 +98,8 @@ class OrderHandlerTest {
     @Test
     fun `given order finalized event, when handling FindOrderByIdQuery, then returns order`() {
         // given
-        val orderStartedEvent = OrderStartedEvent(UUID.randomUUID(), UUID.randomUUID(), "", OrderStatus.CREATED)
+        val orderStartedEvent =
+            OrderStartedEvent(UUID.randomUUID(), UUID.randomUUID(), "", OrderStartedEvent.OrderStatus.CREATED)
         orderHandler.on(orderStartedEvent)
         val orderFinalizedEvent =
             OrderFinalizedEvent(
@@ -119,7 +123,8 @@ class OrderHandlerTest {
     @Test
     fun `given order total calculated event, when handling FindOrderByIdQuery, then returns order`() {
         // given
-        val orderStartedEvent = OrderStartedEvent(UUID.randomUUID(), UUID.randomUUID(), "", OrderStatus.CREATED)
+        val orderStartedEvent =
+            OrderStartedEvent(UUID.randomUUID(), UUID.randomUUID(), "", OrderStartedEvent.OrderStatus.CREATED)
         orderHandler.on(orderStartedEvent)
         val orderTotalCalculatedEvent = OrderTotalCalculatedEvent(orderStartedEvent.orderId, BigDecimal.valueOf(10.0))
         orderHandler.on(orderTotalCalculatedEvent)

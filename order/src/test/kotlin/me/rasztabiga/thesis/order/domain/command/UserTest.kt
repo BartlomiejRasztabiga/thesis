@@ -4,8 +4,8 @@ import me.rasztabiga.thesis.order.domain.command.aggregate.User
 import me.rasztabiga.thesis.order.domain.command.command.CreateDeliveryAddressCommand
 import me.rasztabiga.thesis.order.domain.command.command.CreateUserCommand
 import me.rasztabiga.thesis.order.domain.command.command.DeleteDeliveryAddressCommand
-import me.rasztabiga.thesis.order.domain.command.event.DeliveryAddressCreatedEvent
-import me.rasztabiga.thesis.order.domain.command.event.DeliveryAddressDeletedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.DeliveryAddressCreatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.DeliveryAddressDeletedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.UserCreatedEvent
 import org.axonframework.test.aggregate.AggregateTestFixture
 import org.junit.jupiter.api.BeforeEach

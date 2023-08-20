@@ -2,11 +2,11 @@ package me.rasztabiga.thesis.payment.domain.query
 
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import me.rasztabiga.thesis.order.domain.command.event.DeliveryAddressCreatedEvent
-import me.rasztabiga.thesis.order.domain.command.event.DeliveryAddressDeletedEvent
-import me.rasztabiga.thesis.order.domain.query.handler.UserHandler
-import me.rasztabiga.thesis.order.domain.query.query.FindAllUsersQuery
+import me.rasztabiga.thesis.query.domain.query.handler.UserHandler
+import me.rasztabiga.thesis.shared.domain.command.event.DeliveryAddressCreatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.DeliveryAddressDeletedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.UserCreatedEvent
+import me.rasztabiga.thesis.shared.domain.query.query.FindAllUsersQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindUserByIdQuery
 import org.junit.jupiter.api.Test
 import java.util.*

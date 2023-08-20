@@ -1,6 +1,6 @@
 package me.rasztabiga.thesis.query.infrastructure.db
 
-import me.rasztabiga.thesis.order.domain.query.entity.OrderEntity
+import me.rasztabiga.thesis.query.domain.query.entity.OrderEntity
 import org.springframework.data.mongodb.repository.ReactiveMongoRepository
 import org.springframework.stereotype.Repository
 import java.util.*

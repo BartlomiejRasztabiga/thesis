@@ -1,7 +1,7 @@
 package me.rasztabiga.thesis.payment.domain.query
 
-import me.rasztabiga.thesis.order.domain.query.entity.UserEntity
-import me.rasztabiga.thesis.order.domain.query.repository.UserRepository
+import me.rasztabiga.thesis.query.domain.query.entity.UserEntity
+import me.rasztabiga.thesis.query.domain.query.repository.UserRepository
 import me.rasztabiga.thesis.shared.BaseInMemoryRepository
 import reactor.core.publisher.Flux
 

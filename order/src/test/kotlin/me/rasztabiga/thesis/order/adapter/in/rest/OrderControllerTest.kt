@@ -44,43 +44,6 @@ class OrderControllerTest : BaseWebFluxTest() {
     }
 
     @Test
-    fun `when GET is performed on order endpoint, then returns 200 OK`() {
-        // given
-        val existingOrder =
-            OrderResponse(
-                UUID.randomUUID(),
-                UUID.randomUUID(),
-                "",
-                OrderResponse.OrderStatus.CREATED,
-                emptyList(),
-                BigDecimal.ZERO,
-                null,
-                null
-            )
-        every {
-            reactorQueryGateway.query(
-                any<FindOrderByIdQuery>(),
-                ResponseTypes.instanceOf(OrderResponse::class.java)
-            )
-        } returns Mono.just(existingOrder)
-
-        // when
-        val response = webTestClient.get()
-            .uri("/api/v1/orders/${existingOrder.id}")
-            .accept(MediaType.APPLICATION_JSON)
-            .exchange()
-            .expectStatus().isOk
-            .expectBody(OrderResponse::class.java)
-            .returnResult()
-            .responseBody
-
-        // then
-        response shouldNotBe null
-        response!!.id shouldBe existingOrder.id
-        response.status shouldBe existingOrder.status
-    }
-
-    @Test
     fun `when POST is performed on order items endpoint, then returns 201 CREATED`() {
         // given
         val request = AddOrderItemRequest(UUID.randomUUID())

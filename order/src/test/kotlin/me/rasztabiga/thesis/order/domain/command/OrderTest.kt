@@ -7,11 +7,11 @@ import me.rasztabiga.thesis.order.domain.command.command.CancelOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.DeleteOrderItemCommand
 import me.rasztabiga.thesis.order.domain.command.command.FinalizeOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
-import me.rasztabiga.thesis.order.domain.command.event.OrderCanceledEvent
-import me.rasztabiga.thesis.order.domain.command.event.OrderFinalizedEvent
-import me.rasztabiga.thesis.order.domain.command.event.OrderItemAddedEvent
-import me.rasztabiga.thesis.order.domain.command.event.OrderItemDeletedEvent
-import me.rasztabiga.thesis.order.domain.command.event.OrderStartedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderCanceledEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderFinalizedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderItemAddedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderItemDeletedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderStartedEvent
 import org.axonframework.test.aggregate.AggregateTestFixture
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -39,7 +39,7 @@ class OrderTest {
             startOrderCommand.orderId,
             startOrderCommand.restaurantId,
             startOrderCommand.userId,
-            OrderStatus.CREATED
+            OrderStartedEvent.OrderStatus.CREATED
         )
 
         testFixture.givenNoPriorActivity()
@@ -54,7 +54,7 @@ class OrderTest {
             UUID.randomUUID(),
             UUID.randomUUID(),
             "userId",
-            OrderStatus.CREATED
+            OrderStartedEvent.OrderStatus.CREATED
         )
 
         val addOrderItemCommand = AddOrderItemCommand(
@@ -82,7 +82,7 @@ class OrderTest {
             UUID.randomUUID(),
             UUID.randomUUID(),
             "userId",
-            OrderStatus.CREATED
+            OrderStartedEvent.OrderStatus.CREATED
         )
 
         val orderItemAddedEvent = OrderItemAddedEvent(
@@ -114,7 +114,7 @@ class OrderTest {
             UUID.randomUUID(),
             UUID.randomUUID(),
             "userId",
-            OrderStatus.CREATED
+            OrderStartedEvent.OrderStatus.CREATED
         )
 
         val cancelOrderCommand = CancelOrderCommand(
@@ -138,7 +138,7 @@ class OrderTest {
             UUID.randomUUID(),
             UUID.randomUUID(),
             "userId",
-            OrderStatus.CREATED
+            OrderStartedEvent.OrderStatus.CREATED
         )
 
         val orderItemAddedEvent = OrderItemAddedEvent(
