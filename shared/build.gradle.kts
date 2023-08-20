@@ -62,6 +62,10 @@ publishing {
     }
     repositories {
         maven {
+            name = "mymavenrepo.com"
+            url = uri("https://mymavenrepo.com/repo/KAXC3J7fRzj0fcOWKXr0")
+        }
+        maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/bartlomiejrasztabiga/thesis")
             credentials {

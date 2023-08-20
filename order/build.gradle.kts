@@ -17,11 +17,17 @@ java {
 
 repositories {
     mavenCentral()
-    maven {
-        url = uri("https://maven.pkg.github.com/bartlomiejrasztabiga/thesis")
-        credentials {
-            username = System.getenv("GITHUB_ACTOR") ?: project.findProperty("GITHUB_ACTOR").toString()
-            password = System.getenv("GITHUB_TOKEN") ?: project.findProperty("GITHUB_TOKEN").toString()
+    repositories {
+        maven {
+            name = "mymavenrepo.com"
+            url = uri("https://mymavenrepo.com/repo/xi9nf7WcfPC8Wl1EAs9n")
+        }
+        maven {
+            url = uri("https://maven.pkg.github.com/bartlomiejrasztabiga/thesis")
+            credentials {
+                username = System.getenv("GITHUB_ACTOR") ?: project.findProperty("GITHUB_ACTOR").toString()
+                password = System.getenv("GITHUB_TOKEN") ?: project.findProperty("GITHUB_TOKEN").toString()
+            }
         }
     }
 }

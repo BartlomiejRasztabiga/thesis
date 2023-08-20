@@ -21,5 +21,10 @@
       <option name="name" value="maven" />
       <option name="url" value="https://maven.pkg.github.com/bartlomiejrasztabiga/thesis" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="mymavenrepo.com" />
+      <option name="name" value="mymavenrepo.com" />
+      <option name="url" value="https://mymavenrepo.com/repo/xi9nf7WcfPC8Wl1EAs9n" />
+    </remote-repository>
   </component>
 </project>
