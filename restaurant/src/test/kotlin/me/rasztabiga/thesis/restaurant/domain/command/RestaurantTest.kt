@@ -8,13 +8,13 @@ import me.rasztabiga.thesis.restaurant.domain.command.command.DeleteRestaurantCo
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantAvailabilityCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantMenuCommand
-import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantAvailabilityUpdatedEvent
-import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
-import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantDeletedEvent
-import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantMenuUpdatedEvent
-import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantUpdatedEvent
 import me.rasztabiga.thesis.shared.domain.command.command.CalculateOrderTotalCommand
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantAvailabilityUpdatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantCreatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantDeletedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantMenuUpdatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantUpdatedEvent
 import org.axonframework.test.aggregate.AggregateTestFixture
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -113,7 +113,7 @@ class RestaurantTest {
 
         val restaurantAvailabilityUpdatedEvent = RestaurantAvailabilityUpdatedEvent(
             updateRestaurantAvailabilityCommand.id,
-            updateRestaurantAvailabilityCommand.availability
+            RestaurantAvailabilityUpdatedEvent.Availability.OPEN
         )
 
         testFixture.given(restaurantCreatedEvent)
@@ -139,7 +139,14 @@ class RestaurantTest {
 
         val restaurantMenuUpdatedEvent = RestaurantMenuUpdatedEvent(
             updateRestaurantMenuCommand.id,
-            updateRestaurantMenuCommand.menu
+            listOf(
+                RestaurantMenuUpdatedEvent.Product(
+                    updateRestaurantMenuCommand.menu.first().id,
+                    "Product",
+                    "Description",
+                    10.0
+                )
+            )
         )
 
         testFixture.given(restaurantCreatedEvent)
@@ -160,7 +167,7 @@ class RestaurantTest {
 
         val restaurantMenuUpdatedEvent = RestaurantMenuUpdatedEvent(
             restaurantCreatedEvent.id,
-            listOf(Product(UUID.randomUUID(), "Product", "Description", 10.0))
+            listOf(RestaurantMenuUpdatedEvent.Product(UUID.randomUUID(), "Product", "Description", 10.0))
         )
 
         val calculateOrderTotalCommand = CalculateOrderTotalCommand(

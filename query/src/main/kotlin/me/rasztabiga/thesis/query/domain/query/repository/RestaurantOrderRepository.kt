@@ -1,6 +1,6 @@
 package me.rasztabiga.thesis.query.domain.query.repository
 
-import me.rasztabiga.thesis.restaurant.domain.query.entity.RestaurantOrderEntity
+import me.rasztabiga.thesis.query.domain.query.entity.RestaurantOrderEntity
 import reactor.core.publisher.Flux
 import java.util.*
 

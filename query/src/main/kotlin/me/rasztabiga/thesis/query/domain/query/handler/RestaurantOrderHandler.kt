@@ -1,15 +1,15 @@
 package me.rasztabiga.thesis.query.domain.query.handler
 
-import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.RestaurantOrderResponse
-import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantOrderCreatedEvent
-import me.rasztabiga.thesis.restaurant.domain.query.entity.RestaurantOrderEntity
+import me.rasztabiga.thesis.query.adapter.`in`.rest.api.RestaurantOrderResponse
+import me.rasztabiga.thesis.query.domain.query.entity.RestaurantOrderEntity
 import me.rasztabiga.thesis.query.domain.query.exception.RestaurantOrderNotFoundException
 import me.rasztabiga.thesis.query.domain.query.mapper.RestaurantOrderMapper.mapToEntity
 import me.rasztabiga.thesis.query.domain.query.mapper.RestaurantOrderMapper.mapToResponse
 import me.rasztabiga.thesis.query.domain.query.query.FindAllRestaurantOrdersByRestaurantQuery
-import me.rasztabiga.thesis.restaurant.domain.query.repository.RestaurantOrderRepository
+import me.rasztabiga.thesis.query.domain.query.repository.RestaurantOrderRepository
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryPickedUpEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderPreparedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderRejectedEvent
 import org.axonframework.config.ProcessingGroup

@@ -1,23 +1,20 @@
-package me.rasztabiga.thesis.restaurant.domain.query
+package me.rasztabiga.thesis.payment.domain.query
 
 import io.kotest.assertions.throwables.shouldThrowExactly
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
-import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.Availability
-import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Product
-import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantAvailabilityUpdatedEvent
-import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
-import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantDeletedEvent
-import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantMenuUpdatedEvent
-import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantUpdatedEvent
-import me.rasztabiga.thesis.restaurant.domain.query.exception.RestaurantNotFoundException
-import me.rasztabiga.thesis.restaurant.domain.query.handler.RestaurantHandler
-import me.rasztabiga.thesis.restaurant.domain.query.query.FindAllRestaurantsQuery
+import me.rasztabiga.thesis.query.domain.query.exception.RestaurantNotFoundException
+import me.rasztabiga.thesis.query.domain.query.handler.RestaurantHandler
+import me.rasztabiga.thesis.query.domain.query.query.FindAllRestaurantsQuery
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantAvailabilityUpdatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantCreatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantDeletedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantMenuUpdatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantUpdatedEvent
 import me.rasztabiga.thesis.shared.domain.query.query.FindRestaurantByIdQuery
 import org.junit.jupiter.api.Test
 import java.util.*
-import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Availability as DomainAvailability
 
 class RestaurantHandlerTest {
 
@@ -109,7 +106,10 @@ class RestaurantHandlerTest {
         // given
         val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant", "address")
         val restaurantAvailabilityUpdatedEvent =
-            RestaurantAvailabilityUpdatedEvent(restaurantCreatedEvent.id, DomainAvailability.OPEN)
+            RestaurantAvailabilityUpdatedEvent(
+                restaurantCreatedEvent.id,
+                RestaurantAvailabilityUpdatedEvent.Availability.OPEN
+            )
         restaurantHandler.on(restaurantCreatedEvent)
         restaurantHandler.on(restaurantAvailabilityUpdatedEvent)
 
@@ -129,7 +129,7 @@ class RestaurantHandlerTest {
         val restaurantCreatedEvent = RestaurantCreatedEvent(UUID.randomUUID(), "Restaurant", "address")
         val restaurantMenuUpdatedEvent = RestaurantMenuUpdatedEvent(
             restaurantCreatedEvent.id,
-            listOf(Product(UUID.randomUUID(), "Product", "description", 1.0))
+            listOf(RestaurantMenuUpdatedEvent.Product(UUID.randomUUID(), "Product", "description", 1.0))
         )
         restaurantHandler.on(restaurantCreatedEvent)
         restaurantHandler.on(restaurantMenuUpdatedEvent)

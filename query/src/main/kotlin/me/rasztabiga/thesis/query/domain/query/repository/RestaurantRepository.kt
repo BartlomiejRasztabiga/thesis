@@ -1,8 +1,8 @@
 package me.rasztabiga.thesis.query.domain.query.repository
 
-import me.rasztabiga.thesis.restaurant.domain.query.entity.RestaurantEntity
+import me.rasztabiga.thesis.query.domain.query.entity.RestaurantEntity
 import reactor.core.publisher.Flux
-import java.util.UUID
+import java.util.*
 
 interface RestaurantRepository {
 

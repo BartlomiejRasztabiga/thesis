@@ -1,8 +1,8 @@
 package me.rasztabiga.thesis.query.domain.query.mapper
 
-import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
-import me.rasztabiga.thesis.restaurant.domain.query.entity.RestaurantEntity
+import me.rasztabiga.thesis.query.domain.query.entity.RestaurantEntity
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantCreatedEvent
 
 object RestaurantMapper {
 

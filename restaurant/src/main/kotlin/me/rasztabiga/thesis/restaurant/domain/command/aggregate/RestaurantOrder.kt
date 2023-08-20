@@ -3,9 +3,9 @@ package me.rasztabiga.thesis.restaurant.domain.command.aggregate
 import me.rasztabiga.thesis.restaurant.domain.command.command.AcceptRestaurantOrderCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.PrepareRestaurantOrderCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.RejectRestaurantOrderCommand
-import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantOrderCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.command.CreateRestaurantOrderCommand
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderPreparedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderRejectedEvent
 import org.axonframework.commandhandling.CommandHandler
@@ -33,7 +33,7 @@ internal class RestaurantOrder {
                 restaurantOrderId = command.restaurantOrderId,
                 orderId = command.orderId,
                 items = command.items.map {
-                    OrderItem(
+                    RestaurantOrderCreatedEvent.OrderItem(
                         productId = it.productId
                     )
                 },

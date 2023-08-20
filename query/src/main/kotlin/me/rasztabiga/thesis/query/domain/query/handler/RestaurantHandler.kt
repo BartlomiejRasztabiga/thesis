@@ -1,17 +1,17 @@
 package me.rasztabiga.thesis.query.domain.query.handler
 
+import me.rasztabiga.thesis.query.domain.query.entity.RestaurantEntity
+import me.rasztabiga.thesis.query.domain.query.exception.RestaurantNotFoundException
 import me.rasztabiga.thesis.query.domain.query.mapper.RestaurantMapper.mapToEntity
 import me.rasztabiga.thesis.query.domain.query.mapper.RestaurantMapper.mapToResponse
+import me.rasztabiga.thesis.query.domain.query.query.FindAllRestaurantsQuery
 import me.rasztabiga.thesis.query.domain.query.repository.RestaurantRepository
-import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantAvailabilityUpdatedEvent
-import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantCreatedEvent
-import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantDeletedEvent
-import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantMenuUpdatedEvent
-import me.rasztabiga.thesis.restaurant.domain.command.event.RestaurantUpdatedEvent
-import me.rasztabiga.thesis.restaurant.domain.query.entity.RestaurantEntity
-import me.rasztabiga.thesis.restaurant.domain.query.exception.RestaurantNotFoundException
-import me.rasztabiga.thesis.restaurant.domain.query.query.FindAllRestaurantsQuery
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantAvailabilityUpdatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantCreatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantDeletedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantMenuUpdatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.RestaurantUpdatedEvent
 import me.rasztabiga.thesis.shared.domain.query.query.FindRestaurantByIdQuery
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
