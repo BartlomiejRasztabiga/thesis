@@ -18,7 +18,7 @@ spec:
               value: axonserver
             - name: SPRING_DATA_MONGODB_URI
               value: "mongodb://root:password@query-db:27017/query?authSource=admin"
-            - name: SPRING_ACTIVE_PROFILES
+            - name: SPRING_PROFILES_ACTIVE
               value: gmaps
             - name: GMAPS_API_KEY
               valueFrom:

@@ -16,7 +16,7 @@ spec:
         - env:
             - name: AXON_AXONSERVER_SERVERS
               value: axonserver
-            - name: SPRING_ACTIVE_PROFILES
+            - name: SPRING_PROFILES_ACTIVE
               value: gmaps
             - name: GMAPS_API_KEY
               valueFrom:
