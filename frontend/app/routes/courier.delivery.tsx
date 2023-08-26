@@ -84,7 +84,7 @@ export default function CourierDeliveryPage() {
     return () => {
       clearInterval(timer);
     };
-  }, [revalidator]);
+  }, [revalidator, data.currentDelivery]);
 
   const getContent = () => {
     const className =
