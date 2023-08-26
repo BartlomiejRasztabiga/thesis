@@ -1,34 +1,23 @@
 package me.rasztabiga.thesis.delivery.adapter.out.gmaps
 
-import com.google.maps.DistanceMatrixApi
-import com.google.maps.GeoApiContext
-import com.google.maps.model.TravelMode
 import me.rasztabiga.thesis.delivery.domain.command.port.CalculateDeliveryFeePort
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.annotation.Profile
+import me.rasztabiga.thesis.shared.infrastructure.gmaps.GmapsClient
 import org.springframework.stereotype.Service
 import java.math.BigDecimal
 
 @Service
-@Profile("gmaps")
 class GmapsCalculateDeliveryFeeAdapter(
-    @Value("\${gmaps.api.key}")
-    private val gmapsApiKey: String
+    private val gmapsClient: GmapsClient
 ) : CalculateDeliveryFeePort {
 
     @Suppress("MagicNumber")
     override fun calculateBaseFee(restaurantAddress: String, deliveryAddress: String): BigDecimal {
-        val context = GeoApiContext.Builder().apiKey(gmapsApiKey).build()
-        val request = DistanceMatrixApi.newRequest(context)
-            .origins(restaurantAddress)
-            .destinations(deliveryAddress)
-            .mode(TravelMode.DRIVING)
-
-        val response = request.await()
-        val distanceInMeters = response.rows[0].elements[0].distance.inMeters
-
+        val distanceInMeters = gmapsClient.getDistanceInMeters(restaurantAddress, deliveryAddress)
         val feePerKm = 2.2
+        return BigDecimal.valueOf(distanceInMeters * feePerKm / METERS_IN_KM)
+    }
 
-        return BigDecimal.valueOf(distanceInMeters * feePerKm / 1000)
+    companion object {
+        private const val METERS_IN_KM = 1000
     }
 }

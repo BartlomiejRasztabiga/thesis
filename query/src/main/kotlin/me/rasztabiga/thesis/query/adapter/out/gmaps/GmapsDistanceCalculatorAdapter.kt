@@ -1,18 +1,19 @@
 package me.rasztabiga.thesis.query.adapter.out.gmaps
 
 import me.rasztabiga.thesis.query.domain.query.port.DistanceCalculatorPort
-import org.springframework.beans.factory.annotation.Value
-import org.springframework.context.annotation.Profile
+import me.rasztabiga.thesis.shared.infrastructure.gmaps.GmapsClient
 import org.springframework.stereotype.Service
 
 @Service
-@Profile("gmaps")
 class GmapsDistanceCalculatorAdapter(
-    @Value("\${gmaps.api.key}")
-    private val gmapsApiKey: String
+    private val gmapsClient: GmapsClient
 ) : DistanceCalculatorPort {
 
     override fun calculateDistance(from: String, to: String): Double {
-        val context = GeoApiContext.Builder().apiKey(gmapsApiKey).build()
+        return (gmapsClient.getDistanceInMeters(from, to) / METERS_IN_KM).toDouble()
+    }
+
+    companion object {
+        private const val METERS_IN_KM = 1000
     }
 }

@@ -76,7 +76,18 @@ class OrderDeliveryHandler(
             distanceCalculatorPort.calculateDistance(query.courierAddress, it.restaurantAddress)
         }
 
-        return Mono.just(mapToResponse(bestOffer))
+        val distanceToRestaurant =
+            distanceCalculatorPort.calculateDistance(query.courierAddress, bestOffer.restaurantAddress)
+        val distanceToDeliveryAddress =
+            distanceCalculatorPort.calculateDistance(query.courierAddress, bestOffer.deliveryAddress)
+
+        val response = mapToResponse(
+            bestOffer,
+            distanceToRestaurant,
+            distanceToDeliveryAddress
+        )
+
+        return Mono.just(response)
     }
 
     @QueryHandler

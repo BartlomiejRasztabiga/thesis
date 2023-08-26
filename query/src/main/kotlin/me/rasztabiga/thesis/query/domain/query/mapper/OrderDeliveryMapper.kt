@@ -24,7 +24,25 @@ object OrderDeliveryMapper {
         return OrderDeliveryResponse(
             id = entity.id,
             restaurantAddress = entity.restaurantAddress,
+            distanceToRestaurantInKm = null,
             deliveryAddress = entity.deliveryAddress,
+            distanceToDeliveryAddressInKm = null,
+            status = OrderDeliveryResponse.DeliveryStatus.valueOf(entity.status.name),
+            courierFee = entity.courierFee
+        )
+    }
+
+    fun mapToResponse(
+        entity: OrderDeliveryEntity,
+        distanceToRestaurantInKm: Double,
+        distanceToDeliveryAddressInKm: Double
+    ): OrderDeliveryResponse {
+        return OrderDeliveryResponse(
+            id = entity.id,
+            restaurantAddress = entity.restaurantAddress,
+            distanceToRestaurantInKm = distanceToRestaurantInKm,
+            deliveryAddress = entity.deliveryAddress,
+            distanceToDeliveryAddressInKm = distanceToDeliveryAddressInKm,
             status = OrderDeliveryResponse.DeliveryStatus.valueOf(entity.status.name),
             courierFee = entity.courierFee
         )

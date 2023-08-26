@@ -64,7 +64,9 @@ export interface CourierResponse {
 export interface DeliveryResponse {
   id: string;
   restaurantAddress: string;
+  distanceToRestaurantInKm?: number;
   deliveryAddress: string;
+  distanceToDeliveryAddressInKm?: number;
   status: string;
   courierFee: number;
 }

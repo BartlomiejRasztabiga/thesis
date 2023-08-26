@@ -130,8 +130,8 @@ export default function CourierDeliveryPage() {
       return (
         <>
           <p>Delivery offer</p>
-          <p>From: {data.deliveryOffer.restaurantAddress}</p>
-          <p>To: {data.deliveryOffer.deliveryAddress}</p>
+          <p>From: {data.deliveryOffer.restaurantAddress} ({data.deliveryOffer.distanceToRestaurantInKm} km)</p>
+          <p>To: {data.deliveryOffer.deliveryAddress} ({data.deliveryOffer.distanceToDeliveryAddressInKm} km)</p>
           <p>Reward: {data.deliveryOffer.courierFee}</p>
           <Form method="post">
             <input type={"hidden"} name={"deliveryId"} value={data.deliveryOffer.id} />

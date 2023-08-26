@@ -6,7 +6,9 @@ import java.util.*
 data class OrderDeliveryResponse(
     val id: UUID,
     val restaurantAddress: String,
+    val distanceToRestaurantInKm: Double?,
     val deliveryAddress: String,
+    val distanceToDeliveryAddressInKm: Double?,
     val status: DeliveryStatus,
     val courierFee: BigDecimal
 ) {
