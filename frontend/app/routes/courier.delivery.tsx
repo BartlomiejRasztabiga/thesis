@@ -86,6 +86,10 @@ export default function CourierDeliveryPage() {
     };
   }, [revalidator, data.currentDelivery]);
 
+  const getGmapsLink = (address: string) => {
+    return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`;
+  };
+
   const getContent = () => {
     const className =
       "rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400 mx-2";
@@ -94,6 +98,7 @@ export default function CourierDeliveryPage() {
       return (
         <>
           <p>Delivery in progress</p>
+          {/* TODO buttons to navigate */}
           <p>From: {data.currentDelivery.restaurantAddress}</p>
           <p>To: {data.currentDelivery.deliveryAddress}</p>
           <p>Status: {data.currentDelivery.status}</p>
@@ -102,24 +107,38 @@ export default function CourierDeliveryPage() {
             <input type={"hidden"} name={"deliveryId"} value={data.currentDelivery.id} />
             {data.currentDelivery.status === "ACCEPTED" ?
               (
-                <button
-                  type="submit"
-                  className={className}
-                  name="_action"
-                  value="pickup"
-                >
-                  Pickup
-                </button>
+                <>
+                  <button
+                    type="submit"
+                    className={className}
+                    name="_action"
+                    value="pickup"
+                  >
+                    Pickup
+                  </button>
+                  <button className={className}>
+                    <a href={getGmapsLink(data.currentDelivery.restaurantAddress)} target={"_blank"}>
+                      Navigate to restaurant
+                    </a>
+                  </button>
+                </>
               ) :
               (
-                <button
-                  type="submit"
-                  className={className}
-                  name="_action"
-                  value="deliver"
-                >
-                  Deliver
-                </button>
+                <>
+                  <button
+                    type="submit"
+                    className={className}
+                    name="_action"
+                    value="deliver"
+                  >
+                    Deliver
+                  </button>
+                  <button className={className}>
+                    <a href={getGmapsLink(data.currentDelivery.deliveryAddress)} target={"_blank"}>
+                      Navigate to delivery address
+                    </a>
+                  </button>
+                </>
               )}
           </Form>
         </>

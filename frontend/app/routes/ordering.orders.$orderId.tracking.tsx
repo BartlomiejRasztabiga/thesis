@@ -70,6 +70,7 @@ export default function OrderTrackingPage() {
               <div>
                 <h4 className="text-xl font-bold">Order #{data.order.id}</h4>
                 <p className="text-gray-500">{getOrderSummary(data.order)}</p>
+              {/*  TODO*/}
               </div>
             </div>
             <div className="h-full w-80 border-r bg-gray-50"></div>
