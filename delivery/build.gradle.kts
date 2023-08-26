@@ -52,6 +52,8 @@ dependencies {
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib"))
 
+    implementation("com.google.maps:google-maps-services:2.2.0")
+
     testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.12.3"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")

@@ -141,14 +141,18 @@ class OrderLifecycleSaga {
 
         deliveryId = UUID.randomUUID()
 
-        commandGateway.sendAndWait<Void>(
-            CreateOrderDeliveryOfferCommand(
-                id = deliveryId,
-                orderId = event.orderId,
-                restaurantAddress = restaurant.address,
-                deliveryAddress = deliveryAddress.address
+        try {
+            commandGateway.sendAndWait<Void>(
+                CreateOrderDeliveryOfferCommand(
+                    id = deliveryId,
+                    orderId = event.orderId,
+                    restaurantAddress = restaurant.address,
+                    deliveryAddress = deliveryAddress.address
+                )
             )
-        )
+        } catch (e: Exception) {
+            // TODO handle exception, retry?
+        }
     }
 
     @Suppress("TooGenericExceptionCaught", "SwallowedException")

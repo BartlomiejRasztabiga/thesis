@@ -33,6 +33,8 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
     implementation("org.axonframework:axon-spring-boot-starter")
 
+    implementation("com.google.maps:google-maps-services:2.2.0")
+
     testFixturesImplementation(kotlin("reflect"))
     testFixturesImplementation("org.springframework.boot:spring-boot-starter-test")
     testFixturesImplementation("org.axonframework.extensions.reactor:axon-reactor-spring-boot-starter")
