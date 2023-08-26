@@ -14,8 +14,13 @@ spec:
         app: axonserver
     spec:
       containers:
-        - image: axoniq/axonserver:4.6.9-jdk-17-dev
+        - image: axoniq/axonserver:2023.1.1-jdk-17-dev
           name: axonserver
+          env:
+            - name: AXONIQ_AXONSERVER_DEVMODE_ENABLED
+              value: "true"
+            - name: AXONIQ_AXONSERVER_STANDALONE
+              value: "true"
           ports:
             - containerPort: 8024
             - containerPort: 8124
