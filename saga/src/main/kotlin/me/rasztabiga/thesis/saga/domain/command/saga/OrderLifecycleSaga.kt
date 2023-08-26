@@ -130,6 +130,7 @@ class OrderLifecycleSaga {
         )
     }
 
+    @Suppress("TooGenericExceptionCaught", "SwallowedException")
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: RestaurantOrderAcceptedEvent) {
         val order = getOrder(event.orderId)
