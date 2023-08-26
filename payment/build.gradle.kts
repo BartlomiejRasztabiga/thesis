@@ -31,7 +31,6 @@ repositories {
 }
 
 val axonVersion = "4.8.2"
-val testcontainersVersion = "1.19.0"
 val kotestVersion = "5.6.2"
 
 dependencies {
@@ -56,7 +55,6 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.axonframework:axon-test")
-    testImplementation("org.testcontainers:junit-jupiter")
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testImplementation("io.mockk:mockk:1.13.7")
@@ -66,7 +64,6 @@ dependencies {
 dependencyManagement {
     imports {
         mavenBom("org.axonframework:axon-bom:${axonVersion}")
-        mavenBom("org.testcontainers:testcontainers-bom:${testcontainersVersion}")
     }
 }
 

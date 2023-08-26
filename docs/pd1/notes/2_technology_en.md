@@ -8,7 +8,6 @@ Libraries:
 - Spring WebFlux
 - Spring Security
 - Spring Data
-- Testcontainers
 - JUnit 5
   Communication format: JSON (REST)
 

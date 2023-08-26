@@ -40,7 +40,6 @@ dependencies {
     testFixturesImplementation("org.axonframework.extensions.reactor:axon-reactor-spring-boot-starter")
     testFixturesImplementation("io.projectreactor:reactor-test")
     testFixturesImplementation("org.axonframework:axon-test")
-    testFixturesImplementation("org.testcontainers:junit-jupiter")
     testFixturesImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testFixturesImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
     testFixturesImplementation("io.mockk:mockk:1.13.7")
