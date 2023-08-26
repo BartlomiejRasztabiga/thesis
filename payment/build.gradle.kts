@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.1.2"
+    id("org.springframework.boot") version "3.1.3"
     id("io.spring.dependency-management") version "1.1.3"
     id("org.jetbrains.kotlin.jvm") version "1.9.0"
     id("org.jetbrains.kotlin.plugin.spring") version "1.9.0"
@@ -31,7 +31,7 @@ repositories {
 }
 
 val axonVersion = "4.8.2"
-val testcontainersVersion = "1.18.3"
+val testcontainersVersion = "1.19.0"
 val kotestVersion = "5.6.2"
 
 dependencies {

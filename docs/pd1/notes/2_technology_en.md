@@ -3,7 +3,7 @@
 ## 2.1 Backend
 
 Programming language: Kotlin 1.9.0
-Frameworks: Axon Framework 4.8.2 + Spring Boot 3.1.2
+Frameworks: Axon Framework 4.8.2 + Spring Boot 3.1.3
 Libraries:
 - Spring WebFlux
 - Spring Security
