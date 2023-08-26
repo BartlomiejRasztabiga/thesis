@@ -149,3 +149,4 @@ Temporary Items
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,intellij
 application-gmaps.properties
+k8s/gmaps-api-key-secret.yaml

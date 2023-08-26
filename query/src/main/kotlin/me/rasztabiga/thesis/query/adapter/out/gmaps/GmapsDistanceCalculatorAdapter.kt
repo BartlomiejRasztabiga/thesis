@@ -10,10 +10,10 @@ class GmapsDistanceCalculatorAdapter(
 ) : DistanceCalculatorPort {
 
     override fun calculateDistance(from: String, to: String): Double {
-        return (gmapsClient.getDistanceInMeters(from, to) / METERS_IN_KM).toDouble()
+        return gmapsClient.getDistanceInMeters(from, to) / METERS_IN_KM
     }
 
     companion object {
-        private const val METERS_IN_KM = 1000
+        private const val METERS_IN_KM = 1000.0
     }
 }

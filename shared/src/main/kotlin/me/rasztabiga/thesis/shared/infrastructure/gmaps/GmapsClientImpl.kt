@@ -13,6 +13,8 @@ class GmapsClientImpl(
 ) : GmapsClient {
 
     override fun getDistanceInMeters(from: String, to: String): Long {
+        println("key: $gmapsApiKey")
+
         val context = GeoApiContext.Builder().apiKey(gmapsApiKey).build()
         val request = DistanceMatrixApi.newRequest(context)
             .origins(from)
