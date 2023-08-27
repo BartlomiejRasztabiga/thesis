@@ -43,7 +43,7 @@ class OrderHandler(
     fun on(event: OrderStartedEvent) {
         val restaurant = restaurantRepository.load(event.restaurantId)
 
-        val restaurantLocation = restaurant?.location ?: throw IllegalStateException()
+        val restaurantLocation = restaurant?.location ?: error("Restaurant not found")
 
         val entity = mapToEntity(event, restaurantLocation)
         orderRepository.save(entity)

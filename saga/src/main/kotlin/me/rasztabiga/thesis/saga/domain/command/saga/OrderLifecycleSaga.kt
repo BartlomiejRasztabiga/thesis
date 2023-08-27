@@ -147,8 +147,8 @@ class OrderLifecycleSaga {
                 CreateOrderDeliveryOfferCommand(
                     id = deliveryId,
                     orderId = event.orderId,
-                    restaurantAddress = restaurant.location,
-                    deliveryAddress = deliveryAddress.location
+                    restaurantLocation = restaurant.location,
+                    deliveryLocation = deliveryAddress.location
                 )
             )
         } catch (e: Exception) {

@@ -1,5 +1,6 @@
 package me.rasztabiga.thesis.query.domain.query.handler
 
+import me.rasztabiga.thesis.query.adapter.`in`.rest.api.OrderDeliveryOfferResponse
 import me.rasztabiga.thesis.query.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.query.domain.query.entity.DeliveryStatus
 import me.rasztabiga.thesis.query.domain.query.entity.OrderDeliveryEntity
@@ -66,20 +67,20 @@ class OrderDeliveryHandler(
     }
 
     @QueryHandler
-    fun handle(query: FindSuitableDeliveryOfferQuery): Mono<OrderDeliveryResponse> {
+    fun handle(query: FindSuitableDeliveryOfferQuery): Mono<OrderDeliveryOfferResponse> {
         val offers = orderDeliveryRepository.loadOffers().filter { !it.courierIdsDeclined.contains(query.courierId) }
         if (offers.isEmpty()) {
             return Mono.error(SuitableDeliveryOfferNotFoundException())
         }
 
         val bestOffer = offers.minBy {
-            distanceCalculatorPort.calculateDistance(query.courierAddress, it.restaurantAddress)
+            distanceCalculatorPort.calculateDistance(query.courierAddress, it.restaurantLocation.streetAddress)
         }
 
         val distanceToRestaurant =
-            distanceCalculatorPort.calculateDistance(query.courierAddress, bestOffer.restaurantAddress)
+            distanceCalculatorPort.calculateDistance(query.courierAddress, bestOffer.restaurantLocation.streetAddress)
         val distanceToDeliveryAddress =
-            distanceCalculatorPort.calculateDistance(query.courierAddress, bestOffer.deliveryAddress)
+            distanceCalculatorPort.calculateDistance(query.courierAddress, bestOffer.deliveryLocation.streetAddress)
 
         val response = mapToResponse(
             bestOffer,

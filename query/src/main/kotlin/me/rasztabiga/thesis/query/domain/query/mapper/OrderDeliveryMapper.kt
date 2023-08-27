@@ -1,5 +1,6 @@
 package me.rasztabiga.thesis.query.domain.query.mapper
 
+import me.rasztabiga.thesis.query.adapter.`in`.rest.api.OrderDeliveryOfferResponse
 import me.rasztabiga.thesis.query.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.query.domain.query.entity.DeliveryStatus
 import me.rasztabiga.thesis.query.domain.query.entity.OrderDeliveryEntity
@@ -11,8 +12,8 @@ object OrderDeliveryMapper {
         return OrderDeliveryEntity(
             id = event.deliveryId,
             orderId = event.orderId,
-            restaurantLocation = event.restaurantAddress,
-            deliveryLocation = event.deliveryAddress,
+            restaurantLocation = event.restaurantLocation,
+            deliveryLocation = event.deliveryLocation,
             status = DeliveryStatus.OFFER,
             courierFee = event.courierFee,
             courierId = null,
@@ -23,10 +24,8 @@ object OrderDeliveryMapper {
     fun mapToResponse(entity: OrderDeliveryEntity): OrderDeliveryResponse {
         return OrderDeliveryResponse(
             id = entity.id,
-            restaurantAddress = entity.restaurantAddress,
-            distanceToRestaurantInKm = null,
-            deliveryAddress = entity.deliveryAddress,
-            distanceToDeliveryAddressInKm = null,
+            restaurantLocation = entity.restaurantLocation,
+            deliveryLocation = entity.deliveryLocation,
             status = OrderDeliveryResponse.DeliveryStatus.valueOf(entity.status.name),
             courierFee = entity.courierFee
         )
@@ -36,14 +35,14 @@ object OrderDeliveryMapper {
         entity: OrderDeliveryEntity,
         distanceToRestaurantInKm: Double,
         distanceToDeliveryAddressInKm: Double
-    ): OrderDeliveryResponse {
-        return OrderDeliveryResponse(
+    ): OrderDeliveryOfferResponse {
+        return OrderDeliveryOfferResponse(
             id = entity.id,
-            restaurantAddress = entity.restaurantAddress,
+            restaurantLocation = entity.restaurantLocation,
             distanceToRestaurantInKm = distanceToRestaurantInKm,
-            deliveryAddress = entity.deliveryAddress,
+            deliveryLocation = entity.deliveryLocation,
             distanceToDeliveryAddressInKm = distanceToDeliveryAddressInKm,
-            status = OrderDeliveryResponse.DeliveryStatus.valueOf(entity.status.name),
+            status = OrderDeliveryOfferResponse.DeliveryStatus.valueOf(entity.status.name),
             courierFee = entity.courierFee
         )
     }

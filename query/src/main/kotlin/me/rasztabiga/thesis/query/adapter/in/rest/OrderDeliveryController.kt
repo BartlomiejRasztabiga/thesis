@@ -2,6 +2,7 @@
 
 package me.rasztabiga.thesis.query.adapter.`in`.rest
 
+import me.rasztabiga.thesis.query.adapter.`in`.rest.api.OrderDeliveryOfferResponse
 import me.rasztabiga.thesis.query.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.query.domain.query.query.FindCurrentDeliveryQuery
 import me.rasztabiga.thesis.query.domain.query.query.FindSuitableDeliveryOfferQuery
@@ -27,13 +28,13 @@ class OrderDeliveryController(
     fun getSuitableDeliveryOffer(
         @RequestParam courierAddress: String,
         exchange: ServerWebExchange
-    ): Mono<OrderDeliveryResponse> {
+    ): Mono<OrderDeliveryOfferResponse> {
         return reactorQueryGateway.query(
             FindSuitableDeliveryOfferQuery(
                 courierId = exchange.getUserId(),
                 courierAddress = courierAddress
             ),
-            ResponseTypes.instanceOf(OrderDeliveryResponse::class.java)
+            ResponseTypes.instanceOf(OrderDeliveryOfferResponse::class.java)
         )
     }
 

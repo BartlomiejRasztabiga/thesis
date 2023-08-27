@@ -21,8 +21,7 @@ object UserMapper {
             deliveryAddresses = entity.deliveryAddresses.map {
                 UserResponse.DeliveryAddress(
                     it.id,
-                    it.address,
-                    it.additionalInfo
+                    it.location
                 )
             }
         )

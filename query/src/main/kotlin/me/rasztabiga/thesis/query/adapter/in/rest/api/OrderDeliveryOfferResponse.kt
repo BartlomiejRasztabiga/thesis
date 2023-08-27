@@ -4,10 +4,12 @@ import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import java.math.BigDecimal
 import java.util.*
 
-data class OrderDeliveryResponse(
+data class OrderDeliveryOfferResponse(
     val id: UUID,
     val restaurantLocation: Location,
+    val distanceToRestaurantInKm: Double,
     val deliveryLocation: Location,
+    val distanceToDeliveryAddressInKm: Double,
     val status: DeliveryStatus,
     val courierFee: BigDecimal
 ) {

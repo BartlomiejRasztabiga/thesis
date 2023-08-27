@@ -44,8 +44,8 @@ class OrderDelivery {
             OrderDeliveryCreatedEvent(
                 deliveryId = command.id,
                 orderId = command.orderId,
-                restaurantAddress = command.restaurantAddress,
-                deliveryAddress = command.deliveryAddress,
+                restaurantLocation = command.restaurantLocation,
+                deliveryLocation = command.deliveryLocation,
                 courierFee = baseFee
             )
         )
@@ -117,8 +117,6 @@ class OrderDelivery {
     fun on(event: OrderDeliveryCreatedEvent) {
         this.id = event.deliveryId
         this.orderId = event.orderId
-        this.restaurantAddress = event.restaurantAddress
-        this.deliveryAddress = event.deliveryAddress
         this.status = DeliveryStatus.OFFER
         this.courierFee = event.courierFee
     }
