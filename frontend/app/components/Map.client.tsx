@@ -1,7 +1,13 @@
 import type { LatLngTuple } from "leaflet";
-import { FeatureGroup, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import { useEffect, useState } from "react";
-import { Location } from "~/models/user.server";
+import {
+  FeatureGroup,
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+} from "react-leaflet";
+import { useEffect } from "react";
+import type { Location } from "~/models/user.server";
 
 export interface MapProps {
   height: string;
@@ -12,8 +18,14 @@ export interface MapProps {
 export function Map(props: MapProps) {
   // const [center, setCenter] = useState<LatLngTuple>([52.2370, 21.0175]);
 
-  const restaurantLatLng: LatLngTuple = [props.restaurantLocation.lat, props.restaurantLocation.lng];
-  const deliveryLatLng: LatLngTuple = [props.deliveryLocation.lat, props.deliveryLocation.lng];
+  const restaurantLatLng: LatLngTuple = [
+    props.restaurantLocation.lat,
+    props.restaurantLocation.lng,
+  ];
+  const deliveryLatLng: LatLngTuple = [
+    props.deliveryLocation.lat,
+    props.deliveryLocation.lng,
+  ];
 
   useEffect(() => {
     if ("geolocation" in navigator) {
@@ -28,13 +40,13 @@ export function Map(props: MapProps) {
   // TODO set restaurant location and delivery location
   const bounds = [restaurantLatLng, deliveryLatLng];
 
-  console.log(props)
+  console.log(props);
 
   return (
     <div style={{ height: props.height }}>
       <MapContainer
         style={{
-          height: "100%"
+          height: "100%",
         }}
         center={deliveryLatLng}
         zoom={14}
@@ -50,14 +62,10 @@ export function Map(props: MapProps) {
           {/* TODO courier location */}
 
           <Marker position={restaurantLatLng}>
-            <Popup>
-              Restaurant location
-            </Popup>
+            <Popup>Restaurant location</Popup>
           </Marker>
           <Marker position={deliveryLatLng}>
-            <Popup>
-              Delivery location
-            </Popup>
+            <Popup>Delivery location</Popup>
           </Marker>
         </FeatureGroup>
       </MapContainer>

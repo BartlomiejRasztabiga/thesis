@@ -9,7 +9,7 @@ import {
   getCurrentDelivery,
   getDeliveryOffer,
   pickupDelivery,
-  rejectDeliveryOffer
+  rejectDeliveryOffer,
 } from "~/models/delivery.server";
 import invariant from "tiny-invariant";
 
@@ -87,7 +87,9 @@ export default function CourierDeliveryPage() {
   }, [revalidator, data.currentDelivery]);
 
   const getGmapsLink = (address: string) => {
-    return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}`;
+    return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+      address,
+    )}`;
   };
 
   const getContent = () => {
@@ -104,42 +106,56 @@ export default function CourierDeliveryPage() {
           <p>Status: {data.currentDelivery.status}</p>
           <p>Reward: {data.currentDelivery.courierFee} PLN</p>
           <Form method="post">
-            <input type={"hidden"} name={"deliveryId"} value={data.currentDelivery.id} />
-            {data.currentDelivery.status === "ACCEPTED" ?
-              (
-                <>
-                  <button
-                    type="submit"
-                    className={className}
-                    name="_action"
-                    value="pickup"
+            <input
+              type={"hidden"}
+              name={"deliveryId"}
+              value={data.currentDelivery.id}
+            />
+            {data.currentDelivery.status === "ACCEPTED" ? (
+              <>
+                <button
+                  type="submit"
+                  className={className}
+                  name="_action"
+                  value="pickup"
+                >
+                  Pickup
+                </button>
+                <button className={className}>
+                  <a
+                    href={getGmapsLink(
+                      data.currentDelivery.restaurantLocation.streetAddress,
+                    )}
+                    target={"_blank"}
+                    rel="noreferrer"
                   >
-                    Pickup
-                  </button>
-                  <button className={className}>
-                    <a href={getGmapsLink(data.currentDelivery.restaurantLocation.streetAddress)} target={"_blank"}>
-                      Navigate to restaurant
-                    </a>
-                  </button>
-                </>
-              ) :
-              (
-                <>
-                  <button
-                    type="submit"
-                    className={className}
-                    name="_action"
-                    value="deliver"
+                    Navigate to restaurant
+                  </a>
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  type="submit"
+                  className={className}
+                  name="_action"
+                  value="deliver"
+                >
+                  Deliver
+                </button>
+                <button className={className}>
+                  <a
+                    href={getGmapsLink(
+                      data.currentDelivery.deliveryLocation.streetAddress,
+                    )}
+                    target={"_blank"}
+                    rel="noreferrer"
                   >
-                    Deliver
-                  </button>
-                  <button className={className}>
-                    <a href={getGmapsLink(data.currentDelivery.deliveryLocation.streetAddress)} target={"_blank"}>
-                      Navigate to delivery address
-                    </a>
-                  </button>
-                </>
-              )}
+                    Navigate to delivery address
+                  </a>
+                </button>
+              </>
+            )}
           </Form>
         </>
       );
@@ -149,11 +165,21 @@ export default function CourierDeliveryPage() {
       return (
         <>
           <p>Delivery offer</p>
-          <p>From: {data.deliveryOffer.restaurantLocation.streetAddress} ({data.deliveryOffer.distanceToRestaurantInKm} km)</p>
-          <p>To: {data.deliveryOffer.deliveryLocation.streetAddress} ({data.deliveryOffer.distanceToDeliveryAddressInKm} km)</p>
+          <p>
+            From: {data.deliveryOffer.restaurantLocation.streetAddress} (
+            {data.deliveryOffer.distanceToRestaurantInKm} km)
+          </p>
+          <p>
+            To: {data.deliveryOffer.deliveryLocation.streetAddress} (
+            {data.deliveryOffer.distanceToDeliveryAddressInKm} km)
+          </p>
           <p>Reward: {data.deliveryOffer.courierFee} PLN</p>
           <Form method="post">
-            <input type={"hidden"} name={"deliveryId"} value={data.deliveryOffer.id} />
+            <input
+              type={"hidden"}
+              name={"deliveryId"}
+              value={data.deliveryOffer.id}
+            />
             <button
               type="submit"
               className={className}

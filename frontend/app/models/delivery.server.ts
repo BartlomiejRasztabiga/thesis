@@ -1,15 +1,15 @@
 import { getAxios } from "~/services/axios.server";
-import {Location} from "./user.server";
+import type { Location } from "./user.server";
 
 export const getCurrentCourier = async (
-  request: Request
+  request: Request,
 ): Promise<CourierResponse> => {
   const axios = await getAxios(request);
   return axios.get(`/api/v1/couriers/me`).then((res) => res.data);
 };
 
 export const getCurrentDelivery = async (
-  request: Request
+  request: Request,
 ): Promise<DeliveryResponse> => {
   const axios = await getAxios(request);
   return axios.get(`/api/v1/deliveries/current`).then((res) => res.data);
@@ -17,44 +17,53 @@ export const getCurrentDelivery = async (
 
 export const getDeliveryOffer = async (
   request: Request,
-  courierLocation: string
+  courierLocation: string,
 ): Promise<DeliveryResponse> => {
   const axios = await getAxios(request);
-  return axios.get(`/api/v1/deliveries/offer?courierAddress=${courierLocation}`).then((res) => res.data);
+  return axios
+    .get(`/api/v1/deliveries/offer?courierAddress=${courierLocation}`)
+    .then((res) => res.data);
 };
 
 export const acceptDeliveryOffer = async (
   request: Request,
-  deliveryId: string
+  deliveryId: string,
 ): Promise<void> => {
   const axios = await getAxios(request);
-  return axios.put(`/api/v1/deliveries/${deliveryId}/accept`).then((res) => res.data);
+  return axios
+    .put(`/api/v1/deliveries/${deliveryId}/accept`)
+    .then((res) => res.data);
 };
 
 export const rejectDeliveryOffer = async (
   request: Request,
-  deliveryId: string
+  deliveryId: string,
 ): Promise<void> => {
   const axios = await getAxios(request);
-  return axios.put(`/api/v1/deliveries/${deliveryId}/reject`).then((res) => res.data);
+  return axios
+    .put(`/api/v1/deliveries/${deliveryId}/reject`)
+    .then((res) => res.data);
 };
 
 export const pickupDelivery = async (
   request: Request,
-  deliveryId: string
+  deliveryId: string,
 ): Promise<void> => {
   const axios = await getAxios(request);
-  return axios.put(`/api/v1/deliveries/${deliveryId}/pickup`).then((res) => res.data);
+  return axios
+    .put(`/api/v1/deliveries/${deliveryId}/pickup`)
+    .then((res) => res.data);
 };
 
 export const deliverDelivery = async (
   request: Request,
-  deliveryId: string
+  deliveryId: string,
 ): Promise<void> => {
   const axios = await getAxios(request);
-  return axios.put(`/api/v1/deliveries/${deliveryId}/deliver`).then((res) => res.data);
+  return axios
+    .put(`/api/v1/deliveries/${deliveryId}/deliver`)
+    .then((res) => res.data);
 };
-
 
 export interface CourierResponse {
   id: string;

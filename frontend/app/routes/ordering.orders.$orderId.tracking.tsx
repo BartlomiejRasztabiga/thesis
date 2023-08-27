@@ -9,7 +9,6 @@ import invariant from "tiny-invariant";
 import { Map } from "~/components/Map.client";
 import { ClientOnly } from "remix-utils";
 
-
 export async function loader({ request, params }: LoaderArgs) {
   const activeOrderId = params.orderId;
   invariant(activeOrderId, "activeOrderId not found");
@@ -84,9 +83,13 @@ export default function OrderTrackingPage() {
                   />
                 }
               >
-                {() => <Map height={mapHeight}
-                            restaurantLocation={data.order.restaurantLocation}
-                            deliveryLocation={data.order.deliveryLocation} />}
+                {() => (
+                  <Map
+                    height={mapHeight}
+                    restaurantLocation={data.order.restaurantLocation}
+                    deliveryLocation={data.order.deliveryLocation}
+                  />
+                )}
               </ClientOnly>
             </div>
             <div className="h-full w-80 border-r bg-gray-50"></div>
