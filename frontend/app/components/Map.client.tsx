@@ -1,14 +1,24 @@
 import type { LatLngTuple } from "leaflet";
 import { FeatureGroup, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { useEffect, useState } from "react";
+import { Location } from "~/models/user.server";
 
-export function Map({ height }: { height: string }) {
-  const [currentLocation, setCurrentLocation] = useState<LatLngTuple>([52.2370, 21.0175]);
+export interface MapProps {
+  height: string;
+  restaurantLocation: Location;
+  deliveryLocation: Location;
+}
+
+export function Map(props: MapProps) {
+  // const [center, setCenter] = useState<LatLngTuple>([52.2370, 21.0175]);
+
+  const restaurantLatLng: LatLngTuple = [props.restaurantLocation.lat, props.restaurantLocation.lng];
+  const deliveryLatLng: LatLngTuple = [props.deliveryLocation.lat, props.deliveryLocation.lng];
 
   useEffect(() => {
     if ("geolocation" in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
-        setCurrentLocation([position.coords.latitude, position.coords.longitude]);
+        // setCurrentLocation([position.coords.latitude, position.coords.longitude]);
       });
     } else {
       console.log("Geolocation not available");
@@ -16,16 +26,18 @@ export function Map({ height }: { height: string }) {
   }, []);
 
   // TODO set restaurant location and delivery location
-  const bounds = [[52.2370, 21.0175], [52.2370, 21.0175]];
+  const bounds = [restaurantLatLng, deliveryLatLng];
+
+  console.log(props)
 
   return (
-    <div style={{ height }}>
+    <div style={{ height: props.height }}>
       <MapContainer
         style={{
           height: "100%"
         }}
-        center={currentLocation}
-        zoom={13}
+        center={deliveryLatLng}
+        zoom={14}
         scrollWheelZoom={true}
         trackResize={true}
         bounds={bounds}
@@ -35,10 +47,14 @@ export function Map({ height }: { height: string }) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <FeatureGroup>
-          <Marker position={currentLocation}>
-            {/* TODO current location */}
-            {/* TODO courier location */}
-            {/* TODO restaurant location */}
+          {/* TODO courier location */}
+
+          <Marker position={restaurantLatLng}>
+            <Popup>
+              Restaurant location
+            </Popup>
+          </Marker>
+          <Marker position={deliveryLatLng}>
             <Popup>
               Delivery location
             </Popup>

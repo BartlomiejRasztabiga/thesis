@@ -82,7 +82,7 @@ class OrderHandler(
         val entity = getOrder(event.orderId)
         val user = userRepository.load(entity.userId) ?: error("User not found")
 
-        val deliveryLocation = user.deliveryAddresses.find { it.id == entity.deliveryAddressId }?.location
+        val deliveryLocation = user.deliveryAddresses.find { it.id == event.deliveryAddressId }?.location
 
         entity.status = OrderEntity.OrderStatus.FINALIZED
         entity.deliveryAddressId = event.deliveryAddressId

@@ -84,7 +84,9 @@ export default function OrderTrackingPage() {
                   />
                 }
               >
-                {() => <Map height={mapHeight} />}
+                {() => <Map height={mapHeight}
+                            restaurantLocation={data.order.restaurantLocation}
+                            deliveryLocation={data.order.deliveryLocation} />}
               </ClientOnly>
             </div>
             <div className="h-full w-80 border-r bg-gray-50"></div>

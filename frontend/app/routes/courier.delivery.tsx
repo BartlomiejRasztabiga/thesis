@@ -99,10 +99,10 @@ export default function CourierDeliveryPage() {
         <>
           <p>Delivery in progress</p>
           {/* TODO buttons to navigate */}
-          <p>From: {data.currentDelivery.restaurantAddress}</p>
-          <p>To: {data.currentDelivery.deliveryAddress}</p>
+          <p>From: {data.currentDelivery.restaurantLocation.streetAddress}</p>
+          <p>To: {data.currentDelivery.deliveryLocation.streetAddress}</p>
           <p>Status: {data.currentDelivery.status}</p>
-          <p>Reward: {data.currentDelivery.courierFee}</p>
+          <p>Reward: {data.currentDelivery.courierFee} PLN</p>
           <Form method="post">
             <input type={"hidden"} name={"deliveryId"} value={data.currentDelivery.id} />
             {data.currentDelivery.status === "ACCEPTED" ?
@@ -117,7 +117,7 @@ export default function CourierDeliveryPage() {
                     Pickup
                   </button>
                   <button className={className}>
-                    <a href={getGmapsLink(data.currentDelivery.restaurantAddress)} target={"_blank"}>
+                    <a href={getGmapsLink(data.currentDelivery.restaurantLocation.streetAddress)} target={"_blank"}>
                       Navigate to restaurant
                     </a>
                   </button>
@@ -134,7 +134,7 @@ export default function CourierDeliveryPage() {
                     Deliver
                   </button>
                   <button className={className}>
-                    <a href={getGmapsLink(data.currentDelivery.deliveryAddress)} target={"_blank"}>
+                    <a href={getGmapsLink(data.currentDelivery.deliveryLocation.streetAddress)} target={"_blank"}>
                       Navigate to delivery address
                     </a>
                   </button>
@@ -149,9 +149,9 @@ export default function CourierDeliveryPage() {
       return (
         <>
           <p>Delivery offer</p>
-          <p>From: {data.deliveryOffer.restaurantAddress} ({data.deliveryOffer.distanceToRestaurantInKm} km)</p>
-          <p>To: {data.deliveryOffer.deliveryAddress} ({data.deliveryOffer.distanceToDeliveryAddressInKm} km)</p>
-          <p>Reward: {data.deliveryOffer.courierFee}</p>
+          <p>From: {data.deliveryOffer.restaurantLocation.streetAddress} ({data.deliveryOffer.distanceToRestaurantInKm} km)</p>
+          <p>To: {data.deliveryOffer.deliveryLocation.streetAddress} ({data.deliveryOffer.distanceToDeliveryAddressInKm} km)</p>
+          <p>Reward: {data.deliveryOffer.courierFee} PLN</p>
           <Form method="post">
             <input type={"hidden"} name={"deliveryId"} value={data.deliveryOffer.id} />
             <button
