@@ -11,8 +11,8 @@ object OrderDeliveryMapper {
         return OrderDeliveryEntity(
             id = event.deliveryId,
             orderId = event.orderId,
-            restaurantAddress = event.restaurantAddress,
-            deliveryAddress = event.deliveryAddress,
+            restaurantLocation = event.restaurantAddress,
+            deliveryLocation = event.deliveryAddress,
             status = DeliveryStatus.OFFER,
             courierFee = event.courierFee,
             courierId = null,

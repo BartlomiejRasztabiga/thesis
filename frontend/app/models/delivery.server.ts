@@ -1,4 +1,5 @@
 import { getAxios } from "~/services/axios.server";
+import {Location} from "./user.server";
 
 export const getCurrentCourier = async (
   request: Request
@@ -63,9 +64,9 @@ export interface CourierResponse {
 
 export interface DeliveryResponse {
   id: string;
-  restaurantAddress: string;
+  restaurantLocation: Location;
   distanceToRestaurantInKm?: number;
-  deliveryAddress: string;
+  deliveryLocation: Location;
   distanceToDeliveryAddressInKm?: number;
   status: string;
   courierFee: number;

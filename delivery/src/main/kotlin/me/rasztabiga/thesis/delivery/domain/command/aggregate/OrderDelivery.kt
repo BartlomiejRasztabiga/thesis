@@ -27,8 +27,6 @@ class OrderDelivery {
     @AggregateIdentifier
     private lateinit var id: UUID
     private lateinit var orderId: UUID // TODO remove?
-    private lateinit var restaurantAddress: String
-    private lateinit var deliveryAddress: String
     private lateinit var status: DeliveryStatus
     private lateinit var courierFee: BigDecimal
     private var courierId: String? = null

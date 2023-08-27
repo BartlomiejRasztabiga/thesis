@@ -5,6 +5,8 @@ import me.rasztabiga.thesis.query.domain.query.exception.OrderNotFoundException
 import me.rasztabiga.thesis.query.domain.query.mapper.OrderMapper.mapToEntity
 import me.rasztabiga.thesis.query.domain.query.mapper.OrderMapper.mapToResponse
 import me.rasztabiga.thesis.query.domain.query.repository.OrderRepository
+import me.rasztabiga.thesis.query.domain.query.repository.RestaurantRepository
+import me.rasztabiga.thesis.query.domain.query.repository.UserRepository
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.shared.domain.command.event.OrderCanceledEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAcceptedEvent
@@ -32,12 +34,18 @@ import java.util.*
 @Component
 @ProcessingGroup("order")
 class OrderHandler(
-    private val orderRepository: OrderRepository
+    private val orderRepository: OrderRepository,
+    private val userRepository: UserRepository,
+    private val restaurantRepository: RestaurantRepository
 ) {
 
     @EventHandler
     fun on(event: OrderStartedEvent) {
-        val entity = mapToEntity(event)
+        val restaurant = restaurantRepository.load(event.restaurantId)
+
+        val restaurantLocation = restaurant?.location ?: throw IllegalStateException()
+
+        val entity = mapToEntity(event, restaurantLocation)
         orderRepository.save(entity)
     }
 
@@ -72,8 +80,14 @@ class OrderHandler(
     @EventHandler
     fun on(event: OrderFinalizedEvent) {
         val entity = getOrder(event.orderId)
+        val user = userRepository.load(entity.userId) ?: error("User not found")
+
+        val deliveryLocation = user.deliveryAddresses.find { it.id == entity.deliveryAddressId }?.location
+
         entity.status = OrderEntity.OrderStatus.FINALIZED
         entity.deliveryAddressId = event.deliveryAddressId
+        entity.deliveryLocation = deliveryLocation
+
         orderRepository.save(entity)
     }
 
