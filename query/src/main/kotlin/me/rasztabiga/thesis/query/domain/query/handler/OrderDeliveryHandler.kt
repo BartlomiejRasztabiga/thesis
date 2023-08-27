@@ -73,6 +73,8 @@ class OrderDeliveryHandler(
             return Mono.error(SuitableDeliveryOfferNotFoundException())
         }
 
+        // TODO reduce calls to GmapsClient (maybe sort by fee and then calculate distance only for first offer)
+
         val bestOffer = offers.minBy {
             distanceCalculatorPort.calculateDistance(query.courierAddress, it.restaurantLocation.streetAddress)
         }
