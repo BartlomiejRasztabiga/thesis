@@ -200,7 +200,7 @@ export default function RestaurantPage() {
             >
               {data.currentUser.deliveryAddresses.map((address) => (
                 <option key={address.id} value={address.id}>
-                  {address.address}
+                  {address.location.streetAddress}
                 </option>
               ))}
             </select>

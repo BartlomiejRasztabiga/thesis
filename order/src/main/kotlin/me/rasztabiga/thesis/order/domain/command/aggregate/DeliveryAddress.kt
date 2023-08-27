@@ -1,5 +1,6 @@
 package me.rasztabiga.thesis.order.domain.command.aggregate
 
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import org.axonframework.modelling.command.EntityId
 import java.util.*
 
@@ -9,13 +10,11 @@ internal class DeliveryAddress {
     var addressId: UUID
         private set
 
-    private var address: String
-    private var additionalInfo: String? = null
+    private var location: Location
 
-    constructor(addressId: UUID, address: String, additionalInfo: String?) {
+    constructor(addressId: UUID, location: Location) {
         this.addressId = addressId
-        this.address = address
-        this.additionalInfo = additionalInfo
+        this.location = location
     }
 
     override fun equals(other: Any?): Boolean {
@@ -23,15 +22,14 @@ internal class DeliveryAddress {
         if (other !is DeliveryAddress) return false
 
         if (addressId != other.addressId) return false
-        if (address != other.address) return false
-        return additionalInfo == other.additionalInfo
+        if (location != other.location) return false
+
+        return true
     }
 
     override fun hashCode(): Int {
         var result = addressId.hashCode()
-        result = 31 * result + address.hashCode()
-        result = 31 * result + (additionalInfo?.hashCode() ?: 0)
+        result = 31 * result + location.hashCode()
         return result
     }
 }
-

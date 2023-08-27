@@ -3,6 +3,7 @@ package me.rasztabiga.thesis.order.domain.command.aggregate
 import me.rasztabiga.thesis.order.domain.command.command.CreateDeliveryAddressCommand
 import me.rasztabiga.thesis.order.domain.command.command.CreateUserCommand
 import me.rasztabiga.thesis.order.domain.command.command.DeleteDeliveryAddressCommand
+import me.rasztabiga.thesis.order.domain.command.port.GeocodeAddressPort
 import me.rasztabiga.thesis.shared.domain.command.event.DeliveryAddressCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.DeliveryAddressDeletedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.UserCreatedEvent
@@ -32,20 +33,19 @@ internal class User {
     }
 
     @CommandHandler
-    fun handle(command: CreateDeliveryAddressCommand) {
+    fun handle(command: CreateDeliveryAddressCommand, geocodeAddressPort: GeocodeAddressPort) {
         val addressId = command.addressId
         if (deliveryAddresses.any { it.addressId == addressId }) {
             error("Address with id $addressId already exists")
         }
 
-        // TODO call gmaps
+        val location = geocodeAddressPort.geocode(command.address)
 
         apply(
             DeliveryAddressCreatedEvent(
                 userId = command.userId,
                 addressId = command.addressId,
-                address = command.address,
-                additionalInfo = command.additionalInfo
+                location = location
             )
         )
     }
@@ -74,8 +74,7 @@ internal class User {
         this.deliveryAddresses.add(
             DeliveryAddress(
                 addressId = event.addressId,
-                address = event.address,
-                additionalInfo = event.additionalInfo
+                location = event.location
             )
         )
     }

@@ -11,7 +11,6 @@ data class UserResponse(
 ) {
     data class DeliveryAddress(
         val id: UUID,
-        val address: String,
-        val additionalInfo: String?
+        val location: Location
     )
 }

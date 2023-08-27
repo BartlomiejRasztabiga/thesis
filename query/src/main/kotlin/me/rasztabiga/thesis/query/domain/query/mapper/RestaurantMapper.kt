@@ -12,7 +12,7 @@ object RestaurantMapper {
             name = event.name,
             availability = RestaurantEntity.Availability.CLOSED,
             menu = emptyList(),
-            address = event.address
+            location = event.location
         )
     }
 

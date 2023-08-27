@@ -1,5 +1,6 @@
 package me.rasztabiga.thesis.shared.domain.command.event
 
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import org.axonframework.serialization.Revision
 import java.util.*
 
@@ -7,5 +8,5 @@ import java.util.*
 data class RestaurantCreatedEvent(
     val id: UUID,
     val name: String,
-    val address: String
+    val location: Location
 )

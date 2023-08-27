@@ -1,5 +1,6 @@
 package me.rasztabiga.thesis.query.domain.query.entity
 
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.util.*
@@ -13,7 +14,6 @@ data class UserEntity(
 ) {
     data class DeliveryAddress(
         val id: UUID,
-        val address: String,
-        val additionalInfo: String?
+        val location: Location
     )
 }

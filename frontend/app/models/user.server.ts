@@ -15,6 +15,11 @@ export interface UserResponse {
 
 export interface DeliveryAddressResponse {
   id: string;
-  address: string;
-  additionalInfo: string;
+  location: Location;
+}
+
+export interface Location {
+  lat: number;
+  lng: number;
+  streetAddress: string;
 }

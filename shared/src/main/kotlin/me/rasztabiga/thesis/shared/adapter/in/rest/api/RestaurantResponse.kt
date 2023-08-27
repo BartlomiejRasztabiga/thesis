@@ -9,7 +9,7 @@ data class RestaurantResponse(
     val name: String,
     val availability: Availability,
     val menu: List<Product>,
-    val address: String
+    val location: Location
 ) {
     data class Product(
         val id: UUID,

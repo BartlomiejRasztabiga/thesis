@@ -5,6 +5,7 @@ import me.rasztabiga.thesis.restaurant.domain.command.command.DeleteRestaurantCo
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantAvailabilityCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantMenuCommand
+import me.rasztabiga.thesis.restaurant.domain.command.port.GeocodeAddressPort
 import me.rasztabiga.thesis.shared.domain.command.command.CalculateOrderTotalCommand
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantAvailabilityUpdatedEvent
@@ -34,8 +35,10 @@ internal class Restaurant {
     constructor()
 
     @CommandHandler
-    constructor(command: CreateRestaurantCommand) {
-        apply(RestaurantCreatedEvent(id = command.id, name = command.name, address = command.address))
+    constructor(command: CreateRestaurantCommand, geocodeAddressPort: GeocodeAddressPort) {
+        val location = geocodeAddressPort.geocode(command.address)
+
+        apply(RestaurantCreatedEvent(id = command.id, name = command.name, location = location))
     }
 
     @CommandHandler
