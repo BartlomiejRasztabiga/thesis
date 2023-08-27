@@ -38,6 +38,8 @@ internal class User {
             error("Address with id $addressId already exists")
         }
 
+        // TODO call gmaps
+
         apply(
             DeliveryAddressCreatedEvent(
                 userId = command.userId,
