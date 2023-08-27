@@ -6,11 +6,9 @@ import Navbar from "~/components/Navbar";
 import type { OrderResponse } from "~/models/order.server";
 import { getOrder } from "~/models/order.server";
 import invariant from "tiny-invariant";
-import GoogleMapReact from "google-map-react";
+import { Map } from "~/components/Map.client";
+import { ClientOnly } from "remix-utils";
 
-export function Marker(props: any) {
-  return <div>{props.text}</div>;
-}
 
 export async function loader({ request, params }: LoaderArgs) {
   const activeOrderId = params.orderId;
@@ -58,13 +56,7 @@ export default function OrderTrackingPage() {
     }
   };
 
-  const defaultProps = {
-    center: {
-      lat: 52.2297,
-      lng: 21.0122
-    },
-    zoom: 11
-  };
+  const mapHeight = "75vh";
 
   return (
     <div className="flex h-full min-h-screen flex-col">
@@ -83,20 +75,17 @@ export default function OrderTrackingPage() {
               <div>
                 <h4 className="text-xl font-bold">Order #{data.order.id}</h4>
                 <p className="text-gray-500">{getOrderSummary(data.order)}</p>
-                <div style={{ height: "75vh", width: "100%" }}>
-                  <GoogleMapReact
-                    bootstrapURLKeys={{ key: data.gmapsApiKey }}
-                    defaultCenter={defaultProps.center}
-                    defaultZoom={defaultProps.zoom}
-                  >
-                    <Marker
-                      lat={52.2297}
-                      lng={21.0122}
-                      text="My Marker"
-                    />
-                  </GoogleMapReact>
-                </div>
               </div>
+              <ClientOnly
+                fallback={
+                  <div
+                    id="skeleton"
+                    style={{ height: mapHeight, background: "#d1d1d1" }}
+                  />
+                }
+              >
+                {() => <Map height={mapHeight} />}
+              </ClientOnly>
             </div>
             <div className="h-full w-80 border-r bg-gray-50"></div>
           </div>
