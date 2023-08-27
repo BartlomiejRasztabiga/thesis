@@ -10,12 +10,14 @@ data class OrderEntity(
     @Id
     val id: UUID,
     val restaurantId: UUID,
+    val restaurantLocation: Location,
     val userId: String,
     var status: OrderStatus,
     val items: MutableList<OrderItem>,
     var total: BigDecimal?,
     var paymentId: UUID?,
     var deliveryAddressId: UUID?,
+    var deliveryLocation: Location?,
     var courierId: String?
 ) {
     enum class OrderStatus {

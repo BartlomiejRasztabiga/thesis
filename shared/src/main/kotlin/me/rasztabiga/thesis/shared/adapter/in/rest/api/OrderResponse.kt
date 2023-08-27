@@ -8,12 +8,14 @@ import java.util.*
 data class OrderResponse(
     val id: UUID,
     val restaurantId: UUID,
+    val restaurantLocation: Location,
     val userId: String,
     val status: OrderStatus,
     val items: List<OrderItem>,
     val total: BigDecimal?,
     val paymentId: UUID?,
     val deliveryAddressId: UUID?,
+    val deliveryLocation: Location?,
     val courierId: String?
 ) {
     enum class OrderStatus {
