@@ -92,7 +92,7 @@ class OrderLifecycleSaga {
             CreateOrderPaymentCommand(
                 id = paymentId,
                 orderId = event.orderId,
-                payeeId = this.userId,
+                payerId = this.userId,
                 amount = event.total
             )
         )

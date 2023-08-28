@@ -1,7 +1,7 @@
 package me.rasztabiga.thesis.saga.domain.command.saga
 
-import me.rasztabiga.thesis.shared.domain.command.command.CreatePayeeCommand
-import me.rasztabiga.thesis.shared.domain.command.event.PayeeCreatedEvent
+import me.rasztabiga.thesis.shared.domain.command.command.CreatePayerCommand
+import me.rasztabiga.thesis.shared.domain.command.event.PayerCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.UserCreatedEvent
 import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.config.ProcessingGroup
@@ -19,20 +19,20 @@ class UserLifecycleSaga {
     @Autowired
     private lateinit var commandGateway: CommandGateway
 
-    private lateinit var payeeId: UUID
+    private lateinit var payerId: UUID
 
     @StartSaga
     @SagaEventHandler(associationProperty = "userId")
     fun on(event: UserCreatedEvent) {
-        payeeId = UUID.randomUUID()
+        payerId = UUID.randomUUID()
 
-        commandGateway.sendAndWait<Void>(CreatePayeeCommand(id = payeeId, userId = event.userId))
+        commandGateway.sendAndWait<Void>(CreatePayerCommand(id = payerId, userId = event.userId))
     }
 
     @Suppress("UnusedParameter")
     @EndSaga
     @SagaEventHandler(associationProperty = "userId")
-    fun on(event: PayeeCreatedEvent) {
+    fun on(event: PayerCreatedEvent) {
         // do nothing
     }
 }

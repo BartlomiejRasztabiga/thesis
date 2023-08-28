@@ -7,6 +7,6 @@ import java.util.*
 data class CreateOrderPaymentCommand(
     @TargetAggregateIdentifier val id: UUID,
     val orderId: UUID,
-    val payeeId: String,
+    val payerId: String,
     val amount: BigDecimal
 )

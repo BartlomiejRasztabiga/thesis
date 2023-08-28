@@ -1,16 +1,15 @@
 package me.rasztabiga.thesis.restaurant.domain.command.aggregate
 
-import me.rasztabiga.thesis.shared.domain.command.command.CreatePayeeCommand
-import me.rasztabiga.thesis.shared.domain.command.event.PayeeCreatedEvent
+import me.rasztabiga.thesis.shared.domain.command.command.CreatePayerCommand
+import me.rasztabiga.thesis.shared.domain.command.event.PayerCreatedEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
-import org.axonframework.modelling.command.AggregateLifecycle.apply
 import org.axonframework.spring.stereotype.Aggregate
 import java.util.*
 
 @Aggregate
-internal class Payee {
+internal class Payer {
 
     // TODO wszystko z tego jest potrzebne?
     @AggregateIdentifier
@@ -20,12 +19,12 @@ internal class Payee {
     private constructor()
 
     @CommandHandler
-    constructor(command: CreatePayeeCommand) {
-        apply(PayeeCreatedEvent(id = command.id, userId = command.userId))
+    constructor(command: CreatePayerCommand) {
+        apply(PayerCreatedEvent(id = command.id, userId = command.userId))
     }
 
     @EventSourcingHandler
-    fun on(event: PayeeCreatedEvent) {
+    fun on(event: PayerCreatedEvent) {
         this.id = event.id
         this.userId = event.userId
     }

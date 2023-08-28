@@ -15,14 +15,14 @@ import org.axonframework.spring.stereotype.Aggregate
 import java.math.BigDecimal
 import java.util.*
 
-// TODO move to Payee aggregate?
+// TODO move to Payer aggregate?
 @Aggregate
 internal class OrderPayment {
 
     // TODO wszystko z tego jest potrzebne?
     @AggregateIdentifier
     private lateinit var id: UUID
-    private lateinit var payeeId: String
+    private lateinit var payerId: String
     private lateinit var orderId: UUID // TODO remove?
     private lateinit var amount: BigDecimal
     private lateinit var status: PaymentStatus
@@ -35,7 +35,7 @@ internal class OrderPayment {
             OrderPaymentCreatedEvent(
                 id = command.id,
                 orderId = command.orderId,
-                payeeId = command.payeeId,
+                payerId = command.payerId,
                 amount = command.amount
             )
         )
@@ -43,7 +43,7 @@ internal class OrderPayment {
 
     @CommandHandler
     fun handle(command: PayPaymentCommand) {
-        require(this.payeeId == command.payeeId) { "Payment can be paid only by the user who created it." }
+        require(this.payerId == command.payerId) { "Payment can be paid only by the user who created it." }
         require(this.status == PaymentStatus.NEW) { "Payment can be paid only if it's in NEW status." }
 
         // TODO call payment gateway
@@ -69,7 +69,7 @@ internal class OrderPayment {
     fun on(event: OrderPaymentCreatedEvent) {
         this.id = event.id
         this.orderId = event.orderId
-        this.payeeId = event.payeeId
+        this.payerId = event.payerId
         this.amount = event.amount
         this.status = PaymentStatus.NEW
     }

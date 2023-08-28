@@ -11,7 +11,7 @@ object PaymentControllerMapper {
     fun mapToPayPaymentCommand(paymentId: UUID, exchange: ServerWebExchange): PayPaymentCommand {
         return PayPaymentCommand(
             paymentId = paymentId,
-            payeeId = exchange.getUserId()
+            payerId = exchange.getUserId()
         )
     }
 }

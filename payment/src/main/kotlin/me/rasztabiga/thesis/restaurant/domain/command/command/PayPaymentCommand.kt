@@ -5,5 +5,5 @@ import java.util.*
 
 data class PayPaymentCommand(
     @TargetAggregateIdentifier val paymentId: UUID,
-    val payeeId: String
+    val payerId: String
 )
