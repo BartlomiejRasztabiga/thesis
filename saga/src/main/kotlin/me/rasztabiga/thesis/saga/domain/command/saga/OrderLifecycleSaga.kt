@@ -185,6 +185,10 @@ class OrderLifecycleSaga {
         // do nothing for now
     }
 
+    // TODO add courier balance
+
+    // TODO add restaurant balance
+
     private fun getOrder(orderId: UUID): OrderResponse {
         return queryGateway.query(
             FindOrderByIdQuery(orderId), ResponseTypes.instanceOf(OrderResponse::class.java)
