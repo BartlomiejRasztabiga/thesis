@@ -183,6 +183,11 @@ class OrderLifecycleSaga {
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: OrderDeliveryDeliveredEvent) {
         // do nothing for now
+
+        // TODO get payeeId from restaurant manager (load Payee by managerId?)
+
+        // TODO get payeeId from courier (load Payee by courierId?)
+
     }
 
     // TODO add courier balance
