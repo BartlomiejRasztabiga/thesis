@@ -10,6 +10,7 @@ import me.rasztabiga.thesis.query.domain.query.mapper.OrderDeliveryMapper.mapToE
 import me.rasztabiga.thesis.query.domain.query.mapper.OrderDeliveryMapper.mapToResponse
 import me.rasztabiga.thesis.query.domain.query.port.DistanceCalculatorPort
 import me.rasztabiga.thesis.query.domain.query.query.FindCurrentDeliveryQuery
+import me.rasztabiga.thesis.query.domain.query.query.FindOrderDeliveryByIdQuery
 import me.rasztabiga.thesis.query.domain.query.query.FindSuitableDeliveryOfferQuery
 import me.rasztabiga.thesis.query.domain.query.repository.OrderDeliveryRepository
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAcceptedEvent
@@ -96,6 +97,13 @@ class OrderDeliveryHandler(
     @QueryHandler
     fun handle(query: FindCurrentDeliveryQuery): Mono<OrderDeliveryResponse> {
         return orderDeliveryRepository.loadCurrentDeliveryByCourierId(query.courierId)
+            ?.let { Mono.just(mapToResponse(it)) }
+            ?: Mono.error(DeliveryNotFoundException())
+    }
+
+    @QueryHandler
+    fun handle(query: FindOrderDeliveryByIdQuery): Mono<OrderDeliveryResponse> {
+        return orderDeliveryRepository.load(query.deliveryId)
             ?.let { Mono.just(mapToResponse(it)) }
             ?: Mono.error(DeliveryNotFoundException())
     }
