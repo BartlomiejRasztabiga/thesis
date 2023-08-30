@@ -1,7 +1,6 @@
 package me.rasztabiga.thesis.query.domain.query.handler
 
 import me.rasztabiga.thesis.query.adapter.`in`.rest.api.OrderDeliveryOfferResponse
-import me.rasztabiga.thesis.query.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.query.domain.query.entity.DeliveryStatus
 import me.rasztabiga.thesis.query.domain.query.entity.OrderDeliveryEntity
 import me.rasztabiga.thesis.query.domain.query.exception.DeliveryNotFoundException
@@ -10,14 +9,15 @@ import me.rasztabiga.thesis.query.domain.query.mapper.OrderDeliveryMapper.mapToE
 import me.rasztabiga.thesis.query.domain.query.mapper.OrderDeliveryMapper.mapToResponse
 import me.rasztabiga.thesis.query.domain.query.port.DistanceCalculatorPort
 import me.rasztabiga.thesis.query.domain.query.query.FindCurrentDeliveryQuery
-import me.rasztabiga.thesis.query.domain.query.query.FindOrderDeliveryByIdQuery
 import me.rasztabiga.thesis.query.domain.query.query.FindSuitableDeliveryOfferQuery
 import me.rasztabiga.thesis.query.domain.query.repository.OrderDeliveryRepository
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryDeliveredEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryPickedUpEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryRejectedEvent
+import me.rasztabiga.thesis.shared.domain.query.query.FindOrderDeliveryByIdQuery
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler

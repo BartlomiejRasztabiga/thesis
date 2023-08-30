@@ -1,5 +1,6 @@
 package me.rasztabiga.thesis.saga.domain.command.saga
 
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.PayeeResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
@@ -21,6 +22,7 @@ import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEven
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderRejectedEvent
 import me.rasztabiga.thesis.shared.domain.query.query.FindOrderByIdQuery
+import me.rasztabiga.thesis.shared.domain.query.query.FindOrderDeliveryByIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindPayeeByUserIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindRestaurantByIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindUserByIdQuery
@@ -198,18 +200,19 @@ class OrderLifecycleSaga {
         commandGateway.sendAndWait<Void>(
             AddPayeeBalanceCommand(
                 payeeId = restaurantManagerPayee.id,
-                amount = order.total
+                amount = order.total!!
             )
         )
 
         // TODO get payeeId from courier (load Payee by courierId?)
         val deliveryCourierPayee = getPayeeByUserId(order.courierId!!)
+        val delivery = getDelivery(event.deliveryId)
 
         // TODO how to get fee for courier? It's equal to current fee on Delivery object
         commandGateway.sendAndWait<Void>(
             AddPayeeBalanceCommand(
-                payeeId = restaurantManagerPayee.id,
-                amount = order.deliveryFee
+                payeeId = deliveryCourierPayee.id,
+                amount = delivery.courierFee
             )
         )
 
@@ -243,9 +246,9 @@ class OrderLifecycleSaga {
         ).join()
     }
 
-    private fun getDelivery(deliveryId: UUID): DeliveryResponse {
+    private fun getDelivery(deliveryId: UUID): OrderDeliveryResponse {
         return queryGateway.query(
-            FindDeliveryByIdQuery(deliveryId), ResponseTypes.instanceOf(DeliveryResponse::class.java)
+            FindOrderDeliveryByIdQuery(deliveryId), ResponseTypes.instanceOf(OrderDeliveryResponse::class.java)
         ).join()
     }
 }
