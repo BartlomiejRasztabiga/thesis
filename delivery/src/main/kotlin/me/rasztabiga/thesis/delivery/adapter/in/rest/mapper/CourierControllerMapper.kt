@@ -16,7 +16,8 @@ object CourierControllerMapper {
     ): CreateCourierCommand {
         return CreateCourierCommand(
             id = exchange.getUserId(),
-            name = request.name
+            name = request.name,
+            email = request.email
         )
     }
 

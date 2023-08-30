@@ -41,7 +41,7 @@ internal class Restaurant {
 
         apply(
             RestaurantCreatedEvent(
-                id = command.id,
+                restaurantId = command.id,
                 name = command.name,
                 location = location,
                 managerId = command.managerId,
@@ -95,7 +95,7 @@ internal class Restaurant {
 
     @EventSourcingHandler
     fun on(event: RestaurantCreatedEvent) {
-        this.id = event.id
+        this.id = event.restaurantId
         this.name = event.name
         this.managerId = event.managerId
     }

@@ -23,7 +23,7 @@ internal class Courier {
 
     @CommandHandler
     constructor(command: CreateCourierCommand) {
-        apply(CourierCreatedEvent(id = command.id, name = command.name))
+        apply(CourierCreatedEvent(courierId = command.id, name = command.name, email = command.email))
     }
 
     @CommandHandler
@@ -38,7 +38,7 @@ internal class Courier {
 
     @EventSourcingHandler
     fun on(event: CourierCreatedEvent) {
-        this.id = event.id
+        this.id = event.courierId
         this.name = event.name
     }
 }

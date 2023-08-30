@@ -40,6 +40,7 @@ class DeliveryCourierLifecycleSaga {
         )
     }
 
+    @Suppress("UnusedParameter")
     @EndSaga
     @SagaEventHandler(associationProperty = "payeeId")
     fun on(event: PayeeCreatedEvent) {

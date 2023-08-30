@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 import java.util.*
 
@@ -35,8 +36,11 @@ class RestaurantController(
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasAnyAuthority('${RESTAURANT.WRITE}')")
-    fun createRestaurant(@RequestBody request: CreateRestaurantRequest): Mono<UuidWrapper> {
-        val command = mapToCreateRestaurantCommand(request)
+    fun createRestaurant(
+        @RequestBody request: CreateRestaurantRequest,
+        exchange: ServerWebExchange
+    ): Mono<UuidWrapper> {
+        val command = mapToCreateRestaurantCommand(request, exchange)
         val id = reactorCommandGateway.send<UUID>(command)
         return id.map { UuidWrapper(it) }
     }

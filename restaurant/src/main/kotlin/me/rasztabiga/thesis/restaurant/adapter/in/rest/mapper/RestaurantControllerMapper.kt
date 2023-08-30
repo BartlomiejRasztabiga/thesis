@@ -13,12 +13,19 @@ import me.rasztabiga.thesis.restaurant.domain.command.command.DeleteRestaurantCo
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantAvailabilityCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantMenuCommand
+import me.rasztabiga.thesis.shared.config.getUserId
+import org.springframework.web.server.ServerWebExchange
 import java.util.*
 
 object RestaurantControllerMapper {
-    fun mapToCreateRestaurantCommand(request: CreateRestaurantRequest): CreateRestaurantCommand {
+    fun mapToCreateRestaurantCommand(
+        request: CreateRestaurantRequest,
+        exchange: ServerWebExchange
+    ): CreateRestaurantCommand {
         return CreateRestaurantCommand(
             id = request.id,
+            managerId = exchange.getUserId(),
+            email = request.email,
             name = request.name,
             address = request.address
         )

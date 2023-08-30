@@ -9,7 +9,7 @@ object CourierMapper {
 
     fun mapToEntity(event: CourierCreatedEvent): CourierEntity {
         return CourierEntity(
-            id = event.id,
+            id = event.courierId,
             name = event.name,
             availability = CourierEntity.Availability.OFFLINE
         )
