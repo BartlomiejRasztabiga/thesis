@@ -44,7 +44,8 @@ internal class Restaurant {
                 id = command.id,
                 name = command.name,
                 location = location,
-                managerId = command.managerId
+                managerId = command.managerId,
+                email = command.email
             )
         )
     }

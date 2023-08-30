@@ -1,6 +1,7 @@
 package me.rasztabiga.thesis.saga.domain.command.saga
 
 import me.rasztabiga.thesis.shared.domain.command.command.CreatePayeeCommand
+import me.rasztabiga.thesis.shared.domain.command.event.CourierCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.PayeeCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantCreatedEvent
 import org.axonframework.commandhandling.gateway.CommandGateway
@@ -14,8 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.util.*
 
 @Saga
-@ProcessingGroup("restaurantsaga")
-class RestaurantLifecycleSaga {
+@ProcessingGroup("couriersaga")
+class DeliveryCourierLifecycleSaga {
 
     @Autowired
     private lateinit var commandGateway: CommandGateway
@@ -23,8 +24,8 @@ class RestaurantLifecycleSaga {
     private lateinit var payeeId: UUID
 
     @StartSaga
-    @SagaEventHandler(associationProperty = "restaurantId")
-    fun on(event: RestaurantCreatedEvent) {
+    @SagaEventHandler(associationProperty = "courierId")
+    fun on(event: CourierCreatedEvent) {
         payeeId = UUID.randomUUID()
 
         SagaLifecycle.associateWith("payeeId", payeeId.toString())
@@ -32,7 +33,7 @@ class RestaurantLifecycleSaga {
         commandGateway.sendAndWait<Void>(
             CreatePayeeCommand(
                 id = payeeId,
-                userId = event.managerId,
+                userId = event.courierId,
                 name = event.name,
                 email = event.email
             )

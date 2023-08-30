@@ -5,7 +5,7 @@ import java.util.*
 
 @Revision("1.0")
 data class PayeeCreatedEvent(
-    val id: UUID,
+    val payeeId: UUID,
     val userId: String,
     val name: String,
     val email: String

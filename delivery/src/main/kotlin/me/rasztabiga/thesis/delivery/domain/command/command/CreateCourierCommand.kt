@@ -5,5 +5,6 @@ import java.util.UUID
 
 data class CreateCourierCommand(
     @TargetAggregateIdentifier val id: String,
-    val name: String
+    val name: String,
+    val email: String
 )
