@@ -8,5 +8,6 @@ import java.util.*
 data class RestaurantCreatedEvent(
     val id: UUID,
     val name: String,
-    val location: Location
+    val location: Location,
+    val managerId: String
 )

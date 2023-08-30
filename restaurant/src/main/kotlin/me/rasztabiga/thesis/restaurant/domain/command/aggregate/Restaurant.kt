@@ -28,6 +28,7 @@ internal class Restaurant {
     // TODO wszystko z tego jest potrzebne?
     @AggregateIdentifier
     private lateinit var id: UUID
+    private lateinit var managerId: String
     private lateinit var name: String
     private var availability: Availability = Availability.CLOSED
     private var menu: List<Product> = listOf()
