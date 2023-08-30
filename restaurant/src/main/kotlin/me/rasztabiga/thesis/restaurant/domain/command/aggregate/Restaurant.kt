@@ -39,7 +39,14 @@ internal class Restaurant {
     constructor(command: CreateRestaurantCommand, geocodeAddressPort: GeocodeAddressPort) {
         val location = geocodeAddressPort.geocode(command.address)
 
-        apply(RestaurantCreatedEvent(id = command.id, name = command.name, location = location))
+        apply(
+            RestaurantCreatedEvent(
+                id = command.id,
+                name = command.name,
+                location = location,
+                managerId = command.managerId
+            )
+        )
     }
 
     @CommandHandler
@@ -89,6 +96,7 @@ internal class Restaurant {
     fun on(event: RestaurantCreatedEvent) {
         this.id = event.id
         this.name = event.name
+        this.managerId = event.managerId
     }
 
     @EventSourcingHandler

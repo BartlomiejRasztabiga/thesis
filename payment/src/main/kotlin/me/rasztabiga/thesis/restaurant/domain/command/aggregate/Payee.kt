@@ -1,5 +1,7 @@
 package me.rasztabiga.thesis.restaurant.domain.command.aggregate
 
+import me.rasztabiga.thesis.shared.domain.command.command.CreatePayeeCommand
+import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.modelling.command.AggregateIdentifier
 import org.axonframework.spring.stereotype.Aggregate
 import java.math.BigDecimal
@@ -13,10 +15,24 @@ internal class Payee {
     @AggregateIdentifier
     private lateinit var id: UUID
     private lateinit var userId: String
+    private lateinit var name: String
+    private lateinit var email: String
 
     private lateinit var balance: BigDecimal
 
     private constructor()
+
+    @CommandHandler
+    constructor(command: CreatePayeeCommand) {
+        apply(
+            PayeeCreatedEvent(
+                payeeId = command.id,
+                userId = command.userId,
+                name = command.name,
+                email = command.email
+            )
+        )
+    }
 
     // TODO create
 

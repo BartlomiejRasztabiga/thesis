@@ -9,5 +9,6 @@ data class RestaurantCreatedEvent(
     val id: UUID,
     val name: String,
     val location: Location,
-    val managerId: String
+    val managerId: String,
+    val email: String
 )
