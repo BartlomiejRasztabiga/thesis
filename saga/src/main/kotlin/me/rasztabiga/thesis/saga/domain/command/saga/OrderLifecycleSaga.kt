@@ -1,6 +1,7 @@
 package me.rasztabiga.thesis.saga.domain.command.saga
 
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.PayeeResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UserResponse
 import me.rasztabiga.thesis.shared.domain.command.command.CalculateOrderTotalCommand
@@ -19,6 +20,7 @@ import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEven
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderRejectedEvent
 import me.rasztabiga.thesis.shared.domain.query.query.FindOrderByIdQuery
+import me.rasztabiga.thesis.shared.domain.query.query.FindPayeeByUserIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindRestaurantByIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindUserByIdQuery
 import org.axonframework.commandhandling.gateway.CommandGateway
@@ -45,15 +47,17 @@ class OrderLifecycleSaga {
     @Transient
     private lateinit var queryGateway: QueryGateway
 
-    private lateinit var userId: String
+    private lateinit var orderingUserId: String
     private lateinit var paymentId: UUID
     private lateinit var restaurantOrderId: UUID
     private lateinit var deliveryId: UUID
+    private lateinit var restaurantId: UUID
 
     @StartSaga
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: OrderFinalizedEvent) {
-        userId = event.userId
+        orderingUserId = event.userId
+        restaurantOrderId = event.restaurantId
 
         commandGateway.sendAndWait<Void>(CalculateOrderTotalCommand(
             orderId = event.orderId,
@@ -92,7 +96,7 @@ class OrderLifecycleSaga {
             CreateOrderPaymentCommand(
                 id = paymentId,
                 orderId = event.orderId,
-                payerId = this.userId,
+                payerId = this.orderingUserId,
                 amount = event.total
             )
         )
@@ -103,7 +107,7 @@ class OrderLifecycleSaga {
         commandGateway.sendAndWait<Void>(
             MarkOrderAsPaidCommand(
                 orderId = event.orderId,
-                userId = this.userId
+                userId = this.orderingUserId
             )
         )
     }
@@ -183,8 +187,11 @@ class OrderLifecycleSaga {
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: OrderDeliveryDeliveredEvent) {
         // do nothing for now
+        val restaurant = getRestaurant(restaurantId)
+        val order = getOrder(event.orderId)
 
         // TODO get payeeId from restaurant manager (load Payee by managerId?)
+        val restaurantPayee = getPayeeByUserId()
 
         // TODO get payeeId from courier (load Payee by courierId?)
 
@@ -209,6 +216,12 @@ class OrderLifecycleSaga {
     private fun getRestaurant(restaurantId: UUID): RestaurantResponse {
         return queryGateway.query(
             FindRestaurantByIdQuery(restaurantId), ResponseTypes.instanceOf(RestaurantResponse::class.java)
+        ).join()
+    }
+
+    private fun getPayeeByUserId(userId: String): PayeeResponse {
+        return queryGateway.query(
+            FindPayeeByUserIdQuery(userId), ResponseTypes.instanceOf(PayeeResponse::class.java)
         ).join()
     }
 }
