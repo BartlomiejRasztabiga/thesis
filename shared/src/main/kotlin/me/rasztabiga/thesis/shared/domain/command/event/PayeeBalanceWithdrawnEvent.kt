@@ -5,7 +5,7 @@ import java.math.BigDecimal
 import java.util.*
 
 @Revision("1.0")
-data class PayeeWithdrawalStartedEvent(
+data class PayeeBalanceWithdrawnEvent(
     val payeeId: UUID,
     val amount: BigDecimal,
     val targetBankAccount: String

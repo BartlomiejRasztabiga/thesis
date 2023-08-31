@@ -34,6 +34,10 @@ class GatewayConfiguration {
                 it.path("/api/v1/payments/**")
                     .uri(uriConfiguration.payment)
             }
+            .route("payee") {
+                it.path("/api/v1/payees/**")
+                    .uri(uriConfiguration.payment)
+            }
             .route("delivery") {
                 it.path("/api/v1/deliveries/**")
                     .uri(uriConfiguration.delivery)
