@@ -56,6 +56,9 @@ class OrderLifecycleSaga {
     private lateinit var deliveryId: UUID
     private lateinit var restaurantId: UUID
 
+    private lateinit var restaurantManagerPayeeId: UUID
+    private lateinit var deliveryCourierPayeeId: UUID
+
     @StartSaga
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: OrderFinalizedEvent) {
@@ -189,33 +192,31 @@ class OrderLifecycleSaga {
     @EndSaga
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: OrderDeliveryDeliveredEvent) {
-        // do nothing for now
         val restaurant = getRestaurant(restaurantId)
         val order = getOrder(event.orderId)
 
-        // TODO get payeeId from restaurant manager (load Payee by managerId?)
         val restaurantManagerPayee = getPayeeByUserId(restaurant.managerId)
 
-        // TODO how to get fee for a restaurant? It's order's total without delivery cost (currently user doesn't pay for delivery)
+        restaurantManagerPayeeId = restaurantManagerPayee.id
+
         commandGateway.sendAndWait<Void>(
             AddPayeeBalanceCommand(
-                payeeId = restaurantManagerPayee.id,
+                payeeId = restaurantManagerPayeeId,
                 amount = order.total!!
             )
         )
 
-        // TODO get payeeId from courier (load Payee by courierId?)
         val deliveryCourierPayee = getPayeeByUserId(order.courierId!!)
         val delivery = getDelivery(event.deliveryId)
 
-        // TODO how to get fee for courier? It's equal to current fee on Delivery object
+        deliveryCourierPayeeId = deliveryCourierPayee.id
+
         commandGateway.sendAndWait<Void>(
             AddPayeeBalanceCommand(
-                payeeId = deliveryCourierPayee.id,
+                payeeId = deliveryCourierPayeeId,
                 amount = delivery.courierFee
             )
         )
-
     }
 
     // TODO add courier balance

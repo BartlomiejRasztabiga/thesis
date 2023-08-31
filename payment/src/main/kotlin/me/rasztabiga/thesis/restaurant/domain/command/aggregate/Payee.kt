@@ -1,5 +1,6 @@
 package me.rasztabiga.thesis.restaurant.domain.command.aggregate
 
+import me.rasztabiga.thesis.shared.domain.command.command.AddPayeeBalanceCommand
 import me.rasztabiga.thesis.shared.domain.command.command.CreatePayeeCommand
 import me.rasztabiga.thesis.shared.domain.command.event.PayeeCreatedEvent
 import org.axonframework.commandhandling.CommandHandler
@@ -37,6 +38,16 @@ internal class Payee {
         )
     }
 
+    @CommandHandler
+    fun handle(command: AddPayeeBalanceCommand) {
+        apply(
+            PayeeBalanceAddedEvent(
+                payeeId = command.payeeId,
+                amount = command.amount
+            )
+        )
+    }
+
     @EventSourcingHandler
     fun on(event: PayeeCreatedEvent) {
         this.id = event.payeeId
@@ -46,7 +57,10 @@ internal class Payee {
         this.balance = BigDecimal.ZERO
     }
 
-    // TODO add balance
+    @EventSourcingHandler
+    fun on(event: PayeeBalanceAddedEvent) {
+        this.balance = this.balance.add(event.amount)
+    }
 
     // TODO withdraw
 }

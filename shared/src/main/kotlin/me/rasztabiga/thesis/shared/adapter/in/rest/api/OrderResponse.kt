@@ -12,7 +12,7 @@ data class OrderResponse(
     val userId: String,
     val status: OrderStatus,
     val items: List<OrderItem>,
-    val total: BigDecimal?,
+    val itemsTotal: BigDecimal?,
     val paymentId: UUID?,
     val deliveryAddressId: UUID?,
     val deliveryLocation: Location?,
