@@ -15,7 +15,8 @@ object UserControllerMapper {
     fun mapToCreateUserCommand(request: CreateUserRequest, exchange: ServerWebExchange): CreateUserCommand {
         return CreateUserCommand(
             id = exchange.getUserId(),
-            name = request.name
+            name = request.name,
+            email = request.email
         )
     }
 

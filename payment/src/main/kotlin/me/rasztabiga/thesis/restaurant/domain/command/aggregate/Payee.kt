@@ -2,6 +2,7 @@ package me.rasztabiga.thesis.restaurant.domain.command.aggregate
 
 import me.rasztabiga.thesis.shared.domain.command.command.AddPayeeBalanceCommand
 import me.rasztabiga.thesis.shared.domain.command.command.CreatePayeeCommand
+import me.rasztabiga.thesis.shared.domain.command.event.PayeeBalanceAddedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.PayeeCreatedEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
@@ -59,7 +60,7 @@ internal class Payee {
 
     @EventSourcingHandler
     fun on(event: PayeeBalanceAddedEvent) {
-        this.balance = this.balance.add(event.amount)
+        this.balance += event.amount
     }
 
     // TODO withdraw

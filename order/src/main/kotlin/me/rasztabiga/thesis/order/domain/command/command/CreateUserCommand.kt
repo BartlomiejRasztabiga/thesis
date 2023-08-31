@@ -4,5 +4,6 @@ import org.axonframework.modelling.command.TargetAggregateIdentifier
 
 data class CreateUserCommand(
     @TargetAggregateIdentifier val id: String,
-    val name: String
+    val name: String,
+    val email: String
 )

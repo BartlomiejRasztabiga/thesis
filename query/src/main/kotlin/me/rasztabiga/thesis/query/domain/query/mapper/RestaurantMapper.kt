@@ -9,6 +9,7 @@ object RestaurantMapper {
     fun mapToEntity(event: RestaurantCreatedEvent): RestaurantEntity {
         return RestaurantEntity(
             id = event.restaurantId,
+            managerId = event.managerId,
             name = event.name,
             availability = RestaurantEntity.Availability.CLOSED,
             menu = emptyList(),
@@ -19,6 +20,7 @@ object RestaurantMapper {
     fun mapToResponse(entity: RestaurantEntity): RestaurantResponse {
         return RestaurantResponse(
             id = entity.id,
+            managerId = entity.managerId,
             name = entity.name,
             availability = RestaurantResponse.Availability.valueOf(entity.availability.name),
             menu = entity.menu.map {

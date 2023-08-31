@@ -9,6 +9,7 @@ import java.util.*
 data class RestaurantEntity(
     @Id
     val id: UUID,
+    val managerId: String,
     val name: String,
     val availability: Availability,
     val menu: List<Product>,

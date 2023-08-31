@@ -3,9 +3,9 @@
 package me.rasztabiga.thesis.query.adapter.`in`.rest
 
 import me.rasztabiga.thesis.query.adapter.`in`.rest.api.OrderDeliveryOfferResponse
-import me.rasztabiga.thesis.query.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.query.domain.query.query.FindCurrentDeliveryQuery
 import me.rasztabiga.thesis.query.domain.query.query.FindSuitableDeliveryOfferQuery
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.shared.config.getUserId
 import me.rasztabiga.thesis.shared.security.Scopes.COURIER
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway

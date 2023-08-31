@@ -1,29 +1,29 @@
 package me.rasztabiga.thesis.query.domain.query.mapper
 
-import me.rasztabiga.thesis.query.domain.query.entity.UserEntity
-import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UserResponse
-import me.rasztabiga.thesis.shared.domain.command.event.UserCreatedEvent
+import me.rasztabiga.thesis.query.domain.query.entity.PayeeEntity
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.PayeeResponse
+import me.rasztabiga.thesis.shared.domain.command.event.PayeeCreatedEvent
+import java.math.BigDecimal
 
 object PayeeMapper {
 
-    fun mapToEntity(event: UserCreatedEvent): UserEntity {
-        return UserEntity(
-            id = event.userId,
+    fun mapToEntity(event: PayeeCreatedEvent): PayeeEntity {
+        return PayeeEntity(
+            id = event.payeeId,
+            userId = event.userId,
             name = event.name,
-            deliveryAddresses = mutableListOf()
+            email = event.email,
+            balance = BigDecimal.ZERO
         )
     }
 
-    fun mapToResponse(entity: UserEntity): UserResponse {
-        return UserResponse(
+    fun mapToResponse(entity: PayeeEntity): PayeeResponse {
+        return PayeeResponse(
             id = entity.id,
+            userId = entity.userId,
             name = entity.name,
-            deliveryAddresses = entity.deliveryAddresses.map {
-                UserResponse.DeliveryAddress(
-                    it.id,
-                    it.location
-                )
-            }
+            email = entity.email,
+            balance = entity.balance
         )
     }
 }

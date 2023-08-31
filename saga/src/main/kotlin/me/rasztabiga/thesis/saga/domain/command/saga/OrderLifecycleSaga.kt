@@ -19,6 +19,7 @@ import me.rasztabiga.thesis.shared.domain.command.event.OrderFinalizedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaidEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaymentPaidEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.PayeeBalanceAddedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderRejectedEvent
 import me.rasztabiga.thesis.shared.domain.query.query.FindOrderByIdQuery
@@ -31,6 +32,7 @@ import org.axonframework.config.ProcessingGroup
 import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.axonframework.modelling.saga.EndSaga
 import org.axonframework.modelling.saga.SagaEventHandler
+import org.axonframework.modelling.saga.SagaLifecycle
 import org.axonframework.modelling.saga.StartSaga
 import org.axonframework.queryhandling.QueryGateway
 import org.axonframework.spring.stereotype.Saga
@@ -64,6 +66,8 @@ class OrderLifecycleSaga {
     fun on(event: OrderFinalizedEvent) {
         orderingUserId = event.userId
         restaurantOrderId = event.restaurantId
+
+        restaurantId = event.restaurantId
 
         commandGateway.sendAndWait<Void>(CalculateOrderTotalCommand(
             orderId = event.orderId,
@@ -188,8 +192,6 @@ class OrderLifecycleSaga {
         )
     }
 
-    @Suppress("UnusedParameter")
-    @EndSaga
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: OrderDeliveryDeliveredEvent) {
         val restaurant = getRestaurant(restaurantId)
@@ -199,10 +201,12 @@ class OrderLifecycleSaga {
 
         restaurantManagerPayeeId = restaurantManagerPayee.id
 
+        SagaLifecycle.associateWith("restaurantManagerPayeeId", restaurantManagerPayeeId.toString())
+
         commandGateway.sendAndWait<Void>(
             AddPayeeBalanceCommand(
                 payeeId = restaurantManagerPayeeId,
-                amount = order.total!!
+                amount = order.itemsTotal!!
             )
         )
 
@@ -210,6 +214,8 @@ class OrderLifecycleSaga {
         val delivery = getDelivery(event.deliveryId)
 
         deliveryCourierPayeeId = deliveryCourierPayee.id
+
+        SagaLifecycle.associateWith("deliveryCourierPayeeId", deliveryCourierPayeeId.toString())
 
         commandGateway.sendAndWait<Void>(
             AddPayeeBalanceCommand(
@@ -219,9 +225,21 @@ class OrderLifecycleSaga {
         )
     }
 
-    // TODO add courier balance
+    @SagaEventHandler(associationProperty = "payeeId", keyName = "restaurantManagerPayeeId")
+    fun on1(event: PayeeBalanceAddedEvent) {
+        println("test1")
 
-    // TODO add restaurant balance
+        // TODO create restaurant invoice
+    }
+
+    @SagaEventHandler(associationProperty = "payeeId", keyName = "deliveryCourierPayeeId")
+    fun on2(event: PayeeBalanceAddedEvent) {
+        println("test2")
+
+        // TODO create delivery invoice
+    }
+
+    // TODO end saga only when both emails with invoices are sent
 
     private fun getOrder(orderId: UUID): OrderResponse {
         return queryGateway.query(

@@ -36,7 +36,7 @@ object OrderMapper {
                     it.productId
                 )
             },
-            total = entity.total,
+            itemsTotal = entity.total,
             paymentId = entity.paymentId,
             deliveryAddressId = entity.deliveryAddressId,
             deliveryLocation = entity.deliveryLocation,
