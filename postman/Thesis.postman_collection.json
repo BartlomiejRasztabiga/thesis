@@ -4,7 +4,7 @@
 		"name": "Thesis",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "19345317",
-		"_collection_link": "https://symmetricaltest.postman.co/workspace/Symmetrical~11210755-3eaa-48a2-bc79-e1ff032e261e/collection/1388028-ff86a588-b504-4f6c-b390-0a5617428b88?action=share&creator=19345317&source=collection_link"
+		"_collection_link": "https://symmetricaltest.postman.co/workspace/Symmetrical~11210755-3eaa-48a2-bc79-e1ff032e261e/collection/1388028-ff86a588-b504-4f6c-b390-0a5617428b88?action=share&source=collection_link&creator=19345317"
 	},
 	"item": [
 		{
@@ -62,7 +62,7 @@
 								},
 								{
 									"key": "scope",
-									"value": "read:restaurants write:restaurants",
+									"value": "read:restaurants write:restaurants read:users write:users",
 									"type": "text"
 								}
 							]
@@ -157,6 +157,80 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get courier token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"courier_access_token\", jsonData.access_token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "grant_type",
+									"value": "password",
+									"type": "text"
+								},
+								{
+									"key": "audience",
+									"value": "https://thesis.rasztabiga.me/api",
+									"type": "text"
+								},
+								{
+									"key": "username",
+									"value": "delivery@thesis.rasztabiga.me",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Fuzpa9-sygfyx-xurjif",
+									"type": "text"
+								},
+								{
+									"key": "client_id",
+									"value": "BVxjiTTdPPXMpUj8gm1KoGgkkQ1fObF4",
+									"type": "text"
+								},
+								{
+									"key": "client_secret",
+									"value": "gqzR7iyZF5N-l9RTRP9CYCds57AhuHewOsQ3VdPyXxovMPvI61F3-DdXw_qNbNhu",
+									"type": "text"
+								},
+								{
+									"key": "scope",
+									"value": "read:deliveries write:deliveries read:couriers write:couriers read:users write:users",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://rasztabigab.eu.auth0.com/oauth/token",
+							"protocol": "https",
+							"host": [
+								"rasztabigab",
+								"eu",
+								"auth0",
+								"com"
+							],
+							"path": [
+								"oauth",
+								"token"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -182,7 +256,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": \"{{$guid}}\",\n    \"name\": \"{{$randomCompanyName}}\"\n}",
+							"raw": "{\n    \"id\": \"5ee006d0-e9d5-4ce7-a431-6cb0653296f9\",\n    \"name\": \"{{$randomCompanyName}}\",\n    \"address\": \"Cypryjska 70, 02-762 Warszawa\",\n    \"email\": \"contact+restaurant@rasztabiga.me\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -362,6 +436,141 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get restaurant orders",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"restaurant_order_id\", jsonData.last().restaurantOrderId);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/restaurants/{{restaurant_id}}/orders",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"restaurants",
+								"{{restaurant_id}}",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accept restaurant order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/restaurants/{{restaurant_id}}/orders/{{restaurant_order_id}}/accept",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"restaurants",
+								"{{restaurant_id}}",
+								"orders",
+								"{{restaurant_order_id}}",
+								"accept"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reject restaurant order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/restaurants/{{restaurant_id}}/orders/{{restaurant_order_id}}/reject",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"restaurants",
+								"{{restaurant_id}}",
+								"orders",
+								"{{restaurant_order_id}}",
+								"reject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Prepare restaurant order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/restaurants/{{restaurant_id}}/orders/{{restaurant_order_id}}/prepare",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"restaurants",
+								"{{restaurant_id}}",
+								"orders",
+								"{{restaurant_order_id}}",
+								"prepare"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"auth": {
@@ -417,7 +626,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"{{$randomFullName}}\"\n}",
+							"raw": "{\n    \"name\": \"{{$randomFullName}}\",\n    \"email\": \"contact+user@rasztabiga.me\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -457,7 +666,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"address\": \"{{$randomStreetAddress}}\",\n    \"additionalInfo\": \"additionalInfo\"\n}",
+							"raw": "{\n    \"address\": \"Bukowińska 26C, 02-703 Warszawa\",\n    \"additionalInfo\": \"additionalInfo\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -533,12 +742,12 @@
 					"response": []
 				},
 				{
-					"name": "Get user",
+					"name": "Get current user",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{restaurant_url}}/api/v1/users/{{user_id}}",
+							"raw": "{{restaurant_url}}/api/v1/users/me",
 							"host": [
 								"{{restaurant_url}}"
 							],
@@ -546,7 +755,7 @@
 								"api",
 								"v1",
 								"users",
-								"{{user_id}}"
+								"me"
 							]
 						}
 					},
@@ -599,7 +808,8 @@
 							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"payment_id\", jsonData.paymentId);"
 								],
 								"type": "text/javascript"
 							}
@@ -620,6 +830,37 @@
 								}
 							}
 						},
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/orders/{{order_id}}",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"{{order_id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
 						"url": {
 							"raw": "{{restaurant_url}}/api/v1/orders/{{order_id}}",
 							"host": [
@@ -709,6 +950,47 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Finalize order",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"deliveryAddressId\": \"{{delivery_address_id}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/orders/{{order_id}}/finalize",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"orders",
+								"{{order_id}}",
+								"finalize"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"auth": {
@@ -717,6 +999,581 @@
 					{
 						"key": "token",
 						"value": "{{ordering_user_access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Pay payment",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{ordering_user_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/payments/{{payment_id}}/pay",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"payments",
+								"{{payment_id}}",
+								"pay"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get restaurant manager payee",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"restaurant_manager_payee_id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{restaurant_manager_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/payees/me",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"payees",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Withdraw by restaurant manager",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{restaurant_manager_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": \"5.0\",\n    \"targetBankAccount\": \"account\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/payees/{{restaurant_manager_payee_id}}/withdraw",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"payees",
+								"{{restaurant_manager_payee_id}}",
+								"withdraw"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get delivery courier payee",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"delivery_courier_payee_id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{courier_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/payees/me",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"payees",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Withdraw by delivery courier",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{courier_access_token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"amount\": \"5.0\",\n    \"targetBankAccount\": \"account\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/payees/{{delivery_courier_payee_id}}/withdraw",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"payees",
+								"{{delivery_courier_payee_id}}",
+								"withdraw"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{ordering_user_access_token}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Delivery",
+			"item": [
+				{
+					"name": "Create Courier",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"user_id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"{{$randomFullName}}\",\n    \"email\": \"contact+courier@rasztabiga.me\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/couriers",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"couriers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get current courier",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/couriers/me",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"couriers",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update current courier availability",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"availability\": \"ONLINE\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/couriers/me/availability",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"couriers",
+								"me",
+								"availability"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get delivery offer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"delivery_id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/deliveries/offer?courierAddress=Oskara Langego 8, 02-685 Warszawa",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"deliveries",
+								"offer"
+							],
+							"query": [
+								{
+									"key": "courierAddress",
+									"value": "Oskara Langego 8, 02-685 Warszawa"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Reject delivery offer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/deliveries/{{delivery_id}}/reject",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"deliveries",
+								"{{delivery_id}}",
+								"reject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Accept delivery offer",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/deliveries/{{delivery_id}}/accept",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"deliveries",
+								"{{delivery_id}}",
+								"accept"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get current delivery",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"delivery_id\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/deliveries/current",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"deliveries",
+								"current"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pick up delivery",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/deliveries/{{delivery_id}}/pickup",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"deliveries",
+								"{{delivery_id}}",
+								"pickup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deliver delivery",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{restaurant_url}}/api/v1/deliveries/{{delivery_id}}/deliver",
+							"host": [
+								"{{restaurant_url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"deliveries",
+								"{{delivery_id}}",
+								"deliver"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{courier_access_token}}",
 						"type": "string"
 					}
 				]
@@ -769,11 +1626,15 @@
 			"value": ""
 		},
 		{
-			"key": "restaurant_id",
+			"key": "ordering_user_access_token",
 			"value": ""
 		},
 		{
-			"key": "ordering_user_access_token",
+			"key": "courier_access_token",
+			"value": ""
+		},
+		{
+			"key": "restaurant_id",
 			"value": ""
 		},
 		{
@@ -794,6 +1655,26 @@
 		},
 		{
 			"key": "order_item_id",
+			"value": ""
+		},
+		{
+			"key": "payment_id",
+			"value": ""
+		},
+		{
+			"key": "restaurant_order_id",
+			"value": ""
+		},
+		{
+			"key": "delivery_id",
+			"value": ""
+		},
+		{
+			"key": "restaurant_manager_payee_id",
+			"value": ""
+		},
+		{
+			"key": "delivery_courier_payee_id",
 			"value": ""
 		}
 	]

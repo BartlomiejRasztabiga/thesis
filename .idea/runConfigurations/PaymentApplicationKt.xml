@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="RestaurantApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-    <option name="ACTIVE_PROFILES" value="dev,gmaps" />
-    <module name="restaurant.main" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="me.rasztabiga.thesis.payment.RestaurantApplicationKt" />
+  <configuration default="false" name="PaymentApplicationKt" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+    <option name="ACTIVE_PROFILES" value="dev" />
+    <module name="payment.main" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="me.rasztabiga.thesis.payment.PaymentApplicationKt" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="me.rasztabiga.thesis.payment.*" />
