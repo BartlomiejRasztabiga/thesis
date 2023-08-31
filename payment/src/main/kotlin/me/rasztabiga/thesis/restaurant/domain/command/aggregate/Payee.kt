@@ -2,10 +2,10 @@ package me.rasztabiga.thesis.restaurant.domain.command.aggregate
 
 import me.rasztabiga.thesis.shared.domain.command.command.AddPayeeBalanceCommand
 import me.rasztabiga.thesis.shared.domain.command.command.CreatePayeeCommand
-import me.rasztabiga.thesis.shared.domain.command.command.StartPayeeWithdrawalCommand
+import me.rasztabiga.thesis.shared.domain.command.command.WithdrawPayeeBalanceCommand
 import me.rasztabiga.thesis.shared.domain.command.event.PayeeBalanceAddedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.PayeeBalanceWithdrawnEvent
 import me.rasztabiga.thesis.shared.domain.command.event.PayeeCreatedEvent
-import me.rasztabiga.thesis.shared.domain.command.event.PayeeWithdrawalStartedEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
@@ -57,7 +57,7 @@ internal class Payee {
     }
 
     @CommandHandler
-    fun handle(command: StartPayeeWithdrawalCommand) {
+    fun handle(command: WithdrawPayeeBalanceCommand) {
         require(command.userId == this.userId) {
             "Withdrawal can be started only by the payee"
         }
@@ -67,7 +67,7 @@ internal class Payee {
         }
 
         apply(
-            PayeeWithdrawalStartedEvent(
+            PayeeBalanceWithdrawnEvent(
                 payeeId = command.payeeId,
                 amount = command.amount,
                 targetBankAccount = command.targetBankAccount
@@ -90,7 +90,7 @@ internal class Payee {
     }
 
     @EventSourcingHandler
-    fun on(event: PayeeWithdrawalStartedEvent) {
+    fun on(event: PayeeBalanceWithdrawnEvent) {
         this.balance -= event.amount
         this.withdrawals.add(
             Withdrawal(

@@ -6,6 +6,7 @@ import java.util.*
 
 data class WithdrawPayeeBalanceCommand(
     @TargetAggregateIdentifier val payeeId: UUID,
+    val userId: String,
     val amount: BigDecimal,
     val targetBankAccount: String
 )

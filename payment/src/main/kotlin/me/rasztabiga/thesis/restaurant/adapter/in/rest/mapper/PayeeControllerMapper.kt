@@ -5,6 +5,7 @@ package me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.WithdrawBalanceRequest
 import me.rasztabiga.thesis.restaurant.domain.command.command.PayPaymentCommand
 import me.rasztabiga.thesis.shared.config.getUserId
+import me.rasztabiga.thesis.shared.domain.command.command.WithdrawPayeeBalanceCommand
 import org.springframework.web.server.ServerWebExchange
 import java.util.*
 
@@ -15,8 +16,10 @@ object PayeeControllerMapper {
         exchange: ServerWebExchange
     ): WithdrawPayeeBalanceCommand {
         return WithdrawPayeeBalanceCommand(
-            paymentId = paymentId,
-            payerId = exchange.getUserId()
+            payeeId = payeeId,
+            userId = exchange.getUserId(),
+            amount = request.amount,
+            targetBankAccount = request.targetBankAccount
         )
     }
 }
