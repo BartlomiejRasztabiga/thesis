@@ -6,10 +6,10 @@ import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 
 @Service
-class RestInvoiceGenerationAdapter(
-    private val webClient: WebClient
-) : InvoiceGenerationPort {
+class RestInvoiceGenerationAdapter : InvoiceGenerationPort {
     override fun generate(invoiceData: InvoiceGenerationPort.InvoiceData): ByteArray? {
+        val webClient = WebClient.builder().build()
+
         val file = webClient.post()
             .uri("https://invoice-generator.com")
             .bodyValue(
@@ -32,8 +32,6 @@ class RestInvoiceGenerationAdapter(
             .retrieve()
             .bodyToMono(ByteArray::class.java)
             .block()
-
-        println(file)
 
         return file
     }

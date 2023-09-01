@@ -7,6 +7,7 @@ import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UserResponse
 import me.rasztabiga.thesis.shared.domain.command.command.AddPayeeBalanceCommand
 import me.rasztabiga.thesis.shared.domain.command.command.CalculateOrderTotalCommand
+import me.rasztabiga.thesis.shared.domain.command.command.CreateInvoiceCommand
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderDeliveryOfferCommand
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderPaymentCommand
 import me.rasztabiga.thesis.shared.domain.command.command.CreateRestaurantOrderCommand
@@ -37,6 +38,7 @@ import org.axonframework.modelling.saga.StartSaga
 import org.axonframework.queryhandling.QueryGateway
 import org.axonframework.spring.stereotype.Saga
 import org.springframework.beans.factory.annotation.Autowired
+import java.time.LocalDate
 import java.util.*
 
 @Suppress("TooManyFunctions")
@@ -221,6 +223,29 @@ class OrderLifecycleSaga {
             AddPayeeBalanceCommand(
                 payeeId = deliveryCourierPayeeId,
                 amount = delivery.courierFee
+            )
+        )
+
+        // TODO create user invoice (PAID)
+
+        val user = getUser(order.userId)
+
+        commandGateway.sendAndWait<Void>(
+            CreateInvoiceCommand(
+                id = UUID.randomUUID(),
+                from = restaurant.name,
+                to = user.name,
+                issueDate = LocalDate.now(),
+                dueDate = LocalDate.now().plusDays(14),
+                items = order.items.map {
+                    val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.productId }!!
+
+                    CreateInvoiceCommand.InvoiceItem(
+                        name = menuItem.name,
+                        quantity = 1,
+                        unitPrice = menuItem.price
+                    )
+                }
             )
         )
     }

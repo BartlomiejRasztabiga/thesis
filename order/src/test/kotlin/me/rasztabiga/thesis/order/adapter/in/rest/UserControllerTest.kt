@@ -24,7 +24,7 @@ class UserControllerTest : BaseWebFluxTest() {
     @Test
     fun `when POST is performed on users endpoint, then returns 201 CREATED`() {
         // given
-        val request = CreateUserRequest("User")
+        val request = CreateUserRequest("User", "email")
         every { reactorCommandGateway.send<String>(any()) } returns Mono.just("1")
 
         // when
