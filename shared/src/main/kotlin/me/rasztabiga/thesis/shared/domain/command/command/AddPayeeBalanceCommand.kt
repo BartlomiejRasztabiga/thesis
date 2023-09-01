@@ -5,6 +5,6 @@ import java.math.BigDecimal
 import java.util.*
 
 data class AddPayeeBalanceCommand(
-    @TargetAggregateIdentifier val payeeId: UUID
+    @TargetAggregateIdentifier val payeeId: UUID,
     val amount: BigDecimal
 )

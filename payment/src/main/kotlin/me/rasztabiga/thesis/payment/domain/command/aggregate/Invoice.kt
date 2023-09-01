@@ -32,6 +32,9 @@ class Invoice {
 
     @CommandHandler
     constructor(command: CreateInvoiceCommand, invoiceGenerationPort: InvoiceGenerationPort) {
+
+        // TODO or generate only when sending email (so that we won't have to store pdf in db)
+
         // TODO generation port
         val pdf = invoiceGenerationPort.generate(
             InvoiceGenerationPort.InvoiceData(
