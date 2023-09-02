@@ -59,6 +59,7 @@ class OrderLifecycleSaga {
     private lateinit var restaurantOrderId: UUID
     private lateinit var deliveryId: UUID
     private lateinit var restaurantId: UUID
+    private lateinit var orderId: UUID
 
     private lateinit var restaurantManagerPayeeId: UUID
     private lateinit var deliveryCourierPayeeId: UUID
@@ -67,9 +68,8 @@ class OrderLifecycleSaga {
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: OrderFinalizedEvent) {
         orderingUserId = event.userId
-        restaurantOrderId = event.restaurantId
-
         restaurantId = event.restaurantId
+        orderId = event.orderId
 
         commandGateway.sendAndWait<Void>(CalculateOrderTotalCommand(
             orderId = event.orderId,
@@ -252,14 +252,51 @@ class OrderLifecycleSaga {
 
     @SagaEventHandler(associationProperty = "payeeId", keyName = "restaurantManagerPayeeId")
     fun on1(event: PayeeBalanceAddedEvent) {
-        println("test1")
+        val restaurant = getRestaurant(restaurantId)
+        val order = getOrder(orderId)
 
-        // TODO create restaurant invoice
+        commandGateway.sendAndWait<Void>(
+            CreateInvoiceCommand(
+                id = UUID.randomUUID(),
+                from = restaurant.name,
+                to = "Food Delivery App",
+                issueDate = LocalDate.now(),
+                dueDate = LocalDate.now().plusDays(14),
+                items = order.items.map {
+                    val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.productId }!!
+
+                    CreateInvoiceCommand.InvoiceItem(
+                        name = menuItem.name,
+                        quantity = 1,
+                        unitPrice = menuItem.price
+                    )
+                }
+            )
+        )
     }
 
     @SagaEventHandler(associationProperty = "payeeId", keyName = "deliveryCourierPayeeId")
     fun on2(event: PayeeBalanceAddedEvent) {
-        println("test2")
+        val courier = getCourier(courierId)
+
+        commandGateway.sendAndWait<Void>(
+            CreateInvoiceCommand(
+                id = UUID.randomUUID(),
+                from = restaurant.name,
+                to = "Food Delivery App",
+                issueDate = LocalDate.now(),
+                dueDate = LocalDate.now().plusDays(14),
+                items = order.items.map {
+                    val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.productId }!!
+
+                    CreateInvoiceCommand.InvoiceItem(
+                        name = menuItem.name,
+                        quantity = 1,
+                        unitPrice = menuItem.price
+                    )
+                }
+            )
+        )
 
         // TODO create delivery invoice
     }
@@ -294,5 +331,9 @@ class OrderLifecycleSaga {
         return queryGateway.query(
             FindOrderDeliveryByIdQuery(deliveryId), ResponseTypes.instanceOf(OrderDeliveryResponse::class.java)
         ).join()
+    }
+
+    private fun getCourier(courierId: UUID): CourierResponse {
+
     }
 }
