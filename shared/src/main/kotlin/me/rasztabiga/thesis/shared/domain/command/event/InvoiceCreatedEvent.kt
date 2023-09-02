@@ -6,7 +6,7 @@ import java.util.*
 
 @Revision("1.0")
 data class InvoiceCreatedEvent(
-    val id: UUID,
+    val invoiceId: UUID,
     val from: String,
     val to: String,
     val issueDate: LocalDate,

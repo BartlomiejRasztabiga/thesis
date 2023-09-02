@@ -1,5 +1,6 @@
 package me.rasztabiga.thesis.saga.domain.command.saga
 
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CourierResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.PayeeResponse
@@ -23,6 +24,7 @@ import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEven
 import me.rasztabiga.thesis.shared.domain.command.event.PayeeBalanceAddedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderRejectedEvent
+import me.rasztabiga.thesis.shared.domain.query.query.FindCourierByIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindOrderByIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindOrderDeliveryByIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindPayeeByUserIdQuery
@@ -60,6 +62,7 @@ class OrderLifecycleSaga {
     private lateinit var deliveryId: UUID
     private lateinit var restaurantId: UUID
     private lateinit var orderId: UUID
+    private lateinit var courierId: String
 
     private lateinit var restaurantManagerPayeeId: UUID
     private lateinit var deliveryCourierPayeeId: UUID
@@ -196,6 +199,8 @@ class OrderLifecycleSaga {
 
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: OrderDeliveryDeliveredEvent) {
+        courierId = event.courierId
+
         val restaurant = getRestaurant(restaurantId)
         val order = getOrder(event.orderId)
 
@@ -227,7 +232,6 @@ class OrderLifecycleSaga {
         )
 
         // TODO create user invoice (PAID)
-
         val user = getUser(order.userId)
 
         commandGateway.sendAndWait<Void>(
@@ -255,6 +259,7 @@ class OrderLifecycleSaga {
         val restaurant = getRestaurant(restaurantId)
         val order = getOrder(orderId)
 
+        // TODO create restaurant invoice
         commandGateway.sendAndWait<Void>(
             CreateInvoiceCommand(
                 id = UUID.randomUUID(),
@@ -278,30 +283,30 @@ class OrderLifecycleSaga {
     @SagaEventHandler(associationProperty = "payeeId", keyName = "deliveryCourierPayeeId")
     fun on2(event: PayeeBalanceAddedEvent) {
         val courier = getCourier(courierId)
+        val delivery = getDelivery(deliveryId)
 
+        // TODO create delivery invoice
         commandGateway.sendAndWait<Void>(
             CreateInvoiceCommand(
                 id = UUID.randomUUID(),
-                from = restaurant.name,
+                from = courier.name,
                 to = "Food Delivery App",
                 issueDate = LocalDate.now(),
                 dueDate = LocalDate.now().plusDays(14),
-                items = order.items.map {
-                    val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.productId }!!
-
+                items = listOf(
                     CreateInvoiceCommand.InvoiceItem(
-                        name = menuItem.name,
+                        name = "Delivery fee",
                         quantity = 1,
-                        unitPrice = menuItem.price
+                        unitPrice = delivery.courierFee.toDouble()
                     )
-                }
+                )
             )
         )
-
-        // TODO create delivery invoice
     }
 
-    // TODO end saga only when both emails with invoices are sent
+    // TODO send all emails
+
+    // TODO end saga only when all the emails with invoices are sent
 
     private fun getOrder(orderId: UUID): OrderResponse {
         return queryGateway.query(
@@ -333,7 +338,9 @@ class OrderLifecycleSaga {
         ).join()
     }
 
-    private fun getCourier(courierId: UUID): CourierResponse {
-
+    private fun getCourier(courierId: String): CourierResponse {
+        return queryGateway.query(
+            FindCourierByIdQuery(courierId), ResponseTypes.instanceOf(CourierResponse::class.java)
+        ).join()
     }
 }
