@@ -2,7 +2,9 @@ package me.rasztabiga.thesis.payment.domain.command.aggregate
 
 import me.rasztabiga.thesis.payment.domain.command.port.InvoiceGenerationPort
 import me.rasztabiga.thesis.shared.domain.command.command.CreateInvoiceCommand
+import me.rasztabiga.thesis.shared.domain.command.command.SendInvoiceEmailCommand
 import me.rasztabiga.thesis.shared.domain.command.event.InvoiceCreatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.InvoiceEmailSentEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
@@ -21,12 +23,17 @@ class Invoice {
     private lateinit var issueDate: LocalDate
     private lateinit var dueDate: LocalDate
     private lateinit var items: List<InvoiceItem>
+    private lateinit var status: InvoiceStatus
 
     data class InvoiceItem(
         val name: String,
         val quantity: Int,
         val unitPrice: Double
     )
+
+    enum class InvoiceStatus {
+        CREATED, SENT
+    }
 
     private constructor()
 
@@ -56,7 +63,7 @@ class Invoice {
 
         apply(
             InvoiceCreatedEvent(
-                id = command.id,
+                invoiceId = command.id,
                 from = command.from,
                 to = command.to,
                 issueDate = command.issueDate,
@@ -72,9 +79,19 @@ class Invoice {
         )
     }
 
+    @CommandHandler
+    fun handle(command: SendInvoiceEmailCommand) {
+        apply(
+            InvoiceEmailSentEvent(
+                invoiceId = command.id,
+                email = command.email
+            )
+        )
+    }
+
     @EventSourcingHandler
     fun on(event: InvoiceCreatedEvent) {
-        this.id = event.id
+        this.id = event.invoiceId
         this.from = event.from
         this.to = event.to
         this.issueDate = event.issueDate
@@ -86,5 +103,12 @@ class Invoice {
                 unitPrice = it.unitPrice
             )
         }
+        this.status = InvoiceStatus.CREATED
+    }
+
+    @Suppress("UnusedParameter")
+    @EventSourcingHandler
+    fun on(event: InvoiceEmailSentEvent) {
+        this.status = InvoiceStatus.SENT
     }
 }

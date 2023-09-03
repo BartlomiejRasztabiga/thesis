@@ -15,6 +15,8 @@ import me.rasztabiga.thesis.shared.domain.command.command.CreateRestaurantOrderC
 import me.rasztabiga.thesis.shared.domain.command.command.DeleteOrderPaymentCommand
 import me.rasztabiga.thesis.shared.domain.command.command.MarkOrderAsPaidCommand
 import me.rasztabiga.thesis.shared.domain.command.command.RejectOrderCommand
+import me.rasztabiga.thesis.shared.domain.command.command.SendInvoiceEmailCommand
+import me.rasztabiga.thesis.shared.domain.command.event.InvoiceCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderCanceledEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryDeliveredEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderFinalizedEvent
@@ -66,6 +68,10 @@ class OrderLifecycleSaga {
 
     private lateinit var restaurantManagerPayeeId: UUID
     private lateinit var deliveryCourierPayeeId: UUID
+
+    private lateinit var userInvoiceId: UUID
+    private lateinit var restaurantInvoiceId: UUID
+    private lateinit var courierInvoiceId: UUID
 
     @StartSaga
     @SagaEventHandler(associationProperty = "orderId")
@@ -234,9 +240,11 @@ class OrderLifecycleSaga {
         // TODO create user invoice (PAID)
         val user = getUser(order.userId)
 
+        userInvoiceId = UUID.randomUUID()
+
         commandGateway.sendAndWait<Void>(
             CreateInvoiceCommand(
-                id = UUID.randomUUID(),
+                id = userInvoiceId,
                 from = restaurant.name,
                 to = user.name,
                 issueDate = LocalDate.now(),
@@ -260,9 +268,11 @@ class OrderLifecycleSaga {
         val order = getOrder(orderId)
 
         // TODO create restaurant invoice
+        restaurantInvoiceId = UUID.randomUUID()
+
         commandGateway.sendAndWait<Void>(
             CreateInvoiceCommand(
-                id = UUID.randomUUID(),
+                id = restaurantInvoiceId,
                 from = restaurant.name,
                 to = "Food Delivery App",
                 issueDate = LocalDate.now(),
@@ -286,9 +296,11 @@ class OrderLifecycleSaga {
         val delivery = getDelivery(deliveryId)
 
         // TODO create delivery invoice
+        courierInvoiceId = UUID.randomUUID()
+
         commandGateway.sendAndWait<Void>(
             CreateInvoiceCommand(
-                id = UUID.randomUUID(),
+                id = courierInvoiceId,
                 from = courier.name,
                 to = "Food Delivery App",
                 issueDate = LocalDate.now(),
@@ -304,7 +316,41 @@ class OrderLifecycleSaga {
         )
     }
 
-    // TODO send all emails
+    @SagaEventHandler(associationProperty = "invoiceId", keyName = "userInvoiceId")
+    fun on1(event: InvoiceCreatedEvent) {
+        val user = getUser(orderingUserId)
+
+        commandGateway.sendAndWait<Void>(
+            SendInvoiceEmailCommand(
+                id = userInvoiceId,
+                email = user.email
+            )
+        )
+    }
+
+    @SagaEventHandler(associationProperty = "invoiceId", keyName = "restaurantInvoiceId")
+    fun on2(event: InvoiceCreatedEvent) {
+        val restaurant = getRestaurant(restaurantId)
+
+        commandGateway.sendAndWait<Void>(
+            SendInvoiceEmailCommand(
+                id = restaurantInvoiceId,
+                email = restaurant.email
+            )
+        )
+    }
+
+    @SagaEventHandler(associationProperty = "invoiceId", keyName = "courierInvoiceId")
+    fun on3(event: InvoiceCreatedEvent) {
+        val courier = getCourier(courierId)
+
+        commandGateway.sendAndWait<Void>(
+            SendInvoiceEmailCommand(
+                id = courierInvoiceId,
+                email = courier.email
+            )
+        )
+    }
 
     // TODO end saga only when all the emails with invoices are sent
 

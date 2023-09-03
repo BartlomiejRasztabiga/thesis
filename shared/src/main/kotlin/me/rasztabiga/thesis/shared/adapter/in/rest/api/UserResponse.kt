@@ -7,6 +7,7 @@ import java.util.*
 data class UserResponse(
     val id: String,
     val name: String,
+    val email: String,
     val deliveryAddresses: List<DeliveryAddress>
 ) {
     data class DeliveryAddress(

@@ -7,6 +7,7 @@ import java.util.*
 data class RestaurantResponse(
     val id: UUID,
     val managerId: String,
+    val email: String,
     val name: String,
     val availability: Availability,
     val menu: List<Product>,
