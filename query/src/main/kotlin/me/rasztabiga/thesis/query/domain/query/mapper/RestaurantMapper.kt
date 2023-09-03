@@ -11,6 +11,7 @@ object RestaurantMapper {
             id = event.restaurantId,
             managerId = event.managerId,
             name = event.name,
+            email = event.email,
             availability = RestaurantEntity.Availability.CLOSED,
             menu = emptyList(),
             location = event.location
@@ -22,6 +23,7 @@ object RestaurantMapper {
             id = entity.id,
             managerId = entity.managerId,
             name = entity.name,
+            email = entity.email,
             availability = RestaurantResponse.Availability.valueOf(entity.availability.name),
             menu = entity.menu.map {
                 RestaurantResponse.Product(it.id, it.name, it.description, it.price)

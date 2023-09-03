@@ -5,5 +5,6 @@ import org.axonframework.serialization.Revision
 @Revision("1.0")
 data class UserCreatedEvent(
     val userId: String,
-    val name: String
+    val name: String,
+    val email: String
 )

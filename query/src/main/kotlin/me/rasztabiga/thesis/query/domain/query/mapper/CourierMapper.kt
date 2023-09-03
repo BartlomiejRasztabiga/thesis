@@ -10,6 +10,7 @@ object CourierMapper {
         return CourierEntity(
             id = event.courierId,
             name = event.name,
+            email = event.email,
             availability = CourierEntity.Availability.OFFLINE
         )
     }
@@ -18,6 +19,7 @@ object CourierMapper {
         return CourierResponse(
             id = entity.id,
             name = entity.name,
+            email = entity.email,
             availability = CourierResponse.Availability.valueOf(entity.availability.name)
         )
     }

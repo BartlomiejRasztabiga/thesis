@@ -8,6 +8,7 @@ data class CourierEntity(
     @Id
     val id: String,
     val name: String,
+    val email: String,
     var availability: Availability,
 ) {
     enum class Availability {

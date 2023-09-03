@@ -10,6 +10,7 @@ data class UserEntity(
     @Id
     val id: String,
     val name: String,
+    val email: String,
     val deliveryAddresses: MutableList<DeliveryAddress>
 ) {
     data class DeliveryAddress(

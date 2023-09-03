@@ -11,6 +11,7 @@ data class RestaurantEntity(
     val id: UUID,
     val managerId: String,
     val name: String,
+    val email: String,
     val availability: Availability,
     val menu: List<Product>,
     val location: Location

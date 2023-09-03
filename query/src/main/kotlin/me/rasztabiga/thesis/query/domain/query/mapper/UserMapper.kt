@@ -18,6 +18,7 @@ object UserMapper {
         return UserResponse(
             id = entity.id,
             name = entity.name,
+            email = entity.email,
             deliveryAddresses = entity.deliveryAddresses.map {
                 UserResponse.DeliveryAddress(
                     it.id,

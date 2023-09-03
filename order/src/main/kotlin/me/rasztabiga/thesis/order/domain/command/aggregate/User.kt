@@ -29,7 +29,7 @@ internal class User {
 
     @CommandHandler
     constructor(command: CreateUserCommand) {
-        apply(UserCreatedEvent(userId = command.id, name = command.name))
+        apply(UserCreatedEvent(userId = command.id, name = command.name, email = command.email))
     }
 
     @CommandHandler
