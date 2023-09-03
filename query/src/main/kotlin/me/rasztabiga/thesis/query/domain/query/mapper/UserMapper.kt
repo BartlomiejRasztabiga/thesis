@@ -10,6 +10,7 @@ object UserMapper {
         return UserEntity(
             id = event.userId,
             name = event.name,
+            email = event.email,
             deliveryAddresses = mutableListOf()
         )
     }

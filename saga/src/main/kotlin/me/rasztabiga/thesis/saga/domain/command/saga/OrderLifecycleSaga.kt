@@ -17,6 +17,7 @@ import me.rasztabiga.thesis.shared.domain.command.command.MarkOrderAsPaidCommand
 import me.rasztabiga.thesis.shared.domain.command.command.RejectOrderCommand
 import me.rasztabiga.thesis.shared.domain.command.command.SendInvoiceEmailCommand
 import me.rasztabiga.thesis.shared.domain.command.event.InvoiceCreatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.InvoiceEmailSentEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderCanceledEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryDeliveredEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderFinalizedEvent
@@ -72,6 +73,10 @@ class OrderLifecycleSaga {
     private lateinit var userInvoiceId: UUID
     private lateinit var restaurantInvoiceId: UUID
     private lateinit var courierInvoiceId: UUID
+
+    private var userInvoiceSent: Boolean = false
+    private var restaurantInvoiceSent: Boolean = false
+    private var courierInvoiceSent: Boolean = false
 
     @StartSaga
     @SagaEventHandler(associationProperty = "orderId")
@@ -241,6 +246,7 @@ class OrderLifecycleSaga {
         val user = getUser(order.userId)
 
         userInvoiceId = UUID.randomUUID()
+        SagaLifecycle.associateWith("userInvoiceId", userInvoiceId.toString())
 
         commandGateway.sendAndWait<Void>(
             CreateInvoiceCommand(
@@ -269,6 +275,7 @@ class OrderLifecycleSaga {
 
         // TODO create restaurant invoice
         restaurantInvoiceId = UUID.randomUUID()
+        SagaLifecycle.associateWith("restaurantInvoiceId", restaurantInvoiceId.toString())
 
         commandGateway.sendAndWait<Void>(
             CreateInvoiceCommand(
@@ -297,6 +304,7 @@ class OrderLifecycleSaga {
 
         // TODO create delivery invoice
         courierInvoiceId = UUID.randomUUID()
+        SagaLifecycle.associateWith("courierInvoiceId", courierInvoiceId.toString())
 
         commandGateway.sendAndWait<Void>(
             CreateInvoiceCommand(
@@ -352,7 +360,32 @@ class OrderLifecycleSaga {
         )
     }
 
-    // TODO end saga only when all the emails with invoices are sent
+    @SagaEventHandler(associationProperty = "invoiceId", keyName = "userInvoiceId")
+    fun on1(event: InvoiceEmailSentEvent) {
+        userInvoiceSent = true
+
+        if (restaurantInvoiceSent && courierInvoiceSent) {
+            SagaLifecycle.end()
+        }
+    }
+
+    @SagaEventHandler(associationProperty = "invoiceId", keyName = "restaurantInvoiceId")
+    fun on2(event: InvoiceEmailSentEvent) {
+        restaurantInvoiceSent = true
+
+        if (userInvoiceSent && courierInvoiceSent) {
+            SagaLifecycle.end()
+        }
+    }
+
+    @SagaEventHandler(associationProperty = "invoiceId", keyName = "courierInvoiceId")
+    fun on3(event: InvoiceEmailSentEvent) {
+        courierInvoiceSent = true
+
+        if (userInvoiceSent && restaurantInvoiceSent) {
+            SagaLifecycle.end()
+        }
+    }
 
     private fun getOrder(orderId: UUID): OrderResponse {
         return queryGateway.query(

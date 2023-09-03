@@ -23,8 +23,8 @@ class MailjetEmailSendingAdapter(
     override fun send(email: String, attachment: ByteArray) {
 
         val options = ClientOptions.builder()
-            .apiKey(System.getenv(mailjetApiKeyPublic))
-            .apiSecretKey(System.getenv(mailjetApiKeyPrivate))
+            .apiKey(mailjetApiKeyPublic)
+            .apiSecretKey(mailjetApiKeyPrivate)
             .build()
 
         val client = MailjetClient(options)
@@ -33,8 +33,8 @@ class MailjetEmailSendingAdapter(
             .builder()
             .to(SendContact(email))
             .from(SendContact("contact@rasztabiga.me"))
-            .htmlPart("<h1>This is the HTML content of the mail</h1>")
-            .subject("This is the subject")
+            .htmlPart("<h1>In the attachment you will find your invoice</h1>")
+            .subject("Food Delivery App - Invoice")
             .attachment(Attachment.fromInputStream(attachment.inputStream(), "invoice.pdf", "application/pdf"))
             .build()
 

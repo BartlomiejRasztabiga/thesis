@@ -1,5 +1,6 @@
 package me.rasztabiga.thesis.payment.domain.command.aggregate
 
+import me.rasztabiga.thesis.payment.domain.command.port.EmailSendingPort
 import me.rasztabiga.thesis.payment.domain.command.port.InvoiceGenerationPort
 import me.rasztabiga.thesis.shared.domain.command.command.CreateInvoiceCommand
 import me.rasztabiga.thesis.shared.domain.command.command.SendInvoiceEmailCommand
@@ -38,29 +39,7 @@ class Invoice {
     private constructor()
 
     @CommandHandler
-    constructor(command: CreateInvoiceCommand, invoiceGenerationPort: InvoiceGenerationPort) {
-
-        // TODO or generate only when sending email (so that we won't have to store pdf in db)
-
-        // TODO generation port
-        val pdf = invoiceGenerationPort.generate(
-            InvoiceGenerationPort.InvoiceData(
-                id = command.id,
-                from = command.from,
-                to = command.to,
-                issueDate = command.issueDate,
-                dueDate = command.dueDate,
-                items = command.items.map {
-                    InvoiceGenerationPort.InvoiceData.InvoiceItem(
-                        name = it.name,
-                        quantity = it.quantity,
-                        unitPrice = it.unitPrice
-                    )
-                }
-            ))
-
-        // TODO add pdf here
-
+    constructor(command: CreateInvoiceCommand) {
         apply(
             InvoiceCreatedEvent(
                 invoiceId = command.id,
@@ -80,7 +59,29 @@ class Invoice {
     }
 
     @CommandHandler
-    fun handle(command: SendInvoiceEmailCommand) {
+    fun handle(
+        command: SendInvoiceEmailCommand,
+        invoiceGenerationPort: InvoiceGenerationPort,
+        emailSendingPort: EmailSendingPort
+    ) {
+        val pdf = invoiceGenerationPort.generate(
+            InvoiceGenerationPort.InvoiceData(
+                id = this.id,
+                from = this.from,
+                to = this.to,
+                issueDate = this.issueDate,
+                dueDate = this.dueDate,
+                items = this.items.map {
+                    InvoiceGenerationPort.InvoiceData.InvoiceItem(
+                        name = it.name,
+                        quantity = it.quantity,
+                        unitPrice = it.unitPrice
+                    )
+                }
+            ))
+
+        emailSendingPort.send(command.email, pdf!!)
+
         apply(
             InvoiceEmailSentEvent(
                 invoiceId = command.id,

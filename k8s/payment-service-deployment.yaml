@@ -16,6 +16,18 @@ spec:
         - env:
             - name: AXON_AXONSERVER_SERVERS
               value: axonserver
+            - name: SPRING_PROFILES_ACTIVE
+              value: mailjet
+            - name: MAILJET_API_KEY_PUBLIC
+              valueFrom:
+                secretKeyRef:
+                  name: mailjet-api-key
+                  key: public
+            - name: MAILJET_API_KEY_PRIVATE
+              valueFrom:
+                secretKeyRef:
+                  name: mailjet-api-key
+                  key: private
           image: ghcr.io/bartlomiejrasztabiga/thesis/payment:latest
           name: payment-service
           ports:
