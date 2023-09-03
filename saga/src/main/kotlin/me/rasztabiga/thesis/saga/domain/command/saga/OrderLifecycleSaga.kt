@@ -208,6 +208,7 @@ class OrderLifecycleSaga {
         )
     }
 
+    @Suppress("MagicNumber")
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: OrderDeliveryDeliveredEvent) {
         courierId = event.courierId
@@ -268,6 +269,7 @@ class OrderLifecycleSaga {
         )
     }
 
+    @Suppress("MagicNumber", "UnusedParameter")
     @SagaEventHandler(associationProperty = "payeeId", keyName = "restaurantManagerPayeeId")
     fun on1(event: PayeeBalanceAddedEvent) {
         val restaurant = getRestaurant(restaurantId)
@@ -297,6 +299,7 @@ class OrderLifecycleSaga {
         )
     }
 
+    @Suppress("MagicNumber", "UnusedParameter")
     @SagaEventHandler(associationProperty = "payeeId", keyName = "deliveryCourierPayeeId")
     fun on2(event: PayeeBalanceAddedEvent) {
         val courier = getCourier(courierId)
@@ -324,6 +327,7 @@ class OrderLifecycleSaga {
         )
     }
 
+    @Suppress("UnusedParameter")
     @SagaEventHandler(associationProperty = "invoiceId", keyName = "userInvoiceId")
     fun on1(event: InvoiceCreatedEvent) {
         val user = getUser(orderingUserId)
@@ -336,6 +340,7 @@ class OrderLifecycleSaga {
         )
     }
 
+    @Suppress("UnusedParameter")
     @SagaEventHandler(associationProperty = "invoiceId", keyName = "restaurantInvoiceId")
     fun on2(event: InvoiceCreatedEvent) {
         val restaurant = getRestaurant(restaurantId)
@@ -348,6 +353,7 @@ class OrderLifecycleSaga {
         )
     }
 
+    @Suppress("UnusedParameter")
     @SagaEventHandler(associationProperty = "invoiceId", keyName = "courierInvoiceId")
     fun on3(event: InvoiceCreatedEvent) {
         val courier = getCourier(courierId)
@@ -360,6 +366,7 @@ class OrderLifecycleSaga {
         )
     }
 
+    @Suppress("UnusedParameter")
     @SagaEventHandler(associationProperty = "invoiceId", keyName = "userInvoiceId")
     fun on1(event: InvoiceEmailSentEvent) {
         userInvoiceSent = true
@@ -369,6 +376,7 @@ class OrderLifecycleSaga {
         }
     }
 
+    @Suppress("UnusedParameter")
     @SagaEventHandler(associationProperty = "invoiceId", keyName = "restaurantInvoiceId")
     fun on2(event: InvoiceEmailSentEvent) {
         restaurantInvoiceSent = true
@@ -378,6 +386,7 @@ class OrderLifecycleSaga {
         }
     }
 
+    @Suppress("UnusedParameter")
     @SagaEventHandler(associationProperty = "invoiceId", keyName = "courierInvoiceId")
     fun on3(event: InvoiceEmailSentEvent) {
         courierInvoiceSent = true
