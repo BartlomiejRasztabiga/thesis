@@ -1,7 +1,7 @@
 import random
 import time
 
-from locust import HttpUser, task
+from locust import HttpUser, task, events
 import requests
 import json
 from faker import Faker
@@ -22,7 +22,8 @@ addresses = [
 
 class OrderingUser(HttpUser):
     def on_start(self):
-        self.client.headers["Authorization"] = f"Bearer {prepare_env_utils.get_ordering_user_access_token()}"
+        auth0_user_email = prepare_env_utils.create_auth0_user("ORDERING_USER")
+        self.client.headers["Authorization"] = f"Bearer {prepare_env_utils.get_access_token(auth0_user_email)}"
 
         self._create_user()
         self._create_delivery_address()
@@ -58,7 +59,7 @@ class OrderingUser(HttpUser):
             "deliveryAddressId": self.delivery_address_id
         })
 
-        time.sleep(1)
+        time.sleep(5)
 
         order = self.client.get(f"/orders/{order_id}").json()
         payment_id = order.get("paymentId")
@@ -92,7 +93,8 @@ class OrderingUser(HttpUser):
 
 class RestaurantManager(HttpUser):
     def on_start(self):
-        self.client.headers["Authorization"] = f"Bearer {prepare_env_utils.get_restaurant_manager_access_token()}"
+        auth0_user_email = prepare_env_utils.create_auth0_user("RESTAURANT_MANAGER")
+        self.client.headers["Authorization"] = f"Bearer {prepare_env_utils.get_access_token(auth0_user_email)}"
 
         self._create_restaurant()
 
@@ -148,7 +150,8 @@ class RestaurantManager(HttpUser):
 
 class DeliveryCourier(HttpUser):
     def on_start(self):
-        self.client.headers["Authorization"] = f"Bearer {prepare_env_utils.get_delivery_courier_access_token()}"
+        auth0_user_email = prepare_env_utils.create_auth0_user("DELIVERY_COURIER")
+        self.client.headers["Authorization"] = f"Bearer {prepare_env_utils.get_access_token(auth0_user_email)}"
 
         self._create_courier()
 
@@ -156,9 +159,11 @@ class DeliveryCourier(HttpUser):
 
     @task
     def e2e(self):
-        with self.client.get(f"/deliveries/offer?courierAddress={self.courier_address}", catch_response=True) as response:
+        with self.client.get(f"/deliveries/offer?courierAddress={self.courier_address}",
+                             catch_response=True) as response:
             if response.status_code == 404:
                 response.success()
+                time.sleep(10)
                 return
             else:
                 offer = response.json()
@@ -166,7 +171,7 @@ class DeliveryCourier(HttpUser):
 
         print(f"DELIVERY Found offer {offer}")
 
-        if random.random() < 0.5:
+        if random.random() < 0.1:
             self.client.put(f"/deliveries/{offer.get('id')}/reject")
             print(f"DELIVERY Rejected offer {offer}")
             return
@@ -204,3 +209,9 @@ class DeliveryCourier(HttpUser):
         self.courier_id = self.client.get("/couriers/me").json().get("id")
 
         self.courier_address = random.choice(addresses)
+
+
+@events.test_stop.add_listener
+def on_test_stop(environment, **kwargs):
+    print("Deleting all tmp auth0 users")
+    prepare_env_utils.delete_all_tmp_auth0_users()
