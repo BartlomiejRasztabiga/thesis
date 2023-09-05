@@ -41,6 +41,7 @@ def get_access_token(username):
 
 
 def get_auth0_token():
+    # TODO move to secrets
     non_interactive_client_id = 'wzcQGP1lbnOuzAqkWaIGH3gNTLfPNRwb'
     non_interactive_client_secret = 'dn_fDGeETLLPy4mVBqrj1K4Hg8wezkGNBbVz47Kqgs0Maapwep4HayBvQXwUTReM'
 
