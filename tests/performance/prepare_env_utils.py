@@ -64,7 +64,8 @@ def get_all_auth0_users():
     auth0 = create_auth0()
     users = []
     page = 0
-    while True:
+    max_page = 9
+    while page < max_page:
         page_users = auth0.users.list(page=page, per_page=100)["users"]
         if len(page_users) == 0:
             break
