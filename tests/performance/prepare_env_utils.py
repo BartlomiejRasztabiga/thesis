@@ -87,7 +87,7 @@ def delete_all_tmp_auth0_users():
             user_id = user["user_id"]
             print("Deleting user with id", user_id)
             delete_auth0_user(user_id)
-            time.sleep(1)
+            time.sleep(0.4)
 
 
 def create_auth0_user(role):

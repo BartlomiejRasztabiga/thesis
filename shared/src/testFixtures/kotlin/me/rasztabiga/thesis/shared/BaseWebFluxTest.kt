@@ -13,7 +13,7 @@ import org.springframework.test.web.reactive.server.WebTestClient
 
 @WebFluxTest
 @Import(TestSecurityConfig::class, TestUserContextWebFilter::class)
-@ActiveProfiles("test")
+@ActiveProfiles("nosecurity")
 open class BaseWebFluxTest {
 
     @MockkBean

@@ -10,7 +10,7 @@ import org.springframework.web.server.WebFilterChain
 import reactor.core.publisher.Mono
 
 @Component
-@Profile("!test")
+@Profile("!nosecurity")
 class UserContextWebFilter : WebFilter {
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
         return ReactiveSecurityContextHolder.getContext()

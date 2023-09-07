@@ -11,7 +11,7 @@ import org.springframework.security.web.server.SecurityWebFilterChain
 @Configuration
 @EnableReactiveMethodSecurity
 @EnableWebFluxSecurity
-@Profile("!test")
+@Profile("!nosecurity")
 class SecurityConfig {
 
     @Bean
@@ -31,7 +31,7 @@ class SecurityConfig {
 
 @Configuration
 @EnableWebFluxSecurity
-@Profile("test")
+@Profile("nosecurity")
 class TestSecurityConfig {
 
     @Bean

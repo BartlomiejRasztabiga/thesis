@@ -8,7 +8,7 @@ import org.springframework.web.server.WebFilterChain
 import reactor.core.publisher.Mono
 
 @Component
-@Profile("test")
+@Profile("nosecurity")
 class TestUserContextWebFilter : WebFilter {
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
         exchange.setUserId("userId")

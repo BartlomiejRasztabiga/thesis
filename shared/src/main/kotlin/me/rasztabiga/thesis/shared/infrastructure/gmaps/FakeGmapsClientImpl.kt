@@ -2,6 +2,7 @@ package me.rasztabiga.thesis.shared.infrastructure.gmaps
 
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import org.springframework.context.annotation.Profile
+import kotlin.random.Random
 
 @Profile("!gmaps")
 class FakeGmapsClientImpl : GmapsClient {
@@ -10,13 +11,16 @@ class FakeGmapsClientImpl : GmapsClient {
     override fun getDistanceInMeters(from: String, to: String): Long {
         val a = from.length
         val b = to.length
-        return (a + b).toLong() * 100
+        val c = Random.nextDouble()
+        return (a + b) * c.toLong()
     }
 
+    @Suppress("MagicNumber")
     override fun geocode(address: String): Location {
+        val x = Random.nextDouble() / 10
         return Location(
-            lat = 52.2370,
-            lng = 21.0175,
+            lat = 52.2370 + x,
+            lng = 21.0175 + x,
             streetAddress = address
         )
     }
