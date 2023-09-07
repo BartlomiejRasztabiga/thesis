@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: restaurant-service
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: restaurant-service
@@ -18,7 +18,7 @@ spec:
               value: axonserver
             - name: SPRING_PROFILES_ACTIVE
               value: nosecurity
-          image: ghcr.io/bartlomiejrasztabiga/thesis/restaurant:0.15.3
+          image: ghcr.io/bartlomiejrasztabiga/thesis/restaurant:0.15.4
           name: restaurant-service
           ports:
             - containerPort: 8101

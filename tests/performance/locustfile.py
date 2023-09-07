@@ -29,7 +29,7 @@ class OrderingUser(HttpUser):
         self._create_user()
         self._create_delivery_address()
 
-        print(f"ORDERING Created user with id {self.user_id} and delivery address with id {self.delivery_address_id}")
+        # print(f"ORDERING Created user with id {self.user_id} and delivery address with id {self.delivery_address_id}")
 
     @task
     def e2e(self):
@@ -60,19 +60,19 @@ class OrderingUser(HttpUser):
             "deliveryAddressId": self.delivery_address_id
         })
 
-        time.sleep(5)
+        time.sleep(10)
 
         order = self.client.get(f"/orders/{order_id}").json()
         payment_id = order.get("paymentId")
         self.client.put(f"/payments/{payment_id}/pay")
 
-        print(f"ORDERING Paid for order {order_id}")
+        # print(f"ORDERING Paid for order {order_id}")
 
         while True:
             order = self.client.get(f"/orders/{order_id}").json()
-            print(f"ORDERING Order status: {order.get('status')}")
+            # print(f"ORDERING Order status: {order.get('status')}")
             if order.get("status") == "DELIVERED":
-                print(f"ORDERING Order delivered")
+                # print(f"ORDERING Order delivered")
                 break
             time.sleep(10)  # refreshing every 10 seconds
 
@@ -82,6 +82,8 @@ class OrderingUser(HttpUser):
             "name": fake.name(),
             "email": "contact@rasztabiga.me"
         })
+
+        time.sleep(5)
 
         self.user_id = self.client.get("/users/me").json().get("id")
 
@@ -100,7 +102,7 @@ class RestaurantManager(HttpUser):
 
         self._create_restaurant()
 
-        print(f"RESTAURANT Created restaurant with id {self.restaurant_id}")
+        # print(f"RESTAURANT Created restaurant with id {self.restaurant_id}")
 
     @task
     def e2e(self):
@@ -113,14 +115,14 @@ class RestaurantManager(HttpUser):
         selected_order = random.choice(restaurant_orders)
 
         self.client.put(f"/restaurants/{self.restaurant_id}/orders/{selected_order.get('restaurantOrderId')}/accept")
-        print(f"RESTAURANT Accepted order")
+        # print(f"RESTAURANT Accepted order")
 
         sleep_time = random.randint(60, 5 * 60)
-        print(f"RESTAURANT Sleeping for {sleep_time} seconds")
+        # print(f"RESTAURANT Sleeping for {sleep_time} seconds")
         time.sleep(sleep_time)
 
         self.client.put(f"/restaurants/{self.restaurant_id}/orders/{selected_order.get('restaurantOrderId')}/prepare")
-        print(f"RESTAURANT Prepared order")
+        # print(f"RESTAURANT Prepared order")
 
     def _create_restaurant(self):
         self.restaurant_id = self.client.post("/restaurants", json={
@@ -158,7 +160,7 @@ class DeliveryCourier(HttpUser):
 
         self._create_courier()
 
-        print(f"DELIVERY Created courier with id {self.courier_id}")
+        # print(f"DELIVERY Created courier with id {self.courier_id}")
 
     @task
     def e2e(self):
@@ -172,35 +174,35 @@ class DeliveryCourier(HttpUser):
                 offer = response.json()
                 response.success()
 
-        print(f"DELIVERY Found offer {offer}")
+        # print(f"DELIVERY Found offer {offer}")
 
         if random.random() < 0.1:
             self.client.put(f"/deliveries/{offer.get('id')}/reject")
-            print(f"DELIVERY Rejected offer {offer}")
+            # print(f"DELIVERY Rejected offer {offer}")
             return
 
         self.client.put(f"/deliveries/{offer.get('id')}/accept")
-        print(f"DELIVERY Accepted offer {offer}")
+        # print(f"DELIVERY Accepted offer {offer}")
 
         sleep_time = random.randint(60, 5 * 60)
-        print(f"DELIVERY Sleeping for {sleep_time} seconds")
+        # print(f"DELIVERY Sleeping for {sleep_time} seconds")
         time.sleep(sleep_time)
 
         while True:
             try:
                 self.client.put(f"/deliveries/{offer.get('id')}/pickup")
-                print(f"DELIVERY Picked up order {offer}")
+                # print(f"DELIVERY Picked up order {offer}")
                 break
             except:
                 time.sleep(30)
                 continue
 
         sleep_time = random.randint(60, 5 * 60)
-        print(f"DELIVERY Sleeping for {sleep_time} seconds")
+        # print(f"DELIVERY Sleeping for {sleep_time} seconds")
         time.sleep(sleep_time)
 
         self.client.put(f"/deliveries/{offer.get('id')}/deliver")
-        print(f"DELIVERY Delivered order {offer}")
+        # print(f"DELIVERY Delivered order {offer}")
 
     def _create_courier(self):
         # TODO may already exist
@@ -208,6 +210,8 @@ class DeliveryCourier(HttpUser):
             "name": fake.name(),
             "email": "contact@rasztabiga.me"
         }).json().get("id")
+
+        time.sleep(5)
 
         self.courier_id = self.client.get("/couriers/me").json().get("id")
 
