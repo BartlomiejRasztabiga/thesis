@@ -22,8 +22,9 @@ addresses = [
 
 class OrderingUser(HttpUser):
     def on_start(self):
-        auth0_user_email = prepare_env_utils.create_auth0_user("ORDERING_USER")
-        self.client.headers["Authorization"] = f"Bearer {prepare_env_utils.get_access_token(auth0_user_email)}"
+        # auth0_user_email = prepare_env_utils.create_auth0_user("ORDERING_USER")
+        # self.client.headers["Authorization"] = f"Bearer {prepare_env_utils.get_access_token(auth0_user_email)}"
+        self.client.headers["X-User-Id"] = fake.uuid4()
 
         self._create_user()
         self._create_delivery_address()
@@ -93,8 +94,9 @@ class OrderingUser(HttpUser):
 
 class RestaurantManager(HttpUser):
     def on_start(self):
-        auth0_user_email = prepare_env_utils.create_auth0_user("RESTAURANT_MANAGER")
-        self.client.headers["Authorization"] = f"Bearer {prepare_env_utils.get_access_token(auth0_user_email)}"
+        # auth0_user_email = prepare_env_utils.create_auth0_user("RESTAURANT_MANAGER")
+        # self.client.headers["Authorization"] = f"Bearer {prepare_env_utils.get_access_token(auth0_user_email)}"
+        self.client.headers["X-User-Id"] = fake.uuid4()
 
         self._create_restaurant()
 
@@ -150,8 +152,9 @@ class RestaurantManager(HttpUser):
 
 class DeliveryCourier(HttpUser):
     def on_start(self):
-        auth0_user_email = prepare_env_utils.create_auth0_user("DELIVERY_COURIER")
-        self.client.headers["Authorization"] = f"Bearer {prepare_env_utils.get_access_token(auth0_user_email)}"
+        # auth0_user_email = prepare_env_utils.create_auth0_user("DELIVERY_COURIER")
+        # self.client.headers["Authorization"] = f"Bearer {prepare_env_utils.get_access_token(auth0_user_email)}"
+        self.client.headers["X-User-Id"] = fake.uuid4()
 
         self._create_courier()
 

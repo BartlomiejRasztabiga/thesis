@@ -1,42 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: delivery-service
+  name: order-service
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: delivery-service
+      app: order-service
   template:
     metadata:
       labels:
-        app: delivery-service
+        app: order-service
     spec:
       containers:
         - env:
             - name: AXON_AXONSERVER_SERVERS
               value: axonserver
-            - name: SPRING_PROFILES_ACTIVE
-              value: gmaps
-            - name: GMAPS_API_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: gmaps-api-key
-                  key: key
-          image: ghcr.io/bartlomiejrasztabiga/thesis/delivery:latest
-          name: delivery-service
+          image: ghcr.io/bartlomiejrasztabiga/thesis/order:latest
+          name: order-service
           ports:
-            - containerPort: 8104
+            - containerPort: 8102
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
-              port: 8104
+              port: 8102
             initialDelaySeconds: 30
             periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
-              port: 8104
+              port: 8102
             initialDelaySeconds: 30
             periodSeconds: 10
       restartPolicy: Always

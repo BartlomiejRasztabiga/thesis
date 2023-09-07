@@ -1,37 +1,35 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: saga-service
+  name: restaurant-service
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: saga-service
+      app: restaurant-service
   template:
     metadata:
       labels:
-        app: saga-service
+        app: restaurant-service
     spec:
       containers:
         - env:
             - name: AXON_AXONSERVER_SERVERS
               value: axonserver
-            - name: SPRING_DATA_MONGODB_URI
-              value: "mongodb://root:password@saga-db:27017/saga?authSource=admin"
-          image: ghcr.io/bartlomiejrasztabiga/thesis/saga:latest
-          name: saga-service
+          image: ghcr.io/bartlomiejrasztabiga/thesis/restaurant:latest
+          name: restaurant-service
           ports:
-            - containerPort: 8106
+            - containerPort: 8101
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
-              port: 8106
+              port: 8101
             initialDelaySeconds: 30
             periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
-              port: 8106
+              port: 8101
             initialDelaySeconds: 30
             periodSeconds: 10
       restartPolicy: Always
