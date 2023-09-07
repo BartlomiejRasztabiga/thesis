@@ -11,7 +11,9 @@ import reactor.core.publisher.Mono
 @Profile("nosecurity")
 class TestUserContextWebFilter : WebFilter {
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
-        exchange.setUserId("userId")
+        val userIdHeader = exchange.request.headers["X-User-Id"]?.firstOrNull()
+        val userId = userIdHeader ?: "userId"
+        exchange.setUserId(userId)
         return chain.filter(exchange)
     }
 }
