@@ -38,6 +38,8 @@ export default function OrderTrackingPage() {
 
   const getOrderSummary = (order: OrderResponse): string => {
     switch (order.status) {
+      case "FINALIZED":
+        return "Waiting for payment to be processed...";
       case "PAID":
         return "Restaurant has seen your order...";
       case "CONFIRMED":

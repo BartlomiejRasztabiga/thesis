@@ -7,6 +7,7 @@ import me.rasztabiga.thesis.payment.domain.command.port.PaymentSessionPort
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderPaymentCommand
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
+import java.math.BigDecimal
 
 @Profile("stripe")
 @Service
@@ -15,7 +16,7 @@ class StripePaymentSessionAdapter : PaymentSessionPort {
         Stripe.apiKey =
             "sk_test_51NkBWgEKNDTQpRbz21IxN1lSre63zv95KLm787PdcaZRMWv0YhjTqiwVHqlB9CLGtV8BCv4VeaFUdG4SAAXLrBGH00kaWNjf8C"
 
-        val domain = "http://localhost:3080"
+        val domain = "http://localhost:3000"
 
         val params = SessionCreateParams.builder()
             .setMode(SessionCreateParams.Mode.PAYMENT)
@@ -28,7 +29,7 @@ class StripePaymentSessionAdapter : PaymentSessionPort {
                         .setPriceData(
                             SessionCreateParams.LineItem.PriceData.builder()
                                 .setCurrency("PLN")
-                                .setUnitAmount(it.unitPrice.toLong())
+                                .setUnitAmount(it.unitPrice.times(100).toLong())
                                 .setProductData(
                                     SessionCreateParams.LineItem.PriceData.ProductData.builder()
                                         .setName(it.name)
@@ -43,7 +44,7 @@ class StripePaymentSessionAdapter : PaymentSessionPort {
                         .setPriceData(
                             SessionCreateParams.LineItem.PriceData.builder()
                                 .setCurrency("PLN")
-                                .setUnitAmount(command.deliveryFee.toLong())
+                                .setUnitAmount(command.deliveryFee.times(BigDecimal.valueOf(100)).toLong())
                                 .setProductData(
                                     SessionCreateParams.LineItem.PriceData.ProductData.builder()
                                         .setName("Delivery fee")

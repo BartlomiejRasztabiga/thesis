@@ -10,7 +10,7 @@ data class CreateOrderPaymentCommand(
     val payerId: String,
     val amount: BigDecimal,
     val items: List<OrderItem>,
-    val deliveryFee: BigDecimal
+    val deliveryFee: Double
 ) {
     data class OrderItem(
         val name: String,
