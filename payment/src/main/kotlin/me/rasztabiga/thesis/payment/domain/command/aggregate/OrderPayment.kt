@@ -33,14 +33,15 @@ internal class OrderPayment {
     @CommandHandler
     constructor(command: CreateOrderPaymentCommand, paymentSessionPort: PaymentSessionPort) {
         // TODO stripe client, save url or sth
-        paymentSessionPort.createPaymentSession(command.orderId)
+        val sessionUrl = paymentSessionPort.createPaymentSession(command)
 
         apply(
             OrderPaymentCreatedEvent(
                 id = command.id,
                 orderId = command.orderId,
                 payerId = command.payerId,
-                amount = command.amount
+                amount = command.amount,
+                sessionUrl = sessionUrl
             )
         )
     }

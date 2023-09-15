@@ -1,9 +1,9 @@
 package me.rasztabiga.thesis.payment.domain.command.port
 
+import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderPaymentCommand
 import java.net.URL
-import java.util.UUID
 
 interface PaymentSessionPort {
 
-    fun createPaymentSession(orderId: UUID): URL
+    fun createPaymentSession(command: CreateOrderPaymentCommand): String
 }

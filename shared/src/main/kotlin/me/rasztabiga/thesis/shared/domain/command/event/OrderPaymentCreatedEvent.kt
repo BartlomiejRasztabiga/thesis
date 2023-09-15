@@ -9,5 +9,6 @@ data class OrderPaymentCreatedEvent(
     val id: UUID,
     val orderId: UUID,
     val payerId: String,
-    val amount: BigDecimal
+    val amount: BigDecimal,
+    val sessionUrl: String
 )
