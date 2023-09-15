@@ -8,5 +8,13 @@ data class CreateOrderPaymentCommand(
     @TargetAggregateIdentifier val id: UUID,
     val orderId: UUID,
     val payerId: String,
-    val amount: BigDecimal
-)
+    val amount: BigDecimal,
+    val items: List<OrderItem>,
+    val deliveryFee: BigDecimal
+) {
+    data class OrderItem(
+        val name: String,
+        val quantity: Int,
+        val unitPrice: BigDecimal
+    )
+}

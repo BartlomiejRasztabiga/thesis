@@ -2,6 +2,7 @@ package me.rasztabiga.thesis.payment.domain.command.aggregate
 
 import me.rasztabiga.thesis.payment.domain.command.command.PayPaymentCommand
 import me.rasztabiga.thesis.payment.domain.command.event.OrderPaymentDeletedEvent
+import me.rasztabiga.thesis.payment.domain.command.port.PaymentSessionPort
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderPaymentCommand
 import me.rasztabiga.thesis.shared.domain.command.command.DeleteOrderPaymentCommand
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaymentCreatedEvent
@@ -30,7 +31,10 @@ internal class OrderPayment {
     private constructor()
 
     @CommandHandler
-    constructor(command: CreateOrderPaymentCommand) {
+    constructor(command: CreateOrderPaymentCommand, paymentSessionPort: PaymentSessionPort) {
+        // TODO stripe client, save url or sth
+        paymentSessionPort.createPaymentSession(command.orderId)
+
         apply(
             OrderPaymentCreatedEvent(
                 id = command.id,

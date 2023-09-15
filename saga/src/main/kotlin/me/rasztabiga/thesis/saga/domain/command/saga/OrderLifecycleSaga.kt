@@ -118,12 +118,24 @@ class OrderLifecycleSaga {
     fun on(event: OrderTotalCalculatedEvent) {
         val paymentId = UUID.randomUUID()
 
+        val order = getOrder(event.orderId)
+        val restaurant = getRestaurant(order.restaurantId)
+
         commandGateway.sendAndWait<Void>(
             CreateOrderPaymentCommand(
                 id = paymentId,
                 orderId = event.orderId,
                 payerId = this.orderingUserId,
-                amount = event.total
+                amount = event.total,
+                items = order.items.map {
+                    val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.productId }!!
+
+                    CreateOrderPaymentCommand.OrderItem(
+                        name = menuItem.name,
+                        quantity = 1,
+                        unitPrice = menuItem.price
+                    )
+                }
             )
         )
     }
