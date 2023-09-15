@@ -2,8 +2,10 @@
 
 package me.rasztabiga.thesis.payment.adapter.`in`.rest
 
+import com.stripe.model.checkout.Session
 import com.stripe.net.Webhook
 import me.rasztabiga.thesis.payment.adapter.`in`.rest.mapper.PaymentControllerMapper.mapToPayPaymentCommand
+import me.rasztabiga.thesis.payment.domain.command.command.PayPaymentCommand
 import me.rasztabiga.thesis.shared.UuidWrapper
 import me.rasztabiga.thesis.shared.security.Scopes
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
@@ -38,13 +40,17 @@ class PaymentController(
 
     @PostMapping("/stripe-webhook")
     fun stripeWebhook(@RequestBody body: String, exchange: ServerWebExchange) {
-//        val endpointSecret = "whsec_gwW0toQxHqnHkA6q93OrlyXeoBOl6NJE"
-        val endpointSecret = "whsec_8c7a18957ce55dcbdc3a9c6ba27bf52399994039c478649c51a3804fafd74387"
+        val endpointSecret = "whsec_gwW0toQxHqnHkA6q93OrlyXeoBOl6NJE" // TODO move to secrets
         val sigHeader: String = exchange.request.headers["Stripe-Signature"]!![0]
         val event = Webhook.constructEvent(body, sigHeader, endpointSecret)
 
         if (event.type == "checkout.session.completed") {
-            val sessionEvent = event.dataObjectDeserializer.`object`.get()
+            val session = event.dataObjectDeserializer.`object`.get() as Session
+            val paymentId = UUID.fromString(session.clientReferenceId)
+            val command = PayPaymentCommand(
+                paymentId = paymentId
+            )
+            reactorCommandGateway.send<UUID>(command).block()
         }
     }
 }

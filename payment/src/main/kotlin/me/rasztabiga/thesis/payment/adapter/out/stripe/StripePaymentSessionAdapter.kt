@@ -6,7 +6,6 @@ import me.rasztabiga.thesis.payment.domain.command.port.PaymentSessionPort
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderPaymentCommand
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
-import java.math.BigDecimal
 
 @Profile("stripe")
 @Service
@@ -18,7 +17,7 @@ class StripePaymentSessionAdapter : PaymentSessionPort {
 
         val params = SessionCreateParams.builder()
             .setMode(SessionCreateParams.Mode.PAYMENT)
-            .setSuccessUrl("$domain/ordering/orders/${command.orderId}/tracking?session_id={CHECKOUT_SESSION_ID}")
+            .setSuccessUrl("$domain/ordering/orders/${command.orderId}/tracking")
             .setCancelUrl("$domain/ordering/orders/${command.orderId}/canceled")
             .addAllLineItem(
                 command.items.map {
@@ -42,7 +41,7 @@ class StripePaymentSessionAdapter : PaymentSessionPort {
                         .setPriceData(
                             SessionCreateParams.LineItem.PriceData.builder()
                                 .setCurrency("PLN")
-                                .setUnitAmount(command.deliveryFee.times(BigDecimal.valueOf(100)).toLong())
+                                .setUnitAmount(command.deliveryFee.times(100).toLong())
                                 .setProductData(
                                     SessionCreateParams.LineItem.PriceData.ProductData.builder()
                                         .setName("Delivery fee")
