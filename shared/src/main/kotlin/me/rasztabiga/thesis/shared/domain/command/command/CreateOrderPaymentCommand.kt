@@ -15,6 +15,6 @@ data class CreateOrderPaymentCommand(
     data class OrderItem(
         val name: String,
         val quantity: Int,
-        val unitPrice: BigDecimal
+        val unitPrice: Double
     )
 }

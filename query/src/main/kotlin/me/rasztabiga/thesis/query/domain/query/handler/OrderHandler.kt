@@ -102,6 +102,7 @@ class OrderHandler(
     fun on(event: OrderPaymentCreatedEvent) {
         val entity = getOrder(event.orderId)
         entity.paymentId = event.id
+        entity.paymentSessionUrl = event.sessionUrl
         orderRepository.save(entity)
     }
 

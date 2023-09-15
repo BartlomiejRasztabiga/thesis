@@ -17,6 +17,7 @@ data class OrderEntity(
     val items: MutableList<OrderItem>,
     var total: BigDecimal?,
     var paymentId: UUID?,
+    var paymentSessionUrl: String?,
     var deliveryAddressId: UUID?,
     var deliveryLocation: Location?,
     var courierId: String?

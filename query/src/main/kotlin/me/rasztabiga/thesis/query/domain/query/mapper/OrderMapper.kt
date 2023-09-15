@@ -17,6 +17,7 @@ object OrderMapper {
             items = mutableListOf(),
             total = null,
             paymentId = null,
+            paymentSessionUrl = null,
             deliveryAddressId = null,
             deliveryLocation = null,
             courierId = null

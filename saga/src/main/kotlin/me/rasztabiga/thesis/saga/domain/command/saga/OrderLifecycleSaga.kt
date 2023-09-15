@@ -43,6 +43,7 @@ import org.axonframework.modelling.saga.StartSaga
 import org.axonframework.queryhandling.QueryGateway
 import org.axonframework.spring.stereotype.Saga
 import org.springframework.beans.factory.annotation.Autowired
+import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.*
 
@@ -129,13 +130,13 @@ class OrderLifecycleSaga {
                 amount = event.total,
                 items = order.items.map {
                     val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.productId }!!
-
                     CreateOrderPaymentCommand.OrderItem(
                         name = menuItem.name,
                         quantity = 1,
                         unitPrice = menuItem.price
                     )
-                }
+                },
+                deliveryFee = BigDecimal.valueOf(4.20)
             )
         )
     }

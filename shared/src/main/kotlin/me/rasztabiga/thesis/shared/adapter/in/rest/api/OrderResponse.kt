@@ -14,6 +14,7 @@ data class OrderResponse(
     val items: List<OrderItem>,
     val itemsTotal: BigDecimal?,
     val paymentId: UUID?,
+    val paymentSessionUrl: String?,
     val deliveryAddressId: UUID?,
     val deliveryLocation: Location?,
     val courierId: String?
