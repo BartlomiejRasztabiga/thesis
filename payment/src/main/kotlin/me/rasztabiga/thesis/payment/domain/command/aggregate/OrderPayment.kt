@@ -48,7 +48,6 @@ internal class OrderPayment {
 
     @CommandHandler
     fun handle(command: PayPaymentCommand) {
-        require(this.payerId == command.payerId) { "Payment can be paid only by the user who created it." }
         require(this.status == PaymentStatus.NEW) { "Payment can be paid only if it's in NEW status." }
 
         // TODO call payment gateway

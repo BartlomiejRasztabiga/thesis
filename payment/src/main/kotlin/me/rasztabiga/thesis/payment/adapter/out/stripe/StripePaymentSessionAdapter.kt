@@ -1,6 +1,5 @@
 package me.rasztabiga.thesis.payment.adapter.out.stripe
 
-import com.stripe.Stripe
 import com.stripe.model.checkout.Session
 import com.stripe.param.checkout.SessionCreateParams
 import me.rasztabiga.thesis.payment.domain.command.port.PaymentSessionPort
@@ -13,8 +12,7 @@ import java.math.BigDecimal
 @Service
 class StripePaymentSessionAdapter : PaymentSessionPort {
     override fun createPaymentSession(command: CreateOrderPaymentCommand): String {
-        Stripe.apiKey =
-            "sk_test_51NkBWgEKNDTQpRbz21IxN1lSre63zv95KLm787PdcaZRMWv0YhjTqiwVHqlB9CLGtV8BCv4VeaFUdG4SAAXLrBGH00kaWNjf8C"
+
 
         val domain = "http://localhost:3000"
 
@@ -55,6 +53,7 @@ class StripePaymentSessionAdapter : PaymentSessionPort {
                         .build()
                 )
             )
+            .setClientReferenceId(command.id.toString())
             .build()
 
         val session = Session.create(params)

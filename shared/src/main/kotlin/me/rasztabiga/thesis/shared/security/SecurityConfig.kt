@@ -18,6 +18,7 @@ class SecurityConfig {
     fun springSecurityFilterChain(http: ServerHttpSecurity): SecurityWebFilterChain {
         return http.authorizeExchange {
             it.pathMatchers("/actuator/**").permitAll()
+            it.pathMatchers("/api/v1/payments/stripe-webhook").permitAll()
             it.anyExchange().authenticated()
         }.csrf {
             it.disable()

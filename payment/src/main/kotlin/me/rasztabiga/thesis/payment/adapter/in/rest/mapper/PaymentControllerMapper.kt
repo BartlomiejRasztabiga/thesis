@@ -10,8 +10,7 @@ import java.util.*
 object PaymentControllerMapper {
     fun mapToPayPaymentCommand(paymentId: UUID, exchange: ServerWebExchange): PayPaymentCommand {
         return PayPaymentCommand(
-            paymentId = paymentId,
-            payerId = exchange.getUserId()
+            paymentId = paymentId
         )
     }
 }
