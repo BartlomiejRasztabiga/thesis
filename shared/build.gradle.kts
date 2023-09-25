@@ -42,7 +42,7 @@ dependencies {
     testFixturesImplementation("org.axonframework:axon-test")
     testFixturesImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testFixturesImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
-    testFixturesImplementation("io.mockk:mockk:1.13.7")
+    testFixturesImplementation("io.mockk:mockk:1.13.8")
     testFixturesImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 
