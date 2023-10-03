@@ -33,8 +33,6 @@ export async function action({ request, params }: ActionArgs) {
   invariant(params.orderId, "orderId not found");
 
   if (_action === "pay") {
-    // TODO redirect to payment gateway
-
     const paymentSessionUrl = values.payment_session_url as string;
     invariant(paymentSessionUrl, "payment_session_url not found");
 
