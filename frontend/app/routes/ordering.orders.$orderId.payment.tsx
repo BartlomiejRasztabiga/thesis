@@ -33,25 +33,30 @@ export async function action({ request, params }: ActionArgs) {
   invariant(params.orderId, "orderId not found");
 
   if (_action === "pay") {
-    const paymentId = values.payment_id as string;
-    invariant(paymentId, "paymentId not found");
+    // TODO redirect to payment gateway
 
-    await payPayment(request, paymentId);
+    const paymentSessionUrl = values.payment_session_url as string;
+    invariant(paymentSessionUrl, "payment_session_url not found");
 
-    // TODO DELETE
-    // sleep for 1 second for the payment to be processed
-    await new Promise((r) => setTimeout(r, 1000));
+    // redirect to payment gateway
+    return redirect(paymentSessionUrl);
 
-    const order = await getOrder(request, params.orderId);
-    invariant(order, "order not found");
+    // await payPayment(request, paymentId);
 
-    console.log(order);
+    // // TODO DELETE
+    // // sleep for 1 second for the payment to be processed
+    // await new Promise((r) => setTimeout(r, 1000));
+    //
+    // const order = await getOrder(request, params.orderId);
+    // invariant(order, "order not found");
+    //
+    // console.log(order);
 
-    if (order.status == "PAID") {
-      return redirect(`/ordering/orders/${order.id}/tracking`);
-    } else {
-      return json({ error: "Payment failed" });
-    }
+    // if (order.status == "PAID") {
+    //   return redirect(`/ordering/orders/${order.id}/tracking`);
+    // } else {
+    //   return json({ error: "Payment failed" });
+    // }
   }
 
   if (_action === "cancel") {
@@ -136,8 +141,8 @@ export default function OrderPaymentPage() {
                 <Form method="post">
                   <input
                     type="hidden"
-                    name="payment_id"
-                    value={data.order.paymentId}
+                    name="payment_session_url"
+                    value={data.order.paymentSessionUrl}
                   />
                   <button
                     type="submit"

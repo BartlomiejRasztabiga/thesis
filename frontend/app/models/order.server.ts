@@ -69,6 +69,7 @@ export interface OrderResponse {
   items: OrderItemResponse[];
   total: number;
   paymentId: string;
+  paymentSessionUrl: string;
 }
 
 interface OrderItemResponse {
