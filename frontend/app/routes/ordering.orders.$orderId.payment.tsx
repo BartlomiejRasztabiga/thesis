@@ -40,23 +40,6 @@ export async function action({ request, params }: ActionArgs) {
 
     // redirect to payment gateway
     return redirect(paymentSessionUrl);
-
-    // await payPayment(request, paymentId);
-
-    // // TODO DELETE
-    // // sleep for 1 second for the payment to be processed
-    // await new Promise((r) => setTimeout(r, 1000));
-    //
-    // const order = await getOrder(request, params.orderId);
-    // invariant(order, "order not found");
-    //
-    // console.log(order);
-
-    // if (order.status == "PAID") {
-    //   return redirect(`/ordering/orders/${order.id}/tracking`);
-    // } else {
-    //   return json({ error: "Payment failed" });
-    // }
   }
 
   if (_action === "cancel") {
