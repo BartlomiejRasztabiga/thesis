@@ -7,7 +7,6 @@ import { cancelOrder, getOrder } from "~/models/order.server";
 import invariant from "tiny-invariant";
 import { getRestaurant } from "~/models/restaurant.server";
 import { clearOrderId } from "~/services/session.server";
-import { payPayment } from "~/models/payment.server";
 
 export async function loader({ request, params }: LoaderArgs) {
   // TODO DELETE
