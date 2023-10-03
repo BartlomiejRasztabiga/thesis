@@ -37,3 +37,4 @@ out/
 .vscode/
 
 application-mailjet.properties
+application-stripe.properties

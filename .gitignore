@@ -152,3 +152,4 @@ application-gmaps.properties
 application-mailjet.properties
 gmaps-api-key-secret.yaml
 mailjet-api-key-secret.yaml
+stripe-api-key-secret.yaml

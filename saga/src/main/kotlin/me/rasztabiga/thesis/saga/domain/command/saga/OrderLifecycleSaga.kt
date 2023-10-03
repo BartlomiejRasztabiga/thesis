@@ -136,7 +136,7 @@ class OrderLifecycleSaga {
                         unitPrice = menuItem.price
                     )
                 },
-                deliveryFee = BigDecimal.valueOf(4.20)
+                deliveryFee = 4.20
             )
         )
     }

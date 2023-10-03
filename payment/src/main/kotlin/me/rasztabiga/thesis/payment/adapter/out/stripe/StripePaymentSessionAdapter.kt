@@ -4,21 +4,21 @@ import com.stripe.model.checkout.Session
 import com.stripe.param.checkout.SessionCreateParams
 import me.rasztabiga.thesis.payment.domain.command.port.PaymentSessionPort
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderPaymentCommand
+import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
 
 @Profile("stripe")
 @Service
-class StripePaymentSessionAdapter : PaymentSessionPort {
+class StripePaymentSessionAdapter(
+    @Value("\${stripe.frontend.domain}")
+    private val stripeFrontendDomain: String
+) : PaymentSessionPort {
     override fun createPaymentSession(command: CreateOrderPaymentCommand): String {
-
-
-        val domain = "http://localhost:3000"
-
         val params = SessionCreateParams.builder()
             .setMode(SessionCreateParams.Mode.PAYMENT)
-            .setSuccessUrl("$domain/ordering/orders/${command.orderId}/tracking")
-            .setCancelUrl("$domain/ordering/orders/${command.orderId}/canceled")
+            .setSuccessUrl("$stripeFrontendDomain/ordering/orders/${command.orderId}/tracking")
+            .setCancelUrl("$stripeFrontendDomain/ordering/orders/${command.orderId}/canceled")
             .addAllLineItem(
                 command.items.map {
                     SessionCreateParams.LineItem.builder()
@@ -26,7 +26,7 @@ class StripePaymentSessionAdapter : PaymentSessionPort {
                         .setPriceData(
                             SessionCreateParams.LineItem.PriceData.builder()
                                 .setCurrency("PLN")
-                                .setUnitAmount(it.unitPrice.times(100).toLong())
+                                .setUnitAmount(it.unitPrice.times(CENTS).toLong())
                                 .setProductData(
                                     SessionCreateParams.LineItem.PriceData.ProductData.builder()
                                         .setName(it.name)
@@ -41,7 +41,7 @@ class StripePaymentSessionAdapter : PaymentSessionPort {
                         .setPriceData(
                             SessionCreateParams.LineItem.PriceData.builder()
                                 .setCurrency("PLN")
-                                .setUnitAmount(command.deliveryFee.times(100).toLong())
+                                .setUnitAmount(command.deliveryFee.times(CENTS).toLong())
                                 .setProductData(
                                     SessionCreateParams.LineItem.PriceData.ProductData.builder()
                                         .setName("Delivery fee")
@@ -57,5 +57,9 @@ class StripePaymentSessionAdapter : PaymentSessionPort {
 
         val session = Session.create(params)
         return session.url
+    }
+
+    companion object {
+        private const val CENTS = 100
     }
 }

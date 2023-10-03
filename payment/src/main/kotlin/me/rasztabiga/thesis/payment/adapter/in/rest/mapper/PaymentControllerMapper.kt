@@ -8,7 +8,7 @@ import org.springframework.web.server.ServerWebExchange
 import java.util.*
 
 object PaymentControllerMapper {
-    fun mapToPayPaymentCommand(paymentId: UUID, exchange: ServerWebExchange): PayPaymentCommand {
+    fun mapToPayPaymentCommand(paymentId: UUID): PayPaymentCommand {
         return PayPaymentCommand(
             paymentId = paymentId
         )
