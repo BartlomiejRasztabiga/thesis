@@ -181,14 +181,14 @@ jobs:
           action: deploy
           strategy: basic
           manifests: |
-            k8s/restaurant-service-deployment.yaml
-            k8s/delivery-service-deployment.yaml
-            k8s/order-service-deployment.yaml
-            k8s/payment-service-deployment.yaml
-            k8s/query-service-deployment.yaml
-            k8s/saga-service-deployment.yaml
-            k8s/gateway-deployment.yaml
-            k8s/frontend-deployment.yaml
+            k8s/main/restaurant-service-deployment.yaml
+            k8s/main/delivery-service-deployment.yaml
+            k8s/main/order-service-deployment.yaml
+            k8s/main/payment-service-deployment.yaml
+            k8s/main/query-service-deployment.yaml
+            k8s/main/saga-service-deployment.yaml
+            k8s/main/gateway-deployment.yaml
+            k8s/main/frontend-deployment.yaml
           images: |
             ghcr.io/bartlomiejrasztabiga/thesis/restaurant:${{ env.VERSION }}
             ghcr.io/bartlomiejrasztabiga/thesis/delivery:${{ env.VERSION }}
