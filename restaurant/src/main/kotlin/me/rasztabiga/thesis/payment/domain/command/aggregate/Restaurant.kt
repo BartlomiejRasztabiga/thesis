@@ -74,7 +74,7 @@ internal class Restaurant {
     @CommandHandler
     fun handle(command: UpdateRestaurantMenuCommand) {
         command.menu.forEach { product ->
-            require(product.price >= 0) { "Price cannot be negative" }
+            require(product.price >= BigDecimal.ZERO) { "Price cannot be negative" }
         }
 
         apply(RestaurantMenuUpdatedEvent(id = command.id, menu = command.menu.map {
@@ -88,7 +88,7 @@ internal class Restaurant {
         command.items.forEach { item ->
             val productInMenu = menu.find { it.id == item.productId }
             require(productInMenu != null) { "Product with id ${item.productId} does not exist in menu" }
-            total += productInMenu.price.toBigDecimal()
+            total += productInMenu.price
         }
 
         val deliveryFee =

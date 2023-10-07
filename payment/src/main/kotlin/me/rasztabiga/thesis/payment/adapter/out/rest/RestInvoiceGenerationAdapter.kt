@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import me.rasztabiga.thesis.payment.domain.command.port.InvoiceGenerationPort
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
+import java.math.BigDecimal
 
 @Service
 class RestInvoiceGenerationAdapter : InvoiceGenerationPort {
@@ -49,7 +50,7 @@ class RestInvoiceGenerationAdapter : InvoiceGenerationPort {
         data class InvoiceItem(
             val name: String,
             val quantity: Int,
-            @get:JsonProperty("unit_cost") val unitCost: Double
+            @get:JsonProperty("unit_cost") val unitCost: BigDecimal
         )
     }
 }

@@ -286,7 +286,7 @@ class OrderLifecycleSaga {
                     CreateInvoiceCommand.InvoiceItem(
                         name = "Delivery fee",
                         quantity = 1,
-                        unitPrice = order.deliveryFee
+                        unitPrice = order.deliveryFee!!
                     )
                 )
             )

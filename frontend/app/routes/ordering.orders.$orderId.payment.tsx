@@ -11,7 +11,7 @@ import { clearOrderId } from "~/services/session.server";
 export async function loader({ request, params }: LoaderArgs) {
   // TODO DELETE
   // sleep for 1 second for the payment to be generated
-  await new Promise((r) => setTimeout(r, 1000));
+  await new Promise((r) => setTimeout(r, 3000));
 
   const activeOrderId = params.orderId;
   invariant(activeOrderId, "activeOrderId not found");
