@@ -8,6 +8,7 @@ import me.rasztabiga.thesis.payment.adapter.`in`.rest.mapper.PaymentControllerMa
 import me.rasztabiga.thesis.payment.domain.command.command.PayPaymentCommand
 import me.rasztabiga.thesis.shared.UuidWrapper
 import me.rasztabiga.thesis.shared.security.Scopes
+import org.axonframework.commandhandling.gateway.CommandGateway
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Profile
@@ -26,7 +27,7 @@ import java.util.*
 @RestController
 @RequestMapping("/api/v1/payments")
 class StripePaymentController(
-    private val reactorCommandGateway: ReactorCommandGateway,
+    private val commandGateway: CommandGateway,
     @Value("\${stripe.endpoint.secret}")
     private val stripeEndpointSecret: String
 ) {
@@ -42,7 +43,7 @@ class StripePaymentController(
             val command = PayPaymentCommand(
                 paymentId = paymentId
             )
-            reactorCommandGateway.send<UUID>(command).block()
+            commandGateway.send<UUID>(command).join()
         }
     }
 }
