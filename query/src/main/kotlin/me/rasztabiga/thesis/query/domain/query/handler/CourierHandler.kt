@@ -8,6 +8,7 @@ import me.rasztabiga.thesis.query.domain.query.repository.CourierRepository
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CourierResponse
 import me.rasztabiga.thesis.shared.domain.command.event.CourierAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.CourierCreatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.CourierLocationUpdatedEvent
 import me.rasztabiga.thesis.shared.domain.query.query.FindCourierByIdQuery
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler

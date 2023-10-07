@@ -4,6 +4,7 @@ import me.rasztabiga.thesis.query.domain.query.entity.OrderEntity
 import me.rasztabiga.thesis.query.domain.query.exception.OrderNotFoundException
 import me.rasztabiga.thesis.query.domain.query.mapper.OrderMapper.mapToEntity
 import me.rasztabiga.thesis.query.domain.query.mapper.OrderMapper.mapToResponse
+import me.rasztabiga.thesis.query.domain.query.repository.CourierRepository
 import me.rasztabiga.thesis.query.domain.query.repository.OrderRepository
 import me.rasztabiga.thesis.query.domain.query.repository.RestaurantRepository
 import me.rasztabiga.thesis.query.domain.query.repository.UserRepository
@@ -36,7 +37,8 @@ import java.util.*
 class OrderHandler(
     private val orderRepository: OrderRepository,
     private val userRepository: UserRepository,
-    private val restaurantRepository: RestaurantRepository
+    private val restaurantRepository: RestaurantRepository,
+    private val courierRepository: CourierRepository
 ) {
 
     @EventHandler
@@ -72,8 +74,11 @@ class OrderHandler(
 
     @QueryHandler
     fun handle(query: FindOrderByIdQuery): Mono<OrderResponse> {
-        return orderRepository.load(query.orderId)
-            ?.let { Mono.just(mapToResponse(it)) }
+        val order = orderRepository.load(query.orderId)
+        val courier = order?.courierId?.let { courierRepository.load(it) }
+
+        return order
+            ?.let { Mono.just(mapToResponse(it, courier)) }
             ?: Mono.error(OrderNotFoundException(query.orderId))
     }
 

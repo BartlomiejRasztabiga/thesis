@@ -6,6 +6,7 @@ import me.rasztabiga.thesis.delivery.domain.command.command.UpdateCourierLocatio
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import me.rasztabiga.thesis.shared.domain.command.event.CourierAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.CourierCreatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.CourierLocationUpdatedEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier

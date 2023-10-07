@@ -21,8 +21,7 @@ data class OrderEntity(
     var paymentSessionUrl: String?,
     var deliveryAddressId: UUID?,
     var deliveryLocation: Location?,
-    var courierId: String?,
-    var courierLocation: Location?
+    var courierId: String?
 ) {
     enum class OrderStatus {
         CREATED,

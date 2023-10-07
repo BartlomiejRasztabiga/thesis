@@ -55,7 +55,7 @@ class OrderDelivery {
     @CommandHandler
     fun handle(command: RejectDeliveryOfferCommand, courierOnlineVerifierPort: CourierOnlineVerifierPort) {
         require(this.status == DeliveryStatus.OFFER) { "Delivery can be rejected only if it's in OFFER status." }
-        require(courierOnlineVerifierPort.isCourierOnline(this.courierId!!)) {
+        require(courierOnlineVerifierPort.isCourierOnline(command.courierId)) {
             "Delivery can be rejected only if the courier is online."
         }
 
@@ -70,7 +70,7 @@ class OrderDelivery {
     @CommandHandler
     fun handle(command: AcceptDeliveryOfferCommand, courierOnlineVerifierPort: CourierOnlineVerifierPort) {
         require(this.status == DeliveryStatus.OFFER) { "Delivery can be accepted only if it's in OFFER status." }
-        require(courierOnlineVerifierPort.isCourierOnline(this.courierId!!)) {
+        require(courierOnlineVerifierPort.isCourierOnline(command.courierId)) {
             "Delivery can be accepted only if the courier is online."
         }
 

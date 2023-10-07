@@ -1,5 +1,6 @@
 package me.rasztabiga.thesis.query.domain.query.mapper
 
+import me.rasztabiga.thesis.query.domain.query.entity.CourierEntity
 import me.rasztabiga.thesis.query.domain.query.entity.OrderEntity
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
@@ -21,12 +22,11 @@ object OrderMapper {
             deliveryAddressId = null,
             deliveryLocation = null,
             courierId = null,
-            deliveryFee = null,
-            courierLocation = null
+            deliveryFee = null
         )
     }
 
-    fun mapToResponse(entity: OrderEntity): OrderResponse {
+    fun mapToResponse(entity: OrderEntity, courier: CourierEntity?): OrderResponse {
         return OrderResponse(
             id = entity.id,
             restaurantId = entity.restaurantId,
@@ -45,7 +45,7 @@ object OrderMapper {
             deliveryAddressId = entity.deliveryAddressId,
             deliveryLocation = entity.deliveryLocation,
             courierId = entity.courierId,
-            courierLocation = entity.courierLocation,
+            courierLocation = courier?.location,
             deliveryFee = entity.deliveryFee
         )
     }

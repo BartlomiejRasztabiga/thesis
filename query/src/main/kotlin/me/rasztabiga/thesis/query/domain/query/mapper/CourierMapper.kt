@@ -11,7 +11,8 @@ object CourierMapper {
             id = event.courierId,
             name = event.name,
             email = event.email,
-            availability = CourierEntity.Availability.OFFLINE
+            availability = CourierEntity.Availability.OFFLINE,
+            location = null
         )
     }
 
