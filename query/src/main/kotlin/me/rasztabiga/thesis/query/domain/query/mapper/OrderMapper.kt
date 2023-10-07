@@ -15,12 +15,13 @@ object OrderMapper {
             userId = event.userId,
             status = OrderEntity.OrderStatus.valueOf(event.status.name),
             items = mutableListOf(),
-            total = null,
+            productsTotal = null,
             paymentId = null,
             paymentSessionUrl = null,
             deliveryAddressId = null,
             deliveryLocation = null,
-            courierId = null
+            courierId = null,
+            deliveryFee = null
         )
     }
 
@@ -37,12 +38,13 @@ object OrderMapper {
                     it.productId
                 )
             },
-            itemsTotal = entity.total,
+            itemsTotal = entity.productsTotal,
             paymentId = entity.paymentId,
             paymentSessionUrl = entity.paymentSessionUrl,
             deliveryAddressId = entity.deliveryAddressId,
             deliveryLocation = entity.deliveryLocation,
-            courierId = entity.courierId
+            courierId = entity.courierId,
+            deliveryFee = entity.deliveryFee
         )
     }
 }

@@ -43,7 +43,6 @@ import org.axonframework.modelling.saga.StartSaga
 import org.axonframework.queryhandling.QueryGateway
 import org.axonframework.spring.stereotype.Saga
 import org.springframework.beans.factory.annotation.Autowired
-import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.*
 
@@ -88,18 +87,20 @@ class OrderLifecycleSaga {
 
         val order = getOrder(event.orderId)
 
-        commandGateway.sendAndWait<Void>(CalculateOrderTotalCommand(
-            orderId = event.orderId,
-            restaurantId = event.restaurantId,
-            items = event.items.map {
-                CalculateOrderTotalCommand.OrderItem(
-                    orderItemId = it.orderItemId,
-                    productId = it.productId
-                )
-            },
-            restaurantAddress = order.restaurantLocation.streetAddress,
-            deliveryAddress = order.deliveryLocation!!.streetAddress
-        ))
+        commandGateway.sendAndWait<Void>(
+            CalculateOrderTotalCommand(
+                orderId = event.orderId,
+                restaurantId = event.restaurantId,
+                items = event.items.map {
+                    CalculateOrderTotalCommand.OrderItem(
+                        orderItemId = it.orderItemId,
+                        productId = it.productId
+                    )
+                },
+                restaurantAddress = order.restaurantLocation.streetAddress,
+                deliveryAddress = order.deliveryLocation!!.streetAddress
+            )
+        )
     }
 
     @Suppress("TooGenericExceptionCaught", "SwallowedException", "UnusedParameter")
@@ -281,7 +282,13 @@ class OrderLifecycleSaga {
                         quantity = 1,
                         unitPrice = menuItem.price
                     )
-                }
+                }.plus(
+                    CreateInvoiceCommand.InvoiceItem(
+                        name = "Delivery fee",
+                        quantity = 1,
+                        unitPrice = order.deliveryFee
+                    )
+                )
             )
         )
     }
@@ -337,7 +344,7 @@ class OrderLifecycleSaga {
                     CreateInvoiceCommand.InvoiceItem(
                         name = "Delivery fee",
                         quantity = 1,
-                        unitPrice = delivery.courierFee.toDouble()
+                        unitPrice = delivery.courierFee
                     )
                 )
             )

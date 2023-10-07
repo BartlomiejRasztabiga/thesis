@@ -17,6 +17,7 @@ data class OrderResponse(
     val paymentSessionUrl: String?,
     val deliveryAddressId: UUID?,
     val deliveryLocation: Location?,
+    val deliveryFee: BigDecimal?,
     val courierId: String?
 ) {
     enum class OrderStatus {

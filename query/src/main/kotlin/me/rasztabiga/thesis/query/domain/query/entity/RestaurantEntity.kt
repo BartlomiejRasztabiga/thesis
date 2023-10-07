@@ -3,6 +3,7 @@ package me.rasztabiga.thesis.query.domain.query.entity
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
+import java.math.BigDecimal
 import java.util.*
 
 @Document(collection = "restaurant")
@@ -25,6 +26,6 @@ data class RestaurantEntity(
         val id: UUID,
         val name: String,
         val description: String?,
-        val price: Double,
+        val price: BigDecimal,
     )
 }
