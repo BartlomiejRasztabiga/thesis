@@ -1,52 +1,42 @@
 import type { LatLngTuple } from "leaflet";
-import {
-  FeatureGroup,
-  MapContainer,
-  Marker,
-  Popup,
-  TileLayer,
-} from "react-leaflet";
-import { useEffect } from "react";
+import { FeatureGroup, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import type { Location } from "~/models/user.server";
 
 export interface MapProps {
   height: string;
   restaurantLocation: Location;
   deliveryLocation: Location;
+  courierLocation?: Location;
 }
 
 export function Map(props: MapProps) {
-  // const [center, setCenter] = useState<LatLngTuple>([52.2370, 21.0175]);
-
   const restaurantLatLng: LatLngTuple = [
     props.restaurantLocation.lat,
-    props.restaurantLocation.lng,
+    props.restaurantLocation.lng
   ];
   const deliveryLatLng: LatLngTuple = [
     props.deliveryLocation.lat,
-    props.deliveryLocation.lng,
+    props.deliveryLocation.lng
   ];
 
-  useEffect(() => {
-    if ("geolocation" in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        // setCurrentLocation([position.coords.latitude, position.coords.longitude]);
-      });
-    } else {
-      console.log("Geolocation not available");
-    }
-  }, []);
+  let bounds = [restaurantLatLng, deliveryLatLng];
 
-  // TODO set restaurant location and delivery location
-  const bounds = [restaurantLatLng, deliveryLatLng];
+  let courierLatLng: LatLngTuple | undefined;
 
-  console.log(props);
+  if (props.courierLocation) {
+    courierLatLng = [
+      props.courierLocation.lat,
+      props.courierLocation.lng
+    ];
+
+    bounds.push(courierLatLng);
+  }
 
   return (
     <div style={{ height: props.height }}>
       <MapContainer
         style={{
-          height: "100%",
+          height: "100%"
         }}
         center={deliveryLatLng}
         zoom={14}
@@ -59,14 +49,17 @@ export function Map(props: MapProps) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <FeatureGroup>
-          {/* TODO courier location */}
-
           <Marker position={restaurantLatLng}>
             <Popup>Restaurant location</Popup>
           </Marker>
           <Marker position={deliveryLatLng}>
             <Popup>Delivery location</Popup>
           </Marker>
+          {props.courierLocation &&
+            (<Marker position={courierLatLng}>
+              <Popup>Courier location</Popup>
+            </Marker>)
+          }
         </FeatureGroup>
       </MapContainer>
     </div>

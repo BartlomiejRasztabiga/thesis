@@ -64,6 +64,7 @@ export interface OrderResponse {
   restaurantId: string;
   restaurantLocation: Location;
   deliveryLocation: Location;
+  courierLocation: Location;
   deliveryFee: number;
   userId: string;
   status: OrderStatus;

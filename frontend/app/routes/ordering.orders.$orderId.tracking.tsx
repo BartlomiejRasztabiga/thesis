@@ -90,6 +90,7 @@ export default function OrderTrackingPage() {
                     height={mapHeight}
                     restaurantLocation={data.order.restaurantLocation}
                     deliveryLocation={data.order.deliveryLocation}
+                    courierLocation={data.order.courierLocation}
                   />
                 )}
               </ClientOnly>

@@ -21,7 +21,8 @@ object OrderMapper {
             deliveryAddressId = null,
             deliveryLocation = null,
             courierId = null,
-            deliveryFee = null
+            deliveryFee = null,
+            courierLocation = null
         )
     }
 

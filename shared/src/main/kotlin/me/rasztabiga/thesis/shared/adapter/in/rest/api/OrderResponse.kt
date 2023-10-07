@@ -18,7 +18,8 @@ data class OrderResponse(
     val deliveryAddressId: UUID?,
     val deliveryLocation: Location?,
     val deliveryFee: BigDecimal?,
-    val courierId: String?
+    val courierId: String?,
+    val courierLocation: Location?
 ) {
     enum class OrderStatus {
         CREATED,
