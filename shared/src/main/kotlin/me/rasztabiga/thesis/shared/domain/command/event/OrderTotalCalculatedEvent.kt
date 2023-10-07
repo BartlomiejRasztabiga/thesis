@@ -7,5 +7,6 @@ import java.util.*
 @Revision("1.0")
 data class OrderTotalCalculatedEvent(
     val orderId: UUID,
-    val total: BigDecimal
+    val productsTotal: BigDecimal,
+    val deliveryFee: BigDecimal
 )
