@@ -37,8 +37,8 @@ class OrderDelivery {
     @CommandHandler
     constructor(command: CreateOrderDeliveryOfferCommand, calculateDeliveryFeePort: CalculateDeliveryFeePort) {
         val baseFee = calculateDeliveryFeePort.calculateBaseFee(
-            command.restaurantLocation.streetAddress,
-            command.deliveryLocation.streetAddress
+            command.restaurantLocation.streetAddress!!,
+            command.deliveryLocation.streetAddress!!
         )
 
         apply(

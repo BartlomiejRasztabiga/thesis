@@ -34,6 +34,13 @@ class CourierHandler(
         courierRepository.save(entity)
     }
 
+    @EventHandler
+    fun on(event: CourierLocationUpdatedEvent) {
+        val entity = getCourier(event.id)
+        entity.location = event.location
+        courierRepository.save(entity)
+    }
+
     @QueryHandler
     fun handle(query: FindCourierByIdQuery): Mono<CourierResponse> {
         return courierRepository.load(query.courierId)

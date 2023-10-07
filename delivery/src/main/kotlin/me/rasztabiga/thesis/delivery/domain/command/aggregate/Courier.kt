@@ -2,6 +2,8 @@ package me.rasztabiga.thesis.delivery.domain.command.aggregate
 
 import me.rasztabiga.thesis.delivery.domain.command.command.CreateCourierCommand
 import me.rasztabiga.thesis.delivery.domain.command.command.UpdateCourierAvailabilityCommand
+import me.rasztabiga.thesis.delivery.domain.command.command.UpdateCourierLocationCommand
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import me.rasztabiga.thesis.shared.domain.command.event.CourierAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.CourierCreatedEvent
 import org.axonframework.commandhandling.CommandHandler
@@ -18,6 +20,7 @@ internal class Courier {
     private lateinit var id: String
     private lateinit var name: String
     private var availability: Availability = Availability.OFFLINE
+    private var location: Location? = null
 
     constructor()
 
@@ -32,6 +35,16 @@ internal class Courier {
             CourierAvailabilityUpdatedEvent(
                 id = command.id,
                 availability = CourierAvailabilityUpdatedEvent.Availability.valueOf(command.availability.name)
+            )
+        )
+    }
+
+    @CommandHandler
+    fun handle(command: UpdateCourierLocationCommand) {
+        apply(
+            CourierLocationUpdatedEvent(
+                id = command.id,
+                location = command.location
             )
         )
     }

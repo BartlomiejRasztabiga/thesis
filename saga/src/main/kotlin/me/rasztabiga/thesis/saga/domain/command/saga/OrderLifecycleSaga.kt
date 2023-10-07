@@ -97,8 +97,8 @@ class OrderLifecycleSaga {
                         productId = it.productId
                     )
                 },
-                restaurantAddress = order.restaurantLocation.streetAddress,
-                deliveryAddress = order.deliveryLocation!!.streetAddress
+                restaurantAddress = order.restaurantLocation.streetAddress!!,
+                deliveryAddress = order.deliveryLocation!!.streetAddress!!
             )
         )
     }
