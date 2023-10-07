@@ -1,6 +1,7 @@
 package me.rasztabiga.thesis.shared.domain.command.event
 
 import org.axonframework.serialization.Revision
+import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.*
 
@@ -16,7 +17,7 @@ data class InvoiceCreatedEvent(
     data class InvoiceItem(
         val name: String,
         val quantity: Int,
-        val unitPrice: Double
+        val unitPrice: BigDecimal
     )
 }
 

@@ -1,6 +1,7 @@
 package me.rasztabiga.thesis.shared.domain.command.command
 
 import org.axonframework.modelling.command.TargetAggregateIdentifier
+import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.*
 
@@ -15,6 +16,6 @@ data class CreateInvoiceCommand(
     data class InvoiceItem(
         val name: String,
         val quantity: Int,
-        val unitPrice: Double
+        val unitPrice: BigDecimal
     )
 }

@@ -1,5 +1,6 @@
 package me.rasztabiga.thesis.payment.domain.command.port
 
+import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.*
 
@@ -18,7 +19,7 @@ interface InvoiceGenerationPort {
         data class InvoiceItem(
             val name: String,
             val quantity: Int,
-            val unitPrice: Double
+            val unitPrice: BigDecimal
         )
     }
 }

@@ -11,6 +11,7 @@ import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
 import org.axonframework.modelling.command.AggregateLifecycle.apply
 import org.axonframework.spring.stereotype.Aggregate
+import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.*
 
@@ -29,7 +30,7 @@ class Invoice {
     data class InvoiceItem(
         val name: String,
         val quantity: Int,
-        val unitPrice: Double
+        val unitPrice: BigDecimal
     )
 
     enum class InvoiceStatus {
