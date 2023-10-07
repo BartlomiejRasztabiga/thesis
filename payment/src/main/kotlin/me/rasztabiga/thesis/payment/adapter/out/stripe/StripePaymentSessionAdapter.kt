@@ -60,6 +60,6 @@ class StripePaymentSessionAdapter(
     }
 
     companion object {
-        private const val CENTS = 100
+        private val CENTS = 100.toBigDecimal()
     }
 }

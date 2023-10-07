@@ -5,7 +5,7 @@ import me.rasztabiga.thesis.payment.domain.command.command.DeleteRestaurantComma
 import me.rasztabiga.thesis.payment.domain.command.command.UpdateRestaurantAvailabilityCommand
 import me.rasztabiga.thesis.payment.domain.command.command.UpdateRestaurantCommand
 import me.rasztabiga.thesis.payment.domain.command.command.UpdateRestaurantMenuCommand
-import me.rasztabiga.thesis.payment.domain.command.port.DistanceCalculatorPort
+import me.rasztabiga.thesis.payment.domain.command.port.CalculateDeliveryFeePort
 import me.rasztabiga.thesis.payment.domain.command.port.GeocodeAddressPort
 import me.rasztabiga.thesis.shared.domain.command.command.CalculateOrderTotalCommand
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
@@ -83,7 +83,7 @@ internal class Restaurant {
     }
 
     @CommandHandler
-    fun handle(command: CalculateOrderTotalCommand, distanceCalculatorPort: DistanceCalculatorPort) {
+    fun handle(command: CalculateOrderTotalCommand, distanceCalculatorPort: CalculateDeliveryFeePort) {
         var total = BigDecimal.ZERO
         command.items.forEach { item ->
             val productInMenu = menu.find { it.id == item.productId }
@@ -91,11 +91,10 @@ internal class Restaurant {
             total += productInMenu.price.toBigDecimal()
         }
 
-        // TODO calculate distance
-        val distance = distanceCalculatorPort.calculateDistance(command.restaurantAddress, command.deliveryAddress)
-        val deliveryFee = BigDecimal.valueOf(distance * 0.003)
+        val deliveryFee =
+            distanceCalculatorPort.calculateDeliveryFee(command.restaurantAddress, command.deliveryAddress)
 
-        apply(OrderTotalCalculatedEvent(orderId = command.orderId, total = total, deliveryFee = deliveryFee))
+        apply(OrderTotalCalculatedEvent(orderId = command.orderId, productsTotal = total, deliveryFee = deliveryFee))
     }
 
     @EventSourcingHandler

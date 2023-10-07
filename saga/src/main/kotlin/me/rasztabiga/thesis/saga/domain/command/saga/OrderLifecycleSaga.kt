@@ -86,6 +86,8 @@ class OrderLifecycleSaga {
         restaurantId = event.restaurantId
         orderId = event.orderId
 
+        val order = getOrder(event.orderId)
+
         commandGateway.sendAndWait<Void>(CalculateOrderTotalCommand(
             orderId = event.orderId,
             restaurantId = event.restaurantId,
@@ -94,7 +96,9 @@ class OrderLifecycleSaga {
                     orderItemId = it.orderItemId,
                     productId = it.productId
                 )
-            }
+            },
+            restaurantAddress = order.restaurantLocation.streetAddress,
+            deliveryAddress = order.deliveryLocation!!.streetAddress
         ))
     }
 
@@ -127,7 +131,7 @@ class OrderLifecycleSaga {
                 id = paymentId,
                 orderId = event.orderId,
                 payerId = this.orderingUserId,
-                amount = event.total,
+                amount = event.productsTotal + event.deliveryFee,
                 items = order.items.map {
                     val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.productId }!!
                     CreateOrderPaymentCommand.OrderItem(
@@ -136,7 +140,7 @@ class OrderLifecycleSaga {
                         unitPrice = menuItem.price
                     )
                 },
-                deliveryFee = 4.20
+                deliveryFee = event.deliveryFee
             )
         )
     }

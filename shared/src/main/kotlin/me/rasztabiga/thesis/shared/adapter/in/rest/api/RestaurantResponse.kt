@@ -2,6 +2,7 @@
 
 package me.rasztabiga.thesis.shared.adapter.`in`.rest.api
 
+import java.math.BigDecimal
 import java.util.*
 
 data class RestaurantResponse(
@@ -17,7 +18,7 @@ data class RestaurantResponse(
         val id: UUID,
         val name: String,
         val description: String?,
-        val price: Double,
+        val price: BigDecimal,
     )
 
     enum class Availability {

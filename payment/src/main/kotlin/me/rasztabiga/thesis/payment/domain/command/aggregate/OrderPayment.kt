@@ -32,7 +32,6 @@ internal class OrderPayment {
 
     @CommandHandler
     constructor(command: CreateOrderPaymentCommand, paymentSessionPort: PaymentSessionPort) {
-        // TODO stripe client, save url or sth
         val sessionUrl = paymentSessionPort.createPaymentSession(command)
 
         apply(
@@ -49,8 +48,6 @@ internal class OrderPayment {
     @CommandHandler
     fun handle(command: PayPaymentCommand) {
         require(this.status == PaymentStatus.NEW) { "Payment can be paid only if it's in NEW status." }
-
-        // TODO call payment gateway
 
         apply(
             OrderPaymentPaidEvent(

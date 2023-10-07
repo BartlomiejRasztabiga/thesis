@@ -94,7 +94,8 @@ class OrderHandler(
     @EventHandler
     fun on(event: OrderTotalCalculatedEvent) {
         val entity = getOrder(event.orderId)
-        entity.total = event.total
+        entity.productsTotal = event.productsTotal
+        entity.deliveryFee = event.deliveryFee
         orderRepository.save(entity)
     }
 
