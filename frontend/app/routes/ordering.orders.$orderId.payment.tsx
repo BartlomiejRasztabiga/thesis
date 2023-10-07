@@ -88,25 +88,21 @@ export default function OrderPaymentPage() {
                     </div>
                   );
                 })}
+                <div>
+                  <p className="flex-grow">
+                    {" "}
+                    1x Delivery fee, {data.order.deliveryFee} PLN
+                  </p>
+                </div>
               </div>
               <hr className="my-4" />
               <div>
-                <p className="flex-grow">Total: {data.order.total} PLN</p>
+                <p className="flex-grow font-bold">Total: {data.order.itemsTotal + data.order.deliveryFee} PLN</p>
               </div>
               <hr className="my-4" />
               <div>
-                <p className="flex-grow">Choose payment method</p>
-                <select
-                  className="select select-bordered w-full max-w-xs"
-                  name="address"
-                >
-                  <option value="1">Stripe (fake)</option>
-                </select>
-              </div>
-              <hr className="my-4" />
-              <div>
-                <p className="flex-grow">Selected delivery address</p>
-                <span>TODO</span>
+                <p className="flex-grow font-bold">Selected delivery address</p>
+                <span>{data.order.deliveryLocation.streetAddress}</span>
               </div>
               <hr className="my-4" />
               {error && (

@@ -64,10 +64,11 @@ export interface OrderResponse {
   restaurantId: string;
   restaurantLocation: Location;
   deliveryLocation: Location;
+  deliveryFee: number;
   userId: string;
   status: OrderStatus;
   items: OrderItemResponse[];
-  total: number;
+  itemsTotal: number;
   paymentId: string;
   paymentSessionUrl: string;
 }

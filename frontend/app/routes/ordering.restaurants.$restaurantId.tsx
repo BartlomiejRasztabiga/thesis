@@ -193,6 +193,7 @@ export default function RestaurantPage() {
             );
           })}
           <p className="text-lg text-center">Total: {orderSum} PLN</p>
+          <p className="text-sm text-center">+ delivery fee</p>
           <Form method="post">
             <select
               className="select select-bordered w-full max-w-xs"

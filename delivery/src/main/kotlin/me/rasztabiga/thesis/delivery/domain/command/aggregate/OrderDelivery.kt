@@ -5,6 +5,7 @@ import me.rasztabiga.thesis.delivery.domain.command.command.DeliverDeliveryComma
 import me.rasztabiga.thesis.delivery.domain.command.command.PickupDeliveryCommand
 import me.rasztabiga.thesis.delivery.domain.command.command.RejectDeliveryOfferCommand
 import me.rasztabiga.thesis.delivery.domain.command.port.CalculateDeliveryFeePort
+import me.rasztabiga.thesis.delivery.domain.command.port.CourierOnlineVerifierPort
 import me.rasztabiga.thesis.delivery.domain.command.port.OrderPreparedVerifierPort
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderDeliveryOfferCommand
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAcceptedEvent
@@ -52,8 +53,11 @@ class OrderDelivery {
     }
 
     @CommandHandler
-    fun handle(command: RejectDeliveryOfferCommand) {
+    fun handle(command: RejectDeliveryOfferCommand, courierOnlineVerifierPort: CourierOnlineVerifierPort) {
         require(this.status == DeliveryStatus.OFFER) { "Delivery can be rejected only if it's in OFFER status." }
+        require(courierOnlineVerifierPort.isCourierOnline(this.courierId!!)) {
+            "Delivery can be rejected only if the courier is online."
+        }
 
         apply(
             OrderDeliveryRejectedEvent(
@@ -64,8 +68,11 @@ class OrderDelivery {
     }
 
     @CommandHandler
-    fun handle(command: AcceptDeliveryOfferCommand) {
+    fun handle(command: AcceptDeliveryOfferCommand, courierOnlineVerifierPort: CourierOnlineVerifierPort) {
         require(this.status == DeliveryStatus.OFFER) { "Delivery can be accepted only if it's in OFFER status." }
+        require(courierOnlineVerifierPort.isCourierOnline(this.courierId!!)) {
+            "Delivery can be accepted only if the courier is online."
+        }
 
         apply(
             OrderDeliveryAcceptedEvent(
@@ -77,13 +84,20 @@ class OrderDelivery {
     }
 
     @CommandHandler
-    fun handle(command: PickupDeliveryCommand, orderPreparedVerifierPort: OrderPreparedVerifierPort) {
+    fun handle(
+        command: PickupDeliveryCommand,
+        orderPreparedVerifierPort: OrderPreparedVerifierPort,
+        courierOnlineVerifierPort: CourierOnlineVerifierPort
+    ) {
         require(this.status == DeliveryStatus.ACCEPTED) { "Delivery can be picked up only if it's in ACCEPTED status." }
         require(this.courierId == command.courierId) {
             "Delivery can be picked up only by the courier who accepted it."
         }
         require(orderPreparedVerifierPort.isOrderPrepared(this.orderId)) {
             "Delivery can be picked up only if the order is prepared."
+        }
+        require(courierOnlineVerifierPort.isCourierOnline(this.courierId!!)) {
+            "Delivery can be picked up only if the courier is online."
         }
 
         apply(
@@ -96,12 +110,15 @@ class OrderDelivery {
     }
 
     @CommandHandler
-    fun handle(command: DeliverDeliveryCommand) {
+    fun handle(command: DeliverDeliveryCommand, courierOnlineVerifierPort: CourierOnlineVerifierPort) {
         require(this.status == DeliveryStatus.PICKED_UP) {
             "Delivery can be delivered only if it's in PICKED_UP status."
         }
         require(this.courierId == command.courierId) {
             "Delivery can be delivered only by the courier who picked it up."
+        }
+        require(courierOnlineVerifierPort.isCourierOnline(this.courierId!!)) {
+            "Delivery can be delivered only if the courier is online."
         }
 
         apply(

@@ -5,15 +5,16 @@ import me.rasztabiga.thesis.order.domain.command.command.CancelOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.DeleteOrderItemCommand
 import me.rasztabiga.thesis.order.domain.command.command.FinalizeOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
+import me.rasztabiga.thesis.order.domain.command.port.OrderVerificationPort
 import me.rasztabiga.thesis.shared.domain.command.command.MarkOrderAsPaidCommand
 import me.rasztabiga.thesis.shared.domain.command.command.RejectOrderCommand
 import me.rasztabiga.thesis.shared.domain.command.event.OrderCanceledEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderFinalizedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderItemAddedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderItemDeletedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderPaidEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderRejectedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderStartedEvent
-import me.rasztabiga.thesis.shared.domain.command.event.OrderPaidEvent
 import org.axonframework.commandhandling.CommandHandler
 import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
@@ -39,7 +40,17 @@ internal class Order {
     private constructor()
 
     @CommandHandler
-    constructor(command: StartOrderCommand) {
+    constructor(command: StartOrderCommand, orderVerificationPort: OrderVerificationPort) {
+        require(orderVerificationPort.restaurantExists(command.restaurantId)) {
+            "Restaurant with id ${command.restaurantId} does not exist"
+        }
+        require(orderVerificationPort.isRestaurantOpen(command.restaurantId)) {
+            "Restaurant with id ${command.restaurantId} is closed"
+        }
+        require(orderVerificationPort.userExists(command.userId)) {
+            "User with id ${command.userId} does not exist"
+        }
+
         apply(
             OrderStartedEvent(
                 orderId = command.orderId,
@@ -97,9 +108,18 @@ internal class Order {
     }
 
     @CommandHandler
-    fun handle(command: FinalizeOrderCommand) {
+    fun handle(command: FinalizeOrderCommand, orderVerificationPort: OrderVerificationPort) {
         require(this.userId == command.userId) { "Order can be finalized only by the user who created it." }
         require(this.status == OrderStatus.CREATED) { "Order can be finalized only if it's in CREATED status." }
+        require(orderVerificationPort.deliveryAddressExists(command.deliveryAddressId, this.userId)) {
+            "Delivery address with id ${command.deliveryAddressId} does not exist for user with id ${this.userId}"
+        }
+
+        this.items.forEach {
+            require(orderVerificationPort.productExists(it.productId, this.restaurantId)) {
+                "Product with id ${it.productId} does not exist in restaurant with id ${this.restaurantId}"
+            }
+        }
 
         apply(
             OrderFinalizedEvent(
