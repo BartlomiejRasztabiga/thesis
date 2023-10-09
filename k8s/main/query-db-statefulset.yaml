@@ -14,7 +14,7 @@ spec:
         app: query-db
     spec:
       containers:
-        - image: mongo:7.02
+        - image: mongo:7.0.2
           name: query-db
           ports:
             - containerPort: 27101

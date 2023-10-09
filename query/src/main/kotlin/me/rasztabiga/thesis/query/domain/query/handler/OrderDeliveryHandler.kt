@@ -77,13 +77,13 @@ class OrderDeliveryHandler(
         // TODO reduce calls to GmapsClient (maybe sort by fee and then calculate distance only for first offer)
 
         val bestOffer = offers.minBy {
-            distanceCalculatorPort.calculateDistance(query.courierAddress, it.restaurantLocation.streetAddress)
+            distanceCalculatorPort.calculateDistance(query.courierAddress, it.restaurantLocation.streetAddress!!)
         }
 
         val distanceToRestaurant =
-            distanceCalculatorPort.calculateDistance(query.courierAddress, bestOffer.restaurantLocation.streetAddress)
+            distanceCalculatorPort.calculateDistance(query.courierAddress, bestOffer.restaurantLocation.streetAddress!!)
         val distanceToDeliveryAddress =
-            distanceCalculatorPort.calculateDistance(query.courierAddress, bestOffer.deliveryLocation.streetAddress)
+            distanceCalculatorPort.calculateDistance(query.courierAddress, bestOffer.deliveryLocation.streetAddress!!)
 
         val response = mapToResponse(
             bestOffer,

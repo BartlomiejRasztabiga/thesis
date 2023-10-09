@@ -14,7 +14,7 @@ spec:
         app: saga-db
     spec:
       containers:
-        - image: mongo:7.02
+        - image: mongo:7.0.2
           name: saga-db
           ports:
             - containerPort: 27101

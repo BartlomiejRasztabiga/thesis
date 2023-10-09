@@ -88,7 +88,7 @@ services:
       - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=admin
 
   query-db:
-    image: mongo:7.02
+    image: mongo:7.0.2
     ports:
       - '27105:27017'
     volumes:
@@ -117,7 +117,7 @@ services:
       - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=admin
 
   saga-db:
-    image: mongo:7.02
+    image: mongo:7.0.2
     ports:
       - '27106:27017'
     volumes:
