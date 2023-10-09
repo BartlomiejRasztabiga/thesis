@@ -2,7 +2,7 @@ version: '3.8'
 name: 'thesis'
 services:
   axonserver:
-    image: axoniq/axonserver:4.6.9-jdk-17-dev
+    image: axoniq/axonserver:2023.1.2-jdk-17-dev
     hostname: axonserver
     volumes:
       - axonserver-data:/data
@@ -88,7 +88,7 @@ services:
       - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=admin
 
   query-db:
-    image: mongo:6.0.5
+    image: mongo:7.02
     ports:
       - '27105:27017'
     volumes:
@@ -117,7 +117,7 @@ services:
       - SPRING_DATA_MONGODB_AUTHENTICATION_DATABASE=admin
 
   saga-db:
-    image: mongo:6.0.5
+    image: mongo:7.02
     ports:
       - '27106:27017'
     volumes:

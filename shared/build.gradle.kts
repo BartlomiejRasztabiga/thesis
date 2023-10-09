@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
-    id("org.springframework.boot") version "3.1.3"
+    id("org.springframework.boot") version "3.1.4"
     id("io.spring.dependency-management") version "1.1.3"
     id("org.jetbrains.kotlin.jvm") version "1.9.0"
     id("org.jetbrains.kotlin.plugin.spring") version "1.9.0"
@@ -42,7 +42,7 @@ dependencies {
     testFixturesImplementation("org.axonframework:axon-test")
     testFixturesImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testFixturesImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
-    testFixturesImplementation("io.mockk:mockk:1.13.7")
+    testFixturesImplementation("io.mockk:mockk:1.13.8")
     testFixturesImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 

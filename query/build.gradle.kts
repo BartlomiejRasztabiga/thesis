@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.1.3"
+    id("org.springframework.boot") version "3.1.4"
     id("io.spring.dependency-management") version "1.1.3"
     id("org.jetbrains.kotlin.jvm") version "1.9.0"
     id("org.jetbrains.kotlin.plugin.spring") version "1.9.0"
@@ -61,7 +61,7 @@ dependencies {
     testImplementation("org.axonframework:axon-test")
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
-    testImplementation("io.mockk:mockk:1.13.7")
+    testImplementation("io.mockk:mockk:1.13.8")
     testImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 
