@@ -21,5 +21,5 @@ export interface DeliveryAddressResponse {
 export interface Location {
   lat: number;
   lng: number;
-  streetAddress: string;
+  streetAddress?: string;
 }

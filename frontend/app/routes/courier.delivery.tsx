@@ -1,6 +1,6 @@
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Form, Link, useLoaderData, useRevalidator } from "@remix-run/react";
+import { Form, Link, useFetcher, useLoaderData, useRevalidator } from "@remix-run/react";
 import React, { useEffect } from "react";
 import {
   acceptDeliveryOffer,
@@ -9,15 +9,25 @@ import {
   getCurrentDelivery,
   getDeliveryOffer,
   pickupDelivery,
-  rejectDeliveryOffer,
+  rejectDeliveryOffer, updateCourierLocation
 } from "~/models/delivery.server";
 import invariant from "tiny-invariant";
 
 export async function loader({ request, params }: LoaderArgs) {
+  console.log("loader");
   const courier = await getCurrentCourier(request);
 
   // TODO real location
   const courierAddress = "Testowa 123, 02-102 Warszawa";
+
+  // TODO retrieve and update courier location???
+  // if (navigator.geolocation) {
+  //   navigator.geolocation.getCurrentPosition(async (position) => {
+  //     console.log("position", position)
+  //     const { latitude, longitude } = position.coords;
+  //     await updateCourierLocation(request, {lat: latitude, lng: longitude})
+  //   });
+  // }
 
   let currentDelivery;
 
@@ -31,6 +41,7 @@ export async function loader({ request, params }: LoaderArgs) {
 
   if (!currentDelivery) {
     try {
+      // TODO send lat,lng?
       deliveryOffer = await getDeliveryOffer(request, courierAddress);
     } catch (error) {
       // ignore, no delivery offer
@@ -45,6 +56,14 @@ export async function loader({ request, params }: LoaderArgs) {
 export async function action({ request, params }: ActionArgs) {
   const formData = await request.formData();
   const { _action, ...values } = Object.fromEntries(formData);
+
+  console.log(formData)
+
+  if (_action === "updateLocation") {
+    console.log("updateLocation", values);
+    await updateCourierLocation(request, {lat: formData.lat, lng: formData.lng});
+    return json({});
+  }
 
   const deliveryId = values.deliveryId as string;
   invariant(deliveryId, "deliveryId not found");
@@ -73,13 +92,32 @@ export default function CourierDeliveryPage() {
 
   const revalidator = useRevalidator();
 
+  const fetcher = useFetcher();
+
   // TODO good enough for now ???
   useEffect(() => {
-    const timer = setInterval(() => {
-      // TODO only if no delivery in progress
-      if (!data.currentDelivery) {
-        revalidator.revalidate();
+    const timer = setInterval(async () => {
+
+
+      // TODO jak przeslac te dane na serwer?
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async (position) => {
+          console.log("position", position);
+          const { latitude, longitude } = position.coords;
+
+          fetcher.submit(
+            { _action: "updateLocation", lat: latitude, lng: longitude },
+            { method: "POST" }
+          );
+        });
       }
+
+
+      // TODO only if no delivery in progress
+      // disabled for now, we want to update courier's location
+      // if (!data.currentDelivery) {
+      revalidator.revalidate();
+      // }
     }, 5000);
     return () => {
       clearInterval(timer);
@@ -88,7 +126,7 @@ export default function CourierDeliveryPage() {
 
   const getGmapsLink = (address: string) => {
     return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-      address,
+      address
     )}`;
   };
 
@@ -124,7 +162,7 @@ export default function CourierDeliveryPage() {
                 <button className={className}>
                   <a
                     href={getGmapsLink(
-                      data.currentDelivery.restaurantLocation.streetAddress,
+                      data.currentDelivery.restaurantLocation.streetAddress
                     )}
                     target={"_blank"}
                     rel="noreferrer"
@@ -146,7 +184,7 @@ export default function CourierDeliveryPage() {
                 <button className={className}>
                   <a
                     href={getGmapsLink(
-                      data.currentDelivery.deliveryLocation.streetAddress,
+                      data.currentDelivery.deliveryLocation.streetAddress
                     )}
                     target={"_blank"}
                     rel="noreferrer"
