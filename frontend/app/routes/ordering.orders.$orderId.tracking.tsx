@@ -7,7 +7,7 @@ import type { OrderResponse } from "~/models/order.server";
 import { getOrder } from "~/models/order.server";
 import invariant from "tiny-invariant";
 import { Map } from "~/components/Map.client";
-import { ClientOnly } from "remix-utils";
+import { ClientOnly } from "~/utils/client-only";
 
 export async function loader({ request, params }: LoaderArgs) {
   const activeOrderId = params.orderId;
