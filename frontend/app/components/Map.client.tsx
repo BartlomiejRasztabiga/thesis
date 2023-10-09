@@ -56,7 +56,7 @@ export function Map(props: MapProps) {
             <Popup>Delivery location</Popup>
           </Marker>
           {props.courierLocation &&
-            (<Marker position={courierLatLng}>
+            (<Marker position={courierLatLng!}>
               <Popup>Courier location</Popup>
             </Marker>)
           }

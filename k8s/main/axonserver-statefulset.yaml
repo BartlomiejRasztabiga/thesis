@@ -37,14 +37,14 @@ spec:
             httpGet:
               path: /actuator/health/liveness
               port: 8024
-            initialDelaySeconds: 30
-            periodSeconds: 30
+            initialDelaySeconds: 60
+            periodSeconds: 60
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
               port: 8024
-            initialDelaySeconds: 30
-            periodSeconds: 30
+            initialDelaySeconds: 60
+            periodSeconds: 60
       restartPolicy: Always
       volumes:
         - name: axonserver-data
