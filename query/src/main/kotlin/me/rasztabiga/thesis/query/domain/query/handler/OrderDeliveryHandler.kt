@@ -71,6 +71,7 @@ class OrderDeliveryHandler(
         orderDeliveryRepository.save(entity)
     }
 
+    @Suppress("ReturnCount")
     @QueryHandler
     fun handle(query: FindSuitableDeliveryOfferQuery): Mono<OrderDeliveryOfferResponse> {
         val courier = getCourier(query.courierId)

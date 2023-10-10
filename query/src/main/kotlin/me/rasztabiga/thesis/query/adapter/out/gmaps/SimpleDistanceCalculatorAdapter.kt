@@ -11,6 +11,7 @@ import kotlin.math.sqrt
 @Service
 class SimpleDistanceCalculatorAdapter : DistanceCalculatorPort {
 
+    @Suppress("MagicNumber")
     override fun calculateDistance(from: Location, to: Location): Double {
         val earthRadius = 6371.0 // earth radius in km
 
