@@ -21,7 +21,8 @@ object CourierMapper {
             id = entity.id,
             name = entity.name,
             email = entity.email,
-            availability = CourierResponse.Availability.valueOf(entity.availability.name)
+            availability = CourierResponse.Availability.valueOf(entity.availability.name),
+            location = entity.location
         )
     }
 }

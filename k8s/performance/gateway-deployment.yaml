@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: gateway
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: gateway
@@ -24,7 +24,7 @@ spec:
               value: http://delivery-service:8104
             - name: URI_QUERY
               value: http://query-service:8105
-          image: ghcr.io/bartlomiejrasztabiga/thesis/gateway:0.15.4
+          image: ghcr.io/bartlomiejrasztabiga/thesis/gateway:0.16.10
           name: gateway
           ports:
             - containerPort: 8100

@@ -1,5 +1,5 @@
 import { useLoaderData, useRevalidator } from "@remix-run/react";
-import React, { Suspense, useEffect } from "react";
+import React, { useEffect } from "react";
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import Navbar from "~/components/Navbar";
@@ -76,21 +76,12 @@ export default function OrderTrackingPage() {
                 <h4 className="text-xl font-bold">Order #{data.order.id}</h4>
                 <p className="text-gray-500">{getOrderSummary(data.order)}</p>
               </div>
-              <Suspense
-                fallback={
-                  <div
-                    id="skeleton"
-                    style={{ height: mapHeight, background: "#d1d1d1" }}
-                  />
-                }
-              >
-                <Map
-                  height={mapHeight}
-                  restaurantLocation={data.order.restaurantLocation}
-                  deliveryLocation={data.order.deliveryLocation}
-                  courierLocation={data.order.courierLocation}
-                />
-              </Suspense>
+              <Map
+                height={mapHeight}
+                restaurantLocation={data.order.restaurantLocation}
+                deliveryLocation={data.order.deliveryLocation}
+                courierLocation={data.order.courierLocation}
+              />
             </div>
             <div className="h-full w-80 border-r bg-gray-50"></div>
           </div>

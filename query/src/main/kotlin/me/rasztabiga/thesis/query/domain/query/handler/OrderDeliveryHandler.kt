@@ -1,8 +1,10 @@
 package me.rasztabiga.thesis.query.domain.query.handler
 
 import me.rasztabiga.thesis.query.adapter.`in`.rest.api.OrderDeliveryOfferResponse
+import me.rasztabiga.thesis.query.domain.query.entity.CourierEntity
 import me.rasztabiga.thesis.query.domain.query.entity.DeliveryStatus
 import me.rasztabiga.thesis.query.domain.query.entity.OrderDeliveryEntity
+import me.rasztabiga.thesis.query.domain.query.exception.CourierNotFoundException
 import me.rasztabiga.thesis.query.domain.query.exception.DeliveryNotFoundException
 import me.rasztabiga.thesis.query.domain.query.exception.SuitableDeliveryOfferNotFoundException
 import me.rasztabiga.thesis.query.domain.query.mapper.OrderDeliveryMapper.mapToEntity
@@ -10,6 +12,7 @@ import me.rasztabiga.thesis.query.domain.query.mapper.OrderDeliveryMapper.mapToR
 import me.rasztabiga.thesis.query.domain.query.port.DistanceCalculatorPort
 import me.rasztabiga.thesis.query.domain.query.query.FindCurrentDeliveryQuery
 import me.rasztabiga.thesis.query.domain.query.query.FindSuitableDeliveryOfferQuery
+import me.rasztabiga.thesis.query.domain.query.repository.CourierRepository
 import me.rasztabiga.thesis.query.domain.query.repository.OrderDeliveryRepository
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAcceptedEvent
@@ -29,6 +32,7 @@ import java.util.*
 @ProcessingGroup("orderdelivery")
 class OrderDeliveryHandler(
     private val orderDeliveryRepository: OrderDeliveryRepository,
+    private val courierRepository: CourierRepository,
     private val distanceCalculatorPort: DistanceCalculatorPort
 ) {
 
@@ -69,21 +73,24 @@ class OrderDeliveryHandler(
 
     @QueryHandler
     fun handle(query: FindSuitableDeliveryOfferQuery): Mono<OrderDeliveryOfferResponse> {
+        val courier = getCourier(query.courierId)
+        if (courier.location == null) {
+            return Mono.error(SuitableDeliveryOfferNotFoundException())
+        }
+
         val offers = orderDeliveryRepository.loadOffers().filter { !it.courierIdsDeclined.contains(query.courierId) }
         if (offers.isEmpty()) {
             return Mono.error(SuitableDeliveryOfferNotFoundException())
         }
 
-        // TODO reduce calls to GmapsClient (maybe sort by fee and then calculate distance only for first offer)
-
         val bestOffer = offers.minBy {
-            distanceCalculatorPort.calculateDistance(query.courierAddress, it.restaurantLocation.streetAddress!!)
+            distanceCalculatorPort.calculateDistance(courier.location!!, it.restaurantLocation)
         }
 
         val distanceToRestaurant =
-            distanceCalculatorPort.calculateDistance(query.courierAddress, bestOffer.restaurantLocation.streetAddress!!)
+            distanceCalculatorPort.calculateDistance(courier.location!!, bestOffer.restaurantLocation)
         val distanceToDeliveryAddress =
-            distanceCalculatorPort.calculateDistance(query.courierAddress, bestOffer.deliveryLocation.streetAddress!!)
+            distanceCalculatorPort.calculateDistance(courier.location!!, bestOffer.deliveryLocation)
 
         val response = mapToResponse(
             bestOffer,
@@ -110,5 +117,9 @@ class OrderDeliveryHandler(
 
     private fun getDelivery(deliveryId: UUID): OrderDeliveryEntity {
         return orderDeliveryRepository.load(deliveryId) ?: throw DeliveryNotFoundException(deliveryId)
+    }
+
+    private fun getCourier(courierId: String): CourierEntity {
+        return courierRepository.load(courierId) ?: throw CourierNotFoundException(courierId)
     }
 }

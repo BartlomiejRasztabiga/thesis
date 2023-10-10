@@ -26,13 +26,11 @@ class OrderDeliveryController(
     @GetMapping("/offer")
     @PreAuthorize("hasAnyAuthority('${COURIER.READ}')")
     fun getSuitableDeliveryOffer(
-        @RequestParam courierAddress: String,
         exchange: ServerWebExchange
     ): Mono<OrderDeliveryOfferResponse> {
         return reactorQueryGateway.query(
             FindSuitableDeliveryOfferQuery(
-                courierId = exchange.getUserId(),
-                courierAddress = courierAddress
+                courierId = exchange.getUserId()
             ),
             ResponseTypes.instanceOf(OrderDeliveryOfferResponse::class.java)
         )

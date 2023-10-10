@@ -9,25 +9,13 @@ import {
   getCurrentDelivery,
   getDeliveryOffer,
   pickupDelivery,
-  rejectDeliveryOffer, updateCourierLocation
+  rejectDeliveryOffer,
+  updateCourierLocation
 } from "~/models/delivery.server";
 import invariant from "tiny-invariant";
 
 export async function loader({ request, params }: LoaderArgs) {
-  console.log("loader");
   const courier = await getCurrentCourier(request);
-
-  // TODO real location
-  const courierAddress = "Testowa 123, 02-102 Warszawa";
-
-  // TODO retrieve and update courier location???
-  // if (navigator.geolocation) {
-  //   navigator.geolocation.getCurrentPosition(async (position) => {
-  //     console.log("position", position)
-  //     const { latitude, longitude } = position.coords;
-  //     await updateCourierLocation(request, {lat: latitude, lng: longitude})
-  //   });
-  // }
 
   let currentDelivery;
 
@@ -41,8 +29,7 @@ export async function loader({ request, params }: LoaderArgs) {
 
   if (!currentDelivery) {
     try {
-      // TODO send lat,lng?
-      deliveryOffer = await getDeliveryOffer(request, courierAddress);
+      deliveryOffer = await getDeliveryOffer(request);
     } catch (error) {
       // ignore, no delivery offer
     }
@@ -57,11 +44,8 @@ export async function action({ request, params }: ActionArgs) {
   const formData = await request.formData();
   const { _action, ...values } = Object.fromEntries(formData);
 
-  console.log(formData)
-
   if (_action === "updateLocation") {
-    console.log("updateLocation", values);
-    await updateCourierLocation(request, {lat: formData.lat, lng: formData.lng});
+    await updateCourierLocation(request, { lat: values.lat, lng: values.lng });
     return json({});
   }
 
@@ -98,11 +82,9 @@ export default function CourierDeliveryPage() {
   useEffect(() => {
     const timer = setInterval(async () => {
 
-
       // TODO jak przeslac te dane na serwer?
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(async (position) => {
-          console.log("position", position);
           const { latitude, longitude } = position.coords;
 
           fetcher.submit(
