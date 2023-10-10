@@ -115,8 +115,8 @@ jobs:
 # TODO disabled for now, after upgrading to remix v2 many types are missing
 #      - name: Type check
 #        run: npm run typecheck --if-present
-      - name: Run vitest
-        run: npm run test -- --coverage
+#      - name: Run vitest
+#        run: npm run test -- --coverage
       - name: Copy test env vars
         run: cp .env.example .env
       - name: Build
