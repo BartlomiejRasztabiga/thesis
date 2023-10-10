@@ -12,9 +12,8 @@
     "format": "prettier --write .",
     "generate:css": "tailwindcss -o ./app/styles/tailwind.css",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
-    "start": "remix-serve build",
-    "start:mocks": "binode --require ./mocks -- @remix-run/serve:remix-serve build",
-    "typecheck": "tsc && tsc -p cypress",
+    "start": "remix-serve ./build/index.js",
+    "typecheck": "tsc",
     "validate": "run-p lint typecheck"
   },
   "prettier": {},

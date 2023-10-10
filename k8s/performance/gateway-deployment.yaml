@@ -24,7 +24,7 @@ spec:
               value: http://delivery-service:8104
             - name: URI_QUERY
               value: http://query-service:8105
-          image: ghcr.io/bartlomiejrasztabiga/thesis/gateway:0.16.10
+          image: ghcr.io/bartlomiejrasztabiga/thesis/gateway:0.16.11
           name: gateway
           ports:
             - containerPort: 8100
