@@ -28,6 +28,10 @@ spec:
               value: password
             - name: MONGO_INITDB_DATABASE
               value: query
+          resources:
+            requests:
+              memory: "500Mi"
+              cpu: "250m"
       restartPolicy: Always
       volumes:
         - name: query-db-data

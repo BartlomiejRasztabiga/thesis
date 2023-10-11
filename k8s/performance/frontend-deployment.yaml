@@ -24,7 +24,7 @@ spec:
               value: "3gSK8og83MMTCUlNrzGNfnzpBNyLlpTS"
             - name: AUTH_CLIENT_SECRET
               value: "fxntskIoYgCCXgxT-DYzTZraK4OwX-mwAcv8C4kZdszLDedqdtuwgTK8xB840C2G"
-          image: ghcr.io/bartlomiejrasztabiga/thesis/frontend:0.16.11
+          image: ghcr.io/bartlomiejrasztabiga/thesis/frontend:0.16.12
           name: frontend
           ports:
             - containerPort: 8080
@@ -40,4 +40,8 @@ spec:
               port: 8080
             initialDelaySeconds: 30
             periodSeconds: 10
+          resources:
+            requests:
+              memory: "500Mi"
+              cpu: "250m"
       restartPolicy: Always

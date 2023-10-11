@@ -1,12 +1,8 @@
 import random
 import time
 
-from locust import HttpUser, task, events
-import requests
-import json
+from locust import HttpUser, task, events, run_single_user
 from faker import Faker
-
-import prepare_env_utils
 
 fake = Faker()
 
@@ -22,8 +18,6 @@ addresses = [
 
 class OrderingUser(HttpUser):
     def on_start(self):
-        # auth0_user_email = prepare_env_utils.create_auth0_user("ORDERING_USER")
-        # self.client.headers["Authorization"] = f"Bearer {prepare_env_utils.get_access_token(auth0_user_email)}"
         self.client.headers["X-User-Id"] = fake.uuid4()
 
         self._create_user()
@@ -96,8 +90,6 @@ class OrderingUser(HttpUser):
 
 class RestaurantManager(HttpUser):
     def on_start(self):
-        # auth0_user_email = prepare_env_utils.create_auth0_user("RESTAURANT_MANAGER")
-        # self.client.headers["Authorization"] = f"Bearer {prepare_env_utils.get_access_token(auth0_user_email)}"
         self.client.headers["X-User-Id"] = fake.uuid4()
 
         self._create_restaurant()
@@ -117,7 +109,7 @@ class RestaurantManager(HttpUser):
         self.client.put(f"/restaurants/{self.restaurant_id}/orders/{selected_order.get('restaurantOrderId')}/accept")
         # print(f"RESTAURANT Accepted order")
 
-        sleep_time = random.randint(60, 5 * 60)
+        sleep_time = random.randint(0, 6 * 10)
         # print(f"RESTAURANT Sleeping for {sleep_time} seconds")
         time.sleep(sleep_time)
 
@@ -154,8 +146,6 @@ class RestaurantManager(HttpUser):
 
 class DeliveryCourier(HttpUser):
     def on_start(self):
-        # auth0_user_email = prepare_env_utils.create_auth0_user("DELIVERY_COURIER")
-        # self.client.headers["Authorization"] = f"Bearer {prepare_env_utils.get_access_token(auth0_user_email)}"
         self.client.headers["X-User-Id"] = fake.uuid4()
 
         self._create_courier()
@@ -164,8 +154,7 @@ class DeliveryCourier(HttpUser):
 
     @task
     def e2e(self):
-        with self.client.get(f"/deliveries/offer?courierAddress={self.courier_address}",
-                             catch_response=True) as response:
+        with self.client.get(f"/deliveries/offer", catch_response=True) as response:
             if response.status_code == 404:
                 response.success()
                 time.sleep(10)
@@ -184,7 +173,7 @@ class DeliveryCourier(HttpUser):
         self.client.put(f"/deliveries/{offer.get('id')}/accept")
         # print(f"DELIVERY Accepted offer {offer}")
 
-        sleep_time = random.randint(60, 5 * 60)
+        sleep_time = random.randint(0, 6 * 10)
         # print(f"DELIVERY Sleeping for {sleep_time} seconds")
         time.sleep(sleep_time)
 
@@ -197,7 +186,7 @@ class DeliveryCourier(HttpUser):
                 time.sleep(30)
                 continue
 
-        sleep_time = random.randint(60, 5 * 60)
+        sleep_time = random.randint(0, 6 * 10)
         # print(f"DELIVERY Sleeping for {sleep_time} seconds")
         time.sleep(sleep_time)
 
@@ -209,16 +198,18 @@ class DeliveryCourier(HttpUser):
         self.client.post("/couriers", json={
             "name": fake.name(),
             "email": "contact@rasztabiga.me"
-        }).json().get("id")
+        })
 
         time.sleep(5)
 
         self.courier_id = self.client.get("/couriers/me").json().get("id")
 
-        self.courier_address = random.choice(addresses)
-
 
 @events.test_stop.add_listener
 def on_test_stop(environment, **kwargs):
     print("Deleting all tmp auth0 users")
-    prepare_env_utils.delete_all_tmp_auth0_users()
+    # prepare_env_utils.delete_all_tmp_auth0_users()
+
+
+if __name__ == "__main__":
+    run_single_user(OrderingUser)

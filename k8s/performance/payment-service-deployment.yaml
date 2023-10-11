@@ -18,7 +18,7 @@ spec:
               value: axonserver
             - name: SPRING_PROFILES_ACTIVE
               value: nosecurity
-          image: ghcr.io/bartlomiejrasztabiga/thesis/payment:0.16.11
+          image: ghcr.io/bartlomiejrasztabiga/thesis/payment:0.16.12
           name: payment-service
           ports:
             - containerPort: 8103
@@ -34,4 +34,8 @@ spec:
               port: 8103
             initialDelaySeconds: 30
             periodSeconds: 10
+          resources:
+            requests:
+              memory: "500Mi"
+              cpu: "250m"
       restartPolicy: Always
