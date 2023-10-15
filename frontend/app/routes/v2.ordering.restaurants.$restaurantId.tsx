@@ -8,12 +8,13 @@ import { getOrderId } from "~/services/session.server";
 import { getCurrentUser } from "~/models/user.server";
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 import Paper from "@mui/material/Paper";
-import { Button, Typography } from "@mui/material";
+import { Button, IconButton, Typography } from "@mui/material";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import CardContent from "@mui/material/CardContent";
 import Card from "@mui/material/Card";
 import { Box } from "@mui/system";
 import CardMedia from "@mui/material/CardMedia";
+import AddIcon from '@mui/icons-material/Add';
 
 
 export async function loader({ request, params }: LoaderArgs) {
@@ -42,7 +43,7 @@ export default function V2RestaurantPage() {
   const navigate = useNavigate();
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full overflow-x-hidden">
       <div>
         <nav className="flex flex-col items-start justify-between w-full py-4 ml-4">
           <button onClick={
@@ -68,25 +69,26 @@ export default function V2RestaurantPage() {
           <div>
             {data.restaurant.menu.map((menuItem) => {
               return (
-                <Card sx={{ display: "flex" }}>
+                <Card sx={{ display: "flex" }} className="my-4">
                   <Box sx={{ display: "flex", flexDirection: "column" }}>
                     <CardContent sx={{ flex: "1 0 auto" }}>
                       <Typography component="div" variant="h5">
-                        Live From Space
+                        {menuItem.name}
                       </Typography>
                       <Typography variant="subtitle1" color="text.secondary" component="div">
-                        Mac Miller
+                        {menuItem.description}
                       </Typography>
                     </CardContent>
                     <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
-                      ikonki, np. dodaj do koszyka
+                      <IconButton>
+                        <AddIcon fontSize="large" />
+                      </IconButton>
                     </Box>
                   </Box>
                   <CardMedia
                     component="img"
-                    sx={{ width: 151 }}
-                    image="/static/images/cards/live-from-space.jpg"
-                    alt="Live from space album cover"
+                    sx={{ width: "10rem" }}
+                    image={menuItem.imageUrl}
                   />
                 </Card>
               );
@@ -96,7 +98,7 @@ export default function V2RestaurantPage() {
       </div>
       <div>
         <nav className="flex flex-col items-center justify-between w-full fixed" style={{ bottom: "1rem" }}>
-          <Button variant="contained">FINALIZE ORDER</Button>
+          <Button variant="contained">VIEW BASKET</Button>
         </nav>
       </div>
     </div>

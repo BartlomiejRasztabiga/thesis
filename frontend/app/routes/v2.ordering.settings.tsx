@@ -27,7 +27,7 @@ export default function V2RestaurantsPage() {
   const data = useLoaderData<typeof loader>();
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full overflow-x-hidden">
       <div className="h-full">
         <div className="flex flex-col w-80 mx-auto">
           <Form method="post" className="mt-8">

@@ -22,7 +22,7 @@ export default function V2RestaurantsPage() {
   const data = useLoaderData<typeof loader>();
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full overflow-x-hidden">
       <div>
         <Topbar user={data.currentUser} />
       </div>
