@@ -20,7 +20,7 @@ object RestaurantMapper {
         )
     }
 
-    fun mapToResponse(entity: RestaurantEntity, deliveryFee: BigDecimal): RestaurantResponse {
+    fun mapToResponse(entity: RestaurantEntity, deliveryFee: BigDecimal? = null): RestaurantResponse {
         return RestaurantResponse(
             id = entity.id,
             managerId = entity.managerId,
@@ -32,7 +32,7 @@ object RestaurantMapper {
             },
             location = entity.location,
             imageUrl = entity.imageUrl,
-            avgRating = 5.0 // TODO,
+            avgRating = 5.0, // TODO
             deliveryFee = deliveryFee
         )
     }

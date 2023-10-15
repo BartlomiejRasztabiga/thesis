@@ -40,10 +40,10 @@ export default function V2RestaurantsPage() {
                     <div className="flex flex-row w-full">
                       <div className="flex-col w-full">
                         <h5 className="text-lg font-bold">{restaurant.name}</h5>
-                        <p>delivery fee: TODO</p>
+                        <p>delivery fee: ~{restaurant.deliveryFee.toFixed(2)} PLN</p>
                       </div>
                       <div
-                        className="flex-col w-full"
+                        className="flex-col"
                         style={{ textAlign: "right" }}
                       >
                         <h5>&nbsp;</h5>

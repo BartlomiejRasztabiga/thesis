@@ -67,12 +67,13 @@ class RestaurantHandler(
     @Suppress("UnusedParameter")
     @QueryHandler
     fun handle(query: FindAllRestaurantsQuery): Flux<RestaurantResponse> {
-        val user = userRepository.load(query.userId)!!
+        val user = userRepository.load(query.userId)
 
         return restaurantRepository.loadAll().map {
-            val deliveryLocation = user.deliveryAddresses.find { address -> address.id == user.defaultAddressId }
+            val deliveryLocation =
+                user?.deliveryAddresses?.find { address -> address.id == user.defaultAddressId }?.location
             val deliveryFee =
-                distanceCalculatorPort.calculateDeliveryFee(it.location, deliveryLocation)
+                deliveryLocation?.let { location -> distanceCalculatorPort.calculateDeliveryFee(it.location, location) }
 
             mapToResponse(it, deliveryFee)
         }

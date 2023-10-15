@@ -18,7 +18,7 @@ spec:
               value: axonserver
             - name: SPRING_PROFILES_ACTIVE
               value: nosecurity
-          image: ghcr.io/bartlomiejrasztabiga/thesis/delivery:0.16.15
+          image: ghcr.io/bartlomiejrasztabiga/thesis/delivery:0.16.18
           name: delivery-service
           ports:
             - containerPort: 8104
