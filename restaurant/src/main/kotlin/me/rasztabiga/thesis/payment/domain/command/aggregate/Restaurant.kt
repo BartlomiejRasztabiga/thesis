@@ -79,7 +79,7 @@ internal class Restaurant {
         }
 
         apply(RestaurantMenuUpdatedEvent(id = command.id, menu = command.menu.map {
-            RestaurantMenuUpdatedEvent.Product(it.id, it.name, it.description, it.price)
+            RestaurantMenuUpdatedEvent.Product(it.id, it.name, it.description, it.price, it.imageUrl)
         }))
     }
 
