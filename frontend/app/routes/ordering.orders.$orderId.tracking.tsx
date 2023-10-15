@@ -1,12 +1,12 @@
 import { useLoaderData, useRevalidator } from "@remix-run/react";
-import React, { useEffect } from "react";
+import React, { Suspense, useEffect } from "react";
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import Navbar from "~/components/Navbar";
 import type { OrderResponse } from "~/models/order.server";
 import { getOrder } from "~/models/order.server";
 import invariant from "tiny-invariant";
-import { Map } from "~/components/Map.client";
+import { MapClient } from "~/components/Map.client";
 
 export async function loader({ request, params }: LoaderArgs) {
   const activeOrderId = params.orderId;
@@ -76,12 +76,18 @@ export default function OrderTrackingPage() {
                 <h4 className="text-xl font-bold">Order #{data.order.id}</h4>
                 <p className="text-gray-500">{getOrderSummary(data.order)}</p>
               </div>
-              <Map
+              <Suspense
+                fallback={
+                  <div>loading...</div>
+                }
+              >
+              <MapClient
                 height={mapHeight}
                 restaurantLocation={data.order.restaurantLocation}
                 deliveryLocation={data.order.deliveryLocation}
                 courierLocation={data.order.courierLocation}
               />
+              </Suspense>
             </div>
             <div className="h-full w-80 border-r bg-gray-50"></div>
           </div>

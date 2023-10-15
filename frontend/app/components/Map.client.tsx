@@ -1,7 +1,6 @@
 import type { LatLngTuple } from "leaflet";
 import { FeatureGroup, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import type { Location } from "~/models/user.server";
-import { Suspense } from "react";
 
 export interface MapProps {
   height: string;
@@ -10,7 +9,7 @@ export interface MapProps {
   courierLocation?: Location;
 }
 
-export function Map(props: MapProps) {
+export function MapClient(props: MapProps) {
   const restaurantLatLng: LatLngTuple = [
     props.restaurantLocation.lat,
     props.restaurantLocation.lng
@@ -35,40 +34,34 @@ export function Map(props: MapProps) {
 
   return (
     <div style={{ height: props.height }}>
-      <Suspense
-        fallback={
-          <div>loading...</div>
-        }
+      <MapContainer
+        style={{
+          height: "100%"
+        }}
+        center={deliveryLatLng}
+        zoom={14}
+        scrollWheelZoom={true}
+        trackResize={true}
+        bounds={bounds}
       >
-        <MapContainer
-          style={{
-            height: "100%"
-          }}
-          center={deliveryLatLng}
-          zoom={14}
-          scrollWheelZoom={true}
-          trackResize={true}
-          bounds={bounds}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <FeatureGroup>
-            <Marker position={restaurantLatLng}>
-              <Popup>Restaurant location</Popup>
-            </Marker>
-            <Marker position={deliveryLatLng}>
-              <Popup>Delivery location</Popup>
-            </Marker>
-            {props.courierLocation &&
-              (<Marker position={courierLatLng!}>
-                <Popup>Courier location</Popup>
-              </Marker>)
-            }
-          </FeatureGroup>
-        </MapContainer>
-      </Suspense>
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        <FeatureGroup>
+          <Marker position={restaurantLatLng}>
+            <Popup>Restaurant location</Popup>
+          </Marker>
+          <Marker position={deliveryLatLng}>
+            <Popup>Delivery location</Popup>
+          </Marker>
+          {props.courierLocation &&
+            (<Marker position={courierLatLng!}>
+              <Popup>Courier location</Popup>
+            </Marker>)
+          }
+        </FeatureGroup>
+      </MapContainer>
     </div>
   );
 }

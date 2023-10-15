@@ -91,7 +91,7 @@ class OrderDeliveryHandler(
         val distanceToRestaurant =
             distanceCalculatorPort.calculateDistance(courier.location!!, bestOffer.restaurantLocation)
         val distanceToDeliveryAddress =
-            distanceCalculatorPort.calculateDistance(courier.location!!, bestOffer.deliveryLocation)
+            distanceCalculatorPort.calculateDistance(bestOffer.restaurantLocation, bestOffer.deliveryLocation)
 
         val response = mapToResponse(
             bestOffer,
