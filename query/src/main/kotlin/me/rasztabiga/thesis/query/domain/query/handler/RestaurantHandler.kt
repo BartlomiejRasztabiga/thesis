@@ -4,8 +4,10 @@ import me.rasztabiga.thesis.query.domain.query.entity.RestaurantEntity
 import me.rasztabiga.thesis.query.domain.query.exception.RestaurantNotFoundException
 import me.rasztabiga.thesis.query.domain.query.mapper.RestaurantMapper.mapToEntity
 import me.rasztabiga.thesis.query.domain.query.mapper.RestaurantMapper.mapToResponse
+import me.rasztabiga.thesis.query.domain.query.port.CalculateDeliveryFeePort
 import me.rasztabiga.thesis.query.domain.query.query.FindAllRestaurantsQuery
 import me.rasztabiga.thesis.query.domain.query.repository.RestaurantRepository
+import me.rasztabiga.thesis.query.domain.query.repository.UserRepository
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantCreatedEvent
@@ -23,7 +25,9 @@ import reactor.core.publisher.Mono
 @Component
 @ProcessingGroup("restaurant")
 class RestaurantHandler(
-    private val restaurantRepository: RestaurantRepository
+    private val restaurantRepository: RestaurantRepository,
+    private val userRepository: UserRepository,
+    private val distanceCalculatorPort: CalculateDeliveryFeePort
 ) {
 
     @EventHandler
@@ -63,7 +67,15 @@ class RestaurantHandler(
     @Suppress("UnusedParameter")
     @QueryHandler
     fun handle(query: FindAllRestaurantsQuery): Flux<RestaurantResponse> {
-        return restaurantRepository.loadAll().map { mapToResponse(it) }
+        val user = userRepository.load(query.userId)!!
+
+        return restaurantRepository.loadAll().map {
+            val deliveryLocation = user.deliveryAddresses.find { address -> address.id == user.defaultAddressId }
+            val deliveryFee =
+                distanceCalculatorPort.calculateDeliveryFee(it.location, deliveryLocation)
+
+            mapToResponse(it, deliveryFee)
+        }
     }
 
     @QueryHandler

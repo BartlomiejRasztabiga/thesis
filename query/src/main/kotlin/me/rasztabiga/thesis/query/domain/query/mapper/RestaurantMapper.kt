@@ -3,6 +3,7 @@ package me.rasztabiga.thesis.query.domain.query.mapper
 import me.rasztabiga.thesis.query.domain.query.entity.RestaurantEntity
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantCreatedEvent
+import java.math.BigDecimal
 
 object RestaurantMapper {
 
@@ -19,7 +20,7 @@ object RestaurantMapper {
         )
     }
 
-    fun mapToResponse(entity: RestaurantEntity): RestaurantResponse {
+    fun mapToResponse(entity: RestaurantEntity, deliveryFee: BigDecimal): RestaurantResponse {
         return RestaurantResponse(
             id = entity.id,
             managerId = entity.managerId,
@@ -31,7 +32,8 @@ object RestaurantMapper {
             },
             location = entity.location,
             imageUrl = entity.imageUrl,
-            avgRating = 5.0 // TODO
+            avgRating = 5.0 // TODO,
+            deliveryFee = deliveryFee
         )
     }
 }

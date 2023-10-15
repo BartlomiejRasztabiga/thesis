@@ -4,6 +4,7 @@ package me.rasztabiga.thesis.query.adapter.`in`.rest
 
 import me.rasztabiga.thesis.query.domain.query.query.FindAllRestaurantsQuery
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
+import me.rasztabiga.thesis.shared.config.getUserId
 import me.rasztabiga.thesis.shared.domain.query.query.FindRestaurantByIdQuery
 import me.rasztabiga.thesis.shared.security.Scopes.RESTAURANT
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 import java.util.*
 
@@ -25,9 +27,11 @@ class RestaurantController(
 
     @GetMapping
     @PreAuthorize("hasAnyAuthority('${RESTAURANT.READ}')")
-    fun getRestaurants(): Mono<List<RestaurantResponse>> {
+    fun getRestaurants(
+        exchange: ServerWebExchange
+    ): Mono<List<RestaurantResponse>> {
         return reactorQueryGateway.query(
-            FindAllRestaurantsQuery(),
+            FindAllRestaurantsQuery(exchange.getUserId()),
             ResponseTypes.multipleInstancesOf(RestaurantResponse::class.java)
         )
     }

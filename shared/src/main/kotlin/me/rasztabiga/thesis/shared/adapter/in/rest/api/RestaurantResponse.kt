@@ -14,7 +14,8 @@ data class RestaurantResponse(
     val menu: List<Product>,
     val location: Location,
     val imageUrl: String,
-    val avgRating: Double
+    val avgRating: Double,
+    val deliveryFee: BigDecimal?
 ) {
     data class Product(
         val id: UUID,

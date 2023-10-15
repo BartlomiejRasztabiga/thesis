@@ -1,3 +1,5 @@
 package me.rasztabiga.thesis.query.domain.query.query
 
-class FindAllRestaurantsQuery
+data class FindAllRestaurantsQuery(
+    val userId: String
+)
