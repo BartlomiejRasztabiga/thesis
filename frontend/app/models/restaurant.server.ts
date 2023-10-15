@@ -71,6 +71,7 @@ interface RestaurantResponse {
   name: string;
   availability: Availability;
   menu: MenuEntryResponse[];
+  avgRating: number;
 }
 
 interface MenuEntryResponse {

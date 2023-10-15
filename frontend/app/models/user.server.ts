@@ -11,6 +11,7 @@ export interface UserResponse {
   id: string;
   name: string;
   deliveryAddresses: DeliveryAddressResponse[];
+  defaultAddressId?: string;
 }
 
 export interface DeliveryAddressResponse {

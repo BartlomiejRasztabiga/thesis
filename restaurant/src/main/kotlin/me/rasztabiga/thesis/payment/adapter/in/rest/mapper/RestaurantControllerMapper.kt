@@ -27,7 +27,8 @@ object RestaurantControllerMapper {
             managerId = exchange.getUserId(),
             email = request.email,
             name = request.name,
-            address = request.address
+            address = request.address,
+            imageUrl = request.imageUrl
         )
     }
 

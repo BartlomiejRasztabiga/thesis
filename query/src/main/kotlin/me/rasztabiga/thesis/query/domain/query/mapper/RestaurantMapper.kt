@@ -29,7 +29,9 @@ object RestaurantMapper {
             menu = entity.menu.map {
                 RestaurantResponse.Product(it.id, it.name, it.description, it.price)
             },
-            location = entity.location
+            location = entity.location,
+            imageUrl = entity.imageUrl,
+            avgRating = 5.0 // TODO
         )
     }
 }
