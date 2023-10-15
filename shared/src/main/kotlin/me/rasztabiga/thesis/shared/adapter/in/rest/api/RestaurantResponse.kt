@@ -12,7 +12,9 @@ data class RestaurantResponse(
     val name: String,
     val availability: Availability,
     val menu: List<Product>,
-    val location: Location
+    val location: Location,
+    val imageUrl: String,
+    val avgRating: Double
 ) {
     data class Product(
         val id: UUID,

@@ -8,5 +8,6 @@ data class CreateRestaurantCommand(
     val managerId: String,
     val email: String,
     val name: String,
-    val address: String
+    val address: String,
+    val imageUrl: String
 )

@@ -10,5 +10,6 @@ data class RestaurantCreatedEvent(
     val name: String,
     val location: Location,
     val managerId: String,
-    val email: String
+    val email: String,
+    val imageUrl: String
 )

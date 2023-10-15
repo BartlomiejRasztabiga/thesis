@@ -14,7 +14,8 @@ object RestaurantMapper {
             email = event.email,
             availability = RestaurantEntity.Availability.CLOSED,
             menu = emptyList(),
-            location = event.location
+            location = event.location,
+            imageUrl = event.imageUrl
         )
     }
 

@@ -18,9 +18,10 @@ export default function BottomNavbar() {
 
   return (
     <header className="flex items-center justify-between">
+      <hr />
       <BottomNavigation
         showLabels
-        sx={{ width: "100%" }}
+        sx={{ width: "100%", position: "fixed", bottom: 0 }}
       >
         <BottomNavigationAction label="Home" icon={<HomeIcon />} component={Link} to="/v2/ordering/restaurants"
                                 style={boldIfMatchesPath("/v2/ordering/restaurants")} />
