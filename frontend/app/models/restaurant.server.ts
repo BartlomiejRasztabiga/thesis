@@ -81,6 +81,7 @@ interface MenuEntryResponse {
   name: string;
   description: string;
   price: number;
+  imageUrl: string;
 }
 
 enum Availability {

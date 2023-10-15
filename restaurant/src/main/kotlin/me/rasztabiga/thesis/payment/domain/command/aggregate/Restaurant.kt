@@ -124,7 +124,7 @@ internal class Restaurant {
     @EventSourcingHandler
     fun on(event: RestaurantMenuUpdatedEvent) {
         this.menu = event.menu.map {
-            Product(it.id, it.name, it.description, it.price)
+            Product(it.id, it.name, it.description, it.price, it.imageUrl)
         }
     }
 }

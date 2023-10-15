@@ -28,7 +28,7 @@ object RestaurantMapper {
             email = entity.email,
             availability = RestaurantResponse.Availability.valueOf(entity.availability.name),
             menu = entity.menu.map {
-                RestaurantResponse.Product(it.id, it.name, it.description, it.price)
+                RestaurantResponse.Product(it.id, it.name, it.description, it.price, it.imageUrl)
             },
             location = entity.location,
             imageUrl = entity.imageUrl,

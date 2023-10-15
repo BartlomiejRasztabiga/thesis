@@ -66,7 +66,8 @@ object RestaurantControllerMapper {
                     id = UUID.randomUUID(),
                     name = it.name,
                     description = it.description,
-                    price = it.price
+                    price = it.price,
+                    imageUrl = it.imageUrl
                 )
             }
         )

@@ -22,6 +22,7 @@ data class RestaurantResponse(
         val name: String,
         val description: String?,
         val price: BigDecimal,
+        val imageUrl: String
     )
 
     enum class Availability {

@@ -59,7 +59,7 @@ class RestaurantHandler(
     fun on(event: RestaurantMenuUpdatedEvent) {
         val entity = restaurantRepository.load(event.id) ?: throw RestaurantNotFoundException(event.id)
         val updatedEntity = entity.copy(menu = event.menu.map {
-            RestaurantEntity.Product(it.id, it.name, it.description, it.price)
+            RestaurantEntity.Product(it.id, it.name, it.description, it.price, it.imageUrl)
         })
         restaurantRepository.save(updatedEntity)
     }

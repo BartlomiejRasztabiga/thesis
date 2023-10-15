@@ -1,15 +1,19 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { getRestaurant } from "~/models/restaurant.server";
-import {useLoaderData, useNavigate } from "@remix-run/react";
+import { useLoaderData, useNavigate } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { getOrder } from "~/models/order.server";
 import { getOrderId } from "~/services/session.server";
 import { getCurrentUser } from "~/models/user.server";
-import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
+import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 import Paper from "@mui/material/Paper";
-import { Button } from "@mui/material";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { Button, Typography } from "@mui/material";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import CardContent from "@mui/material/CardContent";
+import Card from "@mui/material/Card";
+import { Box } from "@mui/system";
+import CardMedia from "@mui/material/CardMedia";
 
 
 export async function loader({ request, params }: LoaderArgs) {
@@ -43,10 +47,10 @@ export default function V2RestaurantPage() {
         <nav className="flex flex-col items-start justify-between w-full py-4 ml-4">
           <button onClick={
             () => {
-              navigate(-1);
+              navigate("/v2/ordering/restaurants");
             }
           }>
-            <ArrowBackIcon fontSize={"large"}  />
+            <ArrowBackIcon fontSize={"large"} />
           </button>
           <hr className="w-full" />
         </nav>
@@ -58,19 +62,41 @@ export default function V2RestaurantPage() {
           />
           <div>
             <h5 className="text-lg font-bold">{data.restaurant.name}</h5>
-            <p><DeliveryDiningIcon/> ~{data.restaurant.deliveryFee.toFixed(2)} PLN</p>
+            <p><DeliveryDiningIcon /> ~{data.restaurant.deliveryFee.toFixed(2)} PLN</p>
           </div>
+          <hr className="w-full" />
           <div>
-            GO TO BASKET???
+            {data.restaurant.menu.map((menuItem) => {
+              return (
+                <Card sx={{ display: "flex" }}>
+                  <Box sx={{ display: "flex", flexDirection: "column" }}>
+                    <CardContent sx={{ flex: "1 0 auto" }}>
+                      <Typography component="div" variant="h5">
+                        Live From Space
+                      </Typography>
+                      <Typography variant="subtitle1" color="text.secondary" component="div">
+                        Mac Miller
+                      </Typography>
+                    </CardContent>
+                    <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
+                      ikonki, np. dodaj do koszyka
+                    </Box>
+                  </Box>
+                  <CardMedia
+                    component="img"
+                    sx={{ width: 151 }}
+                    image="/static/images/cards/live-from-space.jpg"
+                    alt="Live from space album cover"
+                  />
+                </Card>
+              );
+            })}
           </div>
         </Paper>
       </div>
       <div>
-        <nav className="flex flex-col items-center justify-between w-full fixed bottom-0">
-          <hr className="w-full" />
-          <button>
-            {/*<Button variant="contained">FINALIZE ORDER</Button>*/}
-          </button>
+        <nav className="flex flex-col items-center justify-between w-full fixed" style={{ bottom: "1rem" }}>
+          <Button variant="contained">FINALIZE ORDER</Button>
         </nav>
       </div>
     </div>

@@ -28,5 +28,6 @@ data class RestaurantEntity(
         val name: String,
         val description: String?,
         val price: BigDecimal,
+        val imageUrl: String
     )
 }
