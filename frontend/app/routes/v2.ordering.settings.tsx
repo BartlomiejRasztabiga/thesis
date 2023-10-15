@@ -9,12 +9,9 @@ export async function loader({ request }: LoaderArgs) {
 }
 
 export default function V2RestaurantsPage() {
-
   return (
     <div className="flex flex-col h-full">
-      <div className="h-full">
-        SETTINGS
-      </div>
+      <div className="h-full">SETTINGS</div>
       <div className="justify-end">
         <hr />
         <BottomNavbar />

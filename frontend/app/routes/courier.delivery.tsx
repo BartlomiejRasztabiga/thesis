@@ -1,6 +1,13 @@
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Form, Link, useActionData, useFetcher, useLoaderData, useRevalidator } from "@remix-run/react";
+import {
+  Form,
+  Link,
+  useActionData,
+  useFetcher,
+  useLoaderData,
+  useRevalidator,
+} from "@remix-run/react";
 import React, { useEffect } from "react";
 import {
   acceptDeliveryOffer,
@@ -10,7 +17,7 @@ import {
   getDeliveryOffer,
   pickupDelivery,
   rejectDeliveryOffer,
-  updateCourierLocation
+  updateCourierLocation,
 } from "~/models/delivery.server";
 import invariant from "tiny-invariant";
 import { toast } from "react-toastify";
@@ -45,7 +52,10 @@ export async function action({ request, params }: ActionArgs) {
 
   try {
     if (_action === "updateLocation") {
-      await updateCourierLocation(request, { lat: values.lat, lng: values.lng });
+      await updateCourierLocation(request, {
+        lat: values.lat,
+        lng: values.lng,
+      });
       return json({});
     }
 
@@ -92,7 +102,7 @@ export default function CourierDeliveryPage() {
 
           fetcher.submit(
             { _action: "updateLocation", lat: latitude, lng: longitude },
-            { method: "POST" }
+            { method: "POST" },
           );
         });
       }
@@ -110,7 +120,7 @@ export default function CourierDeliveryPage() {
 
   const getGmapsLink = (address: string) => {
     return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-      address
+      address,
     )}`;
   };
 
@@ -146,7 +156,7 @@ export default function CourierDeliveryPage() {
                 <button className={className}>
                   <a
                     href={getGmapsLink(
-                      data.currentDelivery.restaurantLocation.streetAddress
+                      data.currentDelivery.restaurantLocation.streetAddress,
                     )}
                     target={"_blank"}
                     rel="noreferrer"
@@ -168,7 +178,7 @@ export default function CourierDeliveryPage() {
                 <button className={className}>
                   <a
                     href={getGmapsLink(
-                      data.currentDelivery.deliveryLocation.streetAddress
+                      data.currentDelivery.deliveryLocation.streetAddress,
                     )}
                     target={"_blank"}
                     rel="noreferrer"

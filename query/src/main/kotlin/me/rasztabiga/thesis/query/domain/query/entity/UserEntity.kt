@@ -11,7 +11,8 @@ data class UserEntity(
     val id: String,
     val name: String,
     val email: String,
-    val deliveryAddresses: MutableList<DeliveryAddress>
+    val deliveryAddresses: MutableList<DeliveryAddress>,
+    var defaultAddressId: UUID?
 ) {
     data class DeliveryAddress(
         val id: UUID,

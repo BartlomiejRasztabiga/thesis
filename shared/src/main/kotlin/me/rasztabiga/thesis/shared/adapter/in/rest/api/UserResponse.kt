@@ -8,7 +8,8 @@ data class UserResponse(
     val id: String,
     val name: String,
     val email: String,
-    val deliveryAddresses: List<DeliveryAddress>
+    val deliveryAddresses: List<DeliveryAddress>,
+    val defaultAddressId: UUID?
 ) {
     data class DeliveryAddress(
         val id: UUID,

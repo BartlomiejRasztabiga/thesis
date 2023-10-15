@@ -23,13 +23,33 @@ export default function BottomNavbar() {
         showLabels
         sx={{ width: "100%", position: "fixed", bottom: 0 }}
       >
-        <BottomNavigationAction label="Home" icon={<HomeIcon />} component={Link} to="/v2/ordering/restaurants"
-                                style={boldIfMatchesPath("/v2/ordering/restaurants")} />
-        <BottomNavigationAction label="Orders" icon={<ListIcon />} component={Link} to="/v2/ordering/orders"
-                                style={boldIfMatchesPath("/v2/ordering/orders")} />
-        <BottomNavigationAction label="Settings" icon={<SettingsIcon />} component={Link} to="/v2/ordering/settings"
-                                style={boldIfMatchesPath("/v2/ordering/settings")} />
-        <BottomNavigationAction label="Logout" icon={<LogoutIcon />} component={Link} to="/auth/logout" />
+        <BottomNavigationAction
+          label="Home"
+          icon={<HomeIcon />}
+          component={Link}
+          to="/v2/ordering/restaurants"
+          style={boldIfMatchesPath("/v2/ordering/restaurants")}
+        />
+        <BottomNavigationAction
+          label="Orders"
+          icon={<ListIcon />}
+          component={Link}
+          to="/v2/ordering/orders"
+          style={boldIfMatchesPath("/v2/ordering/orders")}
+        />
+        <BottomNavigationAction
+          label="Settings"
+          icon={<SettingsIcon />}
+          component={Link}
+          to="/v2/ordering/settings"
+          style={boldIfMatchesPath("/v2/ordering/settings")}
+        />
+        <BottomNavigationAction
+          label="Logout"
+          icon={<LogoutIcon />}
+          component={Link}
+          to="/auth/logout"
+        />
       </BottomNavigation>
     </header>
   );

@@ -11,7 +11,8 @@ object UserMapper {
             id = event.userId,
             name = event.name,
             email = event.email,
-            deliveryAddresses = mutableListOf()
+            deliveryAddresses = mutableListOf(),
+            defaultAddressId = null
         )
     }
 
@@ -25,7 +26,8 @@ object UserMapper {
                     it.id,
                     it.location
                 )
-            }
+            },
+            defaultAddressId = entity.defaultAddressId
         )
     }
 }

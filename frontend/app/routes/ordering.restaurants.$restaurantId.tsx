@@ -3,8 +3,19 @@ import { json, redirect } from "@remix-run/node";
 import { Form, Link, useActionData, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { getRestaurant } from "~/models/restaurant.server";
-import { clearOrderId, getOrderId, setOrderId } from "~/services/session.server";
-import { addOrderItem, cancelOrder, deleteOrderItem, finalizeOrder, getOrder, startOrder } from "~/models/order.server";
+import {
+  clearOrderId,
+  getOrderId,
+  setOrderId,
+} from "~/services/session.server";
+import {
+  addOrderItem,
+  cancelOrder,
+  deleteOrderItem,
+  finalizeOrder,
+  getOrder,
+  startOrder,
+} from "~/models/order.server";
 import { getCurrentUser } from "~/models/user.server";
 import { toast } from "react-toastify";
 
@@ -45,9 +56,9 @@ export async function action({ request, params }: ActionArgs) {
         {
           headers: {
             // only necessary with cookieSessionStorage
-            "Set-Cookie": await setOrderId(request, orderId.id)
-          }
-        }
+            "Set-Cookie": await setOrderId(request, orderId.id),
+          },
+        },
       );
     }
 
@@ -62,9 +73,9 @@ export async function action({ request, params }: ActionArgs) {
         {
           headers: {
             // only necessary with cookieSessionStorage
-            "Set-Cookie": await clearOrderId(request)
-          }
-        }
+            "Set-Cookie": await clearOrderId(request),
+          },
+        },
       );
     }
 
@@ -80,8 +91,8 @@ export async function action({ request, params }: ActionArgs) {
       return redirect(`/ordering/orders/${activeOrderId}/payment`, {
         headers: {
           // only necessary with cookieSessionStorage
-          "Set-Cookie": await clearOrderId(request)
-        }
+          "Set-Cookie": await clearOrderId(request),
+        },
       });
     }
 
@@ -158,7 +169,7 @@ export default function RestaurantPage() {
           <p className="text-lg text-center mb-4">Your order</p>
           {data.activeOrder.items.map((item) => {
             const menuItem = data.restaurant.menu.find(
-              (menuItem) => menuItem.id === item.productId
+              (menuItem) => menuItem.id === item.productId,
             );
             invariant(menuItem, "menuItem not found");
 

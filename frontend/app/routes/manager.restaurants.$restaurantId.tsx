@@ -1,6 +1,12 @@
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Form, Link, useActionData, useLoaderData, useRevalidator } from "@remix-run/react";
+import {
+  Form,
+  Link,
+  useActionData,
+  useLoaderData,
+  useRevalidator,
+} from "@remix-run/react";
 import invariant from "tiny-invariant";
 import type { RestaurantOrderResponse } from "~/models/restaurant.server";
 import {
@@ -8,7 +14,7 @@ import {
   getRestaurant,
   getRestaurantOrders,
   prepareRestaurantOrder,
-  rejectRestaurantOrder
+  rejectRestaurantOrder,
 } from "~/models/restaurant.server";
 import React, { useEffect } from "react";
 import { toast } from "react-toastify";
@@ -68,7 +74,7 @@ export default function RestaurantManagerPage() {
   const revalidator = useRevalidator();
 
   const activeOrders = data.orders.filter((order) =>
-    ["NEW", "ACCEPTED", "PREPARED"].includes(order.status)
+    ["NEW", "ACCEPTED", "PREPARED"].includes(order.status),
   );
 
   // TODO good enough for now
@@ -152,45 +158,45 @@ export default function RestaurantManagerPage() {
               <table className="table table-zebra">
                 {/* head */}
                 <thead>
-                <tr>
-                  <th>Order ID</th>
-                  <th>Products</th>
-                  <th>Status</th>
-                  <th>Action</th>
-                </tr>
+                  <tr>
+                    <th>Order ID</th>
+                    <th>Products</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                  </tr>
                 </thead>
                 <tbody>
-                {activeOrders.map((order) => (
-                  <tr key={order.restaurantOrderId}>
-                    <th>{order.restaurantOrderId}</th>
-                    <th>
-                      {order.items.map((item, key) => {
-                        const product = data.restaurant.menu.find(
-                          (product) => product.id === item.productId
-                        );
-                        if (!product) {
-                          return null;
-                        }
-                        return (
-                          <div key={key}>
-                            <p>{product.name}</p>
-                          </div>
-                        );
-                      })}
-                    </th>
-                    <th>{order.status}</th>
-                    <th>
-                      <Form method="post">
-                        <input
-                          type="hidden"
-                          name="restaurantOrderId"
-                          value={order.restaurantOrderId}
-                        />
-                        {getActionButtons(order)}
-                      </Form>
-                    </th>
-                  </tr>
-                ))}
+                  {activeOrders.map((order) => (
+                    <tr key={order.restaurantOrderId}>
+                      <th>{order.restaurantOrderId}</th>
+                      <th>
+                        {order.items.map((item, key) => {
+                          const product = data.restaurant.menu.find(
+                            (product) => product.id === item.productId,
+                          );
+                          if (!product) {
+                            return null;
+                          }
+                          return (
+                            <div key={key}>
+                              <p>{product.name}</p>
+                            </div>
+                          );
+                        })}
+                      </th>
+                      <th>{order.status}</th>
+                      <th>
+                        <Form method="post">
+                          <input
+                            type="hidden"
+                            name="restaurantOrderId"
+                            value={order.restaurantOrderId}
+                          />
+                          {getActionButtons(order)}
+                        </Form>
+                      </th>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>

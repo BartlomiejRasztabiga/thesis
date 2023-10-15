@@ -34,6 +34,7 @@ class UserHandler(
     fun on(event: DeliveryAddressCreatedEvent) {
         val entity = userRepository.load(event.userId) ?: throw UserNotFoundException(event.userId)
         entity.deliveryAddresses.add(UserEntity.DeliveryAddress(event.addressId, event.location))
+        entity.defaultAddressId = event.addressId
         userRepository.save(entity)
     }
 
