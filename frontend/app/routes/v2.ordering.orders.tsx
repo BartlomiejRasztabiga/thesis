@@ -13,7 +13,7 @@ export default function V2RestaurantsPage() {
   return (
     <div className="flex flex-col h-full">
       <div className="h-full">
-        RESTAURANTS
+        ORDERS
       </div>
       <div className="justify-end">
         <hr />
