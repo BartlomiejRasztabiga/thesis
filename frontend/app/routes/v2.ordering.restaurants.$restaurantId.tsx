@@ -8,10 +8,11 @@ import invariant from "tiny-invariant";
 import { getOrder } from "~/models/order.server";
 import { getOrderId } from "~/services/session.server";
 import { getCurrentUser } from "~/models/user.server";
+import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
+import Paper from "@mui/material/Paper";
+
 
 export async function loader({ request, params }: LoaderArgs) {
-  console.log("test")
-
   const restaurantId = params.restaurantId;
   invariant(restaurantId, "restaurantId not found");
 
@@ -41,14 +42,18 @@ export default function V2RestaurantPage() {
         <Topbar user={data.currentUser} />
       </div>
       <div className="h-full">
-        <div className="flex flex-col w-80 mx-auto">
+        <Paper className="flex flex-col w-80 mx-auto">
+          <img
+            src={data.restaurant.imageUrl}
+          />
           <div>
-            {data.restaurant.name}
+            <h5 className="text-lg font-bold">{data.restaurant.name}</h5>
+            <p><DeliveryDiningIcon/> ~{data.restaurant.deliveryFee.toFixed(2)} PLN</p>
           </div>
           <div>
             GO TO BASKET???
           </div>
-        </div>
+        </Paper>
       </div>
       <div>
         <BottomNavbar />

@@ -4,7 +4,6 @@ import ListIcon from "@mui/icons-material/List";
 import SettingsIcon from "@mui/icons-material/Settings";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { Link, useLocation } from "@remix-run/react";
-import { Divider } from "@mui/material";
 
 export default function BottomNavbar() {
   const location = useLocation();
@@ -18,11 +17,11 @@ export default function BottomNavbar() {
   }
 
   return (
-    <nav className="flex flex-col items-center justify-between">
+    <nav className="flex flex-col items-center justify-between w-full fixed bottom-0">
       <hr className="w-full" />
       <BottomNavigation
         showLabels
-        sx={{ width: "100%", position: "fixed", bottom: 0 }}
+        className="w-full"
       >
         <BottomNavigationAction
           label="Home"

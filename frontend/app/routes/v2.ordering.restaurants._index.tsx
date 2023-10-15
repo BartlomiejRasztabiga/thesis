@@ -8,8 +8,9 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import StarRateIcon from "@mui/icons-material/StarRate";
-import { CardActionArea } from "@mui/material";
+import { CardActionArea, Divider } from "@mui/material";
 import { getCurrentUser } from "~/models/user.server";
+import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
 
 export async function loader({ request }: LoaderArgs) {
   const restaurants = await getRestaurants(request);
@@ -40,7 +41,7 @@ export default function V2RestaurantsPage() {
                     <div className="flex flex-row w-full">
                       <div className="flex-col w-full">
                         <h5 className="text-lg font-bold">{restaurant.name}</h5>
-                        <p>delivery fee: ~{restaurant.deliveryFee.toFixed(2)} PLN</p>
+                        <p><DeliveryDiningIcon/> ~{restaurant.deliveryFee.toFixed(2)} PLN</p>
                       </div>
                       <div
                         className="flex-col"

@@ -20,7 +20,7 @@ object RestaurantMapper {
         )
     }
 
-    fun mapToResponse(entity: RestaurantEntity, deliveryFee: BigDecimal? = null): RestaurantResponse {
+    fun mapToResponse(entity: RestaurantEntity, deliveryFee: BigDecimal?): RestaurantResponse {
         return RestaurantResponse(
             id = entity.id,
             managerId = entity.managerId,

@@ -69,6 +69,7 @@ export const prepareRestaurantOrder = async (
 interface RestaurantResponse {
   id: string;
   name: string;
+  imageUrl: string;
   availability: Availability;
   menu: MenuEntryResponse[];
   avgRating: number;

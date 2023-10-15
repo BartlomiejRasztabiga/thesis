@@ -81,8 +81,20 @@ class RestaurantHandler(
 
     @QueryHandler
     fun handle(query: FindRestaurantByIdQuery): Mono<RestaurantResponse> {
-        return restaurantRepository.load(query.restaurantId)
-            ?.let { Mono.just(mapToResponse(it)) }
-            ?: Mono.error(RestaurantNotFoundException(query.restaurantId))
+        val restaurant =
+            restaurantRepository.load(query.restaurantId) ?: throw RestaurantNotFoundException(query.restaurantId)
+
+        val user = userRepository.load(query.userId)
+        val deliveryLocation =
+            user?.deliveryAddresses?.find { address -> address.id == user.defaultAddressId }?.location
+        val deliveryFee =
+            deliveryLocation?.let { location ->
+                distanceCalculatorPort.calculateDeliveryFee(
+                    restaurant.location,
+                    location
+                )
+            }
+
+        return Mono.just(mapToResponse(restaurant, deliveryFee))
     }
 }

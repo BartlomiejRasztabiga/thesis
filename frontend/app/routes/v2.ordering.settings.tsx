@@ -28,9 +28,6 @@ export default function V2RestaurantsPage() {
 
   return (
     <div className="flex flex-col h-full">
-      <div>
-        <Topbar user={data.currentUser} />
-      </div>
       <div className="h-full">
         <div className="flex flex-col w-80 mx-auto">
           <Form method="post" className="mt-8">
