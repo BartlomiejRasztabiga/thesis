@@ -6,6 +6,7 @@ import me.rasztabiga.thesis.query.domain.query.mapper.UserMapper.mapToEntity
 import me.rasztabiga.thesis.query.domain.query.mapper.UserMapper.mapToResponse
 import me.rasztabiga.thesis.query.domain.query.repository.UserRepository
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UserResponse
+import me.rasztabiga.thesis.shared.domain.command.event.DefaultDeliveryAddressUpdatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.DeliveryAddressCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.DeliveryAddressDeletedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.UserCreatedEvent
@@ -42,6 +43,13 @@ class UserHandler(
     fun on(event: DeliveryAddressDeletedEvent) {
         val entity = userRepository.load(event.userId) ?: throw UserNotFoundException(event.userId)
         entity.deliveryAddresses.removeIf { it.id == event.addressId }
+        userRepository.save(entity)
+    }
+
+    @EventHandler
+    fun on(event: DefaultDeliveryAddressUpdatedEvent) {
+        val entity = userRepository.load(event.userId) ?: throw UserNotFoundException(event.userId)
+        entity.defaultAddressId = event.addressId
         userRepository.save(entity)
     }
 

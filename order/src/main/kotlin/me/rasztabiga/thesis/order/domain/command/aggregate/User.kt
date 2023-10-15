@@ -5,6 +5,7 @@ import me.rasztabiga.thesis.order.domain.command.command.CreateUserCommand
 import me.rasztabiga.thesis.order.domain.command.command.DeleteDeliveryAddressCommand
 import me.rasztabiga.thesis.order.domain.command.command.UpdateDefaultDeliveryAddressCommand
 import me.rasztabiga.thesis.order.domain.command.port.GeocodeAddressPort
+import me.rasztabiga.thesis.shared.domain.command.event.DefaultDeliveryAddressUpdatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.DeliveryAddressCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.DeliveryAddressDeletedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.UserCreatedEvent
