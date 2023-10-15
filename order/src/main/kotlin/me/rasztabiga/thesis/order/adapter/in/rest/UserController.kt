@@ -4,9 +4,11 @@ package me.rasztabiga.thesis.order.adapter.`in`.rest
 
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.CreateDeliveryAddressRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.CreateUserRequest
+import me.rasztabiga.thesis.order.adapter.`in`.rest.api.UpdateDefaultDeliveryAddressRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.UserControllerMapper.mapToCreateDeliveryAddressCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.UserControllerMapper.mapToCreateUserCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.UserControllerMapper.mapToDeleteDeliveryAddressCommand
+import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.UserControllerMapper.mapToUpdateDefaultDeliveryAddressCommand
 import me.rasztabiga.thesis.shared.StringIdWrapper
 import me.rasztabiga.thesis.shared.UuidWrapper
 import me.rasztabiga.thesis.shared.security.Scopes
@@ -16,6 +18,7 @@ import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseStatus
@@ -61,6 +64,16 @@ class UserController(
         @PathVariable addressId: UUID
     ): Mono<Void> {
         val command = mapToDeleteDeliveryAddressCommand(userId, addressId)
+        return reactorCommandGateway.send(command)
+    }
+
+    @PutMapping("/me/default-address")
+    @PreAuthorize("hasAnyAuthority('${Scopes.USER.WRITE}')")
+    fun createDeliveryAddress(
+        @RequestBody request: UpdateDefaultDeliveryAddressRequest,
+        exchange: ServerWebExchange
+    ): Mono<Void> {
+        val command = mapToUpdateDefaultDeliveryAddressCommand(request, exchange)
         return reactorCommandGateway.send(command)
     }
 }

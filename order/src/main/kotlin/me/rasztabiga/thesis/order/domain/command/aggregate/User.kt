@@ -3,6 +3,7 @@ package me.rasztabiga.thesis.order.domain.command.aggregate
 import me.rasztabiga.thesis.order.domain.command.command.CreateDeliveryAddressCommand
 import me.rasztabiga.thesis.order.domain.command.command.CreateUserCommand
 import me.rasztabiga.thesis.order.domain.command.command.DeleteDeliveryAddressCommand
+import me.rasztabiga.thesis.order.domain.command.command.UpdateDefaultDeliveryAddressCommand
 import me.rasztabiga.thesis.order.domain.command.port.GeocodeAddressPort
 import me.rasztabiga.thesis.shared.domain.command.event.DeliveryAddressCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.DeliveryAddressDeletedEvent
@@ -56,6 +57,19 @@ internal class User {
         deliveryAddresses.find { it.addressId == addressId }?.let {
             apply(
                 DeliveryAddressDeletedEvent(
+                    userId = command.userId,
+                    addressId = command.addressId
+                )
+            )
+        }
+    }
+
+    @CommandHandler
+    fun handle(command: UpdateDefaultDeliveryAddressCommand) {
+        val addressId = command.addressId
+        deliveryAddresses.find { it.addressId == addressId }?.let {
+            apply(
+                DefaultDeliveryAddressUpdatedEvent(
                     userId = command.userId,
                     addressId = command.addressId
                 )
