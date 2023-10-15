@@ -38,9 +38,9 @@ class RestaurantController(
 
     @GetMapping("/{restaurantId}")
     @PreAuthorize("hasAnyAuthority('${RESTAURANT.READ}')")
-    fun getRestaurant(@PathVariable restaurantId: UUID): Mono<RestaurantResponse> {
+    fun getRestaurant(@PathVariable restaurantId: UUID, exchange: ServerWebExchange): Mono<RestaurantResponse> {
         return reactorQueryGateway.query(
-            FindRestaurantByIdQuery(restaurantId),
+            FindRestaurantByIdQuery(restaurantId, exchange.getUserId()),
             ResponseTypes.instanceOf(RestaurantResponse::class.java)
         )
     }

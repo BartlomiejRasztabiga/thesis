@@ -84,7 +84,7 @@ class RestaurantHandler(
         val restaurant =
             restaurantRepository.load(query.restaurantId) ?: throw RestaurantNotFoundException(query.restaurantId)
 
-        val user = userRepository.load(query.userId)
+        val user = query.userId?.let { userRepository.load(it) }
         val deliveryLocation =
             user?.deliveryAddresses?.find { address -> address.id == user.defaultAddressId }?.location
         val deliveryFee =
