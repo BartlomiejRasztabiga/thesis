@@ -4,5 +4,5 @@ import java.util.*
 
 data class FindRestaurantByIdQuery(
     val restaurantId: UUID,
-    val userId: String
+    val userId: String? = null
 )
