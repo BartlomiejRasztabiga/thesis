@@ -1,5 +1,11 @@
 import type { LatLngTuple } from "leaflet";
-import { FeatureGroup, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import {
+  FeatureGroup,
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+} from "react-leaflet";
 import type { Location } from "~/models/user.server";
 
 export interface MapProps {
@@ -12,11 +18,11 @@ export interface MapProps {
 export function MapClient(props: MapProps) {
   const restaurantLatLng: LatLngTuple = [
     props.restaurantLocation.lat,
-    props.restaurantLocation.lng
+    props.restaurantLocation.lng,
   ];
   const deliveryLatLng: LatLngTuple = [
     props.deliveryLocation.lat,
-    props.deliveryLocation.lng
+    props.deliveryLocation.lng,
   ];
 
   let bounds = [restaurantLatLng, deliveryLatLng];
@@ -24,10 +30,7 @@ export function MapClient(props: MapProps) {
   let courierLatLng: LatLngTuple | undefined;
 
   if (props.courierLocation) {
-    courierLatLng = [
-      props.courierLocation.lat,
-      props.courierLocation.lng
-    ];
+    courierLatLng = [props.courierLocation.lat, props.courierLocation.lng];
 
     bounds.push(courierLatLng);
   }
@@ -36,7 +39,7 @@ export function MapClient(props: MapProps) {
     <div style={{ height: props.height }}>
       <MapContainer
         style={{
-          height: "100%"
+          height: "100%",
         }}
         center={deliveryLatLng}
         zoom={14}
@@ -55,11 +58,11 @@ export function MapClient(props: MapProps) {
           <Marker position={deliveryLatLng}>
             <Popup>Delivery location</Popup>
           </Marker>
-          {props.courierLocation &&
-            (<Marker position={courierLatLng!}>
+          {props.courierLocation && (
+            <Marker position={courierLatLng!}>
               <Popup>Courier location</Popup>
-            </Marker>)
-          }
+            </Marker>
+          )}
         </FeatureGroup>
       </MapContainer>
     </div>

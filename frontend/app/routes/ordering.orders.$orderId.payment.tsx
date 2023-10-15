@@ -97,7 +97,9 @@ export default function OrderPaymentPage() {
               </div>
               <hr className="my-4" />
               <div>
-                <p className="flex-grow font-bold">Total: {data.order.itemsTotal + data.order.deliveryFee} PLN</p>
+                <p className="flex-grow font-bold">
+                  Total: {data.order.itemsTotal + data.order.deliveryFee} PLN
+                </p>
               </div>
               <hr className="my-4" />
               <div>

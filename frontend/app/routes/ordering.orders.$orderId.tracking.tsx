@@ -76,17 +76,13 @@ export default function OrderTrackingPage() {
                 <h4 className="text-xl font-bold">Order #{data.order.id}</h4>
                 <p className="text-gray-500">{getOrderSummary(data.order)}</p>
               </div>
-              <Suspense
-                fallback={
-                  <div>loading...</div>
-                }
-              >
-              <MapClient
-                height={mapHeight}
-                restaurantLocation={data.order.restaurantLocation}
-                deliveryLocation={data.order.deliveryLocation}
-                courierLocation={data.order.courierLocation}
-              />
+              <Suspense fallback={<div>loading...</div>}>
+                <MapClient
+                  height={mapHeight}
+                  restaurantLocation={data.order.restaurantLocation}
+                  deliveryLocation={data.order.deliveryLocation}
+                  courierLocation={data.order.courierLocation}
+                />
               </Suspense>
             </div>
             <div className="h-full w-80 border-r bg-gray-50"></div>

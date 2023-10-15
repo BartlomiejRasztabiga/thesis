@@ -10,11 +10,14 @@ import {
 } from "@remix-run/react";
 
 import tailwindStylesheetUrl from "./styles/tailwind.css";
+import reactToastifyStylesheetUrl from "react-toastify/dist/ReactToastify.css";
 import { getUser } from "./services/session.server";
+import { ToastContainer } from "react-toastify";
 
 export const links: LinksFunction = () => {
   return [
     { rel: "stylesheet", href: tailwindStylesheetUrl },
+    { rel: "stylesheet", href: reactToastifyStylesheetUrl },
     {
       rel: "stylesheet",
       href: "https://unpkg.com/leaflet@1.9.4/dist/leaflet.css",
@@ -42,6 +45,7 @@ export default function App() {
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
+        <ToastContainer />
       </body>
     </html>
   );

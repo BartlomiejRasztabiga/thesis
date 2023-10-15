@@ -1,6 +1,6 @@
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { Form, Link, useFetcher, useLoaderData, useRevalidator } from "@remix-run/react";
+import { Form, Link, useActionData, useFetcher, useLoaderData, useRevalidator } from "@remix-run/react";
 import React, { useEffect } from "react";
 import {
   acceptDeliveryOffer,
@@ -13,6 +13,7 @@ import {
   updateCourierLocation
 } from "~/models/delivery.server";
 import invariant from "tiny-invariant";
+import { toast } from "react-toastify";
 
 export async function loader({ request, params }: LoaderArgs) {
   const courier = await getCurrentCourier(request);
@@ -35,8 +36,6 @@ export async function loader({ request, params }: LoaderArgs) {
     }
   }
 
-  // TODO load orders
-
   return json({ courier, currentDelivery, deliveryOffer });
 }
 
@@ -44,28 +43,32 @@ export async function action({ request, params }: ActionArgs) {
   const formData = await request.formData();
   const { _action, ...values } = Object.fromEntries(formData);
 
-  if (_action === "updateLocation") {
-    await updateCourierLocation(request, { lat: values.lat, lng: values.lng });
-    return json({});
-  }
+  try {
+    if (_action === "updateLocation") {
+      await updateCourierLocation(request, { lat: values.lat, lng: values.lng });
+      return json({});
+    }
 
-  const deliveryId = values.deliveryId as string;
-  invariant(deliveryId, "deliveryId not found");
+    const deliveryId = values.deliveryId as string;
+    invariant(deliveryId, "deliveryId not found");
 
-  if (_action === "accept") {
-    await acceptDeliveryOffer(request, deliveryId);
-  }
+    if (_action === "accept") {
+      await acceptDeliveryOffer(request, deliveryId);
+    }
 
-  if (_action === "reject") {
-    await rejectDeliveryOffer(request, deliveryId);
-  }
+    if (_action === "reject") {
+      await rejectDeliveryOffer(request, deliveryId);
+    }
 
-  if (_action === "pickup") {
-    await pickupDelivery(request, deliveryId);
-  }
+    if (_action === "pickup") {
+      await pickupDelivery(request, deliveryId);
+    }
 
-  if (_action === "deliver") {
-    await deliverDelivery(request, deliveryId);
+    if (_action === "deliver") {
+      await deliverDelivery(request, deliveryId);
+    }
+  } catch (e) {
+    return json({ error: e.response.data.message });
   }
 
   return json({});
@@ -73,6 +76,7 @@ export async function action({ request, params }: ActionArgs) {
 
 export default function CourierDeliveryPage() {
   const data = useLoaderData<typeof loader>();
+  const actionData = useActionData();
 
   const revalidator = useRevalidator();
 
@@ -81,7 +85,6 @@ export default function CourierDeliveryPage() {
   // TODO good enough for now ???
   useEffect(() => {
     const timer = setInterval(async () => {
-
       // TODO jak przeslac te dane na serwer?
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(async (position) => {
@@ -93,7 +96,6 @@ export default function CourierDeliveryPage() {
           );
         });
       }
-
 
       // TODO only if no delivery in progress
       // disabled for now, we want to update courier's location
@@ -187,11 +189,11 @@ export default function CourierDeliveryPage() {
           <p>Delivery offer</p>
           <p>
             From: {data.deliveryOffer.restaurantLocation.streetAddress} (
-            {data.deliveryOffer.distanceToRestaurantInKm} km)
+            {data.deliveryOffer.distanceToRestaurantInKm.toFixed(2)} km)
           </p>
           <p>
             To: {data.deliveryOffer.deliveryLocation.streetAddress} (
-            {data.deliveryOffer.distanceToDeliveryAddressInKm} km)
+            {data.deliveryOffer.distanceToDeliveryAddressInKm.toFixed(2)} km)
           </p>
           <p>Reward: {data.deliveryOffer.courierFee} PLN</p>
           <Form method="post">
@@ -227,6 +229,10 @@ export default function CourierDeliveryPage() {
       </>
     );
   };
+
+  if (actionData && actionData.error) {
+    toast.error(actionData.error, { toastId: 1 });
+  }
 
   return (
     <div className="flex h-full min-h-screen flex-col">

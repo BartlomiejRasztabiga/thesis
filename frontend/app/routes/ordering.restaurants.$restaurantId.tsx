@@ -1,22 +1,12 @@
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { Form, Link, useLoaderData } from "@remix-run/react";
+import { Form, Link, useActionData, useLoaderData } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { getRestaurant } from "~/models/restaurant.server";
-import {
-  clearOrderId,
-  getOrderId,
-  setOrderId,
-} from "~/services/session.server";
-import {
-  addOrderItem,
-  cancelOrder,
-  deleteOrderItem,
-  finalizeOrder,
-  getOrder,
-  startOrder,
-} from "~/models/order.server";
+import { clearOrderId, getOrderId, setOrderId } from "~/services/session.server";
+import { addOrderItem, cancelOrder, deleteOrderItem, finalizeOrder, getOrder, startOrder } from "~/models/order.server";
 import { getCurrentUser } from "~/models/user.server";
+import { toast } from "react-toastify";
 
 export async function loader({ request, params }: LoaderArgs) {
   const restaurantId = params.restaurantId;
@@ -47,81 +37,85 @@ export async function action({ request, params }: ActionArgs) {
 
   invariant(params.restaurantId, "restaurantId not found");
 
-  if (_action === "start_order") {
-    const orderId = await startOrder(request, params.restaurantId);
+  try {
+    if (_action === "start_order") {
+      const orderId = await startOrder(request, params.restaurantId);
+      return json(
+        {},
+        {
+          headers: {
+            // only necessary with cookieSessionStorage
+            "Set-Cookie": await setOrderId(request, orderId.id)
+          }
+        }
+      );
+    }
 
-    return json(
-      {},
-      {
+    if (_action === "cancel_order") {
+      const activeOrderId = await getOrderId(request);
+      invariant(activeOrderId, "activeOrderId not found");
+
+      await cancelOrder(request, activeOrderId);
+
+      return json(
+        {},
+        {
+          headers: {
+            // only necessary with cookieSessionStorage
+            "Set-Cookie": await clearOrderId(request)
+          }
+        }
+      );
+    }
+
+    if (_action === "finalize_order") {
+      const activeOrderId = await getOrderId(request);
+      invariant(activeOrderId, "activeOrderId not found");
+
+      const deliveryAddressId = values.address as string;
+      invariant(deliveryAddressId, "deliveryAddressId not found");
+
+      await finalizeOrder(request, activeOrderId, deliveryAddressId);
+
+      return redirect(`/ordering/orders/${activeOrderId}/payment`, {
         headers: {
           // only necessary with cookieSessionStorage
-          "Set-Cookie": await setOrderId(request, orderId.id),
-        },
-      },
-    );
-  }
+          "Set-Cookie": await clearOrderId(request)
+        }
+      });
+    }
 
-  if (_action === "cancel_order") {
-    const activeOrderId = await getOrderId(request);
-    invariant(activeOrderId, "activeOrderId not found");
+    if (_action === "add_order_item") {
+      const activeOrderId = await getOrderId(request);
+      invariant(activeOrderId, "activeOrderId not found");
 
-    await cancelOrder(request, activeOrderId);
+      const productId = values.id as string;
+      invariant(productId, "productId not found");
 
-    return json(
-      {},
-      {
-        headers: {
-          // only necessary with cookieSessionStorage
-          "Set-Cookie": await clearOrderId(request),
-        },
-      },
-    );
-  }
+      await addOrderItem(request, activeOrderId, productId);
 
-  if (_action === "finalize_order") {
-    const activeOrderId = await getOrderId(request);
-    invariant(activeOrderId, "activeOrderId not found");
+      return json({});
+    }
 
-    const deliveryAddressId = values.address as string;
-    invariant(deliveryAddressId, "deliveryAddressId not found");
+    if (_action === "delete_order_item") {
+      const activeOrderId = await getOrderId(request);
+      invariant(activeOrderId, "activeOrderId not found");
 
-    await finalizeOrder(request, activeOrderId, deliveryAddressId);
+      const orderItemId = values.id as string;
+      invariant(orderItemId, "orderItemId not found");
 
-    return redirect(`/ordering/orders/${activeOrderId}/payment`, {
-      headers: {
-        // only necessary with cookieSessionStorage
-        "Set-Cookie": await clearOrderId(request),
-      },
-    });
-  }
+      await deleteOrderItem(request, activeOrderId, orderItemId);
 
-  if (_action === "add_order_item") {
-    const activeOrderId = await getOrderId(request);
-    invariant(activeOrderId, "activeOrderId not found");
-
-    const productId = values.id as string;
-    invariant(productId, "productId not found");
-
-    await addOrderItem(request, activeOrderId, productId);
-
-    return json({});
-  }
-
-  if (_action === "delete_order_item") {
-    const activeOrderId = await getOrderId(request);
-    invariant(activeOrderId, "activeOrderId not found");
-
-    const orderItemId = values.id as string;
-    invariant(orderItemId, "orderItemId not found");
-
-    await deleteOrderItem(request, activeOrderId, orderItemId);
-
-    return json({});
+      return json({});
+    }
+  } catch (e) {
+    return json({ error: e.response.data.message });
   }
 }
 
 export default function RestaurantPage() {
   const data = useLoaderData<typeof loader>();
+  const actionData = useActionData();
 
   let orderSum = 0;
 
@@ -164,7 +158,7 @@ export default function RestaurantPage() {
           <p className="text-lg text-center mb-4">Your order</p>
           {data.activeOrder.items.map((item) => {
             const menuItem = data.restaurant.menu.find(
-              (menuItem) => menuItem.id === item.productId,
+              (menuItem) => menuItem.id === item.productId
             );
             invariant(menuItem, "menuItem not found");
 
@@ -226,6 +220,10 @@ export default function RestaurantPage() {
         </>
       );
   };
+
+  if (actionData && actionData.error) {
+    toast.error(actionData.error, { toastId: 1 });
+  }
 
   return (
     <div className="flex h-full bg-white">
