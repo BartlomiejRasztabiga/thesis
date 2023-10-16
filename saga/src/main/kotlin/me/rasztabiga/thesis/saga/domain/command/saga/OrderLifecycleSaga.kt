@@ -91,12 +91,7 @@ class OrderLifecycleSaga {
             CalculateOrderTotalCommand(
                 orderId = event.orderId,
                 restaurantId = event.restaurantId,
-                items = event.items.map {
-                    CalculateOrderTotalCommand.OrderItem(
-                        orderItemId = it.orderItemId,
-                        productId = it.productId
-                    )
-                },
+                items = event.items,
                 restaurantAddress = order.restaurantLocation.streetAddress!!,
                 deliveryAddress = order.deliveryLocation!!.streetAddress!!
             )
@@ -134,7 +129,7 @@ class OrderLifecycleSaga {
                 payerId = this.orderingUserId,
                 amount = event.productsTotal + event.deliveryFee,
                 items = order.items.map {
-                    val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.productId }!!
+                    val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.key }!!
                     CreateOrderPaymentCommand.OrderItem(
                         name = menuItem.name,
                         quantity = 1,
@@ -169,11 +164,7 @@ class OrderLifecycleSaga {
                 restaurantOrderId = restaurantOrderId,
                 orderId = event.orderId,
                 restaurantId = order.restaurantId,
-                items = order.items.map {
-                    CreateRestaurantOrderCommand.OrderItem(
-                        productId = it.productId
-                    )
-                }
+                items = order.items
             )
         )
     }
@@ -275,7 +266,7 @@ class OrderLifecycleSaga {
                 issueDate = LocalDate.now(),
                 dueDate = LocalDate.now().plusDays(14),
                 items = order.items.map {
-                    val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.productId }!!
+                    val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.key }!!
 
                     CreateInvoiceCommand.InvoiceItem(
                         name = menuItem.name,
@@ -311,7 +302,7 @@ class OrderLifecycleSaga {
                 issueDate = LocalDate.now(),
                 dueDate = LocalDate.now().plusDays(14),
                 items = order.items.map {
-                    val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.productId }!!
+                    val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.key }!!
 
                     CreateInvoiceCommand.InvoiceItem(
                         name = menuItem.name,

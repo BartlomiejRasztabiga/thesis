@@ -4,7 +4,7 @@ import java.util.*
 
 data class RestaurantOrderResponse(
     val restaurantOrderId: UUID,
-    val items: List<OrderItem>,
+    val items: Map<UUID, Int>,
     val status: RestaurantOrderStatus
 ) {
     enum class RestaurantOrderStatus {

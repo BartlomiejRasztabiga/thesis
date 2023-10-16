@@ -3,6 +3,7 @@
 package me.rasztabiga.thesis.order.adapter.`in`.rest
 
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.AddOrderItemRequest
+import me.rasztabiga.thesis.order.adapter.`in`.rest.api.DeleteOrderItemRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.FinalizeOrderRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.StartOrderRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToAddOrderItemCommand
@@ -77,18 +78,18 @@ class OrderController(
     ): Mono<UuidWrapper> {
         val command = mapToAddOrderItemCommand(orderId, request, exchange)
         return reactorCommandGateway.send<UUID>(command)
-            .then(Mono.just(UuidWrapper(command.orderItemId)))
+            .then(Mono.just(UuidWrapper(orderId)))
     }
 
-    @DeleteMapping("/{orderId}/items/{orderItemId}")
+    @DeleteMapping("/{orderId}/items")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     @PreAuthorize("hasAnyAuthority('${Scopes.ORDER.WRITE}')")
     fun deleteOrderItem(
         @PathVariable orderId: UUID,
-        @PathVariable orderItemId: UUID,
+        @RequestBody request: DeleteOrderItemRequest,
         exchange: ServerWebExchange
     ): Mono<Void> {
-        val command = mapToDeleteOrderItemCommand(orderId, orderItemId, exchange)
+        val command = mapToDeleteOrderItemCommand(orderId, request, exchange)
         return reactorCommandGateway.send(command)
     }
 }

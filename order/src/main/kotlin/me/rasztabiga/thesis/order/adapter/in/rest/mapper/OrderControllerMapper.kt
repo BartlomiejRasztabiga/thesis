@@ -3,6 +3,7 @@
 package me.rasztabiga.thesis.order.adapter.`in`.rest.mapper
 
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.AddOrderItemRequest
+import me.rasztabiga.thesis.order.adapter.`in`.rest.api.DeleteOrderItemRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.FinalizeOrderRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.StartOrderRequest
 import me.rasztabiga.thesis.order.domain.command.command.AddOrderItemCommand
@@ -44,20 +45,19 @@ object OrderControllerMapper {
         return AddOrderItemCommand(
             orderId = orderId,
             userId = exchange.getUserId(),
-            orderItemId = UUID.randomUUID(),
             productId = request.productId
         )
     }
 
     fun mapToDeleteOrderItemCommand(
         orderId: UUID,
-        orderItemId: UUID,
+        request: DeleteOrderItemRequest,
         exchange: ServerWebExchange
     ): DeleteOrderItemCommand {
         return DeleteOrderItemCommand(
             orderId = orderId,
             userId = exchange.getUserId(),
-            orderItemId = orderItemId
+            productId = request.productId
         )
     }
 

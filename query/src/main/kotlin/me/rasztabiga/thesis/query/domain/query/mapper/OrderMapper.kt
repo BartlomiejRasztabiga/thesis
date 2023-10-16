@@ -15,7 +15,7 @@ object OrderMapper {
             restaurantLocation = restaurantLocation,
             userId = event.userId,
             status = OrderEntity.OrderStatus.valueOf(event.status.name),
-            items = mutableListOf(),
+            items = mutableMapOf(),
             productsTotal = null,
             paymentId = null,
             paymentSessionUrl = null,
@@ -33,12 +33,7 @@ object OrderMapper {
             restaurantLocation = entity.restaurantLocation,
             userId = entity.userId,
             status = OrderResponse.OrderStatus.valueOf(entity.status.name),
-            items = entity.items.map {
-                OrderResponse.OrderItem(
-                    it.id,
-                    it.productId
-                )
-            },
+            items = entity.items,
             itemsTotal = entity.productsTotal,
             paymentId = entity.paymentId,
             paymentSessionUrl = entity.paymentSessionUrl,

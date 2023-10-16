@@ -126,12 +126,7 @@ internal class Order {
                 orderId = command.orderId,
                 userId = command.userId,
                 restaurantId = this.restaurantId,
-                items = this.items.map {
-                    OrderFinalizedEvent.OrderItem(
-                        orderItemId = it.orderItemId,
-                        productId = it.productId
-                    )
-                },
+                items = this.items,
                 deliveryAddressId = command.deliveryAddressId
             )
         )

@@ -32,11 +32,7 @@ internal class RestaurantOrder {
             RestaurantOrderCreatedEvent(
                 restaurantOrderId = command.restaurantOrderId,
                 orderId = command.orderId,
-                items = command.items.map {
-                    RestaurantOrderCreatedEvent.OrderItem(
-                        productId = it.productId
-                    )
-                },
+                items = command.items,
                 restaurantId = command.restaurantId
             )
         )
