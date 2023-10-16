@@ -68,15 +68,14 @@ export interface OrderResponse {
   deliveryFee: number;
   userId: string;
   status: OrderStatus;
-  items: OrderItemResponse[];
+  items: OrderItem[];
   itemsTotal: number;
   paymentId: string;
   paymentSessionUrl: string;
 }
 
-interface OrderItemResponse {
-  id: string;
-  productId: string;
+type OrderItem = {
+  [id: string]: number;
 }
 
 enum OrderStatus {

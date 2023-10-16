@@ -116,8 +116,8 @@ internal class Order {
         }
 
         this.items.forEach {
-            require(orderVerificationPort.productExists(it.productId, this.restaurantId)) {
-                "Product with id ${it.productId} does not exist in restaurant with id ${this.restaurantId}"
+            require(orderVerificationPort.productExists(it.key, this.restaurantId)) {
+                "Product with id ${it.key} does not exist in restaurant with id ${this.restaurantId}"
             }
         }
 

@@ -11,7 +11,7 @@ data class OrderResponse(
     val restaurantLocation: Location,
     val userId: String,
     val status: OrderStatus,
-    val items: List<OrderItem>,
+    val items: Map<UUID, Int>,
     val itemsTotal: BigDecimal?,
     val paymentId: UUID?,
     val paymentSessionUrl: String?,
@@ -32,10 +32,4 @@ data class OrderResponse(
         PICKED_UP,
         DELIVERED
     }
-
-    // TODO maybe we should aggregate all the product data here (price etc.)
-    data class OrderItem(
-        val id: UUID,
-        val productId: UUID
-    )
 }

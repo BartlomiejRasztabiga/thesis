@@ -7,10 +7,6 @@ import java.util.*
 data class RestaurantOrderCreatedEvent(
     val restaurantOrderId: UUID,
     val orderId: UUID,
-    val items: List<OrderItem>,
+    val items: Map<UUID, Int>,
     val restaurantId: UUID
-) {
-    data class OrderItem(
-        val productId: UUID
-    )
-}
+)

@@ -14,7 +14,7 @@ data class OrderEntity(
     val restaurantLocation: Location,
     val userId: String,
     var status: OrderStatus,
-    val items: Map<UUID, Int>,
+    val items: MutableMap<UUID, Int>,
     var productsTotal: BigDecimal?,
     var deliveryFee: BigDecimal?,
     var paymentId: UUID?,

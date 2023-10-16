@@ -7,10 +7,6 @@ data class CreateRestaurantOrderCommand(
     @TargetAggregateIdentifier val restaurantOrderId: UUID,
     val orderId: UUID,
     val restaurantId: UUID,
-    val items: List<OrderItem>
-) {
-    data class OrderItem(
-        val productId: UUID
-    )
-}
+    val items: Map<UUID, Int>
+)
 

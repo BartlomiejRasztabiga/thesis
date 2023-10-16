@@ -10,14 +10,10 @@ data class RestaurantOrderEntity(
     val id: UUID,
     val orderId: UUID,
     val restaurantId: UUID,
-    val items: List<OrderItem>,
+    val items: Map<UUID, Int>,
     var status: OrderStatus
 ) {
     enum class OrderStatus {
         NEW, ACCEPTED, PREPARED, REJECTED, PICKED_UP, DELIVERED
     }
-
-    data class OrderItem(
-        val productId: UUID
-    )
 }

@@ -61,14 +61,22 @@ class OrderHandler(
     @EventHandler
     fun on(event: OrderItemAddedEvent) {
         val entity = getOrder(event.orderId)
-        entity.items.add(OrderEntity.OrderItem(event.orderItemId, event.productId))
+        if (entity.items.containsKey(event.productId)) {
+            entity.items[event.productId] = entity.items[event.productId]!! + 1
+        } else {
+            entity.items[event.productId] = 1
+        }
         orderRepository.save(entity)
     }
 
     @EventHandler
     fun on(event: OrderItemDeletedEvent) {
         val entity = getOrder(event.orderId)
-        entity.items.removeIf { it.id == event.orderItemId }
+        if (entity.items[event.productId]!! > 1) {
+            entity.items[event.productId] = entity.items[event.productId]!! - 1
+        } else {
+            entity.items.remove(event.productId)
+        }
         orderRepository.save(entity)
     }
 
