@@ -35,7 +35,7 @@ internal class Order {
     private lateinit var status: OrderStatus
 
     @AggregateMember
-    private val items: MutableList<OrderItem> = mutableListOf()
+    private val items: MutableMap<UUID, Int> = mutableMapOf()
 
     private constructor()
 
@@ -86,7 +86,6 @@ internal class Order {
         apply(
             OrderItemAddedEvent(
                 orderId = command.orderId,
-                orderItemId = command.orderItemId,
                 productId = command.productId
             )
         )
@@ -101,7 +100,7 @@ internal class Order {
             apply(
                 OrderItemDeletedEvent(
                     orderId = command.orderId,
-                    orderItemId = command.orderItemId
+                    productId = command.productId
                 )
             )
         }
@@ -180,11 +179,13 @@ internal class Order {
 
     @EventSourcingHandler
     fun on(event: OrderItemAddedEvent) {
-        this.items.add(OrderItem(event.orderItemId, event.productId))
+        this.items[event.productId] = 1
     }
 
     @EventSourcingHandler
     fun on(event: OrderItemDeletedEvent) {
+        this.items
+
         this.items.removeIf { it.orderItemId == event.orderItemId }
     }
 

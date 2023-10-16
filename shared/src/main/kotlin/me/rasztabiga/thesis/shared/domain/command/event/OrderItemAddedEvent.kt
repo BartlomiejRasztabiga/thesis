@@ -6,6 +6,5 @@ import java.util.*
 @Revision("1.0")
 data class OrderItemAddedEvent(
     val orderId: UUID,
-    val orderItemId: UUID,
     val productId: UUID
 )

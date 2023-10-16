@@ -6,5 +6,5 @@ import java.util.*
 data class DeleteOrderItemCommand(
     @TargetAggregateIdentifier val orderId: UUID,
     val userId: String,
-    val orderItemId: UUID
+    val productId: UUID
 )
