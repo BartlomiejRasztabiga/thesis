@@ -95,8 +95,9 @@ internal class Order {
     fun handle(command: DeleteOrderItemCommand) {
         require(this.userId == command.userId) { "Order can be updated only by the user who created it." }
         require(this.status == OrderStatus.CREATED) { "Order can be updated only if it's in CREATED status." }
+        require(this.items.containsKey(command.productId)) { "Order does not contain product with id ${command.productId}" }
 
-        this.items.find { it.orderItemId == command.orderItemId }?.let {
+        if (this.items[command.productId]!! >= 1) {
             apply(
                 OrderItemDeletedEvent(
                     orderId = command.orderId,
@@ -179,14 +180,20 @@ internal class Order {
 
     @EventSourcingHandler
     fun on(event: OrderItemAddedEvent) {
-        this.items[event.productId] = 1
+        if (this.items.containsKey(event.productId)) {
+            this.items[event.productId] = this.items[event.productId]!! + 1
+        } else {
+            this.items[event.productId] = 1
+        }
     }
 
     @EventSourcingHandler
     fun on(event: OrderItemDeletedEvent) {
-        this.items
-
-        this.items.removeIf { it.orderItemId == event.orderItemId }
+        if (this.items[event.productId]!! > 1) {
+            this.items[event.productId] = this.items[event.productId]!! - 1
+        } else {
+            this.items.remove(event.productId)
+        }
     }
 
     @Suppress("UnusedParameter")
