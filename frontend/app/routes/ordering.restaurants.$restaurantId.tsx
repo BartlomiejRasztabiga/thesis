@@ -83,10 +83,7 @@ export async function action({ request, params }: ActionArgs) {
       const activeOrderId = await getOrderId(request);
       invariant(activeOrderId, "activeOrderId not found");
 
-      const deliveryAddressId = values.address as string;
-      invariant(deliveryAddressId, "deliveryAddressId not found");
-
-      await finalizeOrder(request, activeOrderId, deliveryAddressId);
+      await finalizeOrder(request, activeOrderId);
 
       return redirect(`/ordering/orders/${activeOrderId}/payment`, {
         headers: {

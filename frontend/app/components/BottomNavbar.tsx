@@ -19,10 +19,7 @@ export default function BottomNavbar() {
   return (
     <nav className="flex flex-col items-center justify-between w-full fixed bottom-0">
       <hr className="w-full" />
-      <BottomNavigation
-        showLabels
-        className="w-full"
-      >
+      <BottomNavigation showLabels className="w-full">
         <BottomNavigationAction
           label="Home"
           icon={<HomeIcon />}

@@ -4,7 +4,6 @@ package me.rasztabiga.thesis.order.adapter.`in`.rest.mapper
 
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.AddOrderItemRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.DeleteOrderItemRequest
-import me.rasztabiga.thesis.order.adapter.`in`.rest.api.FinalizeOrderRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.StartOrderRequest
 import me.rasztabiga.thesis.order.domain.command.command.AddOrderItemCommand
 import me.rasztabiga.thesis.order.domain.command.command.CancelOrderCommand
@@ -63,13 +62,11 @@ object OrderControllerMapper {
 
     fun mapToFinalizeOrderCommand(
         orderId: UUID,
-        request: FinalizeOrderRequest,
         exchange: ServerWebExchange
     ): FinalizeOrderCommand {
         return FinalizeOrderCommand(
             orderId = orderId,
-            userId = exchange.getUserId(),
-            deliveryAddressId = request.deliveryAddressId
+            userId = exchange.getUserId()
         )
     }
 }

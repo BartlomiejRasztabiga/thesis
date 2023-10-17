@@ -4,7 +4,7 @@ import type { Location } from "~/models/user.server";
 
 export const getOrder = async (
   request: Request,
-  orderId: string
+  orderId: string,
 ): Promise<OrderResponse> => {
   const axios = await getAxios(request);
   return axios.get(`/api/v1/orders/${orderId}`).then((res) => res.data);
@@ -12,7 +12,7 @@ export const getOrder = async (
 
 export const startOrder = async (
   request: Request,
-  restaurantId: string
+  restaurantId: string,
 ): Promise<UuidWrapper> => {
   const axios = await getAxios(request);
   return axios.post(`/api/v1/orders`, { restaurantId }).then((res) => res.data);
@@ -20,7 +20,7 @@ export const startOrder = async (
 
 export const cancelOrder = async (
   request: Request,
-  orderId: string
+  orderId: string,
 ): Promise<UuidWrapper> => {
   const axios = await getAxios(request);
   return axios.delete(`/api/v1/orders/${orderId}`).then((res) => res.data);
@@ -29,18 +29,17 @@ export const cancelOrder = async (
 export const finalizeOrder = async (
   request: Request,
   orderId: string,
-  deliveryAddressId: string
 ): Promise<UuidWrapper> => {
   const axios = await getAxios(request);
   return axios
-    .put(`/api/v1/orders/${orderId}/finalize`, { deliveryAddressId })
+    .put(`/api/v1/orders/${orderId}/finalize`)
     .then((res) => res.data);
 };
 
 export const addOrderItem = async (
   request: Request,
   orderId: string,
-  productId: string
+  productId: string,
 ): Promise<UuidWrapper> => {
   const axios = await getAxios(request);
   return axios
@@ -51,7 +50,7 @@ export const addOrderItem = async (
 export const deleteOrderItem = async (
   request: Request,
   orderId: string,
-  productId: string
+  productId: string,
 ): Promise<void> => {
   const axios = await getAxios(request);
   return axios
@@ -76,7 +75,7 @@ export interface OrderResponse {
 
 type OrderItem = {
   [id: string]: number;
-}
+};
 
 enum OrderStatus {
   CREATED = "CREATED",

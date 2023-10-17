@@ -4,7 +4,6 @@ package me.rasztabiga.thesis.order.adapter.`in`.rest
 
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.AddOrderItemRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.DeleteOrderItemRequest
-import me.rasztabiga.thesis.order.adapter.`in`.rest.api.FinalizeOrderRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.StartOrderRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToAddOrderItemCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToCancelOrderCommand
@@ -60,10 +59,9 @@ class OrderController(
     @PreAuthorize("hasAnyAuthority('${Scopes.ORDER.WRITE}')")
     fun finalizeOrder(
         @PathVariable orderId: UUID,
-        @RequestBody request: FinalizeOrderRequest,
         exchange: ServerWebExchange
     ): Mono<UuidWrapper> {
-        val command = mapToFinalizeOrderCommand(orderId, request, exchange)
+        val command = mapToFinalizeOrderCommand(orderId, exchange)
         val id = reactorCommandGateway.send<UUID>(command)
         return id.map { UuidWrapper(it) }
     }

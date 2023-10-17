@@ -3,7 +3,7 @@ import { ActionArgs, json, redirect } from "@remix-run/node";
 import { getRestaurant } from "~/models/restaurant.server";
 import { Form, useActionData, useFetcher, useLoaderData, useNavigate } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { addOrderItem, cancelOrder, deleteOrderItem, getOrder, startOrder } from "~/models/order.server";
+import { addOrderItem, cancelOrder, deleteOrderItem, finalizeOrder, getOrder, startOrder } from "~/models/order.server";
 import { clearOrderId, getOrderId, setOrderId } from "~/services/session.server";
 import { getCurrentUser } from "~/models/user.server";
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
@@ -19,7 +19,6 @@ import RemoveIcon from "@mui/icons-material/Remove";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { toast } from "react-toastify";
-
 
 export async function loader({ request, params }: LoaderArgs) {
   const restaurantId = params.restaurantId;
@@ -39,7 +38,9 @@ export async function loader({ request, params }: LoaderArgs) {
 
   const currentUser = await getCurrentUser(request);
 
-  return json({ restaurant, activeOrder, currentUser }, {
+  return json(
+    { restaurant, activeOrder, currentUser },
+    {
       headers: {
         // only necessary with cookieSessionStorage
         "Set-Cookie": await setOrderId(request, activeOrderId)
@@ -87,20 +88,17 @@ export async function action({ request, params }: ActionArgs) {
     }
 
     if (_action === "finalize_order") {
-      // TODO after redirect, reload the page to get stripe url etc
       const activeOrderId = await getOrderId(request);
       invariant(activeOrderId, "activeOrderId not found");
 
-      await finalizeOrder(request, activeOrderId, deliveryAddressId);
+      await finalizeOrder(request, activeOrderId);
 
-      return redirect(`/ordering/orders/${activeOrderId}/payment`, {
+      return redirect(`/v2/ordering/orders/${activeOrderId}/payment`, {
         headers: {
-          // only necessary with cookieSessionStorage
-          "Set-Cookie": await clearOrderId(request),
-        },
+          "Set-Cookie": await clearOrderId(request)
+        }
       });
     }
-
   } catch (e) {
     return json({ error: e.response.data.message });
   }
@@ -122,8 +120,8 @@ export default function V2RestaurantPage() {
     <div className="flex flex-col h-full overflow-x-hidden">
       <div>
         <nav className="flex flex-col items-start justify-between w-full py-4 ml-4">
-          <button onClick={
-            () => {
+          <button
+            onClick={() => {
               if (data.activeOrder) {
                 fetcher.submit(
                   { _action: "cancel_order", orderId: data.activeOrder.id },
@@ -132,8 +130,8 @@ export default function V2RestaurantPage() {
               } else {
                 navigate("/v2/ordering/restaurants");
               }
-            }
-          }>
+            }}
+          >
             <ArrowBackIcon fontSize={"large"} />
           </button>
           <hr className="w-full" />
@@ -141,17 +139,19 @@ export default function V2RestaurantPage() {
       </div>
       <div className="h-full">
         <Paper className="flex flex-col w-80 mx-auto">
-          <img
-            src={data.restaurant.imageUrl}
-          />
+          <img src={data.restaurant.imageUrl} />
           <div>
             <h5 className="text-lg font-bold">{data.restaurant.name}</h5>
-            <p><DeliveryDiningIcon /> ~{data.restaurant.deliveryFee.toFixed(2)} PLN</p>
+            <p>
+              <DeliveryDiningIcon /> ~{data.restaurant.deliveryFee.toFixed(2)}{" "}
+              PLN
+            </p>
           </div>
           <hr className="w-full" />
           <div>
             {data.restaurant.menu.map((menuItem, key) => {
-              const menuItemCountInActiveOrder = data.activeOrder?.items[menuItem.id];
+              const menuItemCountInActiveOrder =
+                data.activeOrder?.items[menuItem.id];
 
               return (
                 <Card sx={{ display: "flex" }} className="my-4" key={key}>
@@ -160,23 +160,42 @@ export default function V2RestaurantPage() {
                       <Typography component="div" variant="h5">
                         {menuItem.name}
                       </Typography>
-                      <Typography variant="subtitle1" color="text.secondary" component="div">
+                      <Typography
+                        variant="subtitle1"
+                        color="text.secondary"
+                        component="div"
+                      >
                         {menuItem.description}
                       </Typography>
                     </CardContent>
-                    <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        alignItems: "center",
+                        pl: 1,
+                        pb: 1
+                      }}
+                    >
                       <Form method="post">
-                        <input type="hidden" name="productId" value={menuItem.id} />
+                        <input
+                          type="hidden"
+                          name="productId"
+                          value={menuItem.id}
+                        />
                         {menuItemCountInActiveOrder && (
                           <>
                             <IconButton
                               type="submit"
                               name="_action"
-                              value="delete_order_item">
+                              value="delete_order_item"
+                            >
                               <RemoveIcon fontSize="large" />
                             </IconButton>
                             <IconButton aria-label="cart">
-                              <Badge badgeContent={menuItemCountInActiveOrder} color="secondary">
+                              <Badge
+                                badgeContent={menuItemCountInActiveOrder}
+                                color="secondary"
+                              >
                                 <ShoppingCartIcon />
                               </Badge>
                             </IconButton>
@@ -185,7 +204,8 @@ export default function V2RestaurantPage() {
                         <IconButton
                           type="submit"
                           name="_action"
-                          value="add_order_item">
+                          value="add_order_item"
+                        >
                           <AddIcon fontSize="large" />
                         </IconButton>
                       </Form>
@@ -204,12 +224,22 @@ export default function V2RestaurantPage() {
         </Paper>
       </div>
       <div>
-        <nav className="flex flex-col items-end justify-between w-full fixed"
-             style={{ bottom: "01rem", right: "1rem" }}>
-          <Fab variant="extended" color="primary">
-            <ShoppingBasketIcon className="mr-2" />
-            GO TO SUMMARY
-          </Fab>
+        <nav
+          className="flex flex-col items-end justify-between w-full fixed"
+          style={{ bottom: "01rem", right: "1rem" }}
+        >
+          <Form method="post">
+            <Fab
+              variant="extended"
+              color="primary"
+              type="submit"
+              name="_action"
+              value="finalize_order"
+            >
+              <ShoppingBasketIcon className="mr-2" />
+              GO TO SUMMARY
+            </Fab>
+          </Form>
         </nav>
       </div>
     </div>

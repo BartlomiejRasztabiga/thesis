@@ -95,10 +95,10 @@ class OrderHandler(
         val entity = getOrder(event.orderId)
         val user = userRepository.load(entity.userId) ?: error("User not found")
 
-        val deliveryLocation = user.deliveryAddresses.find { it.id == event.deliveryAddressId }?.location
+        val deliveryLocation = user.deliveryAddresses.find { it.id == user.defaultAddressId }?.location
 
         entity.status = OrderEntity.OrderStatus.FINALIZED
-        entity.deliveryAddressId = event.deliveryAddressId
+        entity.deliveryAddressId = user.defaultAddressId
         entity.deliveryLocation = deliveryLocation
 
         orderRepository.save(entity)

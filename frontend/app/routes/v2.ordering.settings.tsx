@@ -45,7 +45,9 @@ export default function V2RestaurantsPage() {
                   </MenuItem>
                 ))}
               </TextField>
-              <Button variant="contained" type="submit">Save</Button>
+              <Button variant="contained" type="submit">
+                Save
+              </Button>
             </FormControl>
           </Form>
         </div>

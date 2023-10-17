@@ -10,7 +10,7 @@ import CardContent from "@mui/material/CardContent";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import { CardActionArea, Divider } from "@mui/material";
 import { getCurrentUser } from "~/models/user.server";
-import DeliveryDiningIcon from '@mui/icons-material/DeliveryDining';
+import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 
 export async function loader({ request }: LoaderArgs) {
   const restaurants = await getRestaurants(request);
@@ -41,14 +41,16 @@ export default function V2RestaurantsPage() {
                     <div className="flex flex-row w-full">
                       <div className="flex-col w-full">
                         <h5 className="text-lg font-bold">{restaurant.name}</h5>
-                        <p><DeliveryDiningIcon/> ~{restaurant.deliveryFee.toFixed(2)} PLN</p>
+                        <p>
+                          <DeliveryDiningIcon /> ~
+                          {restaurant.deliveryFee.toFixed(2)} PLN
+                        </p>
                       </div>
-                      <div
-                        className="flex-col"
-                        style={{ textAlign: "right" }}
-                      >
+                      <div className="flex-col" style={{ textAlign: "right" }}>
                         <h5>&nbsp;</h5>
-                        <p><StarRateIcon /> {restaurant.avgRating.toFixed(2)}</p>
+                        <p>
+                          <StarRateIcon /> {restaurant.avgRating.toFixed(2)}
+                        </p>
                       </div>
                     </div>
                   </CardContent>

@@ -15,7 +15,7 @@ export const updateDefaultAddress = async (
   return axios
     .put(`/api/v1/users/me/default-address`, { addressId })
     .then((res) => res.data);
-}
+};
 
 export interface UserResponse {
   id: string;
