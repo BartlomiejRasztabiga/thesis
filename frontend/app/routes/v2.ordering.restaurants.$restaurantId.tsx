@@ -86,6 +86,21 @@ export async function action({ request, params }: ActionArgs) {
       return json({});
     }
 
+    if (_action === "finalize_order") {
+      // TODO after redirect, reload the page to get stripe url etc
+      const activeOrderId = await getOrderId(request);
+      invariant(activeOrderId, "activeOrderId not found");
+
+      await finalizeOrder(request, activeOrderId, deliveryAddressId);
+
+      return redirect(`/ordering/orders/${activeOrderId}/payment`, {
+        headers: {
+          // only necessary with cookieSessionStorage
+          "Set-Cookie": await clearOrderId(request),
+        },
+      });
+    }
+
   } catch (e) {
     return json({ error: e.response.data.message });
   }
@@ -136,9 +151,7 @@ export default function V2RestaurantPage() {
           <hr className="w-full" />
           <div>
             {data.restaurant.menu.map((menuItem, key) => {
-              // data.activeOrder.items is a map of productId to quantity
-              const menuItemInActiveOrder = data.activeOrder?.items[menuItem.id];
-              console.log(menuItemInActiveOrder);
+              const menuItemCountInActiveOrder = data.activeOrder?.items[menuItem.id];
 
               return (
                 <Card sx={{ display: "flex" }} className="my-4" key={key}>
@@ -154,7 +167,7 @@ export default function V2RestaurantPage() {
                     <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
                       <Form method="post">
                         <input type="hidden" name="productId" value={menuItem.id} />
-                        {menuItemInActiveOrder && (
+                        {menuItemCountInActiveOrder && (
                           <>
                             <IconButton
                               type="submit"
@@ -163,7 +176,7 @@ export default function V2RestaurantPage() {
                               <RemoveIcon fontSize="large" />
                             </IconButton>
                             <IconButton aria-label="cart">
-                              <Badge badgeContent={menuItemInActiveOrder} color="secondary">
+                              <Badge badgeContent={menuItemCountInActiveOrder} color="secondary">
                                 <ShoppingCartIcon />
                               </Badge>
                             </IconButton>

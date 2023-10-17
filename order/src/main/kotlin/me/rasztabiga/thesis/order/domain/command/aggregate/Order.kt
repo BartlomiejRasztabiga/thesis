@@ -111,9 +111,6 @@ internal class Order {
     fun handle(command: FinalizeOrderCommand, orderVerificationPort: OrderVerificationPort) {
         require(this.userId == command.userId) { "Order can be finalized only by the user who created it." }
         require(this.status == OrderStatus.CREATED) { "Order can be finalized only if it's in CREATED status." }
-        require(orderVerificationPort.deliveryAddressExists(command.deliveryAddressId, this.userId)) {
-            "Delivery address with id ${command.deliveryAddressId} does not exist for user with id ${this.userId}"
-        }
 
         this.items.forEach {
             require(orderVerificationPort.productExists(it.key, this.restaurantId)) {
@@ -126,8 +123,7 @@ internal class Order {
                 orderId = command.orderId,
                 userId = command.userId,
                 restaurantId = this.restaurantId,
-                items = this.items,
-                deliveryAddressId = command.deliveryAddressId
+                items = this.items
             )
         )
     }
