@@ -4,6 +4,9 @@ services:
   axonserver:
     image: axoniq/axonserver:2023.1.2-jdk-17-dev
     hostname: axonserver
+    environment:
+      - AXONIQ_AXONSERVER_DEVMODE_ENABLED=true
+      - AXONIQ_AXONSERVER_STANDALONE=true
     volumes:
       - axonserver-data:/data
       - axonserver-events:/eventdata
