@@ -8,7 +8,7 @@ import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
 import CardContent from "@mui/material/CardContent";
 import StarRateIcon from "@mui/icons-material/StarRate";
-import { CardActionArea, Divider } from "@mui/material";
+import { CardActionArea } from "@mui/material";
 import { getCurrentUser } from "~/models/user.server";
 import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
 

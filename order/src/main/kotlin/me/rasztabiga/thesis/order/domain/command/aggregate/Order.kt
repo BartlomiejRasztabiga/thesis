@@ -95,7 +95,9 @@ internal class Order {
     fun handle(command: DeleteOrderItemCommand) {
         require(this.userId == command.userId) { "Order can be updated only by the user who created it." }
         require(this.status == OrderStatus.CREATED) { "Order can be updated only if it's in CREATED status." }
-        require(this.items.containsKey(command.productId)) { "Order does not contain product with id ${command.productId}" }
+        require(this.items.containsKey(command.productId)) {
+            "Order does not contain product with id ${command.productId}"
+        }
 
         if (this.items[command.productId]!! >= 1) {
             apply(
