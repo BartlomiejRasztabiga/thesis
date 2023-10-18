@@ -116,11 +116,14 @@ export default function V2RestaurantPage() {
     toast.error(actionData.error, { toastId: 1 });
   }
 
+  const isOrderEmpty = !data.activeOrder || Object.keys(data.activeOrder.items).length === 0;
+
   return (
     <div className="flex flex-col h-full overflow-x-hidden">
       <div>
-        <nav className="flex flex-col items-start justify-between w-full py-4 ml-4">
+        <nav className="flex flex-col items-start justify-between w-full py-4">
           <button
+            className="ml-4"
             onClick={() => {
               if (data.activeOrder) {
                 fetcher.submit(
@@ -235,6 +238,7 @@ export default function V2RestaurantPage() {
               type="submit"
               name="_action"
               value="finalize_order"
+              disabled={isOrderEmpty}
             >
               <ShoppingBasketIcon className="mr-2" />
               GO TO SUMMARY

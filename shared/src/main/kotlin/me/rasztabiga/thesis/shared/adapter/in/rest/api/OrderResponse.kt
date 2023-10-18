@@ -12,6 +12,7 @@ data class OrderResponse(
     val userId: String,
     val status: OrderStatus,
     val items: Map<UUID, Int>,
+    val total: BigDecimal?,
     val itemsTotal: BigDecimal?,
     val paymentId: UUID?,
     val paymentSessionUrl: String?,

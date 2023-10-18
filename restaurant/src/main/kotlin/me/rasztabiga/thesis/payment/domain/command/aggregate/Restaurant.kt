@@ -86,10 +86,9 @@ internal class Restaurant {
     @CommandHandler
     fun handle(command: CalculateOrderTotalCommand, distanceCalculatorPort: CalculateDeliveryFeePort) {
         var total = BigDecimal.ZERO
-        command.items.forEach { item ->
-            val productInMenu = menu.find { it.id == item.key }
-            require(productInMenu != null) { "Product with id ${item.key} does not exist in menu" }
-            total += productInMenu.price
+        command.items.forEach { (productId, quantity) ->
+            val product = menu.find { it.id == productId } ?: error("Product not found")
+            total += product.price * BigDecimal(quantity)
         }
 
         val deliveryFee =

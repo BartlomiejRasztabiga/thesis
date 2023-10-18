@@ -1,22 +1,18 @@
 import type { LoaderArgs } from "@remix-run/node";
-import { ActionArgs, json } from "@remix-run/node";
+import { ActionArgs, json, redirect } from "@remix-run/node";
 import { getRestaurant } from "~/models/restaurant.server";
-import {
-  useActionData,
-  useFetcher,
-  useLoaderData,
-  useNavigate, useRevalidator
-} from "@remix-run/react";
+import { useActionData, useFetcher, useLoaderData, useNavigate, useRevalidator } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { getOrder } from "~/models/order.server";
+import { cancelOrder, getOrder } from "~/models/order.server";
 import Paper from "@mui/material/Paper";
 import { Fab } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
-import CircularProgress from '@mui/material/CircularProgress';
-import Box from '@mui/material/Box';
+import CircularProgress from "@mui/material/CircularProgress";
+import Box from "@mui/material/Box";
+import { clearOrderId } from "~/services/session.server";
 
 export async function loader({ request, params }: LoaderArgs) {
   // TODO refresh few times to get stripe url set up and totals
@@ -36,10 +32,27 @@ export async function loader({ request, params }: LoaderArgs) {
 }
 
 export async function action({ request, params }: ActionArgs) {
-  // const formData = await request.formData();
-  // const { _action, ...values } = Object.fromEntries(formData);
+  const formData = await request.formData();
+  const { _action, ...values } = Object.fromEntries(formData);
+
+  invariant(params.orderId, "orderId not found");
 
   try {
+    if (_action === "cancel_order") {
+      await cancelOrder(request, params.orderId);
+      return redirect(`/v2/ordering/restaurants`, {
+        headers: {
+          "Set-Cookie": await clearOrderId(request)
+        }
+      });
+    }
+
+    if (_action === "pay") {
+      const paymentSessionUrl = values.payment_session_url as string;
+      invariant(paymentSessionUrl, "payment_session_url not found");
+
+      return redirect(paymentSessionUrl);
+    }
   } catch (e) {
     return json({ error: e.response.data.message });
   }
@@ -70,6 +83,8 @@ export default function V2OrderPaymentPage() {
     toast.error(actionData.error, { toastId: 1 });
   }
 
+  const isPaymentLoading = !data.activeOrder.paymentSessionUrl
+
   return (
     <div className="flex flex-col h-full overflow-x-hidden">
       <div>
@@ -79,7 +94,7 @@ export default function V2OrderPaymentPage() {
               if (data.activeOrder) {
                 fetcher.submit(
                   { _action: "cancel_order", orderId: data.activeOrder.id },
-                  { method: "POST" },
+                  { method: "POST" }
                 );
               } else {
                 navigate("/v2/ordering/restaurants");
@@ -93,21 +108,41 @@ export default function V2OrderPaymentPage() {
       </div>
       <div className="h-full">
         <Paper className="flex flex-col w-80 mx-auto">
-          {/* TODO add loading modal */}
-          {!data.activeOrder.paymentSessionUrl && (<Box className="flex"><CircularProgress /></Box>)}
-          PAY!!!
+          <div>
+            <h5 className="text-lg font-bold">{data.restaurant.name}</h5>
+          </div>
+          {Object.keys(data.activeOrder.items).map((item, key) => {
+            const menuItem = data.restaurant.menu.find(
+              (menuItem) => menuItem.id === item
+            );
+
+            return (
+              <Paper key={key} className="flex flex-row mb-4">
+                <img src={menuItem.imageUrl} style={{width: "5rem"}} />
+                <div>
+                  <h5 className="text-lg font-bold">{menuItem.name}</h5>
+                  <p>
+                    {data.activeOrder.items[item]} x {menuItem.price.toFixed(2)}{" "}
+                    PLN
+                  </p>
+                </div>
+              </Paper>
+            );
+          })}
+
+          {isPaymentLoading ? (<Box className="flex justify-center"><CircularProgress /></Box>) : (
+            <Paper>
+              <div className="flex flex-row justify-between">
+                <p>Delivery fee</p>
+                <p>{data.activeOrder.deliveryFee.toFixed(2)} PLN</p>
+              </div>
+              <div className="flex flex-row justify-between">
+                <p>Total</p>
+                <p>{data.activeOrder.itemsTotal.toFixed(2)} PLN</p>
+              </div>
+            </Paper>
+          )}
         </Paper>
-      </div>
-      <div>
-        <nav
-          className="flex flex-col items-end justify-between w-full fixed"
-          style={{ bottom: "01rem", right: "1rem" }}
-        >
-          <Fab variant="extended" color="primary">
-            <ShoppingBasketIcon className="mr-2" />
-            GO TO SUMMARY
-          </Fab>
-        </nav>
       </div>
     </div>
   );

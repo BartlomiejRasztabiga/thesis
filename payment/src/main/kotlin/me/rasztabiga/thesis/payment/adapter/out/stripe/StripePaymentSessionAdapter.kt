@@ -17,8 +17,8 @@ class StripePaymentSessionAdapter(
     override fun createPaymentSession(command: CreateOrderPaymentCommand): String {
         val params = SessionCreateParams.builder()
             .setMode(SessionCreateParams.Mode.PAYMENT)
-            .setSuccessUrl("$stripeFrontendDomain/ordering/orders/${command.orderId}/tracking")
-            .setCancelUrl("$stripeFrontendDomain/ordering/orders/${command.orderId}/payment")
+            .setSuccessUrl("$stripeFrontendDomain/v2/ordering/orders/${command.orderId}/tracking")
+            .setCancelUrl("$stripeFrontendDomain/v2/ordering/orders/${command.orderId}/payment")
             .addAllLineItem(
                 command.items.map {
                     SessionCreateParams.LineItem.builder()

@@ -86,6 +86,10 @@ class OrderLifecycleSaga {
         orderId = event.orderId
 
         val order = getOrder(event.orderId)
+        val user = getUser(event.userId)
+
+        val deliveryLocation = user.deliveryAddresses.find { it.id == user.defaultAddressId }?.location
+        // little hack, because OrderFinalizedEvent might not be yet handled by query service
 
         commandGateway.sendAndWait<Void>(
             CalculateOrderTotalCommand(
@@ -93,7 +97,7 @@ class OrderLifecycleSaga {
                 restaurantId = event.restaurantId,
                 items = event.items,
                 restaurantAddress = order.restaurantLocation.streetAddress!!,
-                deliveryAddress = order.deliveryLocation!!.streetAddress!!
+                deliveryAddress = deliveryLocation!!.streetAddress!!
             )
         )
     }

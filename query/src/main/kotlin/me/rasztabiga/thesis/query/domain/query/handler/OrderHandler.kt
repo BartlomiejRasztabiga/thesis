@@ -109,6 +109,7 @@ class OrderHandler(
         val entity = getOrder(event.orderId)
         entity.productsTotal = event.productsTotal
         entity.deliveryFee = event.deliveryFee
+        entity.total = event.productsTotal + event.deliveryFee
         orderRepository.save(entity)
     }
 
