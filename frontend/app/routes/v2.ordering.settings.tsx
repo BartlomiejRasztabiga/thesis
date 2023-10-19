@@ -1,7 +1,7 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { ActionArgs, json } from "@remix-run/node";
 import { getRestaurants } from "~/models/restaurant.server";
-import BottomNavbar from "~/components/BottomNavbar";
+import BottomNavbar from "~/components/user/BottomNavbar";
 import { Form, useLoaderData } from "@remix-run/react";
 import { getCurrentUser, updateDefaultAddress } from "~/models/user.server";
 import { Button, MenuItem, TextField, FormControl } from "@mui/material";

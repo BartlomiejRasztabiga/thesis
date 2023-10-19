@@ -1,22 +1,17 @@
-import type { ActionArgs, LoaderArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import {
-  Form,
-  Link,
-  useActionData,
-  useLoaderData,
-  useRevalidator,
-} from "@remix-run/react";
-import invariant from "tiny-invariant";
-import type { RestaurantOrderResponse } from "~/models/restaurant.server";
+import type { LoaderArgs } from "@remix-run/node";
+import { ActionArgs, json } from "@remix-run/node";
 import {
   acceptRestaurantOrder,
   getRestaurant,
   getRestaurantOrders,
   prepareRestaurantOrder,
   rejectRestaurantOrder,
+  RestaurantOrderResponse
 } from "~/models/restaurant.server";
-import React, { useEffect } from "react";
+import BottomNavbar from "~/components/manager/BottomNavbar";
+import { useActionData, useLoaderData, useRevalidator } from "@remix-run/react";
+import invariant from "tiny-invariant";
+import { useEffect } from "react";
 import { toast } from "react-toastify";
 
 export async function loader({ request, params }: LoaderArgs) {
@@ -65,14 +60,14 @@ export async function action({ request, params }: ActionArgs) {
   return json({});
 }
 
-export default function RestaurantManagerPage() {
+export default function V2RestaurantPage() {
   const data = useLoaderData<typeof loader>();
   const actionData = useActionData();
 
   const revalidator = useRevalidator();
 
   const activeOrders = data.orders.filter((order) =>
-    ["NEW", "ACCEPTED", "PREPARED"].includes(order.status),
+    ["NEW", "ACCEPTED", "PREPARED"].includes(order.status)
   );
 
   // TODO good enough for now
@@ -86,6 +81,7 @@ export default function RestaurantManagerPage() {
   }, [revalidator]);
 
   const getActionButtons = (order: RestaurantOrderResponse) => {
+    // TODO change to MUI buttons!!!
     const className =
       "rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600 focus:bg-blue-400 mx-2";
 
@@ -135,72 +131,18 @@ export default function RestaurantManagerPage() {
   }
 
   return (
-    <div className="flex h-full min-h-screen flex-col">
-      <header className="flex items-center justify-between bg-slate-800 p-4 text-white">
-        <div className="flex items-start text-2xl mr-4 font-bold">
-          <h1>{data.restaurant.name}</h1>
+    <div className="flex flex-col h-full overflow-x-hidden">
+      <div>
+        TOPBAR
+      </div>
+      <div className="h-full">
+        <div className="flex flex-col w-80 mx-auto">
+          {/*  TODO MUI TABLE */}
         </div>
-        <button>
-          <Link to="/auth/logout">Logout</Link>
-        </button>
-      </header>
-
-      <main className="flex h-full bg-white">
-        <div className="flex-1 p-6">
-          <p className="py-6">{data.restaurant.availability}</p>
-          {/* TODO update availability */}
-          <hr className="my-4" />
-          <div>
-            {/* TODO table */}
-            <div className="overflow-x-auto">
-              <table className="table table-zebra">
-                {/* head */}
-                <thead>
-                  <tr>
-                    <th>Order ID</th>
-                    <th>Products</th>
-                    <th>Status</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {activeOrders.map((order) => (
-                    <tr key={order.restaurantOrderId}>
-                      <th>{order.restaurantOrderId}</th>
-                      <th>
-                        {Object.keys(order.items).map((item, key) => {
-                          const product = data.restaurant.menu.find(
-                            (product) => product.id === item,
-                          );
-                          if (!product) {
-                            return null;
-                          }
-                          return (
-                            <div key={key}>
-                              <p>{product.name}</p>
-                            </div>
-                          );
-                        })}
-                      </th>
-                      <th>{order.status}</th>
-                      <th>
-                        <Form method="post">
-                          <input
-                            type="hidden"
-                            name="restaurantOrderId"
-                            value={order.restaurantOrderId}
-                          />
-                          {getActionButtons(order)}
-                        </Form>
-                      </th>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </main>
+      </div>
+      <div>
+        <BottomNavbar />
+      </div>
     </div>
   );
 }

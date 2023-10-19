@@ -42,6 +42,15 @@ export default function Index() {
                     </Link>
                   </div>
                   <div className="space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-1 sm:gap-5 sm:space-y-0">
+                    {/* TODO hardcoded restaurant ID */}
+                    <Link
+                      to="/v2/restaurants/5ee006d0-e9d5-4ce7-a431-6cb0653296f9"
+                      className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-yellow-700 shadow-sm hover:bg-yellow-50 sm:px-8"
+                    >
+                      Restaurant manager V2
+                    </Link>
+                  </div>
+                  <div className="space-y-4 sm:mx-auto sm:inline-grid sm:grid-cols-1 sm:gap-5 sm:space-y-0">
                     <Link
                       to="/courier/delivery"
                       className="flex items-center justify-center rounded-md border border-transparent bg-white px-4 py-3 text-base font-medium text-yellow-700 shadow-sm hover:bg-yellow-50 sm:px-8"

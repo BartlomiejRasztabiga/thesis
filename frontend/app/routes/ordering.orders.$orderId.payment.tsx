@@ -2,7 +2,7 @@ import { Form, useActionData, useLoaderData } from "@remix-run/react";
 import React from "react";
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import Navbar from "~/components/Navbar";
+import Navbar from "~/components/user/Navbar";
 import { cancelOrder, getOrder } from "~/models/order.server";
 import invariant from "tiny-invariant";
 import { getRestaurant } from "~/models/restaurant.server";

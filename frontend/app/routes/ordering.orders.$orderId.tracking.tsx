@@ -2,7 +2,7 @@ import { useLoaderData, useRevalidator } from "@remix-run/react";
 import React, { Suspense, useEffect } from "react";
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import Navbar from "~/components/Navbar";
+import Navbar from "~/components/user/Navbar";
 import type { OrderResponse } from "~/models/order.server";
 import { getOrder } from "~/models/order.server";
 import invariant from "tiny-invariant";

@@ -1,8 +1,8 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { getRestaurants } from "~/models/restaurant.server";
-import BottomNavbar from "~/components/BottomNavbar";
-import Topbar from "~/components/Topbar";
+import BottomNavbar from "~/components/user/BottomNavbar";
+import Topbar from "~/components/user/Topbar";
 import { NavLink, useLoaderData } from "@remix-run/react";
 import { Card, CardMedia, CardContent, CardActionArea } from "@mui/material";
 import { StarRate, DeliveryDining } from "@mui/icons-material";

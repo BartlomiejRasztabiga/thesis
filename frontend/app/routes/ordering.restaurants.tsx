@@ -2,7 +2,7 @@ import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { NavLink, Outlet, useLoaderData } from "@remix-run/react";
 import { getRestaurants } from "~/models/restaurant.server";
-import Navbar from "~/components/Navbar";
+import Navbar from "~/components/user/Navbar";
 
 export async function loader({ request }: LoaderArgs) {
   const restaurants = await getRestaurants(request);
