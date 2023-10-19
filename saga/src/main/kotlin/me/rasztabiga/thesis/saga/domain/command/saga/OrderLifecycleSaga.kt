@@ -274,7 +274,7 @@ class OrderLifecycleSaga {
 
                     CreateInvoiceCommand.InvoiceItem(
                         name = menuItem.name,
-                        quantity = 1,
+                        quantity = it.value,
                         unitPrice = menuItem.price
                     )
                 }.plus(
@@ -310,7 +310,7 @@ class OrderLifecycleSaga {
 
                     CreateInvoiceCommand.InvoiceItem(
                         name = menuItem.name,
-                        quantity = 1,
+                        quantity = it.value,
                         unitPrice = menuItem.price
                     )
                 }
