@@ -1,4 +1,4 @@
-import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { LocationOn } from "@mui/icons-material";
 import { UserResponse } from "~/models/user.server";
 import React from "react";
 import { NavLink } from "@remix-run/react";
@@ -12,7 +12,7 @@ export default function Topbar(props: TopbarProps) {
     <header className="flex flex-col items-center justify-between">
       <span>
         <NavLink to="/v2/ordering/settings">
-          <LocationOnIcon />{" "}
+          <LocationOn />{" "}
           {defaultAddress?.location.streetAddress || "No location selected"}
         </NavLink>
       </span>

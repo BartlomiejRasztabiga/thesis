@@ -6,18 +6,9 @@ import invariant from "tiny-invariant";
 import { addOrderItem, cancelOrder, deleteOrderItem, finalizeOrder, getOrder, startOrder } from "~/models/order.server";
 import { clearOrderId, getOrderId, setOrderId } from "~/services/session.server";
 import { getCurrentUser } from "~/models/user.server";
-import DeliveryDiningIcon from "@mui/icons-material/DeliveryDining";
-import Paper from "@mui/material/Paper";
-import { Badge, Fab, IconButton, Typography } from "@mui/material";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import CardContent from "@mui/material/CardContent";
-import Card from "@mui/material/Card";
+import { DeliveryDining, ArrowBack, Add, Remove, ShoppingCart, ShoppingBasket} from "@mui/icons-material";
+import { Badge, Fab, IconButton, Typography, Paper, CardContent, Card, CardMedia } from "@mui/material";
 import { Box } from "@mui/system";
-import CardMedia from "@mui/material/CardMedia";
-import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import { toast } from "react-toastify";
 
 export async function loader({ request, params }: LoaderArgs) {
@@ -135,7 +126,7 @@ export default function V2RestaurantPage() {
               }
             }}
           >
-            <ArrowBackIcon fontSize={"large"} />
+            <ArrowBack fontSize={"large"} />
           </button>
           <hr className="w-full" />
         </nav>
@@ -146,12 +137,12 @@ export default function V2RestaurantPage() {
           <div>
             <h5 className="text-lg font-bold">{data.restaurant.name}</h5>
             <p>
-              <DeliveryDiningIcon /> ~{data.restaurant.deliveryFee.toFixed(2)}{" "}
+              <DeliveryDining /> ~{data.restaurant.deliveryFee.toFixed(2)}{" "}
               PLN
             </p>
           </div>
           <hr className="w-full" />
-          <div>
+          <div className="mb-16">
             {data.restaurant.menu.map((menuItem, key) => {
               const menuItemCountInActiveOrder =
                 data.activeOrder?.items[menuItem.id];
@@ -192,14 +183,14 @@ export default function V2RestaurantPage() {
                               name="_action"
                               value="delete_order_item"
                             >
-                              <RemoveIcon fontSize="large" />
+                              <Remove fontSize="large" />
                             </IconButton>
                             <IconButton aria-label="cart">
                               <Badge
                                 badgeContent={menuItemCountInActiveOrder}
                                 color="secondary"
                               >
-                                <ShoppingCartIcon />
+                                <ShoppingCart />
                               </Badge>
                             </IconButton>
                           </>
@@ -209,7 +200,7 @@ export default function V2RestaurantPage() {
                           name="_action"
                           value="add_order_item"
                         >
-                          <AddIcon fontSize="large" />
+                          <Add fontSize="large" />
                         </IconButton>
                       </Form>
                     </Box>
@@ -240,7 +231,7 @@ export default function V2RestaurantPage() {
               value="finalize_order"
               disabled={isOrderEmpty}
             >
-              <ShoppingBasketIcon className="mr-2" />
+              <ShoppingBasket className="mr-2" />
               GO TO SUMMARY
             </Fab>
           </Form>

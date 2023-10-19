@@ -4,15 +4,11 @@ import { getRestaurant } from "~/models/restaurant.server";
 import { Form, useActionData, useFetcher, useLoaderData, useNavigate, useRevalidator } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { cancelOrder, getOrder } from "~/models/order.server";
-import Paper from "@mui/material/Paper";
-import { Fab } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
+import { Paper, Fab, Box, CircularProgress } from "@mui/material";
+import {Close, ShoppingBasket} from "@mui/icons-material";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
-import CircularProgress from "@mui/material/CircularProgress";
-import Box from "@mui/material/Box";
 import { clearOrderId } from "~/services/session.server";
+import { useEffect } from "react";
 
 export async function loader({ request, params }: LoaderArgs) {
   // TODO refresh few times to get stripe url set up and totals
@@ -102,7 +98,7 @@ export default function V2OrderPaymentPage() {
               }
             }}
           >
-            <CloseIcon fontSize={"large"} />
+            <Close fontSize={"large"} />
           </button>
           <hr className="w-full" />
         </nav>
@@ -160,7 +156,7 @@ export default function V2OrderPaymentPage() {
                     name="_action"
                     value="pay"
                   >
-                    <ShoppingBasketIcon className="mr-2" />
+                    <ShoppingBasket className="mr-2" />
                     Pay
                   </Fab>
                 </Form>

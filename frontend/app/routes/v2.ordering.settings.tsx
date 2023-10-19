@@ -4,8 +4,7 @@ import { getRestaurants } from "~/models/restaurant.server";
 import BottomNavbar from "~/components/BottomNavbar";
 import { Form, useLoaderData } from "@remix-run/react";
 import { getCurrentUser, updateDefaultAddress } from "~/models/user.server";
-import FormControl from "@mui/material/FormControl";
-import { Button, MenuItem, TextField } from "@mui/material";
+import { Button, MenuItem, TextField, FormControl } from "@mui/material";
 
 export async function loader({ request }: LoaderArgs) {
   const restaurants = await getRestaurants(request);
