@@ -1,7 +1,7 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { ActionArgs, json, redirect } from "@remix-run/node";
 import { getRestaurant } from "~/models/restaurant.server";
-import { useActionData, useFetcher, useLoaderData, useNavigate, useRevalidator } from "@remix-run/react";
+import { Form, useActionData, useFetcher, useLoaderData, useNavigate, useRevalidator } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { cancelOrder, getOrder } from "~/models/order.server";
 import Paper from "@mui/material/Paper";
@@ -54,6 +54,7 @@ export async function action({ request, params }: ActionArgs) {
       return redirect(paymentSessionUrl);
     }
   } catch (e) {
+    console.error(e);
     return json({ error: e.response.data.message });
   }
 }
@@ -83,7 +84,7 @@ export default function V2OrderPaymentPage() {
     toast.error(actionData.error, { toastId: 1 });
   }
 
-  const isPaymentLoading = !data.activeOrder.paymentSessionUrl
+  const isPaymentLoading = !data.activeOrder.paymentSessionUrl;
 
   return (
     <div className="flex flex-col h-full overflow-x-hidden">
@@ -118,7 +119,7 @@ export default function V2OrderPaymentPage() {
 
             return (
               <Paper key={key} className="flex flex-row mb-4">
-                <img src={menuItem.imageUrl} style={{width: "5rem"}} />
+                <img src={menuItem.imageUrl} style={{ width: "5rem" }} />
                 <div>
                   <h5 className="text-lg font-bold">{menuItem.name}</h5>
                   <p>
@@ -138,7 +139,31 @@ export default function V2OrderPaymentPage() {
               </div>
               <div className="flex flex-row justify-between">
                 <p>Total</p>
-                <p>{data.activeOrder.itemsTotal.toFixed(2)} PLN</p>
+                <p>{data.activeOrder.total.toFixed(2)} PLN</p>
+              </div>
+              <div className="flex flex-row justify-between">
+                <p>Payment method</p>
+                <p>STRIPE</p>
+              </div>
+              <div className="flex flex-row justify-center">
+                <Form method="post">
+                  <input
+                    type="hidden"
+                    name="payment_session_url"
+                    value={data.activeOrder.paymentSessionUrl}
+                  />
+                  <Fab
+                    variant="extended"
+                    size="medium"
+                    color="primary"
+                    type="submit"
+                    name="_action"
+                    value="pay"
+                  >
+                    <ShoppingBasketIcon className="mr-2" />
+                    Pay
+                  </Fab>
+                </Form>
               </div>
             </Paper>
           )}

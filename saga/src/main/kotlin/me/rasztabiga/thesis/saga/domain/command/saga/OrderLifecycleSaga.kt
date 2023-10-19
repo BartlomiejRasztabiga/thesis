@@ -136,7 +136,7 @@ class OrderLifecycleSaga {
                     val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.key }!!
                     CreateOrderPaymentCommand.OrderItem(
                         name = menuItem.name,
-                        quantity = 1,
+                        quantity = it.value,
                         unitPrice = menuItem.price
                     )
                 },
