@@ -170,9 +170,9 @@ export default function RestaurantManagerPage() {
                     <tr key={order.restaurantOrderId}>
                       <th>{order.restaurantOrderId}</th>
                       <th>
-                        {order.items.map((item, key) => {
+                        {Object.keys(order.items).map((item, key) => {
                           const product = data.restaurant.menu.find(
-                            (product) => product.id === item.productId,
+                            (product) => product.id === item,
                           );
                           if (!product) {
                             return null;
