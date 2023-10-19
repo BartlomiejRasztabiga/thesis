@@ -5,6 +5,7 @@ package me.rasztabiga.thesis.query.adapter.`in`.rest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.shared.config.getUserId
 import me.rasztabiga.thesis.shared.domain.query.query.FindOrderByIdQuery
+import me.rasztabiga.thesis.shared.domain.query.query.FindOrdersByUserIdQuery
 import me.rasztabiga.thesis.shared.security.Scopes
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway
@@ -35,7 +36,7 @@ class OrderController(
 
     @GetMapping()
     @PreAuthorize("hasAnyAuthority('${Scopes.ORDER.READ}')")
-    fun getOrders(exchange: ServerWebExchange): Mono<OrderResponse> {
+    fun getOrders(exchange: ServerWebExchange): Mono<List<OrderResponse>> {
         return reactorQueryGateway.query(
             FindOrdersByUserIdQuery(exchange.getUserId()),
             ResponseTypes.multipleInstancesOf(OrderResponse::class.java)
