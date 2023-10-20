@@ -24,7 +24,7 @@ repositories {
     mavenCentral()
 }
 
-val axonVersion = "4.8.3"
+val axonVersion = "4.8.4"
 val kotestVersion = "5.7.2"
 
 dependencies {
