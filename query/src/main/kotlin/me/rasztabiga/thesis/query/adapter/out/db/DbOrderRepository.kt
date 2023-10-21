@@ -4,6 +4,7 @@ import me.rasztabiga.thesis.query.domain.query.entity.OrderEntity
 import me.rasztabiga.thesis.query.domain.query.repository.OrderRepository
 import me.rasztabiga.thesis.query.infrastructure.db.SpringDataOrderRepository
 import org.springframework.stereotype.Service
+import reactor.core.publisher.Flux
 import java.util.*
 
 @Service
@@ -17,5 +18,9 @@ class DbOrderRepository(
 
     override fun load(id: UUID): OrderEntity? {
         return springDataOrderRepository.findById(id).block()
+    }
+
+    override fun loadByUserId(userId: String): Flux<OrderEntity> {
+        return springDataOrderRepository.findAllByUserId(userId)
     }
 }

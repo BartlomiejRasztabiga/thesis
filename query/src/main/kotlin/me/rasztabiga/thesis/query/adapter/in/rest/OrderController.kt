@@ -34,7 +34,7 @@ class OrderController(
         )
     }
 
-    @GetMapping()
+    @GetMapping
     @PreAuthorize("hasAnyAuthority('${Scopes.ORDER.READ}')")
     fun getOrders(exchange: ServerWebExchange): Mono<List<OrderResponse>> {
         return reactorQueryGateway.query(

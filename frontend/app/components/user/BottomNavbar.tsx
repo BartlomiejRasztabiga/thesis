@@ -28,7 +28,7 @@ export default function BottomNavbar() {
           label="Orders"
           icon={<List />}
           component={Link}
-          to="/v2/ordering/orders"
+          to="/v2/ordering/history"
           style={boldIfMatchesPath("/v2/ordering/history")}
         />
         <BottomNavigationAction

@@ -24,10 +24,12 @@ import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEven
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderPreparedEvent
 import me.rasztabiga.thesis.shared.domain.query.query.FindOrderByIdQuery
+import me.rasztabiga.thesis.shared.domain.query.query.FindOrdersByUserIdQuery
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler
 import org.springframework.stereotype.Component
+import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.util.*
 
@@ -78,16 +80,6 @@ class OrderHandler(
             entity.items.remove(event.productId)
         }
         orderRepository.save(entity)
-    }
-
-    @QueryHandler
-    fun handle(query: FindOrderByIdQuery): Mono<OrderResponse> {
-        val order = orderRepository.load(query.orderId)
-        val courier = order?.courierId?.let { courierRepository.load(it) }
-
-        return order
-            ?.let { Mono.just(mapToResponse(it, courier)) }
-            ?: Mono.error(OrderNotFoundException(query.orderId))
     }
 
     @EventHandler
@@ -168,6 +160,22 @@ class OrderHandler(
         val entity = getOrder(event.orderId)
         entity.status = OrderEntity.OrderStatus.DELIVERED
         orderRepository.save(entity)
+    }
+
+    @QueryHandler
+    fun handle(query: FindOrderByIdQuery): Mono<OrderResponse> {
+        val order = orderRepository.load(query.orderId)
+        val courier = order?.courierId?.let { courierRepository.load(it) }
+
+        return order
+            ?.let { Mono.just(mapToResponse(it, courier)) }
+            ?: Mono.error(OrderNotFoundException(query.orderId))
+    }
+
+    @QueryHandler
+    fun handle(query: FindOrdersByUserIdQuery): Flux<OrderResponse> {
+        val orders = orderRepository.loadByUserId(query.userId)
+        return orders.map { mapToResponse(it, null) }
     }
 
     private fun getOrder(orderId: UUID): OrderEntity {
