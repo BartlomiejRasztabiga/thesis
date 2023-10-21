@@ -46,10 +46,10 @@ export default function BottomNavbar() {
         {/* TODO statistics? */}
         <BottomNavigationAction
           label="Statistics"
-          icon={<Settings />}
-          component={BarChart}
+          icon={<BarChart />}
+          component={Link}
           to="/v2/restaurants/5ee006d0-e9d5-4ce7-a431-6cb0653296f9"
-          style={boldIfMatchesPath("/v2/ordering/settings")}
+          style={boldIfMatchesPath("/v2/ordering/restaurants")}
         />
         <BottomNavigationAction
           label="Logout"

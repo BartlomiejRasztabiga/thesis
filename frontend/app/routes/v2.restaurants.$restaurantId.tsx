@@ -13,6 +13,7 @@ import { useActionData, useLoaderData, useRevalidator } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
+import Topbar from "~/components/manager/Topbar";
 
 export async function loader({ request, params }: LoaderArgs) {
   const restaurantId = params.restaurantId;
@@ -133,7 +134,7 @@ export default function V2RestaurantPage() {
   return (
     <div className="flex flex-col h-full overflow-x-hidden">
       <div>
-        TOPBAR
+        <Topbar />
       </div>
       <div className="h-full">
         <div className="flex flex-col w-80 mx-auto">
