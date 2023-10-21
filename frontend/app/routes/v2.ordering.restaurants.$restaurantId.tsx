@@ -1,13 +1,46 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { ActionArgs, json, redirect } from "@remix-run/node";
 import { getRestaurant } from "~/models/restaurant.server";
-import { Form, useActionData, useFetcher, useLoaderData, useNavigate } from "@remix-run/react";
+import {
+  Form,
+  useActionData,
+  useFetcher,
+  useLoaderData,
+  useNavigate,
+} from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { addOrderItem, cancelOrder, deleteOrderItem, finalizeOrder, getOrder, startOrder } from "~/models/order.server";
-import { clearOrderId, getOrderId, setOrderId } from "~/services/session.server";
+import {
+  addOrderItem,
+  cancelOrder,
+  deleteOrderItem,
+  finalizeOrder,
+  getOrder,
+  startOrder,
+} from "~/models/order.server";
+import {
+  clearOrderId,
+  getOrderId,
+  setOrderId,
+} from "~/services/session.server";
 import { getCurrentUser } from "~/models/user.server";
-import { DeliveryDining, ArrowBack, Add, Remove, ShoppingCart, ShoppingBasket} from "@mui/icons-material";
-import { Badge, Fab, IconButton, Typography, Paper, CardContent, Card, CardMedia } from "@mui/material";
+import {
+  DeliveryDining,
+  ArrowBack,
+  Add,
+  Remove,
+  ShoppingCart,
+  ShoppingBasket,
+} from "@mui/icons-material";
+import {
+  Badge,
+  Fab,
+  IconButton,
+  Typography,
+  Paper,
+  CardContent,
+  Card,
+  CardMedia,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { toast } from "react-toastify";
 
@@ -34,9 +67,9 @@ export async function loader({ request, params }: LoaderArgs) {
     {
       headers: {
         // only necessary with cookieSessionStorage
-        "Set-Cookie": await setOrderId(request, activeOrderId)
-      }
-    }
+        "Set-Cookie": await setOrderId(request, activeOrderId),
+      },
+    },
   );
 }
 
@@ -49,8 +82,8 @@ export async function action({ request, params }: ActionArgs) {
       await cancelOrder(request, values.orderId);
       return redirect(`/v2/ordering/restaurants`, {
         headers: {
-          "Set-Cookie": await clearOrderId(request)
-        }
+          "Set-Cookie": await clearOrderId(request),
+        },
       });
     }
 
@@ -86,8 +119,8 @@ export async function action({ request, params }: ActionArgs) {
 
       return redirect(`/v2/ordering/orders/${activeOrderId}/payment`, {
         headers: {
-          "Set-Cookie": await clearOrderId(request)
-        }
+          "Set-Cookie": await clearOrderId(request),
+        },
       });
     }
   } catch (e) {
@@ -107,7 +140,8 @@ export default function V2RestaurantPage() {
     toast.error(actionData.error, { toastId: 1 });
   }
 
-  const isOrderEmpty = !data.activeOrder || Object.keys(data.activeOrder.items).length === 0;
+  const isOrderEmpty =
+    !data.activeOrder || Object.keys(data.activeOrder.items).length === 0;
 
   return (
     <div className="flex flex-col h-full overflow-x-hidden">
@@ -119,7 +153,7 @@ export default function V2RestaurantPage() {
               if (data.activeOrder) {
                 fetcher.submit(
                   { _action: "cancel_order", orderId: data.activeOrder.id },
-                  { method: "POST" }
+                  { method: "POST" },
                 );
               } else {
                 navigate("/v2/ordering/restaurants");
@@ -138,8 +172,7 @@ export default function V2RestaurantPage() {
             <h5 className="text-lg font-bold">{data.restaurant.name}</h5>
             <p>{data.restaurant.location.streetAddress}</p>
             <p>
-              <DeliveryDining /> ~{data.restaurant.deliveryFee.toFixed(2)}{" "}
-              PLN
+              <DeliveryDining /> ~{data.restaurant.deliveryFee.toFixed(2)} PLN
             </p>
           </div>
           <hr className="w-full" />
@@ -168,7 +201,7 @@ export default function V2RestaurantPage() {
                         display: "flex",
                         alignItems: "center",
                         pl: 1,
-                        pb: 1
+                        pb: 1,
                       }}
                     >
                       <Form method="post">

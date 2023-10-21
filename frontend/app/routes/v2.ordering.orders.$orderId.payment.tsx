@@ -1,11 +1,18 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { ActionArgs, json, redirect } from "@remix-run/node";
 import { getRestaurant } from "~/models/restaurant.server";
-import { Form, useActionData, useFetcher, useLoaderData, useNavigate, useRevalidator } from "@remix-run/react";
+import {
+  Form,
+  useActionData,
+  useFetcher,
+  useLoaderData,
+  useNavigate,
+  useRevalidator,
+} from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { cancelOrder, getOrder } from "~/models/order.server";
 import { Paper, Fab, Box, CircularProgress } from "@mui/material";
-import {Close, ShoppingBasket} from "@mui/icons-material";
+import { Close, ShoppingBasket } from "@mui/icons-material";
 import { toast } from "react-toastify";
 import { clearOrderId } from "~/services/session.server";
 import { useEffect } from "react";
@@ -38,8 +45,8 @@ export async function action({ request, params }: ActionArgs) {
       await cancelOrder(request, params.orderId);
       return redirect(`/v2/ordering/restaurants`, {
         headers: {
-          "Set-Cookie": await clearOrderId(request)
-        }
+          "Set-Cookie": await clearOrderId(request),
+        },
       });
     }
 
@@ -91,7 +98,7 @@ export default function V2OrderPaymentPage() {
               if (data.activeOrder) {
                 fetcher.submit(
                   { _action: "cancel_order", orderId: data.activeOrder.id },
-                  { method: "POST" }
+                  { method: "POST" },
                 );
               } else {
                 navigate("/v2/ordering/restaurants");
@@ -110,7 +117,7 @@ export default function V2OrderPaymentPage() {
           </div>
           {Object.keys(data.activeOrder.items).map((item, key) => {
             const menuItem = data.restaurant.menu.find(
-              (menuItem) => menuItem.id === item
+              (menuItem) => menuItem.id === item,
             );
 
             return (
@@ -127,7 +134,11 @@ export default function V2OrderPaymentPage() {
             );
           })}
 
-          {isPaymentLoading ? (<Box className="flex justify-center"><CircularProgress /></Box>) : (
+          {isPaymentLoading ? (
+            <Box className="flex justify-center">
+              <CircularProgress />
+            </Box>
+          ) : (
             <Paper>
               <div className="flex flex-row justify-between">
                 <p>Delivery fee</p>

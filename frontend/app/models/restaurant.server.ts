@@ -18,14 +18,11 @@ export const getRestaurant = async (
 };
 
 export const getCurrentRestaurant = async (
-  request: Request
+  request: Request,
 ): Promise<RestaurantResponse> => {
   const axios = await getAxios(request);
-  return axios
-    .get(`/api/v1/restaurants/me`)
-    .then((res) => res.data);
+  return axios.get(`/api/v1/restaurants/me`).then((res) => res.data);
 };
-
 
 export const getRestaurantOrders = async (
   request: Request,

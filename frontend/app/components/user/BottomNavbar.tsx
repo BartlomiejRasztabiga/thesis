@@ -1,5 +1,5 @@
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
-import {Home, List, Settings, Logout} from "@mui/icons-material";
+import { Home, List, Settings, Logout } from "@mui/icons-material";
 import { Link, useLocation } from "@remix-run/react";
 
 export default function BottomNavbar() {
@@ -29,7 +29,7 @@ export default function BottomNavbar() {
           icon={<List />}
           component={Link}
           to="/v2/ordering/orders"
-          style={boldIfMatchesPath("/v2/ordering/orders")}
+          style={boldIfMatchesPath("/v2/ordering/history")}
         />
         <BottomNavigationAction
           label="Settings"

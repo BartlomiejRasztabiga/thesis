@@ -1,5 +1,12 @@
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
-import {Home, List, Settings, Logout, BarChart, Wallet} from "@mui/icons-material";
+import {
+  Home,
+  List,
+  Settings,
+  Logout,
+  BarChart,
+  Wallet,
+} from "@mui/icons-material";
 import { Link, useLocation } from "@remix-run/react";
 
 export default function BottomNavbar() {

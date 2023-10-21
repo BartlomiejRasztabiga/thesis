@@ -8,7 +8,7 @@ export default function Topbar(props: TopbarProps) {
   return (
     <header className="flex flex-col items-center justify-between color bg-slate-800 h-10 text-white">
       <span className="align-middle inline-block">
-          WALLET BALANCE: {props.payee.balance.toFixed(2)} PLN
+        WALLET BALANCE: {props.payee.balance.toFixed(2)} PLN
       </span>
       <hr className="w-full" />
     </header>
@@ -16,5 +16,5 @@ export default function Topbar(props: TopbarProps) {
 }
 
 export interface TopbarProps {
-  payee: PayeeResponse
+  payee: PayeeResponse;
 }

@@ -1,7 +1,13 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { ActionArgs, json } from "@remix-run/node";
 import BottomNavbar from "~/components/courier/BottomNavbar";
-import { Form, useActionData, useFetcher, useLoaderData, useRevalidator } from "@remix-run/react";
+import {
+  Form,
+  useActionData,
+  useFetcher,
+  useLoaderData,
+  useRevalidator,
+} from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
@@ -15,7 +21,7 @@ import {
   getDeliveryOffer,
   pickupDelivery,
   rejectDeliveryOffer,
-  updateCourierLocation
+  updateCourierLocation,
 } from "~/models/delivery.server";
 import { getCurrentPayee } from "~/models/payment.server";
 
@@ -51,10 +57,10 @@ export async function action({ request, params }: ActionArgs) {
 
   try {
     if (_action === "updateLocation") {
-      console.log("updateLocation")
+      console.log("updateLocation");
       await updateCourierLocation(request, {
         lat: values.lat,
-        lng: values.lng
+        lng: values.lng,
       });
       return json({});
     }
@@ -96,16 +102,16 @@ export default function V2CourierPage() {
   useEffect(() => {
     const timer = setInterval(async () => {
       // TODO jak przeslac te dane na serwer?
-      console.log("interval")
+      console.log("interval");
       if (navigator.geolocation) {
-        console.log("geolocation")
+        console.log("geolocation");
         navigator.geolocation.getCurrentPosition(async (position) => {
           const { latitude, longitude } = position.coords;
-          console.log("position", position)
+          console.log("position", position);
 
           fetcher.submit(
             { _action: "updateLocation", lat: latitude, lng: longitude },
-            { method: "POST" }
+            { method: "POST" },
           );
         });
       }
@@ -123,7 +129,7 @@ export default function V2CourierPage() {
 
   const getGmapsLink = (address: string) => {
     return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-      address
+      address,
     )}`;
   };
 
@@ -154,11 +160,10 @@ export default function V2CourierPage() {
                 >
                   Pickup
                 </Button>
-                <Button
-                  variant="contained">
+                <Button variant="contained">
                   <a
                     href={getGmapsLink(
-                      data.currentDelivery.restaurantLocation.streetAddress
+                      data.currentDelivery.restaurantLocation.streetAddress,
                     )}
                     target={"_blank"}
                     rel="noreferrer"
@@ -180,7 +185,7 @@ export default function V2CourierPage() {
                 <Button variant="contained">
                   <a
                     href={getGmapsLink(
-                      data.currentDelivery.deliveryLocation.streetAddress
+                      data.currentDelivery.deliveryLocation.streetAddress,
                     )}
                     target={"_blank"}
                     rel="noreferrer"
@@ -242,7 +247,6 @@ export default function V2CourierPage() {
     );
   };
 
-
   if (actionData && actionData.error) {
     toast.error(actionData.error, { toastId: 1, position: "bottom-center" });
   }
@@ -253,13 +257,11 @@ export default function V2CourierPage() {
         <Topbar payee={data.payee} />
       </div>
       <div className="h-full">
-        <Paper className="flex flex-col w-80 mx-auto">
-          {getContent()}
-        </Paper>
+        <Paper className="flex flex-col w-80 mx-auto">{getContent()}</Paper>
       </div>
       <div>
         <BottomNavbar />
       </div>
     </div>
   );
-};
+}

@@ -6,16 +6,30 @@ import {
   getRestaurantOrders,
   prepareRestaurantOrder,
   rejectRestaurantOrder,
-  RestaurantOrderResponse
+  RestaurantOrderResponse,
 } from "~/models/restaurant.server";
 import BottomNavbar from "~/components/manager/BottomNavbar";
-import { Form, useActionData, useLoaderData, useRevalidator } from "@remix-run/react";
+import {
+  Form,
+  useActionData,
+  useLoaderData,
+  useRevalidator,
+} from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import Topbar from "~/components/manager/Topbar";
 import { getCurrentPayee } from "~/models/payment.server";
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import {
+  Button,
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+} from "@mui/material";
 
 export async function loader({ request, params }: LoaderArgs) {
   const restaurant = await getCurrentRestaurant(request);
@@ -63,7 +77,7 @@ export default function V2RestaurantPage() {
   const revalidator = useRevalidator();
 
   const activeOrders = data.orders.filter((order) =>
-    ["NEW", "ACCEPTED", "PREPARED"].includes(order.status)
+    ["NEW", "ACCEPTED", "PREPARED"].includes(order.status),
   );
 
   // TODO good enough for now
@@ -159,21 +173,21 @@ export default function V2RestaurantPage() {
                     <TableCell>
                       {Object.keys(order.items).map((item, key) => {
                         const product = data.restaurant.menu.find(
-                          (product) => product.id === item
+                          (product) => product.id === item,
                         );
                         if (!product) {
                           return null;
                         }
                         return (
                           <div key={key}>
-                            <p>{order.items[item]} x {product.name}</p>
+                            <p>
+                              {order.items[item]} x {product.name}
+                            </p>
                           </div>
                         );
                       })}
                     </TableCell>
-                    <TableCell>
-                      {order.status}
-                    </TableCell>
+                    <TableCell>{order.status}</TableCell>
                     <TableCell>
                       <Form method="post">
                         <input

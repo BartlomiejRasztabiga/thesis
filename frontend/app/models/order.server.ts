@@ -58,6 +58,17 @@ export const deleteOrderItem = async (
     .then((res) => res.data);
 };
 
+export const rateOrder = async (
+  request: Request,
+  orderId: string,
+  rating: number,
+): Promise<UuidWrapper> => {
+  const axios = await getAxios(request);
+  return axios
+    .post(`/api/v1/orders/${orderId}/rating`, { rating })
+    .then((res) => res.data);
+}
+
 export interface OrderResponse {
   id: string;
   restaurantId: string;
