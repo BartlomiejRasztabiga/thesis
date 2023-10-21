@@ -3,6 +3,7 @@
 package me.rasztabiga.thesis.shared.adapter.`in`.rest.api
 
 import java.math.BigDecimal
+import java.time.Instant
 import java.util.*
 
 data class OrderResponse(
@@ -20,7 +21,8 @@ data class OrderResponse(
     val deliveryLocation: Location?,
     val deliveryFee: BigDecimal?,
     val courierId: String?,
-    val courierLocation: Location?
+    val courierLocation: Location?,
+    val createdAt: Instant
 ) {
     enum class OrderStatus {
         CREATED,
