@@ -44,4 +44,13 @@ class RestaurantController(
             ResponseTypes.instanceOf(RestaurantResponse::class.java)
         )
     }
+
+    @GetMapping("/me")
+    @PreAuthorize("hasAnyAuthority('${RESTAURANT.READ}')")
+    fun getRestaurantForCurrentUser(exchange: ServerWebExchange): Mono<RestaurantResponse> {
+        return reactorQueryGateway.query(
+            FindRestaurantByManagerIdQuery(exchange.getUserId()),
+            ResponseTypes.instanceOf(RestaurantResponse::class.java)
+        )
+    }
 }

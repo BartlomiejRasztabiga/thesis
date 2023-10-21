@@ -21,7 +21,7 @@ export default function BottomNavbar() {
       <hr className="w-full" />
       <BottomNavigation showLabels className="w-full">
         <BottomNavigationAction
-          label="Orders"
+          label="Current orders"
           icon={<List />}
           component={Link}
           to="/v2/restaurants/5ee006d0-e9d5-4ce7-a431-6cb0653296f9"
