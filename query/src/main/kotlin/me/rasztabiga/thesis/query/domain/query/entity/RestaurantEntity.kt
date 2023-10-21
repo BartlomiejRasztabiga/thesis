@@ -16,7 +16,9 @@ data class RestaurantEntity(
     val availability: Availability,
     val menu: List<Product>,
     val location: Location,
-    val imageUrl: String
+    val imageUrl: String,
+    val ratingsCount: Int,
+    val ratingsAverage: Double
 ) {
     enum class Availability {
         OPEN,

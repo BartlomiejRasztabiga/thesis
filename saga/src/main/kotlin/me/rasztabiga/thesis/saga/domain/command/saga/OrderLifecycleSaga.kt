@@ -226,6 +226,12 @@ class OrderLifecycleSaga {
     fun on(event: OrderDeliveryDeliveredEvent) {
         courierId = event.courierId
 
+        commandGateway.sendAndWait<Void>(
+            MarkOrderAsDeliveredCommand(
+                orderId = event.orderId
+            )
+        )
+
         val restaurant = getRestaurant(restaurantId)
         val order = getOrder(event.orderId)
 

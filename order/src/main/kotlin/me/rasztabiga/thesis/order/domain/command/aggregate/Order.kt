@@ -4,6 +4,7 @@ import me.rasztabiga.thesis.order.domain.command.command.AddOrderItemCommand
 import me.rasztabiga.thesis.order.domain.command.command.CancelOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.DeleteOrderItemCommand
 import me.rasztabiga.thesis.order.domain.command.command.FinalizeOrderCommand
+import me.rasztabiga.thesis.order.domain.command.command.RateOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
 import me.rasztabiga.thesis.order.domain.command.port.OrderVerificationPort
 import me.rasztabiga.thesis.shared.domain.command.command.MarkOrderAsPaidCommand
@@ -130,7 +131,6 @@ internal class Order {
         )
     }
 
-    // TODO is it required?
     @CommandHandler
     fun handle(command: MarkOrderAsPaidCommand) {
         require(this.userId == command.userId) { "Order can be marked as paid only by the user who created it." }
@@ -145,6 +145,19 @@ internal class Order {
         )
     }
 
+    @CommandHandler
+    fun handle(command: MarkOrderAsDeliveredCommand) {
+        require(this.status == OrderStatus.PAID) {
+            "Order can be marked as delivered only if it's in PAID status."
+        }
+
+        apply(
+            OrderDeliveredEvent(
+                orderId = command.orderId
+            )
+        )
+    }
+
     // TODO is it required?
     @CommandHandler
     fun handle(command: RejectOrderCommand) {
@@ -153,6 +166,20 @@ internal class Order {
         apply(
             OrderRejectedEvent(
                 orderId = command.orderId
+            )
+        )
+    }
+
+    @CommandHandler
+    fun handle(command: RateOrderCommand) {
+        require(this.status == OrderStatus.DELIVERED) { "Order can be rated only if it's in DELIVERED status." }
+        require(command.rating in 1..5) { "Rating must be between 1 and 5" }
+
+        apply(
+            OrderRatedEvent(
+                orderId = command.orderId,
+                userId = command.userId,
+                rating = command.rating
             )
         )
     }
@@ -199,5 +226,11 @@ internal class Order {
     @EventSourcingHandler
     fun on(event: OrderPaidEvent) {
         this.status = OrderStatus.PAID
+    }
+
+    @Suppress("UnusedParameter")
+    @EventSourcingHandler
+    fun on(event: OrderDeliveredEvent) {
+        this.status = OrderStatus.DELIVERED
     }
 }
