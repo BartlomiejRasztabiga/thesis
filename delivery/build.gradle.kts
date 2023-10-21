@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.1.4"
+    id("org.springframework.boot") version "3.1.5"
     id("io.spring.dependency-management") version "1.1.3"
     id("org.jetbrains.kotlin.jvm") version "1.9.0"
     id("org.jetbrains.kotlin.plugin.spring") version "1.9.0"
@@ -34,7 +34,7 @@ val axonVersion = "4.8.3"
 val kotestVersion = "5.7.2"
 
 dependencies {
-    implementation("me.rasztabiga.thesis:shared:0.17.1")
+    implementation("me.rasztabiga.thesis:shared:0.17.2")
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -53,7 +53,7 @@ dependencies {
 
     implementation("com.google.maps:google-maps-services:2.2.0")
 
-    testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.17.1"))
+    testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.17.2"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.axonframework:axon-test")
