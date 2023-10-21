@@ -34,7 +34,7 @@ export async function action({ request, params }: ActionArgs) {
 export default function V2OrderRatingPage() {
   const data = useLoaderData<typeof loader>();
 
-  const [rating, setRating] = useState(2);
+  const [rating, setRating] = useState(0);
 
   return (
     <div className="flex flex-col h-full overflow-x-hidden">
