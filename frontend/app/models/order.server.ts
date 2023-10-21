@@ -72,6 +72,7 @@ export interface OrderResponse {
   itemsTotal: number;
   paymentId: string;
   paymentSessionUrl: string;
+  createdAt: string;
 }
 
 type OrderItem = {

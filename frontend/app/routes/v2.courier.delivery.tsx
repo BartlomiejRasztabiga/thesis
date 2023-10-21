@@ -51,6 +51,7 @@ export async function action({ request, params }: ActionArgs) {
 
   try {
     if (_action === "updateLocation") {
+      console.log("updateLocation")
       await updateCourierLocation(request, {
         lat: values.lat,
         lng: values.lng
@@ -95,9 +96,12 @@ export default function V2CourierPage() {
   useEffect(() => {
     const timer = setInterval(async () => {
       // TODO jak przeslac te dane na serwer?
+      console.log("interval")
       if (navigator.geolocation) {
+        console.log("geolocation")
         navigator.geolocation.getCurrentPosition(async (position) => {
           const { latitude, longitude } = position.coords;
+          console.log("position", position)
 
           fetcher.submit(
             { _action: "updateLocation", lat: latitude, lng: longitude },

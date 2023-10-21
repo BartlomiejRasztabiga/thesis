@@ -138,6 +138,7 @@ export default function V2RestaurantPage() {
               <TableHead>
                 <TableRow>
                   <TableCell>Order ID</TableCell>
+                  <TableCell>Created at</TableCell>
                   <TableCell>Products</TableCell>
                   <TableCell>Status</TableCell>
                   <TableCell align="right">Actions</TableCell>
@@ -151,6 +152,9 @@ export default function V2RestaurantPage() {
                   >
                     <TableCell component="th" scope="row">
                       {order.orderId}
+                    </TableCell>
+                    <TableCell>
+                      {new Date(order.createdAt).toLocaleString()}
                     </TableCell>
                     <TableCell>
                       {Object.keys(order.items).map((item, key) => {

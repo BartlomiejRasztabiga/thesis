@@ -103,6 +103,7 @@ export interface RestaurantOrderResponse {
   restaurantOrderId: string;
   items: RestaurantOrderItemResponse[];
   status: RestaurantOrderStatus;
+  createdAt: string;
 }
 
 interface RestaurantOrderItemResponse {
