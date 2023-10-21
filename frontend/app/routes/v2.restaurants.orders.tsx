@@ -144,9 +144,9 @@ export default function V2RestaurantPage() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {activeOrders.map((order) => (
+                {activeOrders.map((order, key) => (
                   <TableRow
-                    key={order.name}
+                    key={key}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">

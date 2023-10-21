@@ -1,5 +1,5 @@
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
-import {Home, List, Settings, Logout, BarChart, Wallet} from "@mui/icons-material";
+import {Home, List, Settings, Logout, BarChart, Wallet, DeliveryDining} from "@mui/icons-material";
 import { Link, useLocation } from "@remix-run/react";
 
 export default function BottomNavbar() {
@@ -19,33 +19,33 @@ export default function BottomNavbar() {
       <hr className="w-full" />
       <BottomNavigation showLabels className="w-full">
         <BottomNavigationAction
-          label="Current orders"
-          icon={<List />}
+          label="Deliver"
+          icon={<DeliveryDining />}
           component={Link}
-          to="/v2/restaurants/orders"
-          style={boldIfMatchesPath("/v2/restaurants/orders")}
+          to="/v2/courier/delivery"
+          style={boldIfMatchesPath("/v2/courier/delivery")}
         />
         {/*TODO change icon*/}
         <BottomNavigationAction
           label="History"
           icon={<List />}
           component={Link}
-          to="/v2/restaurants/history"
-          style={boldIfMatchesPath("/v2/restaurants/history")}
+          to="/v2/courier/history"
+          style={boldIfMatchesPath("/v2/courier/history")}
         />
         <BottomNavigationAction
           label="Earnings"
           icon={<Wallet />}
           component={Link}
-          to="/v2/restaurants/wallet"
-          style={boldIfMatchesPath("/v2/restaurants/wallet")}
+          to="/v2/courier/wallet"
+          style={boldIfMatchesPath("/v2/courier/wallet")}
         />
         <BottomNavigationAction
           label="Settings"
           icon={<Settings />}
           component={Link}
-          to="/v2/restaurants/settings"
-          style={boldIfMatchesPath("/v2/restaurants/settings")}
+          to="/v2/courier/settings"
+          style={boldIfMatchesPath("/v2/courier/settings")}
         />
         <BottomNavigationAction
           label="Logout"
