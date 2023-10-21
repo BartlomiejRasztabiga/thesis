@@ -14,6 +14,7 @@ import me.rasztabiga.thesis.shared.domain.command.event.OrderFinalizedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderItemAddedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderItemDeletedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaidEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderRatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderRejectedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderStartedEvent
 import org.axonframework.commandhandling.CommandHandler
@@ -173,12 +174,14 @@ internal class Order {
     @CommandHandler
     fun handle(command: RateOrderCommand) {
         require(this.status == OrderStatus.DELIVERED) { "Order can be rated only if it's in DELIVERED status." }
+        require(this.userId == command.userId) { "Order can be rated only by the user who created it." }
         require(command.rating in 1..5) { "Rating must be between 1 and 5" }
 
         apply(
             OrderRatedEvent(
-                orderId = command.orderId,
-                userId = command.userId,
+                orderId = this.id,
+                userId = this.userId,
+                restaurantId = this.restaurantId,
                 rating = command.rating
             )
         )

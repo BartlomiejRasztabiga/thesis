@@ -16,7 +16,9 @@ object RestaurantMapper {
             availability = RestaurantEntity.Availability.CLOSED,
             menu = emptyList(),
             location = event.location,
-            imageUrl = event.imageUrl
+            imageUrl = event.imageUrl,
+            ratingsCount = 0,
+            ratingsAverage = 0.0
         )
     }
 
@@ -32,7 +34,7 @@ object RestaurantMapper {
             },
             location = entity.location,
             imageUrl = entity.imageUrl,
-            avgRating = 5.0, // TODO
+            avgRating = entity.ratingsAverage,
             deliveryFee = deliveryFee
         )
     }

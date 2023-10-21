@@ -10,6 +10,7 @@ import me.rasztabiga.thesis.query.domain.query.query.FindAllRestaurantsQuery
 import me.rasztabiga.thesis.query.domain.query.repository.RestaurantRepository
 import me.rasztabiga.thesis.query.domain.query.repository.UserRepository
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
+import me.rasztabiga.thesis.shared.domain.command.event.OrderRatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantDeletedEvent
@@ -63,6 +64,15 @@ class RestaurantHandler(
         val updatedEntity = entity.copy(menu = event.menu.map {
             RestaurantEntity.Product(it.id, it.name, it.description, it.price, it.imageUrl)
         })
+        restaurantRepository.save(updatedEntity)
+    }
+
+    @EventHandler
+    fun on(event: OrderRatedEvent) {
+        val entity =
+            restaurantRepository.load(event.restaurantId) ?: throw RestaurantNotFoundException(event.restaurantId)
+        val newRatingsAverage = (entity.ratingsAverage * entity.ratingsCount + event.rating) / (entity.ratingsCount + 1)
+        val updatedEntity = entity.copy(ratingsCount = entity.ratingsCount + 1, ratingsAverage = newRatingsAverage)
         restaurantRepository.save(updatedEntity)
     }
 

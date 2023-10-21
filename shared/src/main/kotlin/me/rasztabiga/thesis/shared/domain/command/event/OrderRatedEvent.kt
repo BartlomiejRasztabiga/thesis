@@ -7,5 +7,6 @@ import java.util.UUID
 data class OrderRatedEvent(
     val orderId: UUID,
     val userId: String,
+    val restaurantId: UUID,
     val rating: Int
 )
