@@ -1,8 +1,14 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="SagaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="SagaApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
     <option name="ACTIVE_PROFILES" value="dev" />
     <module name="saga.main" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="me.rasztabiga.thesis.saga.SagaApplicationKt" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="me.rasztabiga.thesis.saga.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

@@ -2,6 +2,12 @@
   <configuration default="false" name="GatewayApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
     <module name="gateway.main" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="me.rasztabiga.thesis.gateway.GatewayApplicationKt" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="me.rasztabiga.thesis.gateway.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

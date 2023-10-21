@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="RestaurantApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+  <configuration default="false" name="RestaurantApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
     <option name="ACTIVE_PROFILES" value="dev,gmaps" />
     <module name="restaurant.main" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="me.rasztabiga.thesis.payment.RestaurantApplicationKt" />

@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Thesis" type="Multirun" separateTabs="false" reuseTabsWithFailures="true" startOneByOne="true" markFailedProcess="true" hideSuccessProcess="true" delayTime="0.0">
+    <runConfiguration name="SagaApplication" type="Spring Boot" />
+    <runConfiguration name="RestaurantApplication" type="Spring Boot" />
+    <runConfiguration name="GatewayApplication" type="Spring Boot" />
+    <runConfiguration name="OrderApplication" type="Spring Boot" />
+    <runConfiguration name="PaymentApplication" type="Spring Boot" />
+    <runConfiguration name="QueryApplication" type="Spring Boot" />
+    <runConfiguration name="DeliveryApplication" type="Spring Boot" />
+    <method v="2" />
+  </configuration>
+</component>
