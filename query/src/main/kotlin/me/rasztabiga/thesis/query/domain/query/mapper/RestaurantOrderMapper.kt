@@ -3,6 +3,7 @@ package me.rasztabiga.thesis.query.domain.query.mapper
 import me.rasztabiga.thesis.query.adapter.`in`.rest.api.RestaurantOrderResponse
 import me.rasztabiga.thesis.query.domain.query.entity.RestaurantOrderEntity
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderCreatedEvent
+import java.time.Instant
 
 object RestaurantOrderMapper {
 
@@ -12,7 +13,8 @@ object RestaurantOrderMapper {
             orderId = event.orderId,
             restaurantId = event.restaurantId,
             items = event.items,
-            status = RestaurantOrderEntity.OrderStatus.NEW
+            status = RestaurantOrderEntity.OrderStatus.NEW,
+            createdAt = Instant.now()
         )
     }
 
@@ -21,7 +23,8 @@ object RestaurantOrderMapper {
             restaurantOrderId = entity.id,
             orderId = entity.orderId,
             items = entity.items,
-            status = RestaurantOrderResponse.RestaurantOrderStatus.valueOf(entity.status.name)
+            status = RestaurantOrderResponse.RestaurantOrderStatus.valueOf(entity.status.name),
+            createdAt = entity.createdAt
         )
     }
 }

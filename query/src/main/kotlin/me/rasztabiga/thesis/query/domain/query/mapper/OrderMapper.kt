@@ -5,6 +5,7 @@ import me.rasztabiga.thesis.query.domain.query.entity.OrderEntity
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.shared.domain.command.event.OrderStartedEvent
+import java.time.Instant
 
 object OrderMapper {
 
@@ -23,7 +24,8 @@ object OrderMapper {
             deliveryAddressId = null,
             deliveryLocation = null,
             courierId = null,
-            deliveryFee = null
+            deliveryFee = null,
+            createdAt = Instant.now()
         )
     }
 
@@ -43,7 +45,8 @@ object OrderMapper {
             deliveryLocation = entity.deliveryLocation,
             courierId = entity.courierId,
             courierLocation = courier?.location,
-            deliveryFee = entity.deliveryFee
+            deliveryFee = entity.deliveryFee,
+            createdAt = entity.createdAt
         )
     }
 }
