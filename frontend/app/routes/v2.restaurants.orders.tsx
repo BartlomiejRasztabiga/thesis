@@ -154,7 +154,7 @@ export default function V2RestaurantPage() {
                       {order.orderId}
                     </TableCell>
                     <TableCell>
-                      {new Date(order.createdAt).toLocaleString()}
+                      {new Date(order.createdAt).toLocaleString("pl-PL")}
                     </TableCell>
                     <TableCell>
                       {Object.keys(order.items).map((item, key) => {

@@ -4,11 +4,13 @@ package me.rasztabiga.thesis.order.adapter.`in`.rest
 
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.AddOrderItemRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.DeleteOrderItemRequest
+import me.rasztabiga.thesis.order.adapter.`in`.rest.api.RateOrderRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.StartOrderRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToAddOrderItemCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToCancelOrderCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToDeleteOrderItemCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToFinalizeOrderCommand
+import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToRateOrderCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToStartOrderCommand
 import me.rasztabiga.thesis.shared.UuidWrapper
 import me.rasztabiga.thesis.shared.security.Scopes
@@ -89,6 +91,19 @@ class OrderController(
     ): Mono<Void> {
         val command = mapToDeleteOrderItemCommand(orderId, request, exchange)
         return reactorCommandGateway.send(command)
+    }
+
+    @PostMapping("/{orderId}/rating")
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAnyAuthority('${Scopes.ORDER.WRITE}')")
+    fun rateOrder(
+        @PathVariable orderId: UUID,
+        @RequestBody request: RateOrderRequest,
+        exchange: ServerWebExchange
+    ): Mono<UuidWrapper> {
+        val command = mapToRateOrderCommand(orderId, request, exchange)
+        return reactorCommandGateway.send<UUID>(command)
+            .then(Mono.just(UuidWrapper(orderId)))
     }
 }
 

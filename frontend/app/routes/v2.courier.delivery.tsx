@@ -59,7 +59,7 @@ export async function action({ request, params }: ActionArgs) {
       return json({});
     }
 
-    const deliveryId = values.deliveryId as string;uzywaj
+    const deliveryId = values.deliveryId as string;
     invariant(deliveryId, "deliveryId not found");
 
     if (_action === "accept") {

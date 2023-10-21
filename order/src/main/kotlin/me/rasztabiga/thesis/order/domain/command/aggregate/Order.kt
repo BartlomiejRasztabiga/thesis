@@ -7,9 +7,11 @@ import me.rasztabiga.thesis.order.domain.command.command.FinalizeOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.RateOrderCommand
 import me.rasztabiga.thesis.order.domain.command.command.StartOrderCommand
 import me.rasztabiga.thesis.order.domain.command.port.OrderVerificationPort
+import me.rasztabiga.thesis.shared.domain.command.command.MarkOrderAsDeliveredCommand
 import me.rasztabiga.thesis.shared.domain.command.command.MarkOrderAsPaidCommand
 import me.rasztabiga.thesis.shared.domain.command.command.RejectOrderCommand
 import me.rasztabiga.thesis.shared.domain.command.event.OrderCanceledEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveredEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderFinalizedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderItemAddedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderItemDeletedEvent
@@ -159,7 +161,6 @@ internal class Order {
         )
     }
 
-    // TODO is it required?
     @CommandHandler
     fun handle(command: RejectOrderCommand) {
         require(this.status == OrderStatus.PAID) { "Order can be rejected only if it's in PAID status." }
