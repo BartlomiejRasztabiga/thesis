@@ -10,6 +10,8 @@ interface RestaurantRepository {
 
     fun load(id: UUID): RestaurantEntity?
 
+    fun loadByManagerId(id: String): RestaurantEntity?
+
     fun loadAll(): Flux<RestaurantEntity>
 
     fun delete(id: UUID)

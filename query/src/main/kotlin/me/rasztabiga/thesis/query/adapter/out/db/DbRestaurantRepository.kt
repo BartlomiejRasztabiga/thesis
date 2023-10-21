@@ -20,6 +20,10 @@ class DbRestaurantRepository(
         return springDataRestaurantRepository.findById(id).block()
     }
 
+    override fun loadByManagerId(id: String): RestaurantEntity? {
+        return springDataRestaurantRepository.findByManagerId(id).block()
+    }
+
     override fun loadAll(): Flux<RestaurantEntity> {
         return springDataRestaurantRepository.findAll()
     }

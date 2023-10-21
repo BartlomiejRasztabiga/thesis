@@ -1,5 +1,5 @@
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
-import {Home, List, Settings, Logout, BarChart} from "@mui/icons-material";
+import {Home, List, Settings, Logout, BarChart, Wallet} from "@mui/icons-material";
 import { Link, useLocation } from "@remix-run/react";
 
 export default function BottomNavbar() {
@@ -15,8 +15,6 @@ export default function BottomNavbar() {
 
   return (
     // TODO replace links!
-    // skad wziac restaurantId skoro nie wiemy jakie ma przypisane? moze na razie hardcoded
-    // a moze po prostu bez id ???
     <nav className="flex flex-col items-center justify-between w-full fixed bottom-0">
       <hr className="w-full" />
       <BottomNavigation showLabels className="w-full">
@@ -24,32 +22,37 @@ export default function BottomNavbar() {
           label="Current orders"
           icon={<List />}
           component={Link}
-          to="/v2/restaurants/5ee006d0-e9d5-4ce7-a431-6cb0653296f9"
-          style={boldIfMatchesPath("/v2/ordering/restaurants")}
+          to="/v2/restaurants/orders"
+          style={boldIfMatchesPath("/v2/restaurants/orders")}
         />
         {/*TODO change icon*/}
         <BottomNavigationAction
           label="History"
           icon={<List />}
           component={Link}
-          to="/v2/restaurants/5ee006d0-e9d5-4ce7-a431-6cb0653296f9"
-          style={boldIfMatchesPath("/v2/ordering/orders")}
+          to="/v2/restaurants/history"
+          style={boldIfMatchesPath("/v2/restaurants/history")}
         />
-        {/* TODO settings? */}
         <BottomNavigationAction
-          label="Settings"
-          icon={<Settings />}
+          label="Wallet"
+          icon={<Wallet />}
           component={Link}
-          to="/v2/restaurants/5ee006d0-e9d5-4ce7-a431-6cb0653296f9/settings"
-          style={boldIfMatchesPath("/v2/ordering/settings")}
+          to="/v2/restaurants/wallet"
+          style={boldIfMatchesPath("/v2/restaurants/wallet")}
         />
-        {/* TODO statistics? */}
         <BottomNavigationAction
           label="Statistics"
           icon={<BarChart />}
           component={Link}
-          to="/v2/restaurants/5ee006d0-e9d5-4ce7-a431-6cb0653296f9"
-          style={boldIfMatchesPath("/v2/ordering/restaurants")}
+          to="/v2/restaurants/statistics"
+          style={boldIfMatchesPath("/v2/restaurants/statistics")}
+        />
+        <BottomNavigationAction
+          label="Settings"
+          icon={<Settings />}
+          component={Link}
+          to="/v2/restaurants/settings"
+          style={boldIfMatchesPath("/v2/restaurants/settings")}
         />
         <BottomNavigationAction
           label="Logout"

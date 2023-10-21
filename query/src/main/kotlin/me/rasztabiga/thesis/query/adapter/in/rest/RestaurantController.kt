@@ -6,6 +6,7 @@ import me.rasztabiga.thesis.query.domain.query.query.FindAllRestaurantsQuery
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.shared.config.getUserId
 import me.rasztabiga.thesis.shared.domain.query.query.FindRestaurantByIdQuery
+import me.rasztabiga.thesis.shared.domain.query.query.FindRestaurantByManagerIdQuery
 import me.rasztabiga.thesis.shared.security.Scopes.RESTAURANT
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway

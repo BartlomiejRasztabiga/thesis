@@ -61,7 +61,7 @@ export default function V2OrderTrackingPage() {
   return (
     <div className="flex flex-col h-full overflow-x-hidden">
       <div className="h-full">
-        <Paper className="flex flex-col w-80 mx-auto">
+        <Paper className="flex flex-col w-full mx-auto">
           <div>
             <h5 className="text-lg font-bold">Order tracking</h5>
             <p className="text-sm text-gray-500">

@@ -136,6 +136,7 @@ export default function V2RestaurantPage() {
           <img src={data.restaurant.imageUrl} />
           <div>
             <h5 className="text-lg font-bold">{data.restaurant.name}</h5>
+            <p>{data.restaurant.location.streetAddress}</p>
             <p>
               <DeliveryDining /> ~{data.restaurant.deliveryFee.toFixed(2)}{" "}
               PLN

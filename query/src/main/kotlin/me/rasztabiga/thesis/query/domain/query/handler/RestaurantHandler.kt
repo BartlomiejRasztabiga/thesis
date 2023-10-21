@@ -2,6 +2,7 @@ package me.rasztabiga.thesis.query.domain.query.handler
 
 import me.rasztabiga.thesis.query.domain.query.entity.RestaurantEntity
 import me.rasztabiga.thesis.query.domain.query.exception.RestaurantNotFoundException
+import me.rasztabiga.thesis.query.domain.query.exception.RestaurantNotFoundForManagerIdException
 import me.rasztabiga.thesis.query.domain.query.mapper.RestaurantMapper.mapToEntity
 import me.rasztabiga.thesis.query.domain.query.mapper.RestaurantMapper.mapToResponse
 import me.rasztabiga.thesis.query.domain.query.port.CalculateDeliveryFeePort
@@ -15,6 +16,7 @@ import me.rasztabiga.thesis.shared.domain.command.event.RestaurantDeletedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantMenuUpdatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantUpdatedEvent
 import me.rasztabiga.thesis.shared.domain.query.query.FindRestaurantByIdQuery
+import me.rasztabiga.thesis.shared.domain.query.query.FindRestaurantByManagerIdQuery
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler
@@ -96,5 +98,14 @@ class RestaurantHandler(
             }
 
         return Mono.just(mapToResponse(restaurant, deliveryFee))
+    }
+
+    @QueryHandler
+    fun handle(query: FindRestaurantByManagerIdQuery): Mono<RestaurantResponse> {
+        val restaurant = restaurantRepository.loadByManagerId(query.managerId)
+            ?: throw RestaurantNotFoundForManagerIdException(query.managerId)
+
+
+        return Mono.just(mapToResponse(restaurant, null))
     }
 }

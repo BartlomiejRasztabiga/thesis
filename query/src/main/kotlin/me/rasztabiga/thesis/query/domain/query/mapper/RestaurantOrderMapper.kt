@@ -19,6 +19,7 @@ object RestaurantOrderMapper {
     fun mapToResponse(entity: RestaurantOrderEntity): RestaurantOrderResponse {
         return RestaurantOrderResponse(
             restaurantOrderId = entity.id,
+            orderId = entity.orderId,
             items = entity.items,
             status = RestaurantOrderResponse.RestaurantOrderStatus.valueOf(entity.status.name)
         )

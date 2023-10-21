@@ -17,6 +17,10 @@ class InMemoryRestaurantRepository : RestaurantRepository,
         return loadEntity(id)
     }
 
+    override fun loadByManagerId(id: String): RestaurantEntity? {
+        return loadAllEntities().find { it.managerId == id }
+    }
+
     override fun loadAll(): Flux<RestaurantEntity> {
         return Flux.fromIterable(loadAllEntities())
     }
