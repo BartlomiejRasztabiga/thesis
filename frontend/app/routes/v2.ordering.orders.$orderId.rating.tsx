@@ -1,28 +1,17 @@
-import type { LoaderArgs } from "@remix-run/node";
-import { ActionArgs, json, redirect } from "@remix-run/node";
-import { Form, NavLink, useLoaderData } from "@remix-run/react";
+import type { ActionArgs } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
+import { Form, NavLink } from "@remix-run/react";
 import invariant from "tiny-invariant";
-import { getOrder, rateOrder } from "~/models/order.server";
+import { rateOrder } from "~/models/order.server";
 import { Button, Paper, Rating } from "@mui/material";
 import { useState } from "react";
 
-export async function loader({ request, params }: LoaderArgs) {
-  const activeOrderId = params.orderId;
-  invariant(activeOrderId, "activeOrderId not found");
-
-  const order = await getOrder(request, activeOrderId);
-  invariant(order, "order not found");
-
-  return json({ order });
-}
-
 export async function action({ request, params }: ActionArgs) {
   const formData = await request.formData();
-  const { _action, ...
-    values } = Object.fromEntries(formData);
+  const { _action, ...values } = Object.fromEntries(formData);
 
   invariant(params.orderId, "orderId not found");
-  invariant(values.rating, "rating not found")
+  invariant(values.rating, "rating not found");
 
   try {
     await rateOrder(request, params.orderId, values.rating);
@@ -33,8 +22,6 @@ export async function action({ request, params }: ActionArgs) {
 }
 
 export default function V2OrderRatingPage() {
-  const data = useLoaderData<typeof loader>();
-
   const [rating, setRating] = useState(0);
 
   return (
@@ -45,8 +32,13 @@ export default function V2OrderRatingPage() {
           <p className="text-sm text-gray-500">
             Please rate your experience with the restaurant
           </p>
-          <Rating name="rating" size="large" className="my-2" value={rating}
-                  onChange={(event, newValue) => setRating(newValue)} />
+          <Rating
+            name="rating"
+            size="large"
+            className="my-2"
+            value={rating}
+            onChange={(event, newValue) => setRating(newValue)}
+          />
           <div className="flex">
             <Form method="post">
               <input type="hidden" name="rating" value={rating} />

@@ -30,6 +30,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.util.*
 
+@Suppress("TooManyFunctions")
 @Component
 @ProcessingGroup("orderdelivery")
 class OrderDeliveryHandler(

@@ -5,6 +5,7 @@ import me.rasztabiga.thesis.query.domain.query.entity.DeliveryStatus
 import me.rasztabiga.thesis.query.domain.query.entity.OrderDeliveryEntity
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryCreatedEvent
+import java.time.Instant
 
 object OrderDeliveryMapper {
 
@@ -17,7 +18,8 @@ object OrderDeliveryMapper {
             status = DeliveryStatus.OFFER,
             courierFee = event.courierFee,
             courierId = null,
-            courierIdsDeclined = mutableListOf()
+            courierIdsDeclined = mutableListOf(),
+            createdAt = Instant.now()
         )
     }
 
@@ -27,7 +29,8 @@ object OrderDeliveryMapper {
             restaurantLocation = entity.restaurantLocation,
             deliveryLocation = entity.deliveryLocation,
             status = OrderDeliveryResponse.DeliveryStatus.valueOf(entity.status.name),
-            courierFee = entity.courierFee
+            courierFee = entity.courierFee,
+            createdAt = entity.createdAt
         )
     }
 

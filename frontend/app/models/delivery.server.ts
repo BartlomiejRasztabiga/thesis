@@ -2,7 +2,7 @@ import { getAxios } from "~/services/axios.server";
 import type { Location } from "./user.server";
 
 export const getCurrentCourier = async (
-  request: Request
+  request: Request,
 ): Promise<CourierResponse> => {
   const axios = await getAxios(request);
   return axios.get(`/api/v1/couriers/me`).then((res) => res.data);
@@ -10,7 +10,7 @@ export const getCurrentCourier = async (
 
 export const updateCourierLocation = async (
   request: Request,
-  location: Location
+  location: Location,
 ): Promise<void> => {
   const axios = await getAxios(request);
   console.log(location);
@@ -20,14 +20,14 @@ export const updateCourierLocation = async (
 };
 
 export const getCurrentDelivery = async (
-  request: Request
+  request: Request,
 ): Promise<DeliveryResponse> => {
   const axios = await getAxios(request);
   return axios.get(`/api/v1/deliveries/current`).then((res) => res.data);
 };
 
 export const getDeliveryOffer = async (
-  request: Request
+  request: Request,
 ): Promise<DeliveryResponse> => {
   const axios = await getAxios(request);
   return axios.get(`/api/v1/deliveries/offer`).then((res) => res.data);
@@ -35,7 +35,7 @@ export const getDeliveryOffer = async (
 
 export const acceptDeliveryOffer = async (
   request: Request,
-  deliveryId: string
+  deliveryId: string,
 ): Promise<void> => {
   const axios = await getAxios(request);
   return axios
@@ -45,7 +45,7 @@ export const acceptDeliveryOffer = async (
 
 export const rejectDeliveryOffer = async (
   request: Request,
-  deliveryId: string
+  deliveryId: string,
 ): Promise<void> => {
   const axios = await getAxios(request);
   return axios
@@ -55,7 +55,7 @@ export const rejectDeliveryOffer = async (
 
 export const pickupDelivery = async (
   request: Request,
-  deliveryId: string
+  deliveryId: string,
 ): Promise<void> => {
   const axios = await getAxios(request);
   return axios
@@ -65,7 +65,7 @@ export const pickupDelivery = async (
 
 export const deliverDelivery = async (
   request: Request,
-  deliveryId: string
+  deliveryId: string,
 ): Promise<void> => {
   const axios = await getAxios(request);
   return axios
@@ -74,7 +74,7 @@ export const deliverDelivery = async (
 };
 
 export const getAllDeliveries = async (
-  request: Request
+  request: Request,
 ): Promise<DeliveryResponse[]> => {
   const axios = await getAxios(request);
   return axios.get(`/api/v1/deliveries`).then((res) => res.data);

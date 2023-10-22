@@ -7,19 +7,6 @@ import {
   TileLayer,
 } from "react-leaflet";
 import type { Location } from "~/models/user.server";
-import { Home, List, Settings, Logout } from "@mui/icons-material";
-import { divIcon } from "leaflet";
-import { renderToStaticMarkup } from "react-dom/server";
-import {
-  Badge,
-  Fab,
-  IconButton,
-  Typography,
-  Paper,
-  CardContent,
-  Card,
-  CardMedia,
-} from "@mui/material";
 
 export interface MapProps {
   height: string;
@@ -47,14 +34,6 @@ export function MapClient(props: MapProps) {
 
     bounds.push(courierLatLng);
   }
-
-  const homeIcon = divIcon({
-    html: renderToStaticMarkup(
-      <IconButton size={"large"}>
-        <Home fontSize="larger" />
-      </IconButton>,
-    ),
-  });
 
   return (
     <div style={{ height: props.height }}>

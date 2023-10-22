@@ -1,5 +1,5 @@
-import type { LoaderArgs } from "@remix-run/node";
-import { ActionArgs, json } from "@remix-run/node";
+import type { LoaderArgs, ActionArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import { getRestaurants } from "~/models/restaurant.server";
 import BottomNavbar from "~/components/user/BottomNavbar";
 import { Form, useLoaderData } from "@remix-run/react";

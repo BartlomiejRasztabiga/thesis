@@ -1,8 +1,5 @@
-import { LocationOn } from "@mui/icons-material";
-import { UserResponse } from "~/models/user.server";
 import React from "react";
-import { NavLink } from "@remix-run/react";
-import { PayeeResponse } from "~/models/payment.server";
+import type { PayeeResponse } from "~/models/payment.server";
 
 export default function Topbar(props: TopbarProps) {
   return (

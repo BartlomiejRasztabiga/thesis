@@ -1,5 +1,5 @@
-import type { LoaderArgs } from "@remix-run/node";
-import { ActionArgs, json } from "@remix-run/node";
+import type { LoaderArgs, ActionArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import BottomNavbar from "~/components/courier/BottomNavbar";
 import {
   Form,
@@ -122,7 +122,7 @@ export default function V2CourierPage() {
     return () => {
       clearInterval(timer);
     };
-  }, [revalidator, data.currentDelivery]);
+  }, [revalidator, data.currentDelivery, fetcher]);
 
   const getGmapsLink = (address: string) => {
     return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(

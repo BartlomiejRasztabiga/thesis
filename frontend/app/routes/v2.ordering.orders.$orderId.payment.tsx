@@ -1,5 +1,5 @@
-import type { LoaderArgs } from "@remix-run/node";
-import { ActionArgs, json, redirect } from "@remix-run/node";
+import type { LoaderArgs, ActionArgs } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { getRestaurant } from "~/models/restaurant.server";
 import {
   Form,
@@ -81,7 +81,7 @@ export default function V2OrderPaymentPage() {
     return () => {
       clearInterval(timer);
     };
-  }, [revalidator]);
+  }, [revalidator, data.activeOrder.paymentSessionUrl]);
 
   if (actionData && actionData.error) {
     toast.error(actionData.error, { toastId: 1 });
@@ -122,7 +122,11 @@ export default function V2OrderPaymentPage() {
 
             return (
               <Paper key={key} className="flex flex-row mb-4">
-                <img src={menuItem.imageUrl} style={{ width: "5rem" }} />
+                <img
+                  src={menuItem.imageUrl}
+                  style={{ width: "5rem" }}
+                  alt="Restaurant's logo"
+                />
                 <div>
                   <h5 className="text-lg font-bold">{menuItem.name}</h5>
                   <p>

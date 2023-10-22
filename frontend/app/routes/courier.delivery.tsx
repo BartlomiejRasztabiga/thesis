@@ -116,7 +116,7 @@ export default function CourierDeliveryPage() {
     return () => {
       clearInterval(timer);
     };
-  }, [revalidator, data.currentDelivery]);
+  }, [revalidator, data.currentDelivery, fetcher]);
 
   const getGmapsLink = (address: string) => {
     return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(

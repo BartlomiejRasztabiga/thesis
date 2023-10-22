@@ -1,12 +1,12 @@
-import type { LoaderArgs } from "@remix-run/node";
-import { ActionArgs, json } from "@remix-run/node";
+import type { LoaderArgs, ActionArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
+import type { RestaurantOrderResponse } from "~/models/restaurant.server";
 import {
   acceptRestaurantOrder,
   getCurrentRestaurant,
   getRestaurantOrders,
   prepareRestaurantOrder,
   rejectRestaurantOrder,
-  RestaurantOrderResponse,
 } from "~/models/restaurant.server";
 import BottomNavbar from "~/components/manager/BottomNavbar";
 import {
@@ -28,7 +28,8 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow, Typography
+  TableRow,
+  Typography,
 } from "@mui/material";
 
 export async function loader({ request, params }: LoaderArgs) {

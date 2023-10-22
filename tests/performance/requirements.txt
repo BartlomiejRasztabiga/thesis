@@ -10,7 +10,7 @@ cffi==1.15.1
 charset-normalizer==3.2.0
 click==8.1.7
 ConfigArgParse==1.7
-cryptography==41.0.3
+cryptography==41.0.4
 Faker==19.3.1
 Flask==2.3.3
 Flask-BasicAuth==0.2.0
@@ -37,7 +37,7 @@ requests==2.31.0
 roundrobin==0.0.4
 six==1.16.0
 typing_extensions==4.7.1
-urllib3==1.26.16
+urllib3==1.26.18
 Werkzeug==2.3.7
 yarl==1.9.2
 zipp==3.16.2

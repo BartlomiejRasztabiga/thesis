@@ -1,12 +1,20 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { getCurrentRestaurant, getRestaurantOrders } from "~/models/restaurant.server";
 import BottomNavbar from "~/components/manager/BottomNavbar";
-import { Form, useActionData, useLoaderData, useRevalidator } from "@remix-run/react";
+import { useActionData, useLoaderData } from "@remix-run/react";
 import { toast } from "react-toastify";
 import Topbar from "~/components/manager/Topbar";
 import { getCurrentPayee } from "~/models/payment.server";
-import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from "@mui/material";
+import {
+  Paper,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
+} from "@mui/material";
 import { getAllDeliveries, getCurrentCourier } from "~/models/delivery.server";
 
 export async function loader({ request, params }: LoaderArgs) {
@@ -21,11 +29,11 @@ export default function V2CourierHistoryPage() {
   const data = useLoaderData<typeof loader>();
   const actionData = useActionData();
 
-  const deliveries = data.deliveries.filter((order) =>
-    ["DELIVERED"].includes(order.status)
-  ).sort((a, b) => {
-    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-  });
+  const deliveries = data.deliveries
+    .filter((order) => ["DELIVERED"].includes(order.status))
+    .sort((a, b) => {
+      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    });
 
   if (actionData && actionData.error) {
     toast.error(actionData.error, { toastId: 1 });
@@ -66,7 +74,7 @@ export default function V2CourierHistoryPage() {
                     <TableCell>
                       {Object.keys(order.items).map((item, key) => {
                         const product = data.restaurant.menu.find(
-                          (product) => product.id === item
+                          (product) => product.id === item,
                         );
                         if (!product) {
                           return null;

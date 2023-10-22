@@ -172,6 +172,7 @@ internal class Order {
         )
     }
 
+    @Suppress("MagicNumber")
     @CommandHandler
     fun handle(command: RateOrderCommand) {
         require(this.status == OrderStatus.DELIVERED) { "Order can be rated only if it's in DELIVERED status." }

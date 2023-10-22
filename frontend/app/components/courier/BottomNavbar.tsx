@@ -1,12 +1,10 @@
 import { BottomNavigation, BottomNavigationAction } from "@mui/material";
 import {
-  Home,
-  List,
-  Settings,
-  Logout,
-  BarChart,
-  Wallet,
   DeliveryDining,
+  List,
+  Logout,
+  Settings,
+  Wallet,
 } from "@mui/icons-material";
 import { Link, useLocation } from "@remix-run/react";
 

@@ -1,5 +1,5 @@
-import type { LoaderArgs } from "@remix-run/node";
-import { ActionArgs, json, redirect } from "@remix-run/node";
+import type { LoaderArgs, ActionArgs } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { getRestaurant } from "~/models/restaurant.server";
 import {
   Form,
@@ -167,7 +167,7 @@ export default function V2RestaurantPage() {
       </div>
       <div className="h-full">
         <Paper className="flex flex-col w-80 mx-auto">
-          <img src={data.restaurant.imageUrl} />
+          <img src={data.restaurant.imageUrl} alt="Restaurant's logo" />
           <div>
             <h5 className="text-lg font-bold">{data.restaurant.name}</h5>
             <p>{data.restaurant.location.streetAddress}</p>

@@ -4,7 +4,14 @@ import { getRestaurants } from "~/models/restaurant.server";
 import BottomNavbar from "~/components/user/BottomNavbar";
 import { getCurrentUser } from "~/models/user.server";
 import { getOrders } from "~/models/order.server";
-import { Box, Card, CardContent, CardMedia, IconButton, Typography } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  CardMedia,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import { NavLink, useLoaderData } from "@remix-run/react";
 import Topbar from "~/components/user/Topbar";
 import { Replay } from "@mui/icons-material";
@@ -36,7 +43,7 @@ export default function V2OrdersHistoryPage() {
           {/*  TODO use mui list instead? */}
           {ordersSorted.map((order, key) => {
             const restaurant = data.restaurants.find(
-              (restaurant) => restaurant.id === order.restaurantId
+              (restaurant) => restaurant.id === order.restaurantId,
             );
 
             return (
@@ -56,17 +63,18 @@ export default function V2OrdersHistoryPage() {
                       </Typography>
                     )}
                   </CardContent>
-                  <Box
-                    className="flex"
-                  >
+                  <Box className="flex">
                     <Typography
                       variant="subtitle1"
                       color="text.secondary"
                       component="div"
                     >
-                      {new Date(order.createdAt).toLocaleString("pl-PL")} {order.status.toLowerCase()}
+                      {new Date(order.createdAt).toLocaleString("pl-PL")}{" "}
+                      {order.status.toLowerCase()}
                     </Typography>
-                    <NavLink to={`/v2/ordering/restaurants/${order.restaurantId}`}>
+                    <NavLink
+                      to={`/v2/ordering/restaurants/${order.restaurantId}`}
+                    >
                       <IconButton>
                         <Replay fontSize="large" />
                       </IconButton>

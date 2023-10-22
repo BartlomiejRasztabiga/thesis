@@ -10,9 +10,7 @@ export const getOrder = async (
   return axios.get(`/api/v1/orders/${orderId}`).then((res) => res.data);
 };
 
-export const getOrders = async (
-  request: Request
-): Promise<OrderResponse[]> => {
+export const getOrders = async (request: Request): Promise<OrderResponse[]> => {
   const axios = await getAxios(request);
   return axios.get(`/api/v1/orders`).then((res) => res.data);
 };
@@ -74,7 +72,7 @@ export const rateOrder = async (
   return axios
     .post(`/api/v1/orders/${orderId}/rating`, { rating })
     .then((res) => res.data);
-}
+};
 
 export interface OrderResponse {
   id: string;
