@@ -1,6 +1,7 @@
 package me.rasztabiga.thesis.query.domain.query.repository
 
 import me.rasztabiga.thesis.query.domain.query.entity.OrderDeliveryEntity
+import reactor.core.publisher.Flux
 import java.util.*
 
 interface OrderDeliveryRepository {
@@ -11,4 +12,6 @@ interface OrderDeliveryRepository {
     fun loadOffers(): List<OrderDeliveryEntity>
 
     fun loadCurrentDeliveryByCourierId(courierId: String): OrderDeliveryEntity?
+
+    fun loadAllByCourierId(courierId: String): Flux<OrderDeliveryEntity>
 }

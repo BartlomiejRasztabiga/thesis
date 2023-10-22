@@ -40,7 +40,7 @@ export default function V2OrdersHistoryPage() {
             );
 
             return (
-              <Card sx={{ display: "flex" }} className="my-4" key={key}>
+              <Card sx={{ display: "flex" }} className="my-2" key={key}>
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <CardContent sx={{ flex: "1 0 auto" }}>
                     <Typography component="div" variant="h5">

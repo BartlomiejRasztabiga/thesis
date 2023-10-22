@@ -3,6 +3,7 @@
 package me.rasztabiga.thesis.query.adapter.`in`.rest
 
 import me.rasztabiga.thesis.query.adapter.`in`.rest.api.OrderDeliveryOfferResponse
+import me.rasztabiga.thesis.query.domain.query.query.FindAllDeliveriesByCourierId
 import me.rasztabiga.thesis.query.domain.query.query.FindCurrentDeliveryQuery
 import me.rasztabiga.thesis.query.domain.query.query.FindSuitableDeliveryOfferQuery
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryResponse
@@ -13,7 +14,6 @@ import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
@@ -46,6 +46,19 @@ class OrderDeliveryController(
                 courierId = exchange.getUserId()
             ),
             ResponseTypes.instanceOf(OrderDeliveryResponse::class.java)
+        )
+    }
+
+    @GetMapping
+    @PreAuthorize("hasAnyAuthority('${COURIER.READ}')")
+    fun getAllDeliveries(
+        exchange: ServerWebExchange
+    ): Mono<List<OrderDeliveryResponse>> {
+        return reactorQueryGateway.query(
+            FindAllDeliveriesByCourierId(
+                courierId = exchange.getUserId()
+            ),
+            ResponseTypes.multipleInstancesOf(OrderDeliveryResponse::class.java)
         )
     }
 }

@@ -10,6 +10,7 @@ import me.rasztabiga.thesis.query.domain.query.exception.SuitableDeliveryOfferNo
 import me.rasztabiga.thesis.query.domain.query.mapper.OrderDeliveryMapper.mapToEntity
 import me.rasztabiga.thesis.query.domain.query.mapper.OrderDeliveryMapper.mapToResponse
 import me.rasztabiga.thesis.query.domain.query.port.DistanceCalculatorPort
+import me.rasztabiga.thesis.query.domain.query.query.FindAllDeliveriesByCourierId
 import me.rasztabiga.thesis.query.domain.query.query.FindCurrentDeliveryQuery
 import me.rasztabiga.thesis.query.domain.query.query.FindSuitableDeliveryOfferQuery
 import me.rasztabiga.thesis.query.domain.query.repository.CourierRepository
@@ -25,6 +26,7 @@ import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler
 import org.springframework.stereotype.Component
+import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 import java.util.*
 
@@ -114,6 +116,12 @@ class OrderDeliveryHandler(
         return orderDeliveryRepository.load(query.deliveryId)
             ?.let { Mono.just(mapToResponse(it)) }
             ?: Mono.error(DeliveryNotFoundException())
+    }
+
+    @QueryHandler
+    fun handle(query: FindAllDeliveriesByCourierId): Flux<OrderDeliveryResponse> {
+        return orderDeliveryRepository.loadAllByCourierId(query.courierId)
+            .map { mapToResponse(it) }
     }
 
     private fun getDelivery(deliveryId: UUID): OrderDeliveryEntity {

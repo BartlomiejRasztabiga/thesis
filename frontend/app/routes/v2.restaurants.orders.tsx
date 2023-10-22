@@ -28,7 +28,7 @@ import {
   TableCell,
   TableContainer,
   TableHead,
-  TableRow,
+  TableRow, Typography
 } from "@mui/material";
 
 export async function loader({ request, params }: LoaderArgs) {
@@ -147,6 +147,9 @@ export default function V2RestaurantPage() {
       </div>
       <div className="h-full">
         <div className="flex flex-col w-full mx-auto">
+          <Typography variant="h4" className="my-4">
+            Active orders
+          </Typography>
           <TableContainer component={Paper}>
             <Table aria-label="simple table">
               <TableHead>

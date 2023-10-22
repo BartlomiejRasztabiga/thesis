@@ -18,7 +18,8 @@ export async function loader({ request, params }: LoaderArgs) {
 
 export async function action({ request, params }: ActionArgs) {
   const formData = await request.formData();
-  const { _action, ...values } = Object.fromEntries(formData);
+  const { _action, ...
+    values } = Object.fromEntries(formData);
 
   invariant(params.orderId, "orderId not found");
   invariant(values.rating, "rating not found")

@@ -5,6 +5,7 @@ import me.rasztabiga.thesis.query.domain.query.entity.OrderDeliveryEntity
 import me.rasztabiga.thesis.query.domain.query.repository.OrderDeliveryRepository
 import me.rasztabiga.thesis.query.infrastructure.db.SpringDataOrderDeliveryRepository
 import org.springframework.stereotype.Service
+import reactor.core.publisher.Flux
 import java.util.*
 
 @Service
@@ -26,5 +27,9 @@ class DbOrderDeliveryRepository(
     override fun loadCurrentDeliveryByCourierId(courierId: String): OrderDeliveryEntity? {
         val orders = springDataOrderDeliveryRepository.findByCourierId(courierId).collectList().block() ?: listOf()
         return orders.firstOrNull { it.status == DeliveryStatus.ACCEPTED || it.status == DeliveryStatus.PICKED_UP }
+    }
+
+    override fun loadAllByCourierId(courierId: String): Flux<OrderDeliveryEntity> {
+        return springDataOrderDeliveryRepository.findByCourierId(courierId)
     }
 }
