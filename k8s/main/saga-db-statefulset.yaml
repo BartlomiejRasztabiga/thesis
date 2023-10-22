@@ -31,7 +31,7 @@ spec:
           resources:
             requests:
               memory: "500Mi"
-              cpu: "250m"
+              cpu: "125m"
       restartPolicy: Always
       volumes:
         - name: saga-db-data

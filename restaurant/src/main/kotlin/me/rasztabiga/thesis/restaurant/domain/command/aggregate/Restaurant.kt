@@ -7,6 +7,7 @@ import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantCo
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantMenuCommand
 import me.rasztabiga.thesis.restaurant.domain.command.port.CalculateDeliveryFeePort
 import me.rasztabiga.thesis.restaurant.domain.command.port.GeocodeAddressPort
+import me.rasztabiga.thesis.restaurant.domain.command.port.RestaurantVerificationPort
 import me.rasztabiga.thesis.shared.domain.command.command.CalculateOrderTotalCommand
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantAvailabilityUpdatedEvent
@@ -37,7 +38,15 @@ internal class Restaurant {
     constructor()
 
     @CommandHandler
-    constructor(command: CreateRestaurantCommand, geocodeAddressPort: GeocodeAddressPort) {
+    constructor(
+        command: CreateRestaurantCommand,
+        geocodeAddressPort: GeocodeAddressPort,
+        verificationPort: RestaurantVerificationPort
+    ) {
+        require(!verificationPort.verifyRestaurantByManagerIdExists(command.managerId)) {
+            "Restaurant for manager already exists"
+        }
+
         val location = geocodeAddressPort.geocode(command.address)
 
         apply(

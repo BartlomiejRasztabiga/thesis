@@ -256,7 +256,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": \"5ee006d0-e9d5-4ce7-a431-6cb0653296f9\",\n    \"name\": \"{{$randomCompanyName}}\",\n    \"address\": \"Cypryjska 70, 02-762 Warszawa\",\n    \"email\": \"contact@rasztabiga.me\",\n    \"imageUrl\": \"https://mui.com/static/images/cards/contemplative-reptile.jpg\"\n}",
+							"raw": "{\n    \"id\": \"{{$guid}}\",\n    \"name\": \"{{$randomCompanyName}}\",\n    \"address\": \"Cypryjska 70, 02-762 Warszawa\",\n    \"email\": \"contact@rasztabiga.me\",\n    \"imageUrl\": \"https://mui.com/static/images/cards/contemplative-reptile.jpg\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -950,15 +950,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{restaurant_url}}/api/v1/orders/",
+							"raw": "{{restaurant_url}}/api/v1/orders",
 							"host": [
 								"{{restaurant_url}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"orders",
-								""
+								"orders"
 							]
 						}
 					},

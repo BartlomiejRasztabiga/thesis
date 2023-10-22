@@ -17,6 +17,10 @@ export async function loader({ request }: LoaderArgs) {
 export default function V2RestaurantsPage() {
   const data = useLoaderData<typeof loader>();
 
+  const openRestaurants = data.restaurants.filter(
+    (restaurant) => restaurant.availability === "OPEN"
+  );
+
   return (
     <div className="flex flex-col h-full overflow-x-hidden">
       <div>
@@ -24,7 +28,7 @@ export default function V2RestaurantsPage() {
       </div>
       <div className="h-full">
         <div className="flex flex-col w-80 mx-auto">
-          {data.restaurants.map((restaurant, key) => (
+          {openRestaurants.map((restaurant, key) => (
             <Card key={key} className={"my-4"}>
               <CardActionArea>
                 <NavLink to={restaurant.id}>
