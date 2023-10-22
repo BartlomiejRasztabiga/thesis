@@ -61,9 +61,7 @@ export default function V2OrderTrackingPage() {
   const mapHeight = "75vh";
 
   if (data.order.status == "DELIVERED") {
-    setTimeout(() => {
-      navigate(`/v2/ordering/orders/${data.order.id}/rating`);
-    }, 5000);
+    navigate(`/v2/ordering/orders/${data.order.id}/rating`);
   }
 
   return (

@@ -57,7 +57,7 @@ export default function V2RestaurantHistoryPage() {
               <TableHead>
                 <TableRow>
                   <TableCell>Order ID</TableCell>
-                  <TableCell>Created at</TableCell>
+                  <TableCell>Date</TableCell>
                   <TableCell>Products</TableCell>
                   <TableCell>Status</TableCell>
                 </TableRow>

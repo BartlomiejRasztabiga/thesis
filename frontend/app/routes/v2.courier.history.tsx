@@ -54,41 +54,25 @@ export default function V2CourierHistoryPage() {
               <TableHead>
                 <TableRow>
                   <TableCell>Order ID</TableCell>
-                  <TableCell>Created at</TableCell>
-                  <TableCell>Products</TableCell>
-                  <TableCell>Status</TableCell>
+                  <TableCell>Date</TableCell>
+                  <TableCell>Reward</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
-                {deliveries.map((order, key) => (
+                {deliveries.map((delivery, key) => (
                   <TableRow
                     key={key}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {order.orderId}
+                      {delivery.id}
                     </TableCell>
                     <TableCell>
-                      {new Date(order.createdAt).toLocaleString("pl-PL")}
+                      {new Date(delivery.createdAt).toLocaleString("pl-PL")}
                     </TableCell>
                     <TableCell>
-                      {Object.keys(order.items).map((item, key) => {
-                        const product = data.restaurant.menu.find(
-                          (product) => product.id === item,
-                        );
-                        if (!product) {
-                          return null;
-                        }
-                        return (
-                          <div key={key}>
-                            <p>
-                              {order.items[item]} x {product.name}
-                            </p>
-                          </div>
-                        );
-                      })}
+                      {delivery.courierFee.toFixed(2)} PLN
                     </TableCell>
-                    <TableCell>{order.status}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

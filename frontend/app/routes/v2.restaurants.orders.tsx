@@ -156,7 +156,7 @@ export default function V2RestaurantPage() {
               <TableHead>
                 <TableRow>
                   <TableCell>Order ID</TableCell>
-                  <TableCell>Created at</TableCell>
+                  <TableCell>Date</TableCell>
                   <TableCell>Products</TableCell>
                   <TableCell>Status</TableCell>
                   <TableCell align="right">Actions</TableCell>
