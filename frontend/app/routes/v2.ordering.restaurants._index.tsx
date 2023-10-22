@@ -18,7 +18,7 @@ export default function V2RestaurantsPage() {
   const data = useLoaderData<typeof loader>();
 
   const openRestaurants = data.restaurants.filter(
-    (restaurant) => restaurant.availability === "OPEN"
+    (restaurant) => restaurant.availability === "OPEN",
   );
 
   return (

@@ -1,8 +1,8 @@
 import type { LoaderArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { ActionArgs, json } from "@remix-run/node";
 import {
   getCurrentRestaurant,
-  getRestaurantOrders,
+  getRestaurantOrders, updateRestaurantAvailability
 } from "~/models/restaurant.server";
 import BottomNavbar from "~/components/manager/BottomNavbar";
 import { useActionData, useLoaderData } from "@remix-run/react";
@@ -19,6 +19,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
+import invariant from "tiny-invariant";
 
 export async function loader({ request, params }: LoaderArgs) {
   const restaurant = await getCurrentRestaurant(request);
@@ -26,6 +27,27 @@ export async function loader({ request, params }: LoaderArgs) {
   const orders = await getRestaurantOrders(request, restaurant.id);
 
   return json({ restaurant, orders, payee });
+}
+
+export async function action({ request, params }: ActionArgs) {
+  const formData = await request.formData();
+  const { _action, ...values } = Object.fromEntries(formData);
+
+  const restaurantId = values.restaurantId as string;
+  invariant(restaurantId, "restaurantId not found");
+
+  try {
+    if (_action === "update_availability") {
+      const currentAvailability = values.availability as string;
+      const newAvailability = currentAvailability === "OPEN" ? "CLOSED" : "OPEN";
+
+      await updateRestaurantAvailability(request, restaurantId, newAvailability)
+    }
+  } catch (e) {
+    return json({ error: e.response.data.message });
+  }
+
+  return json({});
 }
 
 export default function V2RestaurantHistoryPage() {
@@ -45,7 +67,7 @@ export default function V2RestaurantHistoryPage() {
   return (
     <div className="flex flex-col h-full overflow-x-hidden">
       <div>
-        <Topbar payee={data.payee} />
+        <Topbar payee={data.payee} restaurant={data.restaurant} />
       </div>
       <div className="h-full">
         <div className="flex flex-col w-full mx-auto">

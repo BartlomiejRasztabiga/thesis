@@ -13,11 +13,16 @@ class AxonRestaurantVerificationAdapter(
 ) : RestaurantVerificationPort {
 
     override fun verifyRestaurantByManagerIdExists(managerId: String): Boolean {
-        return queryGateway.query(
-            FindRestaurantByManagerIdQuery(
-                managerId,
-            ),
-            ResponseTypes.optionalInstanceOf(RestaurantResponse::class.java)
-        ).get().isPresent
+        return try {
+            queryGateway.query(
+                FindRestaurantByManagerIdQuery(
+                    managerId,
+                ),
+                ResponseTypes.optionalInstanceOf(RestaurantResponse::class.java)
+            ).join()
+            true
+        } catch (e: Exception) {
+            false
+        }
     }
 }

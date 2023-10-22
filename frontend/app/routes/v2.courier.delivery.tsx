@@ -20,8 +20,8 @@ import {
   getCurrentDelivery,
   getDeliveryOffer,
   pickupDelivery,
-  rejectDeliveryOffer,
-  updateCourierLocation,
+  rejectDeliveryOffer, updateCourierAvailability,
+  updateCourierLocation
 } from "~/models/delivery.server";
 import { getCurrentPayee } from "~/models/payment.server";
 
@@ -65,22 +65,32 @@ export async function action({ request, params }: ActionArgs) {
       return json({});
     }
 
+    if (_action === "update_availability") {
+      const currentAvailability = values.availability as string;
+      const newAvailability = currentAvailability === "ONLINE" ? "OFFLINE" : "ONLINE";
+
+      await updateCourierAvailability(request, newAvailability)
+    }
+
     const deliveryId = values.deliveryId as string;
-    invariant(deliveryId, "deliveryId not found");
 
     if (_action === "accept") {
+      invariant(deliveryId, "deliveryId not found");
       await acceptDeliveryOffer(request, deliveryId);
     }
 
     if (_action === "reject") {
+      invariant(deliveryId, "deliveryId not found");
       await rejectDeliveryOffer(request, deliveryId);
     }
 
     if (_action === "pickup") {
+      invariant(deliveryId, "deliveryId not found");
       await pickupDelivery(request, deliveryId);
     }
 
     if (_action === "deliver") {
+      invariant(deliveryId, "deliveryId not found");
       await deliverDelivery(request, deliveryId);
     }
   } catch (e) {
@@ -251,7 +261,7 @@ export default function V2CourierPage() {
   return (
     <div className="flex flex-col h-full overflow-x-hidden">
       <div>
-        <Topbar payee={data.payee} />
+        <Topbar payee={data.payee} courier={data.courier} />
       </div>
       <div className="h-full">
         <Paper className="flex flex-col w-80 mx-auto">{getContent()}</Paper>

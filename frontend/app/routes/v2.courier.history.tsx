@@ -1,9 +1,9 @@
 import type { LoaderArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
-import BottomNavbar from "~/components/manager/BottomNavbar";
+import { ActionArgs, json } from "@remix-run/node";
+import BottomNavbar from "~/components/courier/BottomNavbar";
 import { useActionData, useLoaderData } from "@remix-run/react";
 import { toast } from "react-toastify";
-import Topbar from "~/components/manager/Topbar";
+import Topbar from "~/components/courier/Topbar";
 import { getCurrentPayee } from "~/models/payment.server";
 import {
   Paper,
@@ -15,7 +15,7 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { getAllDeliveries, getCurrentCourier } from "~/models/delivery.server";
+import { getAllDeliveries, getCurrentCourier, updateCourierAvailability } from "~/models/delivery.server";
 
 export async function loader({ request, params }: LoaderArgs) {
   const courier = await getCurrentCourier(request);
@@ -23,6 +23,24 @@ export async function loader({ request, params }: LoaderArgs) {
   const deliveries = await getAllDeliveries(request);
 
   return json({ courier, payee, deliveries });
+}
+
+export async function action({ request, params }: ActionArgs) {
+  const formData = await request.formData();
+  const { _action, ...values } = Object.fromEntries(formData);
+
+  try {
+    if (_action === "update_availability") {
+      const currentAvailability = values.availability as string;
+      const newAvailability = currentAvailability === "ONLINE" ? "OFFLINE" : "ONLINE";
+
+      await updateCourierAvailability(request, newAvailability)
+    }
+  } catch (e) {
+    return json({ error: e.response.data.message });
+  }
+
+  return json({});
 }
 
 export default function V2CourierHistoryPage() {
@@ -42,7 +60,7 @@ export default function V2CourierHistoryPage() {
   return (
     <div className="flex flex-col h-full overflow-x-hidden">
       <div>
-        <Topbar payee={data.payee} />
+        <Topbar payee={data.payee} courier={data.courier} />
       </div>
       <div className="h-full">
         <div className="flex flex-col w-full mx-auto">
@@ -70,9 +88,7 @@ export default function V2CourierHistoryPage() {
                     <TableCell>
                       {new Date(delivery.createdAt).toLocaleString("pl-PL")}
                     </TableCell>
-                    <TableCell>
-                      {delivery.courierFee.toFixed(2)} PLN
-                    </TableCell>
+                    <TableCell>{delivery.courierFee.toFixed(2)} PLN</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

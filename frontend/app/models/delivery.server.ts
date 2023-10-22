@@ -13,11 +13,20 @@ export const updateCourierLocation = async (
   location: Location,
 ): Promise<void> => {
   const axios = await getAxios(request);
-  console.log(location);
   return axios
     .put(`/api/v1/couriers/me/location`, { location })
     .then((res) => res.data);
 };
+
+export const updateCourierAvailability = async (
+  request: Request,
+  availability: string
+): Promise<void> => {
+  const axios = await getAxios(request);
+  return axios
+    .put(`/api/v1/couriers/me/availability`, { availability: availability })
+    .then((res) => res.data);
+}
 
 export const getCurrentDelivery = async (
   request: Request,

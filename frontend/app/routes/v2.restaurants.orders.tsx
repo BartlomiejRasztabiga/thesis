@@ -6,7 +6,7 @@ import {
   getCurrentRestaurant,
   getRestaurantOrders,
   prepareRestaurantOrder,
-  rejectRestaurantOrder,
+  rejectRestaurantOrder, updateRestaurantAvailability
 } from "~/models/restaurant.server";
 import BottomNavbar from "~/components/manager/BottomNavbar";
 import {
@@ -47,22 +47,31 @@ export async function action({ request, params }: ActionArgs) {
   const { _action, ...values } = Object.fromEntries(formData);
 
   const restaurantOrderId = values.restaurantOrderId as string;
-  invariant(restaurantOrderId, "restaurantOrderId not found");
 
   const restaurantId = values.restaurantId as string;
   invariant(restaurantId, "restaurantId not found");
 
   try {
     if (_action === "accept") {
+      invariant(restaurantOrderId, "restaurantOrderId not found");
       await acceptRestaurantOrder(request, restaurantId, restaurantOrderId);
     }
 
     if (_action === "reject") {
+      invariant(restaurantOrderId, "restaurantOrderId not found");
       await rejectRestaurantOrder(request, restaurantId, restaurantOrderId);
     }
 
     if (_action === "prepare") {
+      invariant(restaurantOrderId, "restaurantOrderId not found");
       await prepareRestaurantOrder(request, restaurantId, restaurantOrderId);
+    }
+
+    if (_action === "update_availability") {
+      const currentAvailability = values.availability as string;
+      const newAvailability = currentAvailability === "OPEN" ? "CLOSED" : "OPEN";
+
+      await updateRestaurantAvailability(request, restaurantId, newAvailability)
     }
   } catch (e) {
     return json({ error: e.response.data.message });
@@ -144,7 +153,7 @@ export default function V2RestaurantPage() {
   return (
     <div className="flex flex-col h-full overflow-x-hidden">
       <div>
-        <Topbar payee={data.payee} />
+        <Topbar payee={data.payee} restaurant={data.restaurant} />
       </div>
       <div className="h-full">
         <div className="flex flex-col w-full mx-auto">
