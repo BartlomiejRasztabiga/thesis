@@ -1,5 +1,5 @@
 import type { LoaderArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import { useLoaderData, useNavigate, useRevalidator } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import type { OrderResponse } from "~/models/order.server";
@@ -8,6 +8,7 @@ import { Paper } from "@mui/material";
 import { useEffect } from "react";
 import { ClientOnly } from "remix-utils/client-only";
 import { MapClient } from "~/components/Map.client";
+import { clearOrderId } from "~/services/session.server";
 
 export async function loader({ request, params }: LoaderArgs) {
   const activeOrderId = params.orderId;
@@ -15,6 +16,14 @@ export async function loader({ request, params }: LoaderArgs) {
 
   const order = await getOrder(request, activeOrderId);
   invariant(order, "order not found");
+
+  if (order.status === "DELIVERED") {
+    return redirect(`/v2/ordering/orders/${order.id}/rating`, {
+      headers: {
+        "Set-Cookie": await clearOrderId(request)
+      }
+    })
+  }
 
   return json({ order, gmapsApiKey: process.env.GMAPS_API_KEY });
 }
@@ -59,10 +68,6 @@ export default function V2OrderTrackingPage() {
   };
 
   const mapHeight = "75vh";
-
-  if (data.order.status == "DELIVERED") {
-    navigate(`/v2/ordering/orders/${data.order.id}/rating`);
-  }
 
   return (
     <div className="flex flex-col h-full overflow-x-hidden">

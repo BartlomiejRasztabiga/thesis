@@ -117,11 +117,7 @@ export async function action({ request, params }: ActionArgs) {
 
       await finalizeOrder(request, activeOrderId);
 
-      return redirect(`/v2/ordering/orders/${activeOrderId}/payment`, {
-        headers: {
-          "Set-Cookie": await clearOrderId(request),
-        },
-      });
+      return redirect(`/v2/ordering/orders/${activeOrderId}/payment`);
     }
   } catch (e) {
     return json({ error: e.response.data.message });
@@ -253,8 +249,8 @@ export default function V2RestaurantPage() {
       </div>
       <div>
         <nav
-          className="flex flex-col items-end justify-between w-full fixed"
-          style={{ bottom: "01rem", right: "1rem" }}
+          className="flex flex-col items-end justify-between fixed"
+          style={{ bottom: "1rem", right: "1rem" }}
         >
           <Form method="post">
             <Fab
