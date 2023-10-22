@@ -12,6 +12,7 @@ class AxonRestaurantVerificationAdapter(
     private val queryGateway: QueryGateway
 ) : RestaurantVerificationPort {
 
+    @Suppress("TooGenericExceptionCaught", "SwallowedException")
     override fun verifyRestaurantByManagerIdExists(managerId: String): Boolean {
         return try {
             queryGateway.query(

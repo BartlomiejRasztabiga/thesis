@@ -6,7 +6,8 @@ import {
   getCurrentRestaurant,
   getRestaurantOrders,
   prepareRestaurantOrder,
-  rejectRestaurantOrder, updateRestaurantAvailability
+  rejectRestaurantOrder,
+  updateRestaurantAvailability,
 } from "~/models/restaurant.server";
 import BottomNavbar from "~/components/manager/BottomNavbar";
 import {
@@ -69,9 +70,14 @@ export async function action({ request, params }: ActionArgs) {
 
     if (_action === "update_availability") {
       const currentAvailability = values.availability as string;
-      const newAvailability = currentAvailability === "OPEN" ? "CLOSED" : "OPEN";
+      const newAvailability =
+        currentAvailability === "OPEN" ? "CLOSED" : "OPEN";
 
-      await updateRestaurantAvailability(request, restaurantId, newAvailability)
+      await updateRestaurantAvailability(
+        request,
+        restaurantId,
+        newAvailability,
+      );
     }
   } catch (e) {
     return json({ error: e.response.data.message });

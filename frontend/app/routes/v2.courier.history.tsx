@@ -1,5 +1,5 @@
-import type { LoaderArgs } from "@remix-run/node";
-import { ActionArgs, json } from "@remix-run/node";
+import type { LoaderArgs, ActionArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import BottomNavbar from "~/components/courier/BottomNavbar";
 import { useActionData, useLoaderData } from "@remix-run/react";
 import { toast } from "react-toastify";
@@ -15,7 +15,11 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import { getAllDeliveries, getCurrentCourier, updateCourierAvailability } from "~/models/delivery.server";
+import {
+  getAllDeliveries,
+  getCurrentCourier,
+  updateCourierAvailability,
+} from "~/models/delivery.server";
 
 export async function loader({ request, params }: LoaderArgs) {
   const courier = await getCurrentCourier(request);
@@ -32,9 +36,10 @@ export async function action({ request, params }: ActionArgs) {
   try {
     if (_action === "update_availability") {
       const currentAvailability = values.availability as string;
-      const newAvailability = currentAvailability === "ONLINE" ? "OFFLINE" : "ONLINE";
+      const newAvailability =
+        currentAvailability === "ONLINE" ? "OFFLINE" : "ONLINE";
 
-      await updateCourierAvailability(request, newAvailability)
+      await updateCourierAvailability(request, newAvailability);
     }
   } catch (e) {
     return json({ error: e.response.data.message });

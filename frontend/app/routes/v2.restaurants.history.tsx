@@ -1,8 +1,9 @@
-import type { LoaderArgs } from "@remix-run/node";
-import { ActionArgs, json } from "@remix-run/node";
+import type { LoaderArgs, ActionArgs } from "@remix-run/node";
+import { json } from "@remix-run/node";
 import {
   getCurrentRestaurant,
-  getRestaurantOrders, updateRestaurantAvailability
+  getRestaurantOrders,
+  updateRestaurantAvailability,
 } from "~/models/restaurant.server";
 import BottomNavbar from "~/components/manager/BottomNavbar";
 import { useActionData, useLoaderData } from "@remix-run/react";
@@ -39,9 +40,14 @@ export async function action({ request, params }: ActionArgs) {
   try {
     if (_action === "update_availability") {
       const currentAvailability = values.availability as string;
-      const newAvailability = currentAvailability === "OPEN" ? "CLOSED" : "OPEN";
+      const newAvailability =
+        currentAvailability === "OPEN" ? "CLOSED" : "OPEN";
 
-      await updateRestaurantAvailability(request, restaurantId, newAvailability)
+      await updateRestaurantAvailability(
+        request,
+        restaurantId,
+        newAvailability,
+      );
     }
   } catch (e) {
     return json({ error: e.response.data.message });

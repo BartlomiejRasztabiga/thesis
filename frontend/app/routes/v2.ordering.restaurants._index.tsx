@@ -3,7 +3,13 @@ import { json } from "@remix-run/node";
 import { getRestaurants } from "~/models/restaurant.server";
 import Topbar from "~/components/user/Topbar";
 import { NavLink, useLoaderData, useNavigate } from "@remix-run/react";
-import { Card, CardActionArea, CardContent, CardMedia, Fab } from "@mui/material";
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Fab,
+} from "@mui/material";
 import { DeliveryDining, StarRate } from "@mui/icons-material";
 import { getCurrentUser } from "~/models/user.server";
 import { getOrderId } from "~/services/session.server";
@@ -15,7 +21,9 @@ export async function loader({ request }: LoaderArgs) {
   const currentUser = await getCurrentUser(request);
 
   const activeOrderId = await getOrderId(request);
-  const activeOrder = activeOrderId ? await getOrder(request, activeOrderId) : null;
+  const activeOrder = activeOrderId
+    ? await getOrder(request, activeOrderId)
+    : null;
 
   return json({ restaurants, currentUser, activeOrder });
 }
@@ -25,7 +33,7 @@ export default function V2RestaurantsPage() {
   const navigate = useNavigate();
 
   const openRestaurants = data.restaurants.filter(
-    (restaurant) => restaurant.availability === "OPEN"
+    (restaurant) => restaurant.availability === "OPEN",
   );
 
   return (
@@ -77,24 +85,31 @@ export default function V2RestaurantsPage() {
               variant="extended"
               color="primary"
               onClick={() => {
-                console.log(data.activeOrder)
+                console.log(data.activeOrder);
 
-                if (["CANCELED", "FINALIZED", "REJECTED"].includes(data.activeOrder.status)) {
+                if (
+                  ["CANCELED", "FINALIZED", "REJECTED"].includes(
+                    data.activeOrder.status,
+                  )
+                ) {
                   return;
                 }
 
                 if (data.activeOrder.status === "CREATED") {
-                  navigate(`/v2/ordering/restaurants/${data.activeOrder.restaurantId}`);
+                  navigate(
+                    `/v2/ordering/restaurants/${data.activeOrder.restaurantId}`,
+                  );
                 } else {
-                  navigate(`/v2/ordering/orders/${data.activeOrder.id}/tracking`);
+                  navigate(
+                    `/v2/ordering/orders/${data.activeOrder.id}/tracking`,
+                  );
                 }
-              }
-              }
+              }}
             >
               GO TO ACTIVE ORDER
             </Fab>
           )}
-        < /nav>
+        </nav>
       </div>
       <div>
         <BottomNavbar />

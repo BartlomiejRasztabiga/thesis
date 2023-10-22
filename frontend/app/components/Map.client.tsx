@@ -31,8 +31,6 @@ export function MapClient(props: MapProps) {
 
   if (props.courierLocation) {
     courierLatLng = [props.courierLocation.lat, props.courierLocation.lng];
-
-    bounds.push(courierLatLng);
   }
 
   return (

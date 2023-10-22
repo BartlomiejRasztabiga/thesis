@@ -1,6 +1,6 @@
 import type { LoaderArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { useLoaderData, useNavigate, useRevalidator } from "@remix-run/react";
+import { useLoaderData, useRevalidator } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import type { OrderResponse } from "~/models/order.server";
 import { getOrder } from "~/models/order.server";
@@ -20,9 +20,9 @@ export async function loader({ request, params }: LoaderArgs) {
   if (order.status === "DELIVERED") {
     return redirect(`/v2/ordering/orders/${order.id}/rating`, {
       headers: {
-        "Set-Cookie": await clearOrderId(request)
-      }
-    })
+        "Set-Cookie": await clearOrderId(request),
+      },
+    });
   }
 
   return json({ order, gmapsApiKey: process.env.GMAPS_API_KEY });
@@ -32,7 +32,6 @@ export default function V2OrderTrackingPage() {
   const data = useLoaderData<typeof loader>();
 
   const revalidator = useRevalidator();
-  const navigate = useNavigate();
 
   // TODO good enough for now
   useEffect(() => {

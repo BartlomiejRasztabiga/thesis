@@ -76,13 +76,15 @@ export const prepareRestaurantOrder = async (
 export const updateRestaurantAvailability = async (
   request: Request,
   restaurantId: string,
-  availability: string
+  availability: string,
 ): Promise<void> => {
   const axios = await getAxios(request);
   return axios
-    .put(`/api/v1/restaurants/${restaurantId}/availability`, { availability: availability })
+    .put(`/api/v1/restaurants/${restaurantId}/availability`, {
+      availability: availability,
+    })
     .then((res) => res.data);
-}
+};
 
 export interface RestaurantResponse {
   id: string;

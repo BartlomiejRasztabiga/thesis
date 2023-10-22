@@ -20,8 +20,9 @@ import {
   getCurrentDelivery,
   getDeliveryOffer,
   pickupDelivery,
-  rejectDeliveryOffer, updateCourierAvailability,
-  updateCourierLocation
+  rejectDeliveryOffer,
+  updateCourierAvailability,
+  updateCourierLocation,
 } from "~/models/delivery.server";
 import { getCurrentPayee } from "~/models/payment.server";
 
@@ -67,9 +68,10 @@ export async function action({ request, params }: ActionArgs) {
 
     if (_action === "update_availability") {
       const currentAvailability = values.availability as string;
-      const newAvailability = currentAvailability === "ONLINE" ? "OFFLINE" : "ONLINE";
+      const newAvailability =
+        currentAvailability === "ONLINE" ? "OFFLINE" : "ONLINE";
 
-      await updateCourierAvailability(request, newAvailability)
+      await updateCourierAvailability(request, newAvailability);
     }
 
     const deliveryId = values.deliveryId as string;
