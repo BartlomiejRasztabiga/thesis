@@ -22,7 +22,8 @@ data class OrderResponse(
     val deliveryFee: BigDecimal?,
     val courierId: String?,
     val courierLocation: Location?,
-    val createdAt: Instant
+    val createdAt: Instant,
+    val events: List<OrderEvent>
 ) {
     enum class OrderStatus {
         CREATED,
@@ -34,5 +35,18 @@ data class OrderResponse(
         PREPARED,
         PICKED_UP,
         DELIVERED
+    }
+
+    data class OrderEvent(
+        val type: OrderEventType,
+        val createdAt: Instant
+    ) {
+        enum class OrderEventType {
+            CONFIRMED,
+            COURIER_ASSIGNED,
+            PREPARED,
+            PICKED_UP,
+            DELIVERED
+        }
     }
 }

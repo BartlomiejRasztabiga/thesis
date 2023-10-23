@@ -25,7 +25,8 @@ object OrderMapper {
             deliveryLocation = null,
             courierId = null,
             deliveryFee = null,
-            createdAt = Instant.now()
+            createdAt = Instant.now(),
+            events = mutableListOf()
         )
     }
 

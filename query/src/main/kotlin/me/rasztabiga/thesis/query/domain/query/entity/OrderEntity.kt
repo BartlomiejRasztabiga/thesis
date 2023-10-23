@@ -24,7 +24,8 @@ data class OrderEntity(
     var deliveryAddressId: UUID?,
     var deliveryLocation: Location?,
     var courierId: String?,
-    val createdAt: Instant
+    val createdAt: Instant,
+    val events: MutableList<OrderEvent>
 ) {
     enum class OrderStatus {
         CREATED,
@@ -36,5 +37,18 @@ data class OrderEntity(
         PREPARED,
         PICKED_UP,
         DELIVERED
+    }
+
+    data class OrderEvent(
+        val type: OrderEventType,
+        val createdAt: Instant = Instant.now()
+    ) {
+        enum class OrderEventType {
+            CONFIRMED,
+            COURIER_ASSIGNED,
+            PREPARED,
+            PICKED_UP,
+            DELIVERED
+        }
     }
 }

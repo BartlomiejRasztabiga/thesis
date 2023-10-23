@@ -124,6 +124,7 @@ class OrderHandler(
     fun on(event: RestaurantOrderAcceptedEvent) {
         val entity = getOrder(event.orderId)
         entity.status = OrderEntity.OrderStatus.CONFIRMED
+        entity.events.add(OrderEntity.OrderEvent(OrderEntity.OrderEvent.OrderEventType.CONFIRMED))
         orderRepository.save(entity)
     }
 
@@ -131,6 +132,7 @@ class OrderHandler(
     fun on(event: RestaurantOrderPreparedEvent) {
         val entity = getOrder(event.orderId)
         entity.status = OrderEntity.OrderStatus.PREPARED
+        entity.events.add(OrderEntity.OrderEvent(OrderEntity.OrderEvent.OrderEventType.PREPARED))
         orderRepository.save(entity)
     }
 
@@ -145,6 +147,7 @@ class OrderHandler(
     fun on(event: OrderDeliveryAcceptedEvent) {
         val entity = getOrder(event.orderId)
         entity.courierId = event.courierId
+        entity.events.add(OrderEntity.OrderEvent(OrderEntity.OrderEvent.OrderEventType.COURIER_ASSIGNED))
         orderRepository.save(entity)
     }
 
@@ -152,6 +155,7 @@ class OrderHandler(
     fun on(event: OrderDeliveryPickedUpEvent) {
         val entity = getOrder(event.orderId)
         entity.status = OrderEntity.OrderStatus.PICKED_UP
+        entity.events.add(OrderEntity.OrderEvent(OrderEntity.OrderEvent.OrderEventType.PICKED_UP))
         orderRepository.save(entity)
     }
 
@@ -159,6 +163,7 @@ class OrderHandler(
     fun on(event: OrderDeliveryDeliveredEvent) {
         val entity = getOrder(event.orderId)
         entity.status = OrderEntity.OrderStatus.DELIVERED
+        entity.events.add(OrderEntity.OrderEvent(OrderEntity.OrderEvent.OrderEventType.DELIVERED))
         orderRepository.save(entity)
     }
 
