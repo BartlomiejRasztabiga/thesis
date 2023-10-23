@@ -89,11 +89,25 @@ export interface OrderResponse {
   paymentId: string;
   paymentSessionUrl: string;
   createdAt: string;
+  events: OrderEvent[];
 }
 
 type OrderItem = {
   [id: string]: number;
 };
+
+interface OrderEvent {
+  type: OrderEventType;
+  createdAt: string;
+}
+
+enum OrderEventType {
+  CONFIRMED = "CONFIRMED",
+  COURIER_ASSIGNED = "COURIER_ASSIGNED",
+  PREPARED = "PREPARED",
+  PICKED_UP = "PICKED_UP",
+  DELIVERED = "DELIVERED"
+}
 
 enum OrderStatus {
   CREATED = "CREATED",

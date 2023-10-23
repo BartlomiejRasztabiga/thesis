@@ -9,6 +9,15 @@ import { useEffect } from "react";
 import { ClientOnly } from "remix-utils/client-only";
 import { MapClient } from "~/components/Map.client";
 import { clearOrderId } from "~/services/session.server";
+import {
+  Timeline,
+  TimelineConnector,
+  TimelineContent,
+  TimelineDot,
+  TimelineItem,
+  TimelineOppositeContent,
+  TimelineSeparator
+} from "@mui/lab";
 
 export async function loader({ request, params }: LoaderArgs) {
   const activeOrderId = params.orderId;
@@ -20,8 +29,8 @@ export async function loader({ request, params }: LoaderArgs) {
   if (order.status === "DELIVERED") {
     return redirect(`/v2/ordering/orders/${order.id}/rating`, {
       headers: {
-        "Set-Cookie": await clearOrderId(request),
-      },
+        "Set-Cookie": await clearOrderId(request)
+      }
     });
   }
 
@@ -68,6 +77,12 @@ export default function V2OrderTrackingPage() {
 
   const mapHeight = "75vh";
 
+  const confirmedEvent = data.order.events.find((e) => e.type === "CONFIRMED");
+  const courierAssignedEvent = data.order.events.find((e) => e.type === "COURIER_ASSIGNED");
+  const preparedEvent = data.order.events.find((e) => e.type === "PREPARED");
+  const pickedUpEvent = data.order.events.find((e) => e.type === "PICKED_UP");
+  const deliveredEvent = data.order.events.find((e) => e.type === "DELIVERED");
+
   return (
     <div className="flex flex-col h-full overflow-x-hidden">
       <div className="h-full">
@@ -89,7 +104,64 @@ export default function V2OrderTrackingPage() {
               />
             )}
           </ClientOnly>
-          <div>TODO add timeline like on bolt food?</div>
+          <div>
+            <Timeline>
+              <TimelineItem>
+                <TimelineOppositeContent color="text.secondary">
+                  {confirmedEvent && new Date(confirmedEvent.createdAt).toLocaleTimeString("pl-PL")}
+                </TimelineOppositeContent>
+                <TimelineSeparator>
+                  <TimelineDot color={confirmedEvent ? "success" : "grey"}
+                               variant={confirmedEvent ? "filled" : "outlined"} />
+                  <TimelineConnector />
+                </TimelineSeparator>
+                <TimelineContent>Restaurant has confirmed your order</TimelineContent>
+              </TimelineItem>
+              <TimelineItem>
+                <TimelineOppositeContent color="text.secondary">
+                  {courierAssignedEvent && new Date(courierAssignedEvent.createdAt).toLocaleTimeString("pl-PL")}
+                </TimelineOppositeContent>
+                <TimelineSeparator>
+                  <TimelineDot color={courierAssignedEvent ? "success" : "grey"}
+                               variant={courierAssignedEvent ? "filled" : "outlined"} />
+                  <TimelineConnector />
+                </TimelineSeparator>
+                <TimelineContent>Courier has been assigned</TimelineContent>
+              </TimelineItem>
+              <TimelineItem>
+                <TimelineOppositeContent color="text.secondary">
+                  {preparedEvent && new Date(preparedEvent.createdAt).toLocaleTimeString("pl-PL")}
+                </TimelineOppositeContent>
+                <TimelineSeparator>
+                  <TimelineDot color={preparedEvent ? "success" : "grey"}
+                               variant={preparedEvent ? "filled" : "outlined"} />
+                  <TimelineConnector />
+                </TimelineSeparator>
+                <TimelineContent>Restaurant has prepared your order</TimelineContent>
+              </TimelineItem>
+              <TimelineItem>
+                <TimelineOppositeContent color="text.secondary">
+                  {pickedUpEvent && new Date(pickedUpEvent.createdAt).toLocaleTimeString("pl-PL")}
+                </TimelineOppositeContent>
+                <TimelineSeparator>
+                  <TimelineDot color={pickedUpEvent ? "success" : "grey"}
+                               variant={pickedUpEvent ? "filled" : "outlined"} />
+                  <TimelineConnector />
+                </TimelineSeparator>
+                <TimelineContent>Courier has picked up your order</TimelineContent>
+              </TimelineItem>
+              <TimelineItem>
+                <TimelineOppositeContent color="text.secondary">
+                  {deliveredEvent && new Date(deliveredEvent.createdAt).toLocaleTimeString("pl-PL")}
+                </TimelineOppositeContent>
+                <TimelineSeparator>
+                  <TimelineDot color={deliveredEvent ? "success" : "grey"}
+                               variant={deliveredEvent ? "filled" : "outlined"} />
+                </TimelineSeparator>
+                <TimelineContent>Courier has delivered your order</TimelineContent>
+              </TimelineItem>
+            </Timeline>
+          </div>
         </Paper>
       </div>
     </div>

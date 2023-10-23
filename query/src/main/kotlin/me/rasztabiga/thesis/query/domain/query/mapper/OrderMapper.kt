@@ -47,7 +47,13 @@ object OrderMapper {
             courierId = entity.courierId,
             courierLocation = courier?.location,
             deliveryFee = entity.deliveryFee,
-            createdAt = entity.createdAt
+            createdAt = entity.createdAt,
+            events = entity.events.map {
+                OrderResponse.OrderEvent(
+                    OrderResponse.OrderEvent.OrderEventType.valueOf(it.type.name),
+                    it.createdAt
+                )
+            }
         )
     }
 }
