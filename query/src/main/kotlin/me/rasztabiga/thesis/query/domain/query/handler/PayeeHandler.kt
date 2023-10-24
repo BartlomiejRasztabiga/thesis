@@ -16,7 +16,8 @@ import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler
 import org.springframework.stereotype.Component
 import reactor.core.publisher.Mono
-import java.util.UUID
+import java.time.Instant
+import java.util.*
 
 @Component
 @ProcessingGroup("payee")
@@ -41,6 +42,13 @@ class PayeeHandler(
     fun on(event: PayeeBalanceWithdrawnEvent) {
         val entity = getPayee(event.payeeId)
         entity.balance -= event.amount
+        entity.withdrawals.add(
+            PayeeEntity.Withdrawal(
+                amount = event.amount,
+                accountNumber = event.targetBankAccount,
+                timestamp = Instant.now()
+            )
+        )
         payeeRepository.save(entity)
     }
 
