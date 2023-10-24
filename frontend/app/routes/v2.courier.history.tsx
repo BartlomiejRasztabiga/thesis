@@ -73,7 +73,7 @@ export default function V2CourierHistoryPage() {
             Orders history
           </Typography>
           <TableContainer component={Paper}>
-            <Table aria-label="simple table">
+            <Table>
               <TableHead>
                 <TableRow>
                   <TableCell>Order ID</TableCell>

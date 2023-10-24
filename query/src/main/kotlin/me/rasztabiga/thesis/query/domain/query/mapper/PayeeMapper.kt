@@ -13,7 +13,8 @@ object PayeeMapper {
             userId = event.userId,
             name = event.name,
             email = event.email,
-            balance = BigDecimal.ZERO
+            balance = BigDecimal.ZERO,
+            withdrawals = mutableListOf()
         )
     }
 
@@ -23,7 +24,14 @@ object PayeeMapper {
             userId = entity.userId,
             name = entity.name,
             email = entity.email,
-            balance = entity.balance
+            balance = entity.balance,
+            withdrawals = entity.withdrawals.map {
+                PayeeResponse.Withdrawal(
+                    amount = it.amount,
+                    accountNumber = it.accountNumber,
+                    timestamp = it.timestamp
+                )
+            }
         )
     }
 }

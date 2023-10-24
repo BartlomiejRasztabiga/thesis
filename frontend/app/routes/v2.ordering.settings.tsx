@@ -1,10 +1,10 @@
-import type { LoaderArgs, ActionArgs } from "@remix-run/node";
+import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { getRestaurants } from "~/models/restaurant.server";
 import BottomNavbar from "~/components/user/BottomNavbar";
 import { Form, useLoaderData } from "@remix-run/react";
 import { getCurrentUser, updateDefaultAddress } from "~/models/user.server";
-import { Button, MenuItem, TextField, FormControl } from "@mui/material";
+import { Button, FormControl, MenuItem, Paper, TextField } from "@mui/material";
 
 export async function loader({ request }: LoaderArgs) {
   const restaurants = await getRestaurants(request);
@@ -27,7 +27,7 @@ export default function V2RestaurantsPage() {
   return (
     <div className="flex flex-col h-full overflow-x-hidden">
       <div className="h-full">
-        <div className="flex flex-col w-80 mx-auto">
+        <Paper className="flex flex-col w-80 mx-auto items-center">
           <Form method="post" className="mt-8">
             <FormControl>
               <TextField
@@ -39,7 +39,7 @@ export default function V2RestaurantsPage() {
               >
                 {data.currentUser.deliveryAddresses.map((address) => (
                   <MenuItem key={address.id} value={address.id}>
-                    {address.location.streetAddress}
+                    <span className="truncate text-xs">{address.location.streetAddress}</span>
                   </MenuItem>
                 ))}
               </TextField>
@@ -48,7 +48,7 @@ export default function V2RestaurantsPage() {
               </Button>
             </FormControl>
           </Form>
-        </div>
+        </Paper>
       </div>
       <div>
         <BottomNavbar />
