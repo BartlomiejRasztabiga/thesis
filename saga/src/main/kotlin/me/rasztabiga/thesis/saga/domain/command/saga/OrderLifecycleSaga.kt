@@ -272,7 +272,7 @@ class OrderLifecycleSaga {
         commandGateway.sendAndWait<Void>(
             CreateInvoiceCommand(
                 id = userInvoiceId,
-                from = restaurant.name,
+                from = "Food Delivery App",
                 to = user.name,
                 issueDate = LocalDate.now(),
                 dueDate = LocalDate.now().plusDays(14),

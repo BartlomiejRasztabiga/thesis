@@ -1,6 +1,6 @@
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import BottomNavbar from "~/components/manager/BottomNavbar";
+import BottomNavbar from "~/components/courier/BottomNavbar";
 import { Form, useActionData, useLoaderData } from "@remix-run/react";
 import {
   Button,
@@ -40,7 +40,7 @@ export async function action({ request, params }: ActionArgs) {
   return json({});
 }
 
-export default function V2RestaurantWalletPage() {
+export default function V2CourierWalletPage() {
   const data = useLoaderData<typeof loader>();
   const actionData = useActionData();
 

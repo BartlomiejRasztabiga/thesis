@@ -1,8 +1,14 @@
 import type { LatLngTuple } from "leaflet";
 import { divIcon } from "leaflet";
-import { FeatureGroup, MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
+import {
+  FeatureGroup,
+  MapContainer,
+  Marker,
+  Popup,
+  TileLayer,
+} from "react-leaflet";
 import type { Location } from "~/models/user.server";
-import { Home, Restaurant, DeliveryDining  } from "@mui/icons-material";
+import { Home, Restaurant, DeliveryDining } from "@mui/icons-material";
 import { renderToStaticMarkup } from "react-dom/server";
 
 export interface MapProps {
@@ -15,11 +21,11 @@ export interface MapProps {
 export function MapClient(props: MapProps) {
   const restaurantLatLng: LatLngTuple = [
     props.restaurantLocation.lat,
-    props.restaurantLocation.lng
+    props.restaurantLocation.lng,
   ];
   const deliveryLatLng: LatLngTuple = [
     props.deliveryLocation.lat,
-    props.deliveryLocation.lng
+    props.deliveryLocation.lng,
   ];
 
   let bounds = [restaurantLatLng, deliveryLatLng];
@@ -31,31 +37,25 @@ export function MapClient(props: MapProps) {
   }
 
   const restaurantIcon = divIcon({
-    html: renderToStaticMarkup(
-      <Restaurant />
-    ),
-    iconSize: [30, 30]
+    html: renderToStaticMarkup(<Restaurant />),
+    iconSize: [30, 30],
   });
 
   const deliveryIcon = divIcon({
-    html: renderToStaticMarkup(
-      <Home />
-    ),
-    iconSize: [30, 30]
+    html: renderToStaticMarkup(<Home />),
+    iconSize: [30, 30],
   });
 
   const courierIcon = divIcon({
-    html: renderToStaticMarkup(
-      <DeliveryDining />
-    ),
-    iconSize: [30, 30]
+    html: renderToStaticMarkup(<DeliveryDining />),
+    iconSize: [30, 30],
   });
 
   return (
     <div style={{ height: props.height }}>
       <MapContainer
         style={{
-          height: "100%"
+          height: "100%",
         }}
         center={deliveryLatLng}
         scrollWheelZoom={true}

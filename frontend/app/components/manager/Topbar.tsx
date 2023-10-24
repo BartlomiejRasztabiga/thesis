@@ -6,7 +6,8 @@ import { Form } from "@remix-run/react";
 
 export default function Topbar(props: TopbarProps) {
   return (
-    <header className="flex flex-col items-center justify-between color bg-slate-800 h-10 text-white">
+    <header className="flex flex-col items-center justify-between color bg-slate-800 h-15 text-white">
+      <span>Restaurant "{props.restaurant.name}"</span>
       <Form method="post">
         <span className="align-middle inline-block">
           {props.restaurant.availability}

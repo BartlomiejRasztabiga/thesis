@@ -16,7 +16,7 @@ import {
   TimelineDot,
   TimelineItem,
   TimelineOppositeContent,
-  TimelineSeparator
+  TimelineSeparator,
 } from "@mui/lab";
 
 export async function loader({ request, params }: LoaderArgs) {
@@ -29,8 +29,8 @@ export async function loader({ request, params }: LoaderArgs) {
   if (order.status === "DELIVERED") {
     return redirect(`/v2/ordering/orders/${order.id}/rating`, {
       headers: {
-        "Set-Cookie": await clearOrderId(request)
-      }
+        "Set-Cookie": await clearOrderId(request),
+      },
     });
   }
 
@@ -78,7 +78,9 @@ export default function V2OrderTrackingPage() {
   const mapHeight = "75vh";
 
   const confirmedEvent = data.order.events.find((e) => e.type === "CONFIRMED");
-  const courierAssignedEvent = data.order.events.find((e) => e.type === "COURIER_ASSIGNED");
+  const courierAssignedEvent = data.order.events.find(
+    (e) => e.type === "COURIER_ASSIGNED",
+  );
   const preparedEvent = data.order.events.find((e) => e.type === "PREPARED");
   const pickedUpEvent = data.order.events.find((e) => e.type === "PICKED_UP");
   const deliveredEvent = data.order.events.find((e) => e.type === "DELIVERED");
@@ -108,57 +110,90 @@ export default function V2OrderTrackingPage() {
             <Timeline>
               <TimelineItem>
                 <TimelineOppositeContent color="text.secondary">
-                  {confirmedEvent && new Date(confirmedEvent.createdAt).toLocaleTimeString("pl-PL")}
+                  {confirmedEvent &&
+                    new Date(confirmedEvent.createdAt).toLocaleTimeString(
+                      "pl-PL",
+                    )}
                 </TimelineOppositeContent>
                 <TimelineSeparator>
-                  <TimelineDot color={confirmedEvent ? "success" : "grey"}
-                               variant={confirmedEvent ? "filled" : "outlined"} />
+                  <TimelineDot
+                    color={confirmedEvent ? "success" : "grey"}
+                    variant={confirmedEvent ? "filled" : "outlined"}
+                  />
                   <TimelineConnector />
                 </TimelineSeparator>
-                <TimelineContent>Restaurant has confirmed your order</TimelineContent>
+                <TimelineContent>
+                  Restaurant has confirmed your order
+                </TimelineContent>
               </TimelineItem>
               <TimelineItem>
                 <TimelineOppositeContent color="text.secondary">
-                  {courierAssignedEvent && new Date(courierAssignedEvent.createdAt).toLocaleTimeString("pl-PL")}
+                  {courierAssignedEvent &&
+                    new Date(courierAssignedEvent.createdAt).toLocaleTimeString(
+                      "pl-PL",
+                    )}
                 </TimelineOppositeContent>
                 <TimelineSeparator>
-                  <TimelineDot color={courierAssignedEvent ? "success" : "grey"}
-                               variant={courierAssignedEvent ? "filled" : "outlined"} />
+                  <TimelineDot
+                    color={courierAssignedEvent ? "success" : "grey"}
+                    variant={courierAssignedEvent ? "filled" : "outlined"}
+                  />
                   <TimelineConnector />
                 </TimelineSeparator>
                 <TimelineContent>Courier has been assigned</TimelineContent>
               </TimelineItem>
               <TimelineItem>
                 <TimelineOppositeContent color="text.secondary">
-                  {preparedEvent && new Date(preparedEvent.createdAt).toLocaleTimeString("pl-PL")}
+                  {preparedEvent &&
+                    new Date(preparedEvent.createdAt).toLocaleTimeString(
+                      "pl-PL",
+                    )}
                 </TimelineOppositeContent>
                 <TimelineSeparator>
-                  <TimelineDot color={preparedEvent ? "success" : "grey"}
-                               variant={preparedEvent ? "filled" : "outlined"} />
+                  <TimelineDot
+                    color={preparedEvent ? "success" : "grey"}
+                    variant={preparedEvent ? "filled" : "outlined"}
+                  />
                   <TimelineConnector />
                 </TimelineSeparator>
-                <TimelineContent>Restaurant has prepared your order</TimelineContent>
+                <TimelineContent>
+                  Restaurant has prepared your order
+                </TimelineContent>
               </TimelineItem>
               <TimelineItem>
                 <TimelineOppositeContent color="text.secondary">
-                  {pickedUpEvent && new Date(pickedUpEvent.createdAt).toLocaleTimeString("pl-PL")}
+                  {pickedUpEvent &&
+                    new Date(pickedUpEvent.createdAt).toLocaleTimeString(
+                      "pl-PL",
+                    )}
                 </TimelineOppositeContent>
                 <TimelineSeparator>
-                  <TimelineDot color={pickedUpEvent ? "success" : "grey"}
-                               variant={pickedUpEvent ? "filled" : "outlined"} />
+                  <TimelineDot
+                    color={pickedUpEvent ? "success" : "grey"}
+                    variant={pickedUpEvent ? "filled" : "outlined"}
+                  />
                   <TimelineConnector />
                 </TimelineSeparator>
-                <TimelineContent>Courier has picked up your order</TimelineContent>
+                <TimelineContent>
+                  Courier has picked up your order
+                </TimelineContent>
               </TimelineItem>
               <TimelineItem>
                 <TimelineOppositeContent color="text.secondary">
-                  {deliveredEvent && new Date(deliveredEvent.createdAt).toLocaleTimeString("pl-PL")}
+                  {deliveredEvent &&
+                    new Date(deliveredEvent.createdAt).toLocaleTimeString(
+                      "pl-PL",
+                    )}
                 </TimelineOppositeContent>
                 <TimelineSeparator>
-                  <TimelineDot color={deliveredEvent ? "success" : "grey"}
-                               variant={deliveredEvent ? "filled" : "outlined"} />
+                  <TimelineDot
+                    color={deliveredEvent ? "success" : "grey"}
+                    variant={deliveredEvent ? "filled" : "outlined"}
+                  />
                 </TimelineSeparator>
-                <TimelineContent>Courier has delivered your order</TimelineContent>
+                <TimelineContent>
+                  Courier has delivered your order
+                </TimelineContent>
               </TimelineItem>
             </Timeline>
           </div>

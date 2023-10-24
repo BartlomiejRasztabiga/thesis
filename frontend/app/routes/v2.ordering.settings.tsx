@@ -39,7 +39,9 @@ export default function V2RestaurantsPage() {
               >
                 {data.currentUser.deliveryAddresses.map((address) => (
                   <MenuItem key={address.id} value={address.id}>
-                    <span className="truncate text-xs">{address.location.streetAddress}</span>
+                    <span className="truncate text-xs">
+                      {address.location.streetAddress}
+                    </span>
                   </MenuItem>
                 ))}
               </TextField>
