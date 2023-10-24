@@ -35,6 +35,13 @@ class PayeeHandler(
     fun on(event: PayeeBalanceAddedEvent) {
         val entity = getPayee(event.payeeId)
         entity.balance += event.amount
+        entity.balanceChanges.add(
+            PayeeEntity.BalanceChange(
+                amount = event.amount,
+                accountNumber = null,
+                timestamp = Instant.now()
+            )
+        )
         payeeRepository.save(entity)
     }
 
@@ -42,9 +49,9 @@ class PayeeHandler(
     fun on(event: PayeeBalanceWithdrawnEvent) {
         val entity = getPayee(event.payeeId)
         entity.balance -= event.amount
-        entity.withdrawals.add(
-            PayeeEntity.Withdrawal(
-                amount = event.amount,
+        entity.balanceChanges.add(
+            PayeeEntity.BalanceChange(
+                amount = -event.amount,
                 accountNumber = event.targetBankAccount,
                 timestamp = Instant.now()
             )

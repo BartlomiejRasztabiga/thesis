@@ -14,11 +14,11 @@ data class PayeeEntity(
     val name: String,
     val email: String,
     var balance: BigDecimal,
-    val withdrawals: MutableList<Withdrawal>
+    val balanceChanges: MutableList<BalanceChange>
 ) {
-    data class Withdrawal(
+    data class BalanceChange(
         val amount: BigDecimal,
-        val accountNumber: String,
+        val accountNumber: String?,
         val timestamp: Instant
     )
 }

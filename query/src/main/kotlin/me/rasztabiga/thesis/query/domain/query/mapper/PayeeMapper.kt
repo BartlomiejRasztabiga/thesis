@@ -14,7 +14,7 @@ object PayeeMapper {
             name = event.name,
             email = event.email,
             balance = BigDecimal.ZERO,
-            withdrawals = mutableListOf()
+            balanceChanges = mutableListOf()
         )
     }
 
@@ -25,8 +25,8 @@ object PayeeMapper {
             name = entity.name,
             email = entity.email,
             balance = entity.balance,
-            withdrawals = entity.withdrawals.map {
-                PayeeResponse.Withdrawal(
+            withdrawals = entity.balanceChanges.map {
+                PayeeResponse.BalanceChange(
                     amount = it.amount,
                     accountNumber = it.accountNumber,
                     timestamp = it.timestamp

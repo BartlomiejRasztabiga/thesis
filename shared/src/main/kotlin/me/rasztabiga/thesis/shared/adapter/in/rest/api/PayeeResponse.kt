@@ -12,11 +12,11 @@ data class PayeeResponse(
     val name: String,
     val email: String,
     val balance: BigDecimal,
-    val withdrawals: List<Withdrawal>
+    val balanceChanges: List<BalanceChange>
 ) {
-    data class Withdrawal(
+    data class BalanceChange(
         val amount: BigDecimal,
-        val accountNumber: String,
+        val accountNumber: String?,
         val timestamp: Instant
     )
 }
