@@ -44,7 +44,7 @@ export default function V2CourierWalletPage() {
   const data = useLoaderData<typeof loader>();
   const actionData = useActionData();
 
-  const withdrawalsSorted = data.payee.withdrawals.sort((a, b) => {
+  const balanceChangesSorted = data.payee.balanceChanges.sort((a, b) => {
     return new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime();
   });
 
@@ -95,16 +95,28 @@ export default function V2CourierWalletPage() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {withdrawalsSorted.map((withdrawal, key) => (
+                {balanceChangesSorted.map((balanceChange, key) => (
                   <TableRow
                     key={key}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell component="th" scope="row">
-                      {new Date(withdrawal.timestamp).toLocaleString("pl-PL")}
+                      {new Date(balanceChange.timestamp).toLocaleString(
+                        "pl-PL",
+                      )}
                     </TableCell>
-                    <TableCell>{withdrawal.amount.toFixed(2)} PLN</TableCell>
-                    <TableCell>{withdrawal.accountNumber}</TableCell>
+                    <TableCell>
+                      <span
+                        className={
+                          balanceChange.amount > 0
+                            ? "text-green-500"
+                            : "text-red-500"
+                        }
+                      >
+                        {balanceChange.amount.toFixed(2)} PLN
+                      </span>
+                    </TableCell>
+                    <TableCell>{balanceChange.accountNumber}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>

@@ -191,6 +191,13 @@ export default function V2RestaurantPage() {
                       >
                         {menuItem.description}
                       </Typography>
+                      <Typography
+                        variant="subtitle1"
+                        color="text.secondary"
+                        component="div"
+                      >
+                        {menuItem.price.toFixed(2)} PLN
+                      </Typography>
                     </CardContent>
                     <Box
                       sx={{

@@ -25,7 +25,7 @@ object PayeeMapper {
             name = entity.name,
             email = entity.email,
             balance = entity.balance,
-            withdrawals = entity.balanceChanges.map {
+            balanceChanges = entity.balanceChanges.map {
                 PayeeResponse.BalanceChange(
                     amount = it.amount,
                     accountNumber = it.accountNumber,
