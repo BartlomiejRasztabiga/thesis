@@ -21,7 +21,7 @@ import reactor.core.publisher.Flux
 import java.util.*
 
 @Component
-@ProcessingGroup("restaurantorder")
+@ProcessingGroup("projection")
 class RestaurantOrderHandler(
     private val restaurantOrderRepository: RestaurantOrderRepository
 ) {

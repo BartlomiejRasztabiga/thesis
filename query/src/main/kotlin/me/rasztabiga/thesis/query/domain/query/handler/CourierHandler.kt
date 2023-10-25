@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component
 import reactor.core.publisher.Mono
 
 @Component
-@ProcessingGroup("courier")
+@ProcessingGroup("projection")
 class CourierHandler(
     private val courierRepository: CourierRepository
 ) {

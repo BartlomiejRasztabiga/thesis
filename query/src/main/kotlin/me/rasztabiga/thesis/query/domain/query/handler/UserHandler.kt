@@ -20,7 +20,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @Component
-@ProcessingGroup("user")
+@ProcessingGroup("projection")
 class UserHandler(
     private val userRepository: UserRepository
 ) {

@@ -35,7 +35,7 @@ import java.util.*
 
 @Suppress("TooManyFunctions")
 @Component
-@ProcessingGroup("order")
+@ProcessingGroup("projection")
 class OrderHandler(
     private val orderRepository: OrderRepository,
     private val userRepository: UserRepository,

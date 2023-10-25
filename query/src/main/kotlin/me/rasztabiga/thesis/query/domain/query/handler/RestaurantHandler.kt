@@ -26,7 +26,7 @@ import reactor.core.publisher.Flux
 import reactor.core.publisher.Mono
 
 @Component
-@ProcessingGroup("restaurant")
+@ProcessingGroup("projection")
 class RestaurantHandler(
     private val restaurantRepository: RestaurantRepository,
     private val userRepository: UserRepository,

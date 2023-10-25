@@ -20,7 +20,7 @@ import java.time.Instant
 import java.util.*
 
 @Component
-@ProcessingGroup("payee")
+@ProcessingGroup("projection")
 class PayeeHandler(
     private val payeeRepository: PayeeRepository
 ) {
