@@ -32,7 +32,7 @@ import java.util.*
 
 @Suppress("TooManyFunctions")
 @Component
-@ProcessingGroup("orderdelivery")
+@ProcessingGroup("projection")
 class OrderDeliveryHandler(
     private val orderDeliveryRepository: OrderDeliveryRepository,
     private val courierRepository: CourierRepository,

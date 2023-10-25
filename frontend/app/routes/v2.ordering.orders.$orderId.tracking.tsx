@@ -75,7 +75,7 @@ export default function V2OrderTrackingPage() {
     }
   };
 
-  const mapHeight = "75vh";
+  const mapHeight = "60vh";
 
   const confirmedEvent = data.order.events.find((e) => e.type === "CONFIRMED");
   const courierAssignedEvent = data.order.events.find(

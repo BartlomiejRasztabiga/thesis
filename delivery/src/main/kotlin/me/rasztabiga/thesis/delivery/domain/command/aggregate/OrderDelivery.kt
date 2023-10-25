@@ -23,13 +23,10 @@ import java.util.*
 
 @Aggregate
 class OrderDelivery {
-
-    // TODO wszystko z tego jest potrzebne?
     @AggregateIdentifier
     private lateinit var id: UUID
-    private lateinit var orderId: UUID // TODO remove?
+    private lateinit var orderId: UUID
     private lateinit var status: DeliveryStatus
-    private lateinit var courierFee: BigDecimal
     private var courierId: String? = null
 
     private constructor()
@@ -135,7 +132,6 @@ class OrderDelivery {
         this.id = event.deliveryId
         this.orderId = event.orderId
         this.status = DeliveryStatus.OFFER
-        this.courierFee = event.courierFee
     }
 
     @EventSourcingHandler

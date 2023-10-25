@@ -16,12 +16,8 @@ import org.axonframework.spring.stereotype.Aggregate
 @Aggregate
 internal class Courier {
 
-    // TODO wszystko z tego jest potrzebne?
     @AggregateIdentifier
     private lateinit var id: String
-    private lateinit var name: String
-    private var availability: Availability = Availability.OFFLINE
-    private var location: Location? = null
 
     constructor()
 
@@ -53,6 +49,5 @@ internal class Courier {
     @EventSourcingHandler
     fun on(event: CourierCreatedEvent) {
         this.id = event.courierId
-        this.name = event.name
     }
 }
