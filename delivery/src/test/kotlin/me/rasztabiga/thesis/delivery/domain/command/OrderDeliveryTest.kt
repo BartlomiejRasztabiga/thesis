@@ -3,10 +3,20 @@ package me.rasztabiga.thesis.delivery.domain.command
 import io.mockk.every
 import io.mockk.mockk
 import me.rasztabiga.thesis.delivery.domain.command.aggregate.OrderDelivery
+import me.rasztabiga.thesis.delivery.domain.command.command.AcceptDeliveryOfferCommand
+import me.rasztabiga.thesis.delivery.domain.command.command.DeliverDeliveryCommand
+import me.rasztabiga.thesis.delivery.domain.command.command.PickupDeliveryCommand
+import me.rasztabiga.thesis.delivery.domain.command.command.RejectDeliveryOfferCommand
 import me.rasztabiga.thesis.delivery.domain.command.port.CalculateDeliveryFeePort
+import me.rasztabiga.thesis.delivery.domain.command.port.CourierOnlineVerifierPort
+import me.rasztabiga.thesis.delivery.domain.command.port.OrderPreparedVerifierPort
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderDeliveryOfferCommand
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryCreatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryDeliveredEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryPickedUpEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryRejectedEvent
 import org.axonframework.test.aggregate.AggregateTestFixture
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -17,13 +27,19 @@ class OrderDeliveryTest {
 
     private lateinit var testFixture: AggregateTestFixture<OrderDelivery>
     private lateinit var calculateDeliveryFeePort: CalculateDeliveryFeePort
+    private lateinit var courierOnlineVerifierPort: CourierOnlineVerifierPort
+    private lateinit var orderPreparedVerifierPort: OrderPreparedVerifierPort
 
     @BeforeEach
     fun setUp() {
         calculateDeliveryFeePort = mockk<CalculateDeliveryFeePort>()
+        courierOnlineVerifierPort = mockk<CourierOnlineVerifierPort>()
+        orderPreparedVerifierPort = mockk<OrderPreparedVerifierPort>()
 
         testFixture = AggregateTestFixture(OrderDelivery::class.java)
         testFixture.registerInjectableResource(calculateDeliveryFeePort)
+        testFixture.registerInjectableResource(courierOnlineVerifierPort)
+        testFixture.registerInjectableResource(orderPreparedVerifierPort)
     }
 
     @Test
@@ -49,6 +65,143 @@ class OrderDeliveryTest {
             .`when`(createOrderDeliveryCommand)
             .expectSuccessfulHandlerExecution()
             .expectEvents(orderDeliveryCreatedEvent)
+    }
 
+    @Test
+    fun `given OFFER and online courier, should reject delivery offer`() {
+        val orderDeliveryCreatedEvent = OrderDeliveryCreatedEvent(
+            deliveryId = UUID.randomUUID(),
+            orderId = UUID.randomUUID(),
+            restaurantLocation = Location(lat = 1.0, lng = 1.0, streetAddress = "street"),
+            deliveryLocation = Location(lat = 1.0, lng = 1.0, streetAddress = "street"),
+            courierFee = BigDecimal(10)
+        )
+
+        val courierId = UUID.randomUUID().toString()
+
+        every { courierOnlineVerifierPort.isCourierOnline(courierId) } returns true
+
+        val rejectDeliveryOfferCommand = RejectDeliveryOfferCommand(
+            id = orderDeliveryCreatedEvent.deliveryId,
+            courierId = courierId
+        )
+
+        val orderDeliveryRejectedEvent = OrderDeliveryRejectedEvent(
+            deliveryId = orderDeliveryCreatedEvent.deliveryId,
+            courierId = courierId
+        )
+
+        testFixture.given(orderDeliveryCreatedEvent)
+            .`when`(rejectDeliveryOfferCommand)
+            .expectSuccessfulHandlerExecution()
+            .expectEvents(orderDeliveryRejectedEvent)
+    }
+
+    @Test
+    fun `given OFFER and online courier, should accept delivery offer`() {
+        val orderDeliveryCreatedEvent = OrderDeliveryCreatedEvent(
+            deliveryId = UUID.randomUUID(),
+            orderId = UUID.randomUUID(),
+            restaurantLocation = Location(lat = 1.0, lng = 1.0, streetAddress = "street"),
+            deliveryLocation = Location(lat = 1.0, lng = 1.0, streetAddress = "street"),
+            courierFee = BigDecimal(10)
+        )
+
+        val courierId = UUID.randomUUID().toString()
+
+        every { courierOnlineVerifierPort.isCourierOnline(courierId) } returns true
+
+        val acceptDeliveryOfferCommand = AcceptDeliveryOfferCommand(
+            id = orderDeliveryCreatedEvent.deliveryId,
+            courierId = courierId
+        )
+
+        val orderDeliveryAcceptedEvent = OrderDeliveryAcceptedEvent(
+            deliveryId = orderDeliveryCreatedEvent.deliveryId,
+            orderId = orderDeliveryCreatedEvent.orderId,
+            courierId = courierId
+        )
+
+        testFixture.given(orderDeliveryCreatedEvent)
+            .`when`(acceptDeliveryOfferCommand)
+            .expectSuccessfulHandlerExecution()
+            .expectEvents(orderDeliveryAcceptedEvent)
+    }
+
+    @Test
+    fun `given ACCEPTED delivery, online courier and prepared order, should pickup delivery`() {
+        val orderDeliveryCreatedEvent = OrderDeliveryCreatedEvent(
+            deliveryId = UUID.randomUUID(),
+            orderId = UUID.randomUUID(),
+            restaurantLocation = Location(lat = 1.0, lng = 1.0, streetAddress = "street"),
+            deliveryLocation = Location(lat = 1.0, lng = 1.0, streetAddress = "street"),
+            courierFee = BigDecimal(10)
+        )
+
+        val orderDeliveryAcceptedEvent = OrderDeliveryAcceptedEvent(
+            deliveryId = orderDeliveryCreatedEvent.deliveryId,
+            orderId = orderDeliveryCreatedEvent.orderId,
+            courierId = UUID.randomUUID().toString()
+        )
+
+        every { courierOnlineVerifierPort.isCourierOnline(orderDeliveryAcceptedEvent.courierId) } returns true
+        every { orderPreparedVerifierPort.isOrderPrepared(orderDeliveryAcceptedEvent.orderId) } returns true
+
+        val pickupDeliveryCommand = PickupDeliveryCommand(
+            id = orderDeliveryCreatedEvent.deliveryId,
+            courierId = orderDeliveryAcceptedEvent.courierId
+        )
+
+        val orderDeliveryPickedUpEvent = OrderDeliveryPickedUpEvent(
+            deliveryId = orderDeliveryCreatedEvent.deliveryId,
+            courierId = orderDeliveryAcceptedEvent.courierId,
+            orderId = orderDeliveryCreatedEvent.orderId
+        )
+
+        testFixture.given(orderDeliveryCreatedEvent, orderDeliveryAcceptedEvent)
+            .`when`(pickupDeliveryCommand)
+            .expectSuccessfulHandlerExecution()
+            .expectEvents(orderDeliveryPickedUpEvent)
+    }
+
+    @Test
+    fun `given PICKED_UP delivery and online courier, should deliver delivery`() {
+        val orderDeliveryCreatedEvent = OrderDeliveryCreatedEvent(
+            deliveryId = UUID.randomUUID(),
+            orderId = UUID.randomUUID(),
+            restaurantLocation = Location(lat = 1.0, lng = 1.0, streetAddress = "street"),
+            deliveryLocation = Location(lat = 1.0, lng = 1.0, streetAddress = "street"),
+            courierFee = BigDecimal(10)
+        )
+
+        val orderDeliveryAcceptedEvent = OrderDeliveryAcceptedEvent(
+            deliveryId = orderDeliveryCreatedEvent.deliveryId,
+            orderId = orderDeliveryCreatedEvent.orderId,
+            courierId = UUID.randomUUID().toString()
+        )
+
+        val orderDeliveryPickedUpEvent = OrderDeliveryPickedUpEvent(
+            deliveryId = orderDeliveryCreatedEvent.deliveryId,
+            courierId = orderDeliveryAcceptedEvent.courierId,
+            orderId = orderDeliveryCreatedEvent.orderId
+        )
+
+        every { courierOnlineVerifierPort.isCourierOnline(orderDeliveryAcceptedEvent.courierId) } returns true
+
+        val deliverDeliveryCommand = DeliverDeliveryCommand(
+            id = orderDeliveryCreatedEvent.deliveryId,
+            courierId = orderDeliveryAcceptedEvent.courierId
+        )
+
+        val orderDeliveryDeliveredEvent = OrderDeliveryDeliveredEvent(
+            deliveryId = orderDeliveryCreatedEvent.deliveryId,
+            courierId = orderDeliveryAcceptedEvent.courierId,
+            orderId = orderDeliveryCreatedEvent.orderId
+        )
+
+        testFixture.given(orderDeliveryCreatedEvent, orderDeliveryAcceptedEvent, orderDeliveryPickedUpEvent)
+            .`when`(deliverDeliveryCommand)
+            .expectSuccessfulHandlerExecution()
+            .expectEvents(orderDeliveryDeliveredEvent)
     }
 }
