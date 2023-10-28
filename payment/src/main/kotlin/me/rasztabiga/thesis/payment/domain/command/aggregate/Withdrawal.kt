@@ -19,4 +19,15 @@ internal class Withdrawal {
         this.amount = amount
         this.targetBankAccount = targetBankAccount
     }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Withdrawal) return false
+
+        if (id != other.id) return false
+        if (amount != other.amount) return false
+        if (targetBankAccount != other.targetBankAccount) return false
+
+        return true
+    }
 }

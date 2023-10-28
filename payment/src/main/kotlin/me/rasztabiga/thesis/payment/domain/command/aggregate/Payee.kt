@@ -30,7 +30,7 @@ internal class Payee {
     private lateinit var balance: BigDecimal
 
     @AggregateMember
-    private val withdrawals: MutableList<Withdrawal> = mutableListOf()
+    private var withdrawals: MutableList<Withdrawal> = mutableListOf()
 
     private constructor()
 
@@ -82,6 +82,7 @@ internal class Payee {
         this.name = event.name
         this.email = event.email
         this.balance = BigDecimal.ZERO
+        this.withdrawals = mutableListOf()
     }
 
     @EventSourcingHandler
