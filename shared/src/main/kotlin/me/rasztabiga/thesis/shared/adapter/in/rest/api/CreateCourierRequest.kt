@@ -1,4 +1,4 @@
-package me.rasztabiga.thesis.delivery.adapter.`in`.rest.api
+package me.rasztabiga.thesis.shared.adapter.`in`.rest.api
 
 data class CreateCourierRequest(
     val name: String,

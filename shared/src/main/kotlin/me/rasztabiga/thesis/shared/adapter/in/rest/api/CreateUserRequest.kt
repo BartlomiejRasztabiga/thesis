@@ -1,5 +1,5 @@
 @file:Suppress("InvalidPackageDeclaration")
-package me.rasztabiga.thesis.order.adapter.`in`.rest.api
+package me.rasztabiga.thesis.shared.adapter.`in`.rest.api
 
 data class CreateUserRequest(
     val name: String,

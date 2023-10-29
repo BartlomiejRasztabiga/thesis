@@ -1,4 +1,4 @@
-package me.rasztabiga.thesis.payment.adapter.`in`.rest.api
+package me.rasztabiga.thesis.shared.adapter.`in`.rest.api
 
 import java.math.BigDecimal
 
