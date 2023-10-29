@@ -30,4 +30,12 @@ internal class Withdrawal {
 
         return true
     }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + timestamp.hashCode()
+        result = 31 * result + amount.hashCode()
+        result = 31 * result + targetBankAccount.hashCode()
+        return result
+    }
 }

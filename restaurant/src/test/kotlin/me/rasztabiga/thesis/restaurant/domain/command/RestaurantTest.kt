@@ -146,7 +146,9 @@ class RestaurantTest {
 
         val restaurantAvailabilityUpdatedEvent = RestaurantAvailabilityUpdatedEvent(
             id = updateRestaurantAvailabilityCommand.id,
-            availability = RestaurantAvailabilityUpdatedEvent.Availability.valueOf(updateRestaurantAvailabilityCommand.availability.name)
+            availability = RestaurantAvailabilityUpdatedEvent.Availability.valueOf(
+                updateRestaurantAvailabilityCommand.availability.name
+            )
         )
 
         testFixture.given(restaurantCreatedEvent)
