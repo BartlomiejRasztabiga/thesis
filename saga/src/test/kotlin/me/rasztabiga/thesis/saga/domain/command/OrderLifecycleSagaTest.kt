@@ -1,7 +1,9 @@
 package me.rasztabiga.thesis.saga.domain.command
 
+import io.mockk.mockk
 import me.rasztabiga.thesis.saga.domain.command.saga.OrderLifecycleSaga
 import me.rasztabiga.thesis.shared.domain.command.event.OrderFinalizedEvent
+import org.axonframework.queryhandling.QueryGateway
 import org.axonframework.test.saga.SagaTestFixture
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -10,10 +12,14 @@ import java.util.*
 class OrderLifecycleSagaTest {
 
     private lateinit var testFixture: SagaTestFixture<OrderLifecycleSaga>
+    private lateinit var queryGateway: QueryGateway
 
     @BeforeEach
     fun setUp() {
+        queryGateway = mockk<QueryGateway>()
+
         testFixture = SagaTestFixture(OrderLifecycleSaga::class.java)
+        testFixture.registerResource(queryGateway)
     }
 
     @Test
@@ -27,5 +33,11 @@ class OrderLifecycleSagaTest {
                 UUID.randomUUID() to 2
             )
         )
+
+        // TODO
+
+        testFixture
+            .whenPublishingA(orderFinalizedEvent)
+            .expectActiveSagas(1)
     }
 }
