@@ -93,7 +93,7 @@ internal class Restaurant {
     }
 
     @CommandHandler
-    fun handle(command: CalculateOrderTotalCommand, distanceCalculatorPort: CalculateDeliveryFeePort) {
+    fun handle(command: CalculateOrderTotalCommand, calculateDeliveryFeePort: CalculateDeliveryFeePort) {
         var total = BigDecimal.ZERO
         command.items.forEach { (productId, quantity) ->
             val product = menu.find { it.id == productId } ?: error("Product not found")
@@ -101,7 +101,7 @@ internal class Restaurant {
         }
 
         val deliveryFee =
-            distanceCalculatorPort.calculateDeliveryFee(command.restaurantAddress, command.deliveryAddress)
+            calculateDeliveryFeePort.calculateDeliveryFee(command.restaurantAddress, command.deliveryAddress)
 
         apply(OrderTotalCalculatedEvent(orderId = command.orderId, productsTotal = total, deliveryFee = deliveryFee))
     }
