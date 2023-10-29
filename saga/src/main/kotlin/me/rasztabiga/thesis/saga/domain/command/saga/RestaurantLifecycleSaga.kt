@@ -18,6 +18,7 @@ import java.util.*
 class RestaurantLifecycleSaga {
 
     @Autowired
+    @Transient
     private lateinit var commandGateway: CommandGateway
 
     private lateinit var payeeId: UUID

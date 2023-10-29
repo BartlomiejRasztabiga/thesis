@@ -19,6 +19,7 @@ import java.util.*
 class DeliveryCourierLifecycleSaga {
 
     @Autowired
+    @Transient
     private lateinit var commandGateway: CommandGateway
 
     private lateinit var payeeId: UUID

@@ -17,6 +17,7 @@ import java.util.UUID
 class UserLifecycleSaga {
 
     @Autowired
+    @Transient
     private lateinit var commandGateway: CommandGateway
 
     private lateinit var payerId: UUID
