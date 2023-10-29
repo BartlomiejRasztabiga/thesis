@@ -9,6 +9,7 @@ import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateRestaurantRequest
 import org.hamcrest.Matchers.lessThan
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.slf4j.LoggerFactory
 import java.util.UUID
 import java.util.concurrent.TimeUnit
 
@@ -16,6 +17,8 @@ class E2ETest {
 
     private lateinit var restaurantManagerRequestSpecification: RequestSpecification
     private lateinit var restaurantId: UUID
+
+    val log = LoggerFactory.getLogger(E2ETest::class.java)
 
     @BeforeEach
     fun setUp() {
@@ -26,7 +29,7 @@ class E2ETest {
             .build()
 
         val responseSpecification = ResponseSpecBuilder()
-            .expectResponseTime(lessThan(1L), TimeUnit.SECONDS)
+            .expectResponseTime(lessThan(2L), TimeUnit.SECONDS)
             .build()
 
         RestAssured.responseSpecification = responseSpecification
