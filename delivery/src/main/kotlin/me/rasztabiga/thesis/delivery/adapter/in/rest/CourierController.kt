@@ -2,13 +2,13 @@
 
 package me.rasztabiga.thesis.delivery.adapter.`in`.rest
 
-import me.rasztabiga.thesis.delivery.adapter.`in`.rest.api.CreateCourierRequest
-import me.rasztabiga.thesis.delivery.adapter.`in`.rest.api.UpdateCourierAvailabilityRequest
-import me.rasztabiga.thesis.delivery.adapter.`in`.rest.api.UpdateCourierLocationRequest
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.CourierControllerMapper.mapToCreateCourierCommand
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.CourierControllerMapper.mapToUpdateCourierAvailabilityCommand
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.CourierControllerMapper.mapToUpdateCourierLocationCommand
 import me.rasztabiga.thesis.shared.StringIdWrapper
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateCourierRequest
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateCourierAvailabilityRequest
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateCourierLocationRequest
 import me.rasztabiga.thesis.shared.security.Scopes.COURIER
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.springframework.http.HttpStatus

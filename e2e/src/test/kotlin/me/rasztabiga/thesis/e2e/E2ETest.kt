@@ -5,6 +5,7 @@ import io.restassured.RestAssured.given
 import io.restassured.builder.RequestSpecBuilder
 import io.restassured.builder.ResponseSpecBuilder
 import io.restassured.specification.RequestSpecification
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateRestaurantRequest
 import org.hamcrest.Matchers.lessThan
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -35,6 +36,7 @@ class E2ETest {
     fun e2e() {
         println("Hello, world!")
         createOrUseExistingRestaurant()
+        println(restaurantId)
     }
 
     private fun createOrUseExistingRestaurant() {
@@ -49,31 +51,26 @@ class E2ETest {
             restaurantId = restaurantResponse
                 .then()
                 .extract()
-                .path("id")
+                .path<String>("id").let { UUID.fromString(it) }
         } else {
             // create restaurant
-            val createRestaurantRequest = CreateRestaurantRequest()
+            val createRestaurantRequest = CreateRestaurantRequest(
+                id = UUID.randomUUID(),
+                name = "Restaurant",
+                address = "Cypryjska 70, 02-762 Warszawa",
+                email = "bartlomiej.rasztabiga.official+restaurant@gmail.com",
+                imageUrl = "https://mui.com/static/images/cards/contemplative-reptile.jpg"
+            )
 
             restaurantId = given()
                 .contentType("application/json")
-                .body(
-                    """
-                    {
-                        "name": "Restaurant",
-                        "address": "Address",
-                        "city": "City",
-                        "country": "Country",
-                        "postalCode": "PostalCode",
-                        "phoneNumber": "PhoneNumber"
-                    }
-                    """.trimIndent()
-                )
+                .body(createRestaurantRequest)
                 .`when`()
                 .post("/restaurants")
                 .then()
                 .statusCode(201)
                 .extract()
-                .path("id")
+                .path<String>("id").let { UUID.fromString(it) }
         }
     }
 

@@ -2,9 +2,6 @@
 
 package me.rasztabiga.thesis.restaurant.adapter.`in`.rest.mapper
 
-import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.CreateRestaurantRequest
-import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantAvailabilityRequest
-import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantMenuRequest
 import me.rasztabiga.thesis.restaurant.adapter.`in`.rest.api.UpdateRestaurantRequest
 import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Availability
 import me.rasztabiga.thesis.restaurant.domain.command.aggregate.Product
@@ -13,6 +10,9 @@ import me.rasztabiga.thesis.restaurant.domain.command.command.DeleteRestaurantCo
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantAvailabilityCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantCommand
 import me.rasztabiga.thesis.restaurant.domain.command.command.UpdateRestaurantMenuCommand
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateRestaurantRequest
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateRestaurantAvailabilityRequest
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateRestaurantMenuRequest
 import me.rasztabiga.thesis.shared.config.getUserId
 import org.springframework.web.server.ServerWebExchange
 import java.util.*

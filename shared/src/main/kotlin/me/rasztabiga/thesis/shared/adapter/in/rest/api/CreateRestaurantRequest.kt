@@ -4,7 +4,6 @@ package me.rasztabiga.thesis.shared.adapter.`in`.rest.api
 import java.util.UUID
 
 data class CreateRestaurantRequest(
-    val id: UUID,
     val name: String,
     val address: String,
     val email: String,

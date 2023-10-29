@@ -2,9 +2,9 @@
 
 package me.rasztabiga.thesis.payment.adapter.`in`.rest
 
-import me.rasztabiga.thesis.payment.adapter.`in`.rest.api.WithdrawBalanceRequest
 import me.rasztabiga.thesis.payment.adapter.`in`.rest.mapper.PayeeControllerMapper.mapToWithdrawBalanceCommand
 import me.rasztabiga.thesis.shared.UuidWrapper
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.WithdrawBalanceRequest
 import me.rasztabiga.thesis.shared.security.Scopes
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.springframework.security.access.prepost.PreAuthorize

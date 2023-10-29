@@ -2,10 +2,6 @@
 
 package me.rasztabiga.thesis.order.adapter.`in`.rest
 
-import me.rasztabiga.thesis.order.adapter.`in`.rest.api.AddOrderItemRequest
-import me.rasztabiga.thesis.order.adapter.`in`.rest.api.DeleteOrderItemRequest
-import me.rasztabiga.thesis.order.adapter.`in`.rest.api.RateOrderRequest
-import me.rasztabiga.thesis.order.adapter.`in`.rest.api.StartOrderRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToAddOrderItemCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToCancelOrderCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToDeleteOrderItemCommand
@@ -13,6 +9,10 @@ import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToRateOrderCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.OrderControllerMapper.mapToStartOrderCommand
 import me.rasztabiga.thesis.shared.UuidWrapper
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.AddOrderItemRequest
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.DeleteOrderItemRequest
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RateOrderRequest
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.StartOrderRequest
 import me.rasztabiga.thesis.shared.security.Scopes
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.springframework.http.HttpStatus

@@ -2,8 +2,6 @@
 
 package me.rasztabiga.thesis.order.adapter.`in`.rest
 
-import me.rasztabiga.thesis.order.adapter.`in`.rest.api.CreateDeliveryAddressRequest
-import me.rasztabiga.thesis.order.adapter.`in`.rest.api.CreateUserRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.UpdateDefaultDeliveryAddressRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.UserControllerMapper.mapToCreateDeliveryAddressCommand
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.UserControllerMapper.mapToCreateUserCommand
@@ -11,6 +9,8 @@ import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.UserControllerMapper.
 import me.rasztabiga.thesis.order.adapter.`in`.rest.mapper.UserControllerMapper.mapToUpdateDefaultDeliveryAddressCommand
 import me.rasztabiga.thesis.shared.StringIdWrapper
 import me.rasztabiga.thesis.shared.UuidWrapper
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateDeliveryAddressRequest
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateUserRequest
 import me.rasztabiga.thesis.shared.security.Scopes
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.springframework.http.HttpStatus

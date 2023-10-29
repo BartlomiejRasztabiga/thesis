@@ -2,13 +2,13 @@
 
 package me.rasztabiga.thesis.order.adapter.`in`.rest.mapper
 
-import me.rasztabiga.thesis.order.adapter.`in`.rest.api.CreateDeliveryAddressRequest
-import me.rasztabiga.thesis.order.adapter.`in`.rest.api.CreateUserRequest
 import me.rasztabiga.thesis.order.adapter.`in`.rest.api.UpdateDefaultDeliveryAddressRequest
 import me.rasztabiga.thesis.order.domain.command.command.CreateDeliveryAddressCommand
 import me.rasztabiga.thesis.order.domain.command.command.CreateUserCommand
 import me.rasztabiga.thesis.order.domain.command.command.DeleteDeliveryAddressCommand
 import me.rasztabiga.thesis.order.domain.command.command.UpdateDefaultDeliveryAddressCommand
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateDeliveryAddressRequest
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateUserRequest
 import me.rasztabiga.thesis.shared.config.getUserId
 import org.springframework.web.server.ServerWebExchange
 import java.util.*
