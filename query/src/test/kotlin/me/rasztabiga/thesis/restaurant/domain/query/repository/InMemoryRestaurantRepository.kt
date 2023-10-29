@@ -1,4 +1,4 @@
-package me.rasztabiga.thesis.restaurant.domain.query
+package me.rasztabiga.thesis.restaurant.domain.query.repository
 
 import me.rasztabiga.thesis.query.domain.query.entity.RestaurantEntity
 import me.rasztabiga.thesis.query.domain.query.repository.RestaurantRepository
