@@ -6,11 +6,14 @@ import io.restassured.builder.RequestSpecBuilder
 import io.restassured.builder.ResponseSpecBuilder
 import io.restassured.specification.RequestSpecification
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateRestaurantRequest
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantAvailability
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateRestaurantAvailabilityRequest
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateRestaurantMenuRequest
 import org.hamcrest.Matchers.lessThan
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.slf4j.LoggerFactory
-import java.util.UUID
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class E2ETest {
@@ -23,8 +26,8 @@ class E2ETest {
     @BeforeEach
     fun setUp() {
         restaurantManagerRequestSpecification = RequestSpecBuilder()
-//            .setBaseUri("https://thesis.rasztabiga.me/api/v1")
-            .setBaseUri("http://localhost:8100/api/v1")
+            .setBaseUri("https://thesis.rasztabiga.me/api/v1")
+//            .setBaseUri("http://localhost:8100/api/v1")
             .setAuth(RestAssured.oauth2(getRestaurantManagerToken()))
             .build()
 
@@ -37,16 +40,18 @@ class E2ETest {
 
     @Test
     fun e2e() {
-        println("Hello, world!")
+        setupRestaurant()
+    }
+
+    private fun setupRestaurant() {
         createOrUseExistingRestaurant()
-        println(restaurantId)
+        updateRestaurantMenu()
+        updateRestaurantAvailability()
     }
 
     private fun createOrUseExistingRestaurant() {
-        RestAssured.requestSpecification = restaurantManagerRequestSpecification
-
         // try to get restaurant for current user
-        val restaurantResponse = given()
+        val restaurantResponse = given(restaurantManagerRequestSpecification)
             .`when`()
             .get("/restaurants/me")
 
@@ -55,6 +60,8 @@ class E2ETest {
                 .then()
                 .extract()
                 .path<String>("id").let { UUID.fromString(it) }
+
+            log.info("Restaurant already exists: $restaurantId")
         } else {
             // create restaurant
             val createRestaurantRequest = CreateRestaurantRequest(
@@ -65,7 +72,7 @@ class E2ETest {
                 imageUrl = "https://mui.com/static/images/cards/contemplative-reptile.jpg"
             )
 
-            restaurantId = given()
+            restaurantId = given(restaurantManagerRequestSpecification)
                 .contentType("application/json")
                 .body(createRestaurantRequest)
                 .`when`()
@@ -74,7 +81,50 @@ class E2ETest {
                 .statusCode(201)
                 .extract()
                 .path<String>("id").let { UUID.fromString(it) }
+
+            log.info("Restaurant created: $restaurantId")
         }
+    }
+
+    private fun updateRestaurantMenu() {
+        val request = UpdateRestaurantMenuRequest(
+            menu = listOf(
+                UpdateRestaurantMenuRequest.Product(
+                    name = "Burger",
+                    description = "with extra cheese",
+                    price = 21.37.toBigDecimal(),
+                    imageUrl = "https://www.foodiesfeed.com/wp-content/uploads/2023/04/cheeseburger.jpg"
+                ),
+                UpdateRestaurantMenuRequest.Product(
+                    name = "Milkshake",
+                    description = "with extra strawberries",
+                    price = 23.37.toBigDecimal(),
+                    imageUrl = "https://www.foodiesfeed.com/wp-content/uploads/2023/04/strawberry-milk-splash.jpg"
+                )
+            )
+        )
+
+        given(restaurantManagerRequestSpecification)
+            .contentType("application/json")
+            .body(request)
+            .`when`()
+            .put("/restaurants/$restaurantId/menu")
+            .then()
+            .statusCode(200)
+    }
+
+    private fun updateRestaurantAvailability() {
+        val request = UpdateRestaurantAvailabilityRequest(
+            availability = RestaurantAvailability.OPEN
+        )
+
+        given(restaurantManagerRequestSpecification)
+            .contentType("application/json")
+            .body(request)
+            .`when`()
+            .put("/restaurants/$restaurantId/availability")
+            .then()
+            .statusCode(200)
     }
 
     private fun getRestaurantManagerToken(): String? {

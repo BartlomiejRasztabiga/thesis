@@ -3,7 +3,6 @@ kind: PersistentVolumeClaim
 metadata:
   name: query-db-data
 spec:
-  storageClassName: mayastor-3
   accessModes:
     - ReadWriteOnce
   resources:

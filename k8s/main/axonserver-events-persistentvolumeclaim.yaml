@@ -3,7 +3,6 @@ kind: PersistentVolumeClaim
 metadata:
   name: axonserver-events
 spec:
-  storageClassName: mayastor-3
   accessModes:
     - ReadWriteOnce
   resources:
