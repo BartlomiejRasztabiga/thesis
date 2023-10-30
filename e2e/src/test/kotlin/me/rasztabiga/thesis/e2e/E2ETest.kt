@@ -1,11 +1,11 @@
 package me.rasztabiga.thesis.e2e
 
+import io.kotest.matchers.equals.shouldBeEqual
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
 import io.restassured.builder.RequestSpecBuilder
 import io.restassured.builder.ResponseSpecBuilder
 import io.restassured.specification.RequestSpecification
-import kotlinx.coroutines.delay
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.AddOrderItemRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CourierAvailability
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateDeliveryAddressRequest
@@ -21,13 +21,15 @@ import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateCourierLocationRe
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateRestaurantAvailabilityRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateRestaurantMenuRequest
 import org.hamcrest.Matchers.lessThan
+import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.openqa.selenium.By
+import org.openqa.selenium.chrome.ChromeDriver
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 import java.util.concurrent.TimeUnit
-import kotlin.time.Duration
 
 class E2ETest {
 
@@ -44,6 +46,8 @@ class E2ETest {
 
     private lateinit var orderId: UUID
     private lateinit var stripeSessionUrl: String
+
+    private lateinit var driver: ChromeDriver
 
     private val log: Logger = LoggerFactory.getLogger(E2ETest::class.java)
 
@@ -74,6 +78,14 @@ class E2ETest {
             .build()
 
         RestAssured.responseSpecification = responseSpecification
+
+        driver = ChromeDriver()
+        driver.manage().timeouts().implicitlyWait(java.time.Duration.ofMillis(500))
+    }
+
+    @AfterEach
+    fun tearDown() {
+        driver.quit()
     }
 
     @Test
@@ -83,9 +95,7 @@ class E2ETest {
         setupCourier()
 
         createOrder()
-
-
-        // TODO how to pay with stripe programmatically? Selenium?
+        payOrder()
     }
 
     private fun setupRestaurant() {
@@ -113,6 +123,30 @@ class E2ETest {
         Thread.sleep(5000)
 
         setStripeSessionUrl()
+    }
+
+    private fun payOrder() {
+        driver.get(stripeSessionUrl)
+
+        driver.findElement(By.id("email")).sendKeys("test@example.com")
+        driver.findElement(By.id("cardNumber")).sendKeys("4242424242424242")
+        driver.findElement(By.id("cardExpiry")).sendKeys("1225")
+        driver.findElement(By.id("cardCvc")).sendKeys("123")
+        driver.findElement(By.id("billingName")).sendKeys("Test User")
+        driver.findElement(By.cssSelector("button[type='submit']")).click()
+
+        driver.quit()
+
+        // sleep for 5 seconds to let the order be processed by payments service
+        Thread.sleep(5000)
+
+        given(orderingUserRequestSpecification)
+            .`when`()
+            .get("/orders/$orderId")
+            .then()
+            .statusCode(200)
+            .extract()
+            .path<String>("status").shouldBeEqual("PAID")
     }
 
     private fun createOrUseExistingRestaurant() {
