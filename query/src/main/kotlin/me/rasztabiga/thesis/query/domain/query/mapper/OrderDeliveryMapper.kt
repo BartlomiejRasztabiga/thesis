@@ -1,8 +1,8 @@
 package me.rasztabiga.thesis.query.domain.query.mapper
 
-import me.rasztabiga.thesis.query.adapter.`in`.rest.api.OrderDeliveryOfferResponse
 import me.rasztabiga.thesis.query.domain.query.entity.DeliveryStatus
 import me.rasztabiga.thesis.query.domain.query.entity.OrderDeliveryEntity
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryOfferResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryCreatedEvent
 import java.time.Instant

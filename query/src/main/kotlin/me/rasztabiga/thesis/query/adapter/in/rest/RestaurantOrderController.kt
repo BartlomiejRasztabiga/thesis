@@ -2,8 +2,8 @@
 
 package me.rasztabiga.thesis.query.adapter.`in`.rest
 
-import me.rasztabiga.thesis.query.adapter.`in`.rest.api.RestaurantOrderResponse
 import me.rasztabiga.thesis.query.domain.query.query.FindAllRestaurantOrdersByRestaurantQuery
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantOrderResponse
 import me.rasztabiga.thesis.shared.security.Scopes.RESTAURANT
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway
 import org.axonframework.messaging.responsetypes.ResponseTypes

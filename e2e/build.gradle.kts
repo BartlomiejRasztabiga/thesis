@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
     id("org.springframework.boot") version "3.1.5"
@@ -34,7 +35,7 @@ val axonVersion = "4.8.4"
 val kotestVersion = "5.7.2"
 
 dependencies {
-    implementation("me.rasztabiga.thesis:shared:0.17.10")
+    implementation("me.rasztabiga.thesis:shared:0.17.11")
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -53,7 +54,7 @@ dependencies {
 
     testImplementation("io.rest-assured:rest-assured:5.3.2")
     testImplementation("io.rest-assured:kotlin-extensions:5.3.2")
-    testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.17.10"))
+    testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.17.11"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.axonframework:axon-test")
@@ -69,6 +70,9 @@ dependencyManagement {
         mavenBom("org.axonframework:axon-bom:${axonVersion}")
     }
 }
+
+val bootJar: BootJar by tasks
+bootJar.enabled = false
 
 tasks.withType<KotlinCompile> {
     kotlinOptions {

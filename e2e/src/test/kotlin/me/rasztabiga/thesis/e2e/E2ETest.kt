@@ -14,6 +14,7 @@ import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateUserRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantAvailability
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantOrderResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.StartOrderRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateCourierAvailabilityRequest
@@ -133,6 +134,7 @@ class E2ETest {
         finalizeOrder()
 
         // sleep for 5 seconds to let the order be processed by stripe
+        // TODO replace with active await
         Thread.sleep(5000)
 
         setStripeSessionUrl()
@@ -150,8 +152,9 @@ class E2ETest {
 
         driver.quit()
 
-        // sleep for 5 seconds to let the order be processed by payments service
-        Thread.sleep(5000)
+        // sleep for 10 seconds to let the order be processed by payments service
+        // TODO replace with active await
+        Thread.sleep(10000)
 
         given(orderingUserRequestSpecification)
             .`when`()
@@ -166,7 +169,15 @@ class E2ETest {
         val restaurantOrders = given(restaurantManagerRequestSpecification)
             .`when`()
             .get("/restaurants/${restaurantId}/orders")
-            .body.`as`(RestaurantOrder)
+            .then()
+            .statusCode(200)
+            .extract()
+            .body()
+            .jsonPath()
+            .getList("", RestaurantOrderResponse::class.java)
+
+        val restaurantOrder = restaurantOrders.first { it.orderId == orderId }
+
     }
 
     private fun prepareRestaurantOrder() {
@@ -201,7 +212,6 @@ class E2ETest {
         } else {
             // create restaurant
             val createRestaurantRequest = CreateRestaurantRequest(
-                id = UUID.randomUUID(),
                 name = "Restaurant",
                 address = "Cypryjska 70, 02-762 Warszawa",
                 email = "bartlomiej.rasztabiga.official+restaurant@gmail.com",

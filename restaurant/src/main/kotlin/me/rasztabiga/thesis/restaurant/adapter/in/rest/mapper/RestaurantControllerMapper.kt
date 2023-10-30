@@ -23,7 +23,7 @@ object RestaurantControllerMapper {
         exchange: ServerWebExchange
     ): CreateRestaurantCommand {
         return CreateRestaurantCommand(
-            id = request.id,
+            id = UUID.randomUUID(),
             managerId = exchange.getUserId(),
             email = request.email,
             name = request.name,

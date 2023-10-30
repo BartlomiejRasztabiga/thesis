@@ -1,7 +1,7 @@
 package me.rasztabiga.thesis.query.domain.query.mapper
 
-import me.rasztabiga.thesis.query.adapter.`in`.rest.api.RestaurantOrderResponse
 import me.rasztabiga.thesis.query.domain.query.entity.RestaurantOrderEntity
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantOrderResponse
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderCreatedEvent
 import java.time.Instant
 
