@@ -5,10 +5,14 @@ import io.restassured.RestAssured.given
 import io.restassured.builder.RequestSpecBuilder
 import io.restassured.builder.ResponseSpecBuilder
 import io.restassured.specification.RequestSpecification
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CourierAvailability
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateDeliveryAddressRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateRestaurantRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateUserRequest
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantAvailability
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateCourierAvailabilityRequest
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateCourierLocationRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateRestaurantAvailabilityRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateRestaurantMenuRequest
 import org.hamcrest.Matchers.lessThan
@@ -22,8 +26,11 @@ class E2ETest {
 
     private lateinit var restaurantManagerRequestSpecification: RequestSpecification
     private lateinit var orderingUserRequestSpecification: RequestSpecification
+    private lateinit var courierRequestSpecification: RequestSpecification
+
     private lateinit var restaurantId: UUID
     private lateinit var userId: String
+    private lateinit var courierId: String
 
     val log = LoggerFactory.getLogger(E2ETest::class.java)
 
@@ -41,6 +48,11 @@ class E2ETest {
             .setAuth(RestAssured.oauth2(getOrderingUserToken()))
             .build()
 
+        courierRequestSpecification = RequestSpecBuilder()
+            .setBaseUri(baseUri)
+            .setAuth(RestAssured.oauth2(getCourierToken()))
+            .build()
+
         val responseSpecification = ResponseSpecBuilder()
             .expectResponseTime(lessThan(2L), TimeUnit.SECONDS)
             .build()
@@ -52,6 +64,10 @@ class E2ETest {
     fun e2e() {
         setupRestaurant()
         setupOrderingUser()
+        setupCourier()
+
+
+        // TODO how to pay with stripe programmatically? Selenium?
     }
 
     private fun setupRestaurant() {
@@ -62,6 +78,12 @@ class E2ETest {
 
     private fun setupOrderingUser() {
         createOrUseExistingUser()
+    }
+
+    private fun setupCourier() {
+        createOrUseExistingCourier()
+        updateCourierAvailability()
+        updateCourierLocation()
     }
 
     private fun createOrUseExistingRestaurant() {
@@ -126,6 +148,8 @@ class E2ETest {
             .put("/restaurants/$restaurantId/menu")
             .then()
             .statusCode(200)
+
+        log.info("Restaurant menu updated")
     }
 
     private fun updateRestaurantAvailability() {
@@ -140,6 +164,8 @@ class E2ETest {
             .put("/restaurants/$restaurantId/availability")
             .then()
             .statusCode(200)
+
+        log.info("Restaurant availability updated")
     }
 
     private fun createOrUseExistingUser() {
@@ -198,6 +224,71 @@ class E2ETest {
         log.info("Delivery address created")
     }
 
+    private fun createOrUseExistingCourier() {
+        // try to get current courier
+        val courierResponse = given(courierRequestSpecification)
+            .`when`()
+            .get("/couriers/me")
+
+        if (courierResponse.statusCode == 200) {
+            courierId = courierResponse
+                .then()
+                .extract()
+                .path("id")
+
+            log.info("Courier already exists: $courierId")
+        } else {
+            val request = CreateUserRequest(
+                name = "Courier",
+                email = "bartlomiej.rasztabiga.official+courier@gmail.com"
+            )
+
+            courierId = given(courierRequestSpecification)
+                .contentType("application/json")
+                .body(request)
+                .`when`()
+                .post("/couriers")
+                .then()
+                .statusCode(201)
+                .extract()
+                .path("id")
+
+            log.info("Courier created: $courierId")
+        }
+    }
+
+    private fun updateCourierAvailability() {
+        val request = UpdateCourierAvailabilityRequest(
+            availability = CourierAvailability.ONLINE
+        )
+
+        given(courierRequestSpecification)
+            .contentType("application/json")
+            .body(request)
+            .`when`()
+            .put("/couriers/me/availability")
+            .then()
+            .statusCode(200)
+
+        log.info("Courier availability updated")
+    }
+
+    private fun updateCourierLocation() {
+        val request = UpdateCourierLocationRequest(
+            location = Location(lat = 52.181564, lng = 21.026544, streetAddress = null)
+        )
+
+        given(courierRequestSpecification)
+            .contentType("application/json")
+            .body(request)
+            .`when`()
+            .put("/couriers/me/location")
+            .then()
+            .statusCode(200)
+
+        log.info("Courier location updated")
+    }
+
     private fun getRestaurantManagerToken(): String {
         return given()
             .contentType("application/x-www-form-urlencoded; charset=UTF-8")
@@ -229,6 +320,26 @@ class E2ETest {
             .formParam("client_id", "BVxjiTTdPPXMpUj8gm1KoGgkkQ1fObF4")
             .formParam("client_secret", "gqzR7iyZF5N-l9RTRP9CYCds57AhuHewOsQ3VdPyXxovMPvI61F3-DdXw_qNbNhu")
             .formParam("scope", "read:users write:users read:orders write:orders")
+            .`when`()
+            .post("https://rasztabigab.eu.auth0.com/oauth/token")
+            .then()
+            .statusCode(200)
+            .and()
+            .extract()
+            .path("access_token")
+    }
+
+    private fun getCourierToken(): String {
+        return given()
+            .contentType("application/x-www-form-urlencoded; charset=UTF-8")
+            .accept("application/json")
+            .formParam("grant_type", "password")
+            .formParam("audience", "https://thesis.rasztabiga.me/api")
+            .formParam("username", "delivery@thesis.rasztabiga.me")
+            .formParam("password", "Fuzpa9-sygfyx-xurjif")
+            .formParam("client_id", "BVxjiTTdPPXMpUj8gm1KoGgkkQ1fObF4")
+            .formParam("client_secret", "gqzR7iyZF5N-l9RTRP9CYCds57AhuHewOsQ3VdPyXxovMPvI61F3-DdXw_qNbNhu")
+            .formParam("scope", "read:deliveries write:deliveries read:couriers write:couriers read:users write:users")
             .`when`()
             .post("https://rasztabigab.eu.auth0.com/oauth/token")
             .then()
