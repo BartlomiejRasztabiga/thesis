@@ -1,6 +1,5 @@
-package me.rasztabiga.thesis.query.adapter.`in`.rest.api
+package me.rasztabiga.thesis.shared.adapter.`in`.rest.api
 
-import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import java.math.BigDecimal
 import java.util.*
 

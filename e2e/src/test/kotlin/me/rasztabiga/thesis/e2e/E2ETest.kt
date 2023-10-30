@@ -163,7 +163,10 @@ class E2ETest {
     }
 
     private fun acceptRestaurantOrder() {
-        TODO()
+        val restaurantOrders = given(restaurantManagerRequestSpecification)
+            .`when`()
+            .get("/restaurants/${restaurantId}/orders")
+            .body.`as`(RestaurantOrder)
     }
 
     private fun prepareRestaurantOrder() {
