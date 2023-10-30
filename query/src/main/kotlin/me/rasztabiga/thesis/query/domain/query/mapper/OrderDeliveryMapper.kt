@@ -31,6 +31,7 @@ object OrderDeliveryMapper {
             deliveryLocation = entity.deliveryLocation,
             status = OrderDeliveryResponse.DeliveryStatus.valueOf(entity.status.name),
             courierFee = entity.courierFee,
+            courierIdsDeclined = entity.courierIdsDeclined,
             createdAt = entity.createdAt
         )
     }

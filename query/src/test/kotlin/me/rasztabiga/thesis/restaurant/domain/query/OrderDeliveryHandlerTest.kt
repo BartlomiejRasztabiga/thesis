@@ -10,10 +10,10 @@ import me.rasztabiga.thesis.restaurant.domain.query.repository.InMemoryOrderDeli
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryCreatedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryRejectedEvent
 import me.rasztabiga.thesis.shared.domain.query.query.FindOrderDeliveryByIdQuery
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import java.math.BigDecimal
 import java.util.*
 
 class OrderDeliveryHandlerTest {
@@ -51,6 +51,35 @@ class OrderDeliveryHandlerTest {
         savedOrderDelivery?.deliveryLocation shouldBe event.deliveryLocation
         savedOrderDelivery?.status shouldBe OrderDeliveryResponse.DeliveryStatus.OFFER
         savedOrderDelivery?.courierFee shouldBe event.courierFee
+        savedOrderDelivery?.createdAt shouldNotBe null
+    }
+
+    @Test
+    fun `should handle OrderDeliveryRejectedEvent`() {
+        val orderDeliveryCreatedEvent = OrderDeliveryCreatedEvent(
+            deliveryId = UUID.randomUUID(),
+            orderId = UUID.randomUUID(),
+            restaurantLocation = Location(1.0, 1.0, null),
+            deliveryLocation = Location(2.0, 2.0, null),
+            courierFee = 1.toBigDecimal(),
+        )
+
+        val orderDeliveryRejectedEvent = OrderDeliveryRejectedEvent(
+            deliveryId = orderDeliveryCreatedEvent.deliveryId,
+            courierId = UUID.randomUUID().toString()
+        )
+
+        orderDeliveryHandler.on(orderDeliveryCreatedEvent)
+        orderDeliveryHandler.on(orderDeliveryRejectedEvent)
+
+        val savedOrderDelivery =
+            orderDeliveryHandler.handle(FindOrderDeliveryByIdQuery(orderDeliveryRejectedEvent.deliveryId)).block()
+        savedOrderDelivery shouldNotBe null
+        savedOrderDelivery?.id shouldBe orderDeliveryCreatedEvent.deliveryId
+        savedOrderDelivery?.restaurantLocation shouldBe orderDeliveryCreatedEvent.restaurantLocation
+        savedOrderDelivery?.deliveryLocation shouldBe orderDeliveryCreatedEvent.deliveryLocation
+        savedOrderDelivery?.status shouldBe OrderDeliveryResponse.DeliveryStatus.OFFER
+        savedOrderDelivery?.courierFee shouldBe orderDeliveryCreatedEvent.courierFee
         savedOrderDelivery?.createdAt shouldNotBe null
     }
 }
