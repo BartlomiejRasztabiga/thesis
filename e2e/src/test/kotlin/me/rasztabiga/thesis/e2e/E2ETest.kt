@@ -12,6 +12,7 @@ import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateDeliveryAddressRe
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateRestaurantRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateUserRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryOfferResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantAvailability
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantOrderResponse
@@ -219,7 +220,12 @@ class E2ETest {
     }
 
     private fun acceptDeliveryOffer() {
-        TODO()
+        val offer = given(orderingUserRequestSpecification)
+            .`when`()
+            .get("/deliveries/offer")
+            .body.`as`(OrderDeliveryOfferResponse::class.java)
+
+
     }
 
     private fun pickupDelivery() {

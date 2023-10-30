@@ -5,6 +5,7 @@ import java.util.*
 
 data class OrderDeliveryOfferResponse(
     val id: UUID,
+    val orderId: UUID,
     val restaurantLocation: Location,
     val distanceToRestaurantInKm: Double,
     val deliveryLocation: Location,
