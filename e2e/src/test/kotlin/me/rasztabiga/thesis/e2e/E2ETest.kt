@@ -1,6 +1,5 @@
 package me.rasztabiga.thesis.e2e
 
-import io.kotest.matchers.equals.shouldBeEqual
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
 import io.restassured.builder.RequestSpecBuilder
@@ -15,6 +14,7 @@ import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryOfferResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.PayeeResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantAvailability
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantOrderResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
@@ -23,6 +23,7 @@ import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateCourierAvailabili
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateCourierLocationRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateRestaurantAvailabilityRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateRestaurantMenuRequest
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.WithdrawBalanceRequest
 import org.hamcrest.Matchers.lessThan
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
@@ -110,7 +111,9 @@ class E2ETest {
         pickupDelivery()
         deliverDelivery()
 
-        // TODO test payments and withdrawals?
+        // payments
+        withdrawRestaurantBalance()
+        withdrawCourierBalance()
     }
 
     private fun setupRestaurant() {
@@ -133,11 +136,6 @@ class E2ETest {
         startOrder()
         addOrderItems()
         finalizeOrder()
-
-        // sleep for 5 seconds to let the order be processed by stripe
-        // TODO replace with active await
-        Thread.sleep(5000)
-
         setStripeSessionUrl()
     }
 
@@ -159,19 +157,19 @@ class E2ETest {
             driver.currentUrl.contains("tracking")
         }
 
-        // sleep for 5 seconds to let the order be processed by payments service
-        // TODO replace with active await
-        Thread.sleep(5000)
-
         driver.quit()
 
-        given(orderingUserRequestSpecification)
-            .`when`()
-            .get("/orders/$orderId")
-            .then()
-            .statusCode(200)
-            .extract()
-            .path<String>("status").shouldBeEqual("PAID")
+        while (true) {
+            val order = given(orderingUserRequestSpecification)
+                .`when`()
+                .get("/orders/$orderId")
+                .body.`as`(OrderResponse::class.java)
+
+            if (order.status == OrderResponse.OrderStatus.PAID) {
+                break
+            }
+
+        }
 
         log.info("Order paid")
     }
@@ -236,8 +234,6 @@ class E2ETest {
                     .put("/deliveries/${offer.id}/reject")
                     .then()
                     .statusCode(200)
-
-                Thread.sleep(1000)
             }
         }
 
@@ -286,6 +282,56 @@ class E2ETest {
             .statusCode(200)
 
         log.info("Delivery delivered")
+    }
+
+    private fun withdrawRestaurantBalance() {
+        val payee = given(restaurantManagerRequestSpecification)
+            .`when`()
+            .get("/payees/me")
+            .body.`as`(PayeeResponse::class.java)
+
+        require(payee.balance > 0.toBigDecimal()) {
+            "Payee balance is not positive."
+        }
+
+        val request = WithdrawBalanceRequest(
+            amount = payee.balance,
+            targetBankAccount = "targetBankAccount",
+        )
+
+        given(restaurantManagerRequestSpecification)
+            .body(request)
+            .`when`()
+            .put("/payees/${payee.id}/withdraw")
+            .then()
+            .statusCode(200)
+
+        log.info("Restaurant balance withdrawn")
+    }
+
+    private fun withdrawCourierBalance() {
+        val payee = given(courierRequestSpecification)
+            .`when`()
+            .get("/payees/me")
+            .body.`as`(PayeeResponse::class.java)
+
+        require(payee.balance > 0.toBigDecimal()) {
+            "Payee balance is not positive."
+        }
+
+        val request = WithdrawBalanceRequest(
+            amount = payee.balance,
+            targetBankAccount = "targetBankAccount",
+        )
+
+        given(courierRequestSpecification)
+            .body(request)
+            .`when`()
+            .put("/payees/${payee.id}/withdraw")
+            .then()
+            .statusCode(200)
+
+        log.info("Courier balance withdrawn")
     }
 
     private fun createOrUseExistingRestaurant() {
@@ -544,10 +590,18 @@ class E2ETest {
     }
 
     private fun setStripeSessionUrl() {
-        val response = given(orderingUserRequestSpecification)
-            .`when`()
-            .get("/orders/$orderId")
-            .body.`as`(OrderResponse::class.java)
+        lateinit var response: OrderResponse
+
+        while (true) {
+            response = given(orderingUserRequestSpecification)
+                .`when`()
+                .get("/orders/$orderId")
+                .body.`as`(OrderResponse::class.java)
+
+            if (response.paymentSessionUrl != null) {
+                break
+            }
+        }
 
         requireNotNull(response.paymentSessionUrl)
 
