@@ -5,7 +5,9 @@ import io.restassured.RestAssured.given
 import io.restassured.builder.RequestSpecBuilder
 import io.restassured.builder.ResponseSpecBuilder
 import io.restassured.specification.RequestSpecification
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateDeliveryAddressRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateRestaurantRequest
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateUserRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantAvailability
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateRestaurantAvailabilityRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateRestaurantMenuRequest
@@ -19,16 +21,24 @@ import java.util.concurrent.TimeUnit
 class E2ETest {
 
     private lateinit var restaurantManagerRequestSpecification: RequestSpecification
+    private lateinit var orderingUserRequestSpecification: RequestSpecification
     private lateinit var restaurantId: UUID
+    private lateinit var userId: String
 
     val log = LoggerFactory.getLogger(E2ETest::class.java)
 
     @BeforeEach
     fun setUp() {
+        val baseUri = "https://thesis.rasztabiga.me/api/v1"
+
         restaurantManagerRequestSpecification = RequestSpecBuilder()
-            .setBaseUri("https://thesis.rasztabiga.me/api/v1")
-//            .setBaseUri("http://localhost:8100/api/v1")
+            .setBaseUri(baseUri)
             .setAuth(RestAssured.oauth2(getRestaurantManagerToken()))
+            .build()
+
+        orderingUserRequestSpecification = RequestSpecBuilder()
+            .setBaseUri(baseUri)
+            .setAuth(RestAssured.oauth2(getOrderingUserToken()))
             .build()
 
         val responseSpecification = ResponseSpecBuilder()
@@ -41,12 +51,17 @@ class E2ETest {
     @Test
     fun e2e() {
         setupRestaurant()
+        setupOrderingUser()
     }
 
     private fun setupRestaurant() {
         createOrUseExistingRestaurant()
         updateRestaurantMenu()
         updateRestaurantAvailability()
+    }
+
+    private fun setupOrderingUser() {
+        createOrUseExistingUser()
     }
 
     private fun createOrUseExistingRestaurant() {
@@ -127,7 +142,63 @@ class E2ETest {
             .statusCode(200)
     }
 
-    private fun getRestaurantManagerToken(): String? {
+    private fun createOrUseExistingUser() {
+        // try to get current user
+        val userResponse = given(orderingUserRequestSpecification)
+            .`when`()
+            .get("/users/me")
+
+        if (userResponse.statusCode == 200) {
+            userId = userResponse
+                .then()
+                .extract()
+                .path("id")
+
+            if (userResponse.then().extract().path<List<Any>>("deliveryAddresses").isEmpty()) {
+                createDeliveryAddress()
+            }
+
+            log.info("User already exists: $userId")
+        } else {
+            val request = CreateUserRequest(
+                name = "User",
+                email = "bartlomiej.rasztabiga.official+user@gmail.com"
+            )
+
+            userId = given(orderingUserRequestSpecification)
+                .contentType("application/json")
+                .body(request)
+                .`when`()
+                .post("/users")
+                .then()
+                .statusCode(201)
+                .extract()
+                .path("id")
+
+            createDeliveryAddress()
+
+            log.info("User created: $userId")
+        }
+    }
+
+    private fun createDeliveryAddress() {
+        val request = CreateDeliveryAddressRequest(
+            address = "Bukowińska 26C, 02-703 Warszawa",
+            additionalInfo = null
+        )
+
+        given(orderingUserRequestSpecification)
+            .contentType("application/json")
+            .body(request)
+            .`when`()
+            .post("/users/$userId/addresses")
+            .then()
+            .statusCode(201)
+
+        log.info("Delivery address created")
+    }
+
+    private fun getRestaurantManagerToken(): String {
         return given()
             .contentType("application/x-www-form-urlencoded; charset=UTF-8")
             .accept("application/json")
@@ -144,6 +215,26 @@ class E2ETest {
             .statusCode(200)
             .and()
             .extract()
-            .path<String>("access_token")
+            .path("access_token")
+    }
+
+    private fun getOrderingUserToken(): String {
+        return given()
+            .contentType("application/x-www-form-urlencoded; charset=UTF-8")
+            .accept("application/json")
+            .formParam("grant_type", "password")
+            .formParam("audience", "https://thesis.rasztabiga.me/api")
+            .formParam("username", "user@thesis.rasztabiga.me")
+            .formParam("password", "qabdyq-kepTed-xikke2")
+            .formParam("client_id", "BVxjiTTdPPXMpUj8gm1KoGgkkQ1fObF4")
+            .formParam("client_secret", "gqzR7iyZF5N-l9RTRP9CYCds57AhuHewOsQ3VdPyXxovMPvI61F3-DdXw_qNbNhu")
+            .formParam("scope", "read:users write:users read:orders write:orders")
+            .`when`()
+            .post("https://rasztabigab.eu.auth0.com/oauth/token")
+            .then()
+            .statusCode(200)
+            .and()
+            .extract()
+            .path("access_token")
     }
 }
