@@ -1,5 +1,6 @@
 package me.rasztabiga.thesis.e2e
 
+import com.fasterxml.jackson.databind.exc.MismatchedInputException
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
 import io.restassured.builder.RequestSpecBuilder
@@ -221,10 +222,14 @@ class E2ETest {
     private fun acceptDeliveryOffer() {
         lateinit var offer: OrderDeliveryOfferResponse
         while (true) {
-            offer = given(courierRequestSpecification)
-                .`when`()
-                .get("/deliveries/offer")
-                .body.`as`(OrderDeliveryOfferResponse::class.java)
+            try {
+                offer = given(courierRequestSpecification)
+                    .`when`()
+                    .get("/deliveries/offer")
+                    .body.`as`(OrderDeliveryOfferResponse::class.java)
+            } catch (e: MismatchedInputException) {
+                continue
+            }
 
             if (offer.orderId == orderId) {
                 break
@@ -285,13 +290,17 @@ class E2ETest {
     }
 
     private fun withdrawRestaurantBalance() {
-        val payee = given(restaurantManagerRequestSpecification)
-            .`when`()
-            .get("/payees/me")
-            .body.`as`(PayeeResponse::class.java)
+        lateinit var payee: PayeeResponse
 
-        require(payee.balance > 0.toBigDecimal()) {
-            "Payee balance is not positive."
+        while (true) {
+            payee = given(restaurantManagerRequestSpecification)
+                .`when`()
+                .get("/payees/me")
+                .body.`as`(PayeeResponse::class.java)
+
+            if (payee.balance > 0.toBigDecimal()) {
+                break
+            }
         }
 
         val request = WithdrawBalanceRequest(

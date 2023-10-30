@@ -16,6 +16,13 @@ spec:
         - env:
             - name: AXON_AXONSERVER_SERVERS
               value: axonserver
+            - name: SPRING_PROFILES_ACTIVE
+              value: gmaps
+            - name: GMAPS_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: gmaps-api-key
+                  key: key
           image: ghcr.io/bartlomiejrasztabiga/thesis/restaurant:0.17.16
           name: restaurant-service
           ports:
