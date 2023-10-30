@@ -13,6 +13,7 @@ import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateRestaurantRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateUserRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryOfferResponse
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantAvailability
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantOrderResponse
@@ -154,7 +155,7 @@ class E2ETest {
         driver.findElement(By.cssSelector("button[type='submit']")).click()
 
         // wait for redirect
-        WebDriverWait(driver, Duration.ofSeconds(5)).until {
+        WebDriverWait(driver, Duration.ofSeconds(10)).until {
             driver.currentUrl.contains("tracking")
         }
 
@@ -220,20 +221,60 @@ class E2ETest {
     }
 
     private fun acceptDeliveryOffer() {
-        val offer = given(orderingUserRequestSpecification)
+        val offer = given(courierRequestSpecification)
             .`when`()
             .get("/deliveries/offer")
             .body.`as`(OrderDeliveryOfferResponse::class.java)
 
+        require(offer.orderId == orderId) {
+            "Offer order id does not match. Cleanup required!"
+        }
 
+        given(courierRequestSpecification)
+            .`when`()
+            .put("/deliveries/${offer.id}/accept")
+            .then()
+            .statusCode(200)
+
+        log.info("Delivery offer accepted")
     }
 
     private fun pickupDelivery() {
-        TODO()
+        val delivery = given(courierRequestSpecification)
+            .`when`()
+            .get("/deliveries/current")
+            .body.`as`(OrderDeliveryResponse::class.java)
+
+        require(delivery.orderId == orderId) {
+            "Delivery order id does not match. Cleanup required!"
+        }
+
+        given(courierRequestSpecification)
+            .`when`()
+            .put("/deliveries/${delivery.id}/pickup")
+            .then()
+            .statusCode(200)
+
+        log.info("Delivery picked up")
     }
 
     private fun deliverDelivery() {
-        TODO()
+        val delivery = given(courierRequestSpecification)
+            .`when`()
+            .get("/deliveries/current")
+            .body.`as`(OrderDeliveryResponse::class.java)
+
+        require(delivery.orderId == orderId) {
+            "Delivery order id does not match. Cleanup required!"
+        }
+
+        given(courierRequestSpecification)
+            .`when`()
+            .put("/deliveries/${delivery.id}/deliver")
+            .then()
+            .statusCode(200)
+
+        log.info("Delivery delivered")
     }
 
     private fun createOrUseExistingRestaurant() {
