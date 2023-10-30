@@ -49,7 +49,8 @@ object OrderDeliveryMapper {
             deliveryLocation = entity.deliveryLocation,
             distanceToDeliveryAddressInKm = distanceToDeliveryAddressInKm,
             status = OrderDeliveryOfferResponse.DeliveryStatus.valueOf(entity.status.name),
-            courierFee = entity.courierFee
+            courierFee = entity.courierFee,
+            courierIdsDeclined = entity.courierIdsDeclined
         )
     }
 }
