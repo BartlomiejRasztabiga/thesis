@@ -27,8 +27,10 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.openqa.selenium.By
 import org.openqa.selenium.chrome.ChromeDriver
+import org.openqa.selenium.support.ui.WebDriverWait
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import java.time.Duration
 import java.util.*
 import java.util.concurrent.TimeUnit
 
@@ -79,9 +81,6 @@ class E2ETest {
             .build()
 
         RestAssured.responseSpecification = responseSpecification
-
-        driver = ChromeDriver()
-        driver.manage().timeouts().implicitlyWait(java.time.Duration.ofMillis(500))
     }
 
     @AfterEach
@@ -141,6 +140,9 @@ class E2ETest {
     }
 
     private fun payOrder() {
+        driver = ChromeDriver()
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5))
+
         driver.get(stripeSessionUrl)
 
         driver.findElement(By.id("email")).sendKeys("test@example.com")
@@ -150,11 +152,16 @@ class E2ETest {
         driver.findElement(By.id("billingName")).sendKeys("Test User")
         driver.findElement(By.cssSelector("button[type='submit']")).click()
 
-        driver.quit()
+        // wait for redirect
+        WebDriverWait(driver, Duration.ofSeconds(5)).until {
+            driver.currentUrl.contains("tracking")
+        }
 
-        // sleep for 10 seconds to let the order be processed by payments service
+        // sleep for 5 seconds to let the order be processed by payments service
         // TODO replace with active await
-        Thread.sleep(10000)
+        Thread.sleep(5000)
+
+        driver.quit()
 
         given(orderingUserRequestSpecification)
             .`when`()
@@ -163,6 +170,8 @@ class E2ETest {
             .statusCode(200)
             .extract()
             .path<String>("status").shouldBeEqual("PAID")
+
+        log.info("Order paid")
     }
 
     private fun acceptRestaurantOrder() {
@@ -178,10 +187,35 @@ class E2ETest {
 
         val restaurantOrder = restaurantOrders.first { it.orderId == orderId }
 
+        given(restaurantManagerRequestSpecification)
+            .`when`()
+            .put("/restaurants/${restaurantId}/orders/${restaurantOrder.restaurantOrderId}/accept")
+            .then()
+            .statusCode(200)
+
+        log.info("Restaurant order accepted")
     }
 
     private fun prepareRestaurantOrder() {
-        TODO()
+        val restaurantOrders = given(restaurantManagerRequestSpecification)
+            .`when`()
+            .get("/restaurants/${restaurantId}/orders")
+            .then()
+            .statusCode(200)
+            .extract()
+            .body()
+            .jsonPath()
+            .getList("", RestaurantOrderResponse::class.java)
+
+        val restaurantOrder = restaurantOrders.first { it.orderId == orderId }
+
+        given(restaurantManagerRequestSpecification)
+            .`when`()
+            .put("/restaurants/${restaurantId}/orders/${restaurantOrder.restaurantOrderId}/prepare")
+            .then()
+            .statusCode(200)
+
+        log.info("Restaurant order prepared")
     }
 
     private fun acceptDeliveryOffer() {
