@@ -5,12 +5,17 @@ import io.restassured.RestAssured.given
 import io.restassured.builder.RequestSpecBuilder
 import io.restassured.builder.ResponseSpecBuilder
 import io.restassured.specification.RequestSpecification
+import kotlinx.coroutines.delay
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.AddOrderItemRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CourierAvailability
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateDeliveryAddressRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateRestaurantRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CreateUserRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantAvailability
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.StartOrderRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateCourierAvailabilityRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateCourierLocationRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateRestaurantAvailabilityRequest
@@ -18,9 +23,11 @@ import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateRestaurantMenuReq
 import org.hamcrest.Matchers.lessThan
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.util.*
 import java.util.concurrent.TimeUnit
+import kotlin.time.Duration
 
 class E2ETest {
 
@@ -32,7 +39,13 @@ class E2ETest {
     private lateinit var userId: String
     private lateinit var courierId: String
 
-    val log = LoggerFactory.getLogger(E2ETest::class.java)
+    private lateinit var product1Id: UUID
+    private lateinit var product2Id: UUID
+
+    private lateinit var orderId: UUID
+    private lateinit var stripeSessionUrl: String
+
+    private val log: Logger = LoggerFactory.getLogger(E2ETest::class.java)
 
     @BeforeEach
     fun setUp() {
@@ -41,16 +54,19 @@ class E2ETest {
         restaurantManagerRequestSpecification = RequestSpecBuilder()
             .setBaseUri(baseUri)
             .setAuth(RestAssured.oauth2(getRestaurantManagerToken()))
+            .setContentType("application/json")
             .build()
 
         orderingUserRequestSpecification = RequestSpecBuilder()
             .setBaseUri(baseUri)
             .setAuth(RestAssured.oauth2(getOrderingUserToken()))
+            .setContentType("application/json")
             .build()
 
         courierRequestSpecification = RequestSpecBuilder()
             .setBaseUri(baseUri)
             .setAuth(RestAssured.oauth2(getCourierToken()))
+            .setContentType("application/json")
             .build()
 
         val responseSpecification = ResponseSpecBuilder()
@@ -65,6 +81,8 @@ class E2ETest {
         setupRestaurant()
         setupOrderingUser()
         setupCourier()
+
+        createOrder()
 
 
         // TODO how to pay with stripe programmatically? Selenium?
@@ -84,6 +102,17 @@ class E2ETest {
         createOrUseExistingCourier()
         updateCourierAvailability()
         updateCourierLocation()
+    }
+
+    private fun createOrder() {
+        startOrder()
+        addOrderItems()
+        finalizeOrder()
+
+        // sleep for 5 seconds to let the order be processed by stripe
+        Thread.sleep(5000)
+
+        setStripeSessionUrl()
     }
 
     private fun createOrUseExistingRestaurant() {
@@ -110,7 +139,6 @@ class E2ETest {
             )
 
             restaurantId = given(restaurantManagerRequestSpecification)
-                .contentType("application/json")
                 .body(createRestaurantRequest)
                 .`when`()
                 .post("/restaurants")
@@ -142,12 +170,19 @@ class E2ETest {
         )
 
         given(restaurantManagerRequestSpecification)
-            .contentType("application/json")
             .body(request)
             .`when`()
             .put("/restaurants/$restaurantId/menu")
             .then()
             .statusCode(200)
+
+        val menu = given(restaurantManagerRequestSpecification)
+            .`when`()
+            .get("/restaurants/me")
+            .body.`as`(RestaurantResponse::class.java)
+
+        product1Id = menu.menu[0].id
+        product2Id = menu.menu[1].id
 
         log.info("Restaurant menu updated")
     }
@@ -158,7 +193,6 @@ class E2ETest {
         )
 
         given(restaurantManagerRequestSpecification)
-            .contentType("application/json")
             .body(request)
             .`when`()
             .put("/restaurants/$restaurantId/availability")
@@ -192,7 +226,6 @@ class E2ETest {
             )
 
             userId = given(orderingUserRequestSpecification)
-                .contentType("application/json")
                 .body(request)
                 .`when`()
                 .post("/users")
@@ -214,7 +247,6 @@ class E2ETest {
         )
 
         given(orderingUserRequestSpecification)
-            .contentType("application/json")
             .body(request)
             .`when`()
             .post("/users/$userId/addresses")
@@ -244,7 +276,6 @@ class E2ETest {
             )
 
             courierId = given(courierRequestSpecification)
-                .contentType("application/json")
                 .body(request)
                 .`when`()
                 .post("/couriers")
@@ -263,7 +294,6 @@ class E2ETest {
         )
 
         given(courierRequestSpecification)
-            .contentType("application/json")
             .body(request)
             .`when`()
             .put("/couriers/me/availability")
@@ -279,7 +309,6 @@ class E2ETest {
         )
 
         given(courierRequestSpecification)
-            .contentType("application/json")
             .body(request)
             .`when`()
             .put("/couriers/me/location")
@@ -287,6 +316,72 @@ class E2ETest {
             .statusCode(200)
 
         log.info("Courier location updated")
+    }
+
+    private fun startOrder() {
+        val request = StartOrderRequest(
+            restaurantId = restaurantId,
+        )
+
+        orderId = given(orderingUserRequestSpecification)
+            .body(request)
+            .`when`()
+            .post("/orders")
+            .then()
+            .statusCode(201)
+            .extract()
+            .path<String>("id").let { UUID.fromString(it) }
+
+        log.info("Order started: $orderId")
+    }
+
+    private fun addOrderItems() {
+        var request = AddOrderItemRequest(
+            productId = product1Id
+        )
+
+        given(orderingUserRequestSpecification)
+            .body(request)
+            .`when`()
+            .post("/orders/$orderId/items")
+            .then()
+            .statusCode(201)
+
+        request = AddOrderItemRequest(
+            productId = product2Id
+        )
+
+        given(orderingUserRequestSpecification)
+            .body(request)
+            .`when`()
+            .post("/orders/$orderId/items")
+            .then()
+            .statusCode(201)
+
+        log.info("Order items added")
+    }
+
+    private fun finalizeOrder() {
+        given(orderingUserRequestSpecification)
+            .`when`()
+            .put("/orders/$orderId/finalize")
+            .then()
+            .statusCode(200)
+
+        log.info("Order finalized")
+    }
+
+    private fun setStripeSessionUrl() {
+        val response = given(orderingUserRequestSpecification)
+            .`when`()
+            .get("/orders/$orderId")
+            .body.`as`(OrderResponse::class.java)
+
+        requireNotNull(response.paymentSessionUrl)
+
+        stripeSessionUrl = response.paymentSessionUrl!!
+
+        log.info("Stripe session url set: $stripeSessionUrl")
     }
 
     private fun getRestaurantManagerToken(): String {
