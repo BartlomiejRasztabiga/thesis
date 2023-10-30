@@ -90,12 +90,25 @@ class E2ETest {
 
     @Test
     fun e2e() {
+        // setup
         setupRestaurant()
         setupOrderingUser()
         setupCourier()
 
+        // user
         createOrder()
         payOrder()
+
+        // restaurant
+        acceptRestaurantOrder()
+        prepareRestaurantOrder()
+
+        // courier
+        acceptDeliveryOffer()
+        pickupDelivery()
+        deliverDelivery()
+
+        // TODO test payments and withdrawals?
     }
 
     private fun setupRestaurant() {
@@ -147,6 +160,26 @@ class E2ETest {
             .statusCode(200)
             .extract()
             .path<String>("status").shouldBeEqual("PAID")
+    }
+
+    private fun acceptRestaurantOrder() {
+        TODO()
+    }
+
+    private fun prepareRestaurantOrder() {
+        TODO()
+    }
+
+    private fun acceptDeliveryOffer() {
+        TODO()
+    }
+
+    private fun pickupDelivery() {
+        TODO()
+    }
+
+    private fun deliverDelivery() {
+        TODO()
     }
 
     private fun createOrUseExistingRestaurant() {
