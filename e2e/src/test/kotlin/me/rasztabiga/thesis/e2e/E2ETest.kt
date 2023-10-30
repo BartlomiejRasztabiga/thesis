@@ -221,13 +221,24 @@ class E2ETest {
     }
 
     private fun acceptDeliveryOffer() {
-        val offer = given(courierRequestSpecification)
-            .`when`()
-            .get("/deliveries/offer")
-            .body.`as`(OrderDeliveryOfferResponse::class.java)
+        lateinit var offer: OrderDeliveryOfferResponse
+        while (true) {
+            offer = given(courierRequestSpecification)
+                .`when`()
+                .get("/deliveries/offer")
+                .body.`as`(OrderDeliveryOfferResponse::class.java)
 
-        require(offer.orderId == orderId) {
-            "Offer order id does not match. Cleanup required!"
+            if (offer.orderId == orderId) {
+                break
+            } else {
+                given(courierRequestSpecification)
+                    .`when`()
+                    .put("/deliveries/${offer.id}/reject")
+                    .then()
+                    .statusCode(200)
+
+                Thread.sleep(1000)
+            }
         }
 
         given(courierRequestSpecification)

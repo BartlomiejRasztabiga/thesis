@@ -48,7 +48,7 @@ spec:
           resources:
             requests:
               memory: "500Mi"
-              cpu: "125m"
+              cpu: "250m"
       restartPolicy: Always
       volumes:
         - name: axonserver-data

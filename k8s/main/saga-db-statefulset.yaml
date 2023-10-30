@@ -30,7 +30,7 @@ spec:
               value: saga
           resources:
             requests:
-              memory: "500Mi"
+              memory: "250Mi"
               cpu: "125m"
       restartPolicy: Always
       volumes:
