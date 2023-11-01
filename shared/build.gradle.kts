@@ -9,7 +9,7 @@ plugins {
     id("java-library")
     id("maven-publish")
     id("java-test-fixtures")
-    id("io.gitlab.arturbosch.detekt") version "1.23.1"
+    id("io.gitlab.arturbosch.detekt") version "1.23.3"
 }
 
 group = "me.rasztabiga.thesis"
