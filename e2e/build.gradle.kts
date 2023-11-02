@@ -4,9 +4,9 @@ import org.springframework.boot.gradle.tasks.bundling.BootJar
 plugins {
     id("org.springframework.boot") version "3.1.5"
     id("io.spring.dependency-management") version "1.1.3"
-    id("org.jetbrains.kotlin.jvm") version "1.9.0"
-    id("org.jetbrains.kotlin.plugin.spring") version "1.9.0"
-    id("io.gitlab.arturbosch.detekt") version "1.23.1"
+    id("org.jetbrains.kotlin.jvm") version "1.9.10"
+    id("org.jetbrains.kotlin.plugin.spring") version "1.9.10"
+    id("io.gitlab.arturbosch.detekt") version "1.23.3"
 }
 
 group = "me.rasztabiga.thesis"
@@ -31,11 +31,11 @@ repositories {
     }
 }
 
-val axonVersion = "4.8.4"
+val axonVersion = "4.9.0"
 val kotestVersion = "5.7.2"
 
 dependencies {
-    implementation("me.rasztabiga.thesis:shared:0.17.15")
+    implementation("me.rasztabiga.thesis:shared:0.18.0")
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -54,7 +54,7 @@ dependencies {
 
     testImplementation("io.rest-assured:rest-assured:5.3.2")
     testImplementation("io.rest-assured:kotlin-extensions:5.3.2")
-    testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.17.15"))
+    testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.18.0"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.axonframework:axon-test")

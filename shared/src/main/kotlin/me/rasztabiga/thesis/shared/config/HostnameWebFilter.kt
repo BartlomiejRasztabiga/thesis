@@ -10,7 +10,7 @@ import java.net.InetAddress
 
 @Component
 class HostnameWebFilter(
-    @Value("\${HOSTNAME}")
+    @Value("\${HOSTNAME:#{null}}")
     private val hostname: String?
 ) : WebFilter {
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
