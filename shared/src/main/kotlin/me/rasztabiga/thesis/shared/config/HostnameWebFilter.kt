@@ -10,10 +10,8 @@ import java.net.InetAddress
 @Component
 class HostnameWebFilter : WebFilter {
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
-        return Mono.deferContextual { context ->
-            val hostname = InetAddress.getLocalHost().hostName
-            exchange.response.headers.add("X-Hostname", hostname)
-            chain.filter(exchange)
-        }
+        val hostname = InetAddress.getLocalHost().hostName
+        exchange.response.headers.add("X-Hostname", hostname)
+        return chain.filter(exchange)
     }
 }
