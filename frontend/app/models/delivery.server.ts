@@ -5,7 +5,7 @@ export const getCurrentCourier = async (
   request: Request,
 ): Promise<CourierResponse> => {
   const axios = await getAxios(request);
-  return axios.get(`/api/v1/couriers/me`).then((res) => res.data);
+  return axios.get(`/api/v2/couriers/me`).then((res) => res.data);
 };
 
 export const updateCourierLocation = async (
@@ -32,14 +32,14 @@ export const getCurrentDelivery = async (
   request: Request,
 ): Promise<DeliveryResponse> => {
   const axios = await getAxios(request);
-  return axios.get(`/api/v1/deliveries/current`).then((res) => res.data);
+  return axios.get(`/api/v2/deliveries/current`).then((res) => res.data);
 };
 
 export const getDeliveryOffer = async (
   request: Request,
 ): Promise<DeliveryResponse> => {
   const axios = await getAxios(request);
-  return axios.get(`/api/v1/deliveries/offer`).then((res) => res.data);
+  return axios.get(`/api/v2/deliveries/offer`).then((res) => res.data);
 };
 
 export const acceptDeliveryOffer = async (
@@ -86,7 +86,7 @@ export const getAllDeliveries = async (
   request: Request,
 ): Promise<DeliveryResponse[]> => {
   const axios = await getAxios(request);
-  return axios.get(`/api/v1/deliveries`).then((res) => res.data);
+  return axios.get(`/api/vr/deliveries`).then((res) => res.data);
 };
 
 export interface CourierResponse {

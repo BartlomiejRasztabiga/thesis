@@ -16,7 +16,7 @@ import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 
 @RestController
-@RequestMapping("/api/v1/couriers")
+@RequestMapping("/api/v2/couriers")
 class CourierController(
     private val reactorQueryGateway: ReactorQueryGateway
 ) {

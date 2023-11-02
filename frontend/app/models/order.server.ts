@@ -7,12 +7,12 @@ export const getOrder = async (
   orderId: string,
 ): Promise<OrderResponse> => {
   const axios = await getAxios(request);
-  return axios.get(`/api/v1/orders/${orderId}`).then((res) => res.data);
+  return axios.get(`/api/v2/orders/${orderId}`).then((res) => res.data);
 };
 
 export const getOrders = async (request: Request): Promise<OrderResponse[]> => {
   const axios = await getAxios(request);
-  return axios.get(`/api/v1/orders`).then((res) => res.data);
+  return axios.get(`/api/v2/orders`).then((res) => res.data);
 };
 
 export const startOrder = async (

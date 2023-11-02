@@ -16,7 +16,7 @@ import reactor.core.publisher.Mono
 import java.util.*
 
 @RestController
-@RequestMapping("/api/v1/restaurants/{restaurantId}/orders")
+@RequestMapping("/api/v2/restaurants/{restaurantId}/orders")
 class RestaurantOrderController(
     private val reactorQueryGateway: ReactorQueryGateway
 ) {

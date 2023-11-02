@@ -4,7 +4,7 @@ export const getCurrentPayee = async (
   request: Request,
 ): Promise<PayeeResponse> => {
   const axios = await getAxios(request);
-  return axios.get(`/api/v1/payees/me`).then((res) => res.data);
+  return axios.get(`/api/v2/payees/me`).then((res) => res.data);
 };
 
 export const withdrawBalance = async (

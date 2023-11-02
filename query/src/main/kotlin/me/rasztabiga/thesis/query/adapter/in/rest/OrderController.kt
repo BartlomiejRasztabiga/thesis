@@ -20,7 +20,7 @@ import reactor.core.publisher.Mono
 import java.util.*
 
 @RestController
-@RequestMapping("/api/v1/orders")
+@RequestMapping("/api/v2/orders")
 class OrderController(
     private val reactorQueryGateway: ReactorQueryGateway
 ) {

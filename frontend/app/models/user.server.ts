@@ -4,7 +4,7 @@ export const getCurrentUser = async (
   request: Request,
 ): Promise<UserResponse> => {
   const axios = await getAxios(request);
-  return axios.get(`/api/v1/users/me`).then((res) => res.data);
+  return axios.get(`/api/v2/users/me`).then((res) => res.data);
 };
 
 export const updateDefaultAddress = async (

@@ -18,7 +18,7 @@ import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 
 @RestController
-@RequestMapping("/api/v1/users")
+@RequestMapping("/api/v2/users")
 class UserController(
     private val reactorQueryGateway: ReactorQueryGateway
 ) {

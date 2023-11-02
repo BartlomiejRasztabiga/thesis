@@ -13,7 +13,7 @@ export const getRestaurant = async (
 ): Promise<RestaurantResponse> => {
   const axios = await getAxios(request);
   return axios
-    .get(`/api/v1/restaurants/${restaurantId}`)
+    .get(`/api/v2/restaurants/${restaurantId}`)
     .then((res) => res.data);
 };
 
@@ -21,7 +21,7 @@ export const getCurrentRestaurant = async (
   request: Request,
 ): Promise<RestaurantResponse> => {
   const axios = await getAxios(request);
-  return axios.get(`/api/v1/restaurants/me`).then((res) => res.data);
+  return axios.get(`/api/v2/restaurants/me`).then((res) => res.data);
 };
 
 export const getRestaurantOrders = async (
@@ -30,7 +30,7 @@ export const getRestaurantOrders = async (
 ): Promise<RestaurantOrderResponse[]> => {
   const axios = await getAxios(request);
   return axios
-    .get(`/api/v1/restaurants/${restaurantId}/orders`)
+    .get(`/api/v2/restaurants/${restaurantId}/orders`)
     .then((res) => res.data);
 };
 

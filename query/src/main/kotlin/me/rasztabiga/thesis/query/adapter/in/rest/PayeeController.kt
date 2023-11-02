@@ -16,7 +16,7 @@ import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 
 @RestController
-@RequestMapping("/api/v1/payees")
+@RequestMapping("/api/v2/payees")
 class PayeeController(
     private val reactorQueryGateway: ReactorQueryGateway
 ) {

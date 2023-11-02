@@ -21,7 +21,7 @@ import reactor.core.publisher.Mono
 import java.util.*
 
 @RestController
-@RequestMapping("/api/v1/restaurants")
+@RequestMapping("/api/v2/restaurants")
 class RestaurantController(
     private val reactorQueryGateway: ReactorQueryGateway
 ) {

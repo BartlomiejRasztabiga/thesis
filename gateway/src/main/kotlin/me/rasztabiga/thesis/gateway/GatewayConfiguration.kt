@@ -15,7 +15,7 @@ class GatewayConfiguration {
             .route("query") {
                 it.method("GET")
                     .and()
-                    .path("/api/v1/**")
+                    .path("/api/v2/**")
                     .uri(uriConfiguration.query)
             }
             .route("restaurant") {

@@ -19,7 +19,7 @@ import org.springframework.web.server.ServerWebExchange
 import reactor.core.publisher.Mono
 
 @RestController
-@RequestMapping("/api/v1/deliveries")
+@RequestMapping("/api/v2/deliveries")
 class OrderDeliveryController(
     private val reactorQueryGateway: ReactorQueryGateway
 ) {
