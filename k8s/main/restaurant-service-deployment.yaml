@@ -23,7 +23,7 @@ spec:
                 secretKeyRef:
                   name: gmaps-api-key
                   key: key
-          image: ghcr.io/bartlomiejrasztabiga/thesis/restaurant:0.18.4
+          image: ghcr.io/bartlomiejrasztabiga/thesis/restaurant:0.18.5
           name: restaurant-service
           ports:
             - containerPort: 8101

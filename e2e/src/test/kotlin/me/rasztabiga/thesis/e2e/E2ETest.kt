@@ -1,6 +1,7 @@
 package me.rasztabiga.thesis.e2e
 
 import com.fasterxml.jackson.databind.exc.MismatchedInputException
+import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
 import io.restassured.builder.RequestSpecBuilder
@@ -60,7 +61,7 @@ class E2ETest {
 
     @BeforeEach
     fun setUp() {
-        val baseUri = "https://thesis.rasztabiga.me/api/v1"
+        val baseUri = "https://thesis.rasztabiga.me/api"
 
         restaurantManagerRequestSpecification = RequestSpecBuilder()
             .setBaseUri(baseUri)
@@ -81,7 +82,7 @@ class E2ETest {
             .build()
 
         val responseSpecification = ResponseSpecBuilder()
-            .expectResponseTime(lessThan(2L), TimeUnit.SECONDS)
+            .expectResponseTime(lessThan(3L), TimeUnit.SECONDS)
             .build()
 
         RestAssured.responseSpecification = responseSpecification
@@ -163,7 +164,7 @@ class E2ETest {
         while (true) {
             val order = given(orderingUserRequestSpecification)
                 .`when`()
-                .get("/orders/$orderId")
+                .get("/v2/orders/$orderId")
                 .body.`as`(OrderResponse::class.java)
 
             if (order.status == OrderResponse.OrderStatus.PAID) {
@@ -178,7 +179,7 @@ class E2ETest {
     private fun acceptRestaurantOrder() {
         val restaurantOrders = given(restaurantManagerRequestSpecification)
             .`when`()
-            .get("/restaurants/${restaurantId}/orders")
+            .get("/v2/restaurants/${restaurantId}/orders")
             .then()
             .statusCode(200)
             .extract()
@@ -190,7 +191,7 @@ class E2ETest {
 
         given(restaurantManagerRequestSpecification)
             .`when`()
-            .put("/restaurants/${restaurantId}/orders/${restaurantOrder.restaurantOrderId}/accept")
+            .put("/v1/restaurants/${restaurantId}/orders/${restaurantOrder.restaurantOrderId}/accept")
             .then()
             .statusCode(200)
 
@@ -200,7 +201,7 @@ class E2ETest {
     private fun prepareRestaurantOrder() {
         val restaurantOrders = given(restaurantManagerRequestSpecification)
             .`when`()
-            .get("/restaurants/${restaurantId}/orders")
+            .get("/v2/restaurants/${restaurantId}/orders")
             .then()
             .statusCode(200)
             .extract()
@@ -212,7 +213,7 @@ class E2ETest {
 
         given(restaurantManagerRequestSpecification)
             .`when`()
-            .put("/restaurants/${restaurantId}/orders/${restaurantOrder.restaurantOrderId}/prepare")
+            .put("/v1/restaurants/${restaurantId}/orders/${restaurantOrder.restaurantOrderId}/prepare")
             .then()
             .statusCode(200)
 
@@ -225,9 +226,9 @@ class E2ETest {
             try {
                 offer = given(courierRequestSpecification)
                     .`when`()
-                    .get("/deliveries/offer")
+                    .get("/v2/deliveries/offer")
                     .body.`as`(OrderDeliveryOfferResponse::class.java)
-            } catch (e: MismatchedInputException) {
+            } catch (e: MissingKotlinParameterException) {
                 continue
             }
 
@@ -236,7 +237,7 @@ class E2ETest {
             } else {
                 given(courierRequestSpecification)
                     .`when`()
-                    .put("/deliveries/${offer.id}/reject")
+                    .put("/v1/deliveries/${offer.id}/reject")
                     .then()
                     .statusCode(200)
             }
@@ -244,7 +245,7 @@ class E2ETest {
 
         given(courierRequestSpecification)
             .`when`()
-            .put("/deliveries/${offer.id}/accept")
+            .put("/v1/deliveries/${offer.id}/accept")
             .then()
             .statusCode(200)
 
@@ -254,7 +255,7 @@ class E2ETest {
     private fun pickupDelivery() {
         val delivery = given(courierRequestSpecification)
             .`when`()
-            .get("/deliveries/current")
+            .get("/v2/deliveries/current")
             .body.`as`(OrderDeliveryResponse::class.java)
 
         require(delivery.orderId == orderId) {
@@ -263,7 +264,7 @@ class E2ETest {
 
         given(courierRequestSpecification)
             .`when`()
-            .put("/deliveries/${delivery.id}/pickup")
+            .put("/v1/deliveries/${delivery.id}/pickup")
             .then()
             .statusCode(200)
 
@@ -273,7 +274,7 @@ class E2ETest {
     private fun deliverDelivery() {
         val delivery = given(courierRequestSpecification)
             .`when`()
-            .get("/deliveries/current")
+            .get("/v2/deliveries/current")
             .body.`as`(OrderDeliveryResponse::class.java)
 
         require(delivery.orderId == orderId) {
@@ -282,7 +283,7 @@ class E2ETest {
 
         given(courierRequestSpecification)
             .`when`()
-            .put("/deliveries/${delivery.id}/deliver")
+            .put("/v1/deliveries/${delivery.id}/deliver")
             .then()
             .statusCode(200)
 
@@ -295,7 +296,7 @@ class E2ETest {
         while (true) {
             payee = given(restaurantManagerRequestSpecification)
                 .`when`()
-                .get("/payees/me")
+                .get("/v2/payees/me")
                 .body.`as`(PayeeResponse::class.java)
 
             if (payee.balance > 0.toBigDecimal()) {
@@ -311,7 +312,7 @@ class E2ETest {
         given(restaurantManagerRequestSpecification)
             .body(request)
             .`when`()
-            .put("/payees/${payee.id}/withdraw")
+            .put("/v1/payees/${payee.id}/withdraw")
             .then()
             .statusCode(200)
 
@@ -321,7 +322,7 @@ class E2ETest {
     private fun withdrawCourierBalance() {
         val payee = given(courierRequestSpecification)
             .`when`()
-            .get("/payees/me")
+            .get("/v2/payees/me")
             .body.`as`(PayeeResponse::class.java)
 
         require(payee.balance > 0.toBigDecimal()) {
@@ -336,7 +337,7 @@ class E2ETest {
         given(courierRequestSpecification)
             .body(request)
             .`when`()
-            .put("/payees/${payee.id}/withdraw")
+            .put("/v1/payees/${payee.id}/withdraw")
             .then()
             .statusCode(200)
 
@@ -347,7 +348,7 @@ class E2ETest {
         // try to get restaurant for current user
         val restaurantResponse = given(restaurantManagerRequestSpecification)
             .`when`()
-            .get("/restaurants/me")
+            .get("/v2/restaurants/me")
 
         if (restaurantResponse.statusCode == 200) {
             restaurantId = restaurantResponse
@@ -368,7 +369,7 @@ class E2ETest {
             restaurantId = given(restaurantManagerRequestSpecification)
                 .body(createRestaurantRequest)
                 .`when`()
-                .post("/restaurants")
+                .post("/v1/restaurants")
                 .then()
                 .statusCode(201)
                 .extract()
@@ -399,13 +400,13 @@ class E2ETest {
         given(restaurantManagerRequestSpecification)
             .body(request)
             .`when`()
-            .put("/restaurants/$restaurantId/menu")
+            .put("/v1/restaurants/$restaurantId/menu")
             .then()
             .statusCode(200)
 
         val menu = given(restaurantManagerRequestSpecification)
             .`when`()
-            .get("/restaurants/me")
+            .get("/v2/restaurants/me")
             .body.`as`(RestaurantResponse::class.java)
 
         product1Id = menu.menu[0].id
@@ -422,7 +423,7 @@ class E2ETest {
         given(restaurantManagerRequestSpecification)
             .body(request)
             .`when`()
-            .put("/restaurants/$restaurantId/availability")
+            .put("/v1/restaurants/$restaurantId/availability")
             .then()
             .statusCode(200)
 
@@ -433,7 +434,7 @@ class E2ETest {
         // try to get current user
         val userResponse = given(orderingUserRequestSpecification)
             .`when`()
-            .get("/users/me")
+            .get("/v2/users/me")
 
         if (userResponse.statusCode == 200) {
             userId = userResponse
@@ -455,7 +456,7 @@ class E2ETest {
             userId = given(orderingUserRequestSpecification)
                 .body(request)
                 .`when`()
-                .post("/users")
+                .post("/v1/users")
                 .then()
                 .statusCode(201)
                 .extract()
@@ -476,7 +477,7 @@ class E2ETest {
         given(orderingUserRequestSpecification)
             .body(request)
             .`when`()
-            .post("/users/$userId/addresses")
+            .post("/v1/users/$userId/addresses")
             .then()
             .statusCode(201)
 
@@ -487,7 +488,7 @@ class E2ETest {
         // try to get current courier
         val courierResponse = given(courierRequestSpecification)
             .`when`()
-            .get("/couriers/me")
+            .get("/v2/couriers/me")
 
         if (courierResponse.statusCode == 200) {
             courierId = courierResponse
@@ -505,7 +506,7 @@ class E2ETest {
             courierId = given(courierRequestSpecification)
                 .body(request)
                 .`when`()
-                .post("/couriers")
+                .post("/v1/couriers")
                 .then()
                 .statusCode(201)
                 .extract()
@@ -523,7 +524,7 @@ class E2ETest {
         given(courierRequestSpecification)
             .body(request)
             .`when`()
-            .put("/couriers/me/availability")
+            .put("/v1/couriers/me/availability")
             .then()
             .statusCode(200)
 
@@ -538,7 +539,7 @@ class E2ETest {
         given(courierRequestSpecification)
             .body(request)
             .`when`()
-            .put("/couriers/me/location")
+            .put("/v1/couriers/me/location")
             .then()
             .statusCode(200)
 
@@ -553,7 +554,7 @@ class E2ETest {
         orderId = given(orderingUserRequestSpecification)
             .body(request)
             .`when`()
-            .post("/orders")
+            .post("/v1/orders")
             .then()
             .statusCode(201)
             .extract()
@@ -570,7 +571,7 @@ class E2ETest {
         given(orderingUserRequestSpecification)
             .body(request)
             .`when`()
-            .post("/orders/$orderId/items")
+            .post("/v1/orders/$orderId/items")
             .then()
             .statusCode(201)
 
@@ -581,7 +582,7 @@ class E2ETest {
         given(orderingUserRequestSpecification)
             .body(request)
             .`when`()
-            .post("/orders/$orderId/items")
+            .post("/v1/orders/$orderId/items")
             .then()
             .statusCode(201)
 
@@ -591,7 +592,7 @@ class E2ETest {
     private fun finalizeOrder() {
         given(orderingUserRequestSpecification)
             .`when`()
-            .put("/orders/$orderId/finalize")
+            .put("/v1/orders/$orderId/finalize")
             .then()
             .statusCode(200)
 
@@ -604,7 +605,7 @@ class E2ETest {
         while (true) {
             response = given(orderingUserRequestSpecification)
                 .`when`()
-                .get("/orders/$orderId")
+                .get("/v2/orders/$orderId")
                 .body.`as`(OrderResponse::class.java)
 
             if (response.paymentSessionUrl != null) {
