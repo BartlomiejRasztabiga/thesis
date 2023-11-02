@@ -16,13 +16,6 @@ spec:
                 name: gateway
                 port:
                   number: 8100
-          - path: /api/v1/restaurants
-            pathType: Prefix
-            backend:
-              service:
-                name: restaurant-service
-                port:
-                  number: 8101
           - path: /
             pathType: Prefix
             backend:
