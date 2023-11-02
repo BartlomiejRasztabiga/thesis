@@ -34,7 +34,7 @@ val axonVersion = "4.9.0"
 val kotestVersion = "5.7.2"
 
 dependencies {
-    implementation("me.rasztabiga.thesis:shared:0.18.0")
+    implementation("me.rasztabiga.thesis:shared:0.18.1")
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-security")
@@ -52,7 +52,7 @@ dependencies {
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib"))
 
-    testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.18.0"))
+    testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.18.1"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.axonframework:axon-test")
