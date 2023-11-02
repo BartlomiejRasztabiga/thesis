@@ -1,6 +1,5 @@
 package me.rasztabiga.thesis.shared.config
 
-import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Component
 import org.springframework.web.server.ServerWebExchange
 import org.springframework.web.server.WebFilter
@@ -9,13 +8,12 @@ import reactor.core.publisher.Mono
 import java.net.InetAddress
 
 @Component
-class HostnameWebFilter(
-    @Value("\${HOSTNAME:#{null}}")
-    private val hostname: String?
-) : WebFilter {
+class HostnameWebFilter : WebFilter {
     override fun filter(exchange: ServerWebExchange, chain: WebFilterChain): Mono<Void> {
-        val hostname = InetAddress.getLocalHost().hostName
-        exchange.response.headers.add("X-Hostname", hostname)
-        return chain.filter(exchange)
+        return Mono.deferContextual { context ->
+            val hostname = InetAddress.getLocalHost().hostName
+            exchange.response.headers.add("X-Hostname", hostname)
+            chain.filter(exchange)
+        }
     }
 }
