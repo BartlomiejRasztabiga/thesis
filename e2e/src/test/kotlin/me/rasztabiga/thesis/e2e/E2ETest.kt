@@ -228,7 +228,7 @@ class E2ETest {
                     .`when`()
                     .get("/v2/deliveries/offer")
                     .body.`as`(OrderDeliveryOfferResponse::class.java)
-            } catch (e: MissingKotlinParameterException) {
+            } catch (e: RuntimeException) {
                 continue
             }
 
