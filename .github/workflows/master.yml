@@ -186,7 +186,6 @@ jobs:
             k8s/main/payment-service-deployment.yaml
             k8s/main/query-service-deployment.yaml
             k8s/main/saga-service-deployment.yaml
-            k8s/main/gateway-deployment.yaml
             k8s/main/frontend-deployment.yaml
           images: |
             ghcr.io/bartlomiejrasztabiga/thesis/restaurant:${{ env.VERSION }}
@@ -195,5 +194,4 @@ jobs:
             ghcr.io/bartlomiejrasztabiga/thesis/payment:${{ env.VERSION }}
             ghcr.io/bartlomiejrasztabiga/thesis/query:${{ env.VERSION }}
             ghcr.io/bartlomiejrasztabiga/thesis/saga:${{ env.VERSION }}
-            ghcr.io/bartlomiejrasztabiga/thesis/gateway:${{ env.VERSION }}
             ghcr.io/bartlomiejrasztabiga/thesis/frontend:${{ env.VERSION }}
