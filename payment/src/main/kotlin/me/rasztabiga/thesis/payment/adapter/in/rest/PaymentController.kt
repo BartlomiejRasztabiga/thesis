@@ -20,7 +20,6 @@ class PaymentController(
     private val reactorCommandGateway: ReactorCommandGateway
 ) {
 
-    // TODO temporary solution, until we integrate with payment gateway (e.g. Stripe)
     @PutMapping("/{paymentId}/pay")
     @PreAuthorize("hasAnyAuthority('${Scopes.USER.WRITE}')")
     fun payPayment(

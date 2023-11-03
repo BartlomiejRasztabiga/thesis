@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        service: [restaurant, order, gateway, payment, delivery, query, saga]
+        service: [restaurant, order, payment, delivery, query, saga]
     defaults:
       run:
         working-directory: ${{ matrix.service }}

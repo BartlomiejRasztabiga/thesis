@@ -16,7 +16,7 @@ spec:
         - env:
             - name: AXON_AXONSERVER_SERVERS
               value: axonserver
-          image: ghcr.io/bartlomiejrasztabiga/thesis/order:0.18.5
+          image: ghcr.io/bartlomiejrasztabiga/thesis/order:0.18.6
           name: order-service
           ports:
             - containerPort: 8102

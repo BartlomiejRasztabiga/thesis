@@ -25,7 +25,7 @@ repositories {
 }
 
 val axonVersion = "4.9.0"
-val kotestVersion = "5.7.2"
+val kotestVersion = "5.8.0"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")

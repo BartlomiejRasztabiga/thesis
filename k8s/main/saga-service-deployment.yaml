@@ -18,7 +18,7 @@ spec:
               value: axonserver
             - name: SPRING_DATA_MONGODB_URI
               value: "mongodb://root:password@saga-db:27017/saga?authSource=admin"
-          image: ghcr.io/bartlomiejrasztabiga/thesis/saga:0.18.5
+          image: ghcr.io/bartlomiejrasztabiga/thesis/saga:0.18.6
           name: saga-service
           ports:
             - containerPort: 8106
