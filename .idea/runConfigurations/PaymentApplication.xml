@@ -1,8 +1,8 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="PaymentApplicationKt" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+  <configuration default="false" name="PaymentApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
     <option name="ACTIVE_PROFILES" value="dev,mailjet,stripe" />
     <module name="payment.main" />
-    <option name="SPRING_BOOT_MAIN_CLASS" value="me.rasztabiga.thesis.restaurant.PaymentApplicationKt" />
+    <option name="SPRING_BOOT_MAIN_CLASS" value="me.rasztabiga.thesis.payment.PaymentApplicationKt" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="me.rasztabiga.thesis.restaurant.*" />

@@ -1,5 +1,6 @@
 import type { Axios } from "axios";
 import axios from "axios";
+import { redirect } from "@remix-run/node";
 
 import invariant from "tiny-invariant";
 import { getAccessToken } from "~/services/session.server";
@@ -12,10 +13,22 @@ export const getAxios = async (request: Request): Promise<Axios> => {
     throw new Response("Unauthorized", { status: 401 });
   }
 
-  return axios.create({
+  const axiosInstance = axios.create({
     baseURL: process.env.API_GATEWAY_URL,
     headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
+      Authorization: `Bearer ${accessToken}`
+    }
   });
+
+  axiosInstance.interceptors.response.use(
+    (response) => response,
+    (error) => {
+      if (error.response.status === 401) {
+        return redirect("/");
+      }
+      return Promise.reject(error);
+    }
+  );
+
+  return axiosInstance
 };

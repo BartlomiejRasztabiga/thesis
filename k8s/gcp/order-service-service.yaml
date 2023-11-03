@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: order-service
 spec:
-  type: NodePort
   ports:
     - name: "8102"
       port: 8102

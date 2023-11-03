@@ -4,7 +4,7 @@ export const getRestaurants = async (
   request: Request,
 ): Promise<RestaurantResponse[]> => {
   const axios = await getAxios(request);
-  return axios.get("/api/v1/restaurants").then((res) => res.data);
+  return axios.get("/api/v2/restaurants").then((res) => res.data);
 };
 
 export const getRestaurant = async (

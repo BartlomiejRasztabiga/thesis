@@ -256,7 +256,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": \"{{$guid}}\",\n    \"name\": \"{{$randomCompanyName}}\",\n    \"address\": \"Cypryjska 70, 02-762 Warszawa\",\n    \"email\": \"contact@rasztabiga.me\",\n    \"imageUrl\": \"https://mui.com/static/images/cards/contemplative-reptile.jpg\"\n}",
+							"raw": "{\n    \"id\": \"{{$guid}}\",\n    \"name\": \"{{$randomCompanyName}}\",\n    \"address\": \"Cypryjska 70, 02-762 Warszawa\",\n    \"email\": \"bartlomiej.rasztabiga.official+restaurant@gmail.com\",\n    \"imageUrl\": \"https://mui.com/static/images/cards/contemplative-reptile.jpg\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -372,13 +372,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{restaurant_url}}/api/v1/restaurants",
+							"raw": "{{restaurant_url}}/api/v2/restaurants",
 							"host": [
 								"{{restaurant_url}}"
 							],
 							"path": [
 								"api",
-								"v1",
+								"v2",
 								"restaurants"
 							]
 						}
@@ -403,13 +403,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{restaurant_url}}/api/v1/restaurants/{{restaurant_id}}",
+							"raw": "{{restaurant_url}}/api/v2/restaurants/{{restaurant_id}}",
 							"host": [
 								"{{restaurant_url}}"
 							],
 							"path": [
 								"api",
-								"v1",
+								"v2",
 								"restaurants",
 								"{{restaurant_id}}"
 							]
@@ -435,13 +435,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{restaurant_url}}/api/v1/restaurants/me",
+							"raw": "{{restaurant_url}}/api/v2/restaurants/me",
 							"host": [
 								"{{restaurant_url}}"
 							],
 							"path": [
 								"api",
-								"v1",
+								"v2",
 								"restaurants",
 								"me"
 							]
@@ -487,13 +487,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{restaurant_url}}/api/v1/restaurants/{{restaurant_id}}/orders",
+							"raw": "{{restaurant_url}}/api/v2/restaurants/{{restaurant_id}}/orders",
 							"host": [
 								"{{restaurant_url}}"
 							],
 							"path": [
 								"api",
-								"v1",
+								"v2",
 								"restaurants",
 								"{{restaurant_id}}",
 								"orders"
@@ -658,7 +658,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"{{$randomFullName}}\",\n    \"email\": \"contact@rasztabiga.me\"\n}",
+							"raw": "{\n    \"name\": \"{{$randomFullName}}\",\n    \"email\": \"bartlomiej.rasztabiga.official+user@gmail.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -803,13 +803,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{restaurant_url}}/api/v1/users",
+							"raw": "{{restaurant_url}}/api/v2/users",
 							"host": [
 								"{{restaurant_url}}"
 							],
 							"path": [
 								"api",
-								"v1",
+								"v2",
 								"users"
 							]
 						}
@@ -822,13 +822,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{restaurant_url}}/api/v1/users/me",
+							"raw": "{{restaurant_url}}/api/v2/users/me",
 							"host": [
 								"{{restaurant_url}}"
 							],
 							"path": [
 								"api",
-								"v1",
+								"v2",
 								"users",
 								"me"
 							]
@@ -906,13 +906,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{restaurant_url}}/api/v1/orders/{{order_id}}",
+							"raw": "{{restaurant_url}}/api/v2/orders/{{order_id}}",
 							"host": [
 								"{{restaurant_url}}"
 							],
 							"path": [
 								"api",
-								"v1",
+								"v2",
 								"orders",
 								"{{order_id}}"
 							]
@@ -950,13 +950,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{restaurant_url}}/api/v1/orders",
+							"raw": "{{restaurant_url}}/api/v2/orders",
 							"host": [
 								"{{restaurant_url}}"
 							],
 							"path": [
 								"api",
-								"v1",
+								"v2",
 								"orders"
 							]
 						}
@@ -1244,13 +1244,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{restaurant_url}}/api/v1/payees/me",
+							"raw": "{{restaurant_url}}/api/v2/payees/me",
 							"host": [
 								"{{restaurant_url}}"
 							],
 							"path": [
 								"api",
-								"v1",
+								"v2",
 								"payees",
 								"me"
 							]
@@ -1349,13 +1349,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{restaurant_url}}/api/v1/payees/me",
+							"raw": "{{restaurant_url}}/api/v2/payees/me",
 							"host": [
 								"{{restaurant_url}}"
 							],
 							"path": [
 								"api",
-								"v1",
+								"v2",
 								"payees",
 								"me"
 							]
@@ -1474,7 +1474,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"{{$randomFullName}}\",\n    \"email\": \"contact@rasztabiga.me\"\n}",
+							"raw": "{\n    \"name\": \"{{$randomFullName}}\",\n    \"email\": \"bartlomiej.rasztabiga.official+courier@gmail.com\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1501,13 +1501,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{restaurant_url}}/api/v1/couriers/me",
+							"raw": "{{restaurant_url}}/api/v2/couriers/me",
 							"host": [
 								"{{restaurant_url}}"
 							],
 							"path": [
 								"api",
-								"v1",
+								"v2",
 								"couriers",
 								"me"
 							]
@@ -1593,21 +1593,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{restaurant_url}}/api/v1/deliveries/offer?courierAddress=Oskara Langego 8, 02-685 Warszawa",
+							"raw": "{{restaurant_url}}/api/v2/deliveries/offer",
 							"host": [
 								"{{restaurant_url}}"
 							],
 							"path": [
 								"api",
-								"v1",
+								"v2",
 								"deliveries",
 								"offer"
-							],
-							"query": [
-								{
-									"key": "courierAddress",
-									"value": "Oskara Langego 8, 02-685 Warszawa"
-								}
 							]
 						}
 					},
@@ -1673,13 +1667,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{restaurant_url}}/api/v1/deliveries/current",
+							"raw": "{{restaurant_url}}/api/v2/deliveries/current",
 							"host": [
 								"{{restaurant_url}}"
 							],
 							"path": [
 								"api",
-								"v1",
+								"v2",
 								"deliveries",
 								"current"
 							]

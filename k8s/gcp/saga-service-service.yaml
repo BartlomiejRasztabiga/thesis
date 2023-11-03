@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: saga-service
 spec:
-  type: NodePort
   ports:
     - name: "8106"
       port: 8106

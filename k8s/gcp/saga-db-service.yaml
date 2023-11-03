@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: saga-db
 spec:
-  type: NodePort
   ports:
     - name: "27017"
       port: 27017

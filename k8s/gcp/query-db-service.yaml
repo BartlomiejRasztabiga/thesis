@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: query-db
 spec:
-  type: NodePort
   ports:
     - name: "27017"
       port: 27017

@@ -15,10 +15,6 @@ updates:
     schedule:
       interval: "daily"
   - package-ecosystem: "gradle"
-    directory: "/gateway"
-    schedule:
-      interval: "daily"
-  - package-ecosystem: "gradle"
     directory: "/shared"
     schedule:
       interval: "daily"

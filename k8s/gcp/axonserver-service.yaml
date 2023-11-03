@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: axonserver
 spec:
-  type: NodePort
   ports:
     - name: "8024"
       port: 8024

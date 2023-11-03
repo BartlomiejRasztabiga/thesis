@@ -3,7 +3,6 @@ kind: Service
 metadata:
   name: delivery-service
 spec:
-  type: NodePort
   ports:
     - name: "8104"
       port: 8104

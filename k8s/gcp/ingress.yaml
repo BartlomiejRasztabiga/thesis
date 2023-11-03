@@ -2,12 +2,10 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: thesis-ingress
-  annotations:
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
 spec:
-  ingressClassName: nginx
   rules:
-    - http:
+    - host: thesis.rasztabiga.me
+      http:
         paths:
           - path: /api/v2
             pathType: Prefix
