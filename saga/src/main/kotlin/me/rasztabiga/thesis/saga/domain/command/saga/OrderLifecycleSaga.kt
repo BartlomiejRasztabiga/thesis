@@ -283,7 +283,8 @@ class OrderLifecycleSaga {
                         quantity = 1,
                         unitPrice = order.deliveryFee!!
                     )
-                )
+                ),
+                amountPaid = (order.itemsTotal!! + order.deliveryFee!!).toString(),
             )
         )
     }

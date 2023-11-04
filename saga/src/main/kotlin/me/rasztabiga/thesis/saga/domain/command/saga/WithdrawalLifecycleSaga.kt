@@ -54,7 +54,8 @@ class WithdrawalLifecycleSaga {
                                 quantity = 1,
                                 unitPrice = event.amount
                             )
-                        )
+                        ),
+                        amountPaid = null
                     )
                 )
             }
@@ -73,7 +74,8 @@ class WithdrawalLifecycleSaga {
                                 quantity = 1,
                                 unitPrice = event.amount
                             )
-                        )
+                        ),
+                        amountPaid = null
                     )
                 )
             }

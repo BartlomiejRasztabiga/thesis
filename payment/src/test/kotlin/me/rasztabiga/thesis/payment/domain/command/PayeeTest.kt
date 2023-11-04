@@ -28,14 +28,16 @@ class PayeeTest {
             id = UUID.randomUUID(),
             userId = "userId",
             name = "name",
-            email = "email"
+            email = "email",
+            payeeType = CreatePayeeCommand.PayeeType.RESTAURANT_MANAGER
         )
 
         val payeeCreatedEvent = PayeeCreatedEvent(
             payeeId = createPayeeCommand.id,
             userId = createPayeeCommand.userId,
             name = createPayeeCommand.name,
-            email = createPayeeCommand.email
+            email = createPayeeCommand.email,
+            payeeType = PayeeCreatedEvent.PayeeType.RESTAURANT_MANAGER
         )
 
         testFixture.givenNoPriorActivity()
@@ -50,7 +52,8 @@ class PayeeTest {
             payeeId = UUID.randomUUID(),
             userId = "userId",
             name = "name",
-            email = "email"
+            email = "email",
+            payeeType = PayeeCreatedEvent.PayeeType.RESTAURANT_MANAGER
         )
 
         val addPayeeBalanceCommand = AddPayeeBalanceCommand(
@@ -75,7 +78,8 @@ class PayeeTest {
             payeeId = UUID.randomUUID(),
             userId = "userId",
             name = "name",
-            email = "email"
+            email = "email",
+            payeeType = PayeeCreatedEvent.PayeeType.RESTAURANT_MANAGER
         )
 
         val payeeBalanceAddedEvent = PayeeBalanceAddedEvent(

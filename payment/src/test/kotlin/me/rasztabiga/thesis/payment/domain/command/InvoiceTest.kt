@@ -51,7 +51,8 @@ class InvoiceTest {
                     quantity = 2,
                     unitPrice = BigDecimal.valueOf(200)
                 )
-            )
+            ),
+            amountPaid = null
         )
 
         val invoiceCreatedEvent = InvoiceCreatedEvent(
@@ -66,7 +67,8 @@ class InvoiceTest {
                     quantity = it.quantity,
                     unitPrice = it.unitPrice
                 )
-            }
+            },
+            amountPaid = null
         )
 
         testFixture.givenNoPriorActivity()
@@ -94,7 +96,8 @@ class InvoiceTest {
                     quantity = 2,
                     unitPrice = BigDecimal.valueOf(200)
                 )
-            )
+            ),
+            amountPaid = null
         )
 
         val sendInvoiceEmailCommand = SendInvoiceEmailCommand(
