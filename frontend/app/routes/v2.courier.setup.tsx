@@ -1,6 +1,6 @@
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
-import { Form, useActionData, useLoaderData } from "@remix-run/react";
+import { Form, useActionData } from "@remix-run/react";
 import { Button, FormControl, Paper, TextField } from "@mui/material";
 import { createCourier } from "~/models/delivery.server";
 import { getEmail } from "~/services/session.server";
@@ -14,7 +14,7 @@ export async function action({ request, params }: ActionArgs) {
   const { _action, ...values } = Object.fromEntries(formData);
 
   try {
-    const email = await getEmail(request)
+    const email = await getEmail(request);
     await createCourier(request, values.name, email!);
   } catch (e) {
     return json({ error: e.response.data.message });
