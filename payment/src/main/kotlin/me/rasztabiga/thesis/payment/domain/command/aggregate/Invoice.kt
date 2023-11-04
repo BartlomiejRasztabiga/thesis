@@ -45,6 +45,7 @@ class Invoice {
         apply(
             InvoiceCreatedEvent(
                 invoiceId = command.id,
+                payeeId = command.payeeId,
                 from = command.from,
                 to = command.to,
                 issueDate = command.issueDate,

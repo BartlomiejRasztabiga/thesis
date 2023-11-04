@@ -38,12 +38,15 @@ class WithdrawalLifecycleSaga {
     @SagaEventHandler(associationProperty = "payeeId")
     fun on(event: PayeeBalanceWithdrawnEvent) {
         val payee = getPayeeById(event.payeeId)
+        val invoiceId = UUID.randomUUID()
+
+        SagaLifecycle.associateWith("invoiceId", invoiceId.toString())
 
         when (payee.type) {
             PayeeResponse.PayeeType.RESTAURANT_MANAGER -> {
                 commandGateway.sendAndWait<Void>(
                     CreateInvoiceCommand(
-                        id = UUID.randomUUID(),
+                        id = invoiceId,
                         from = payee.name,
                         to = "Food Delivery App",
                         issueDate = LocalDate.now(),
@@ -63,7 +66,7 @@ class WithdrawalLifecycleSaga {
             PayeeResponse.PayeeType.COURIER -> {
                 commandGateway.sendAndWait<Void>(
                     CreateInvoiceCommand(
-                        id = UUID.randomUUID(),
+                        id = invoiceId,
                         from = payee.name,
                         to = "Food Delivery App",
                         issueDate = LocalDate.now(),
@@ -83,9 +86,9 @@ class WithdrawalLifecycleSaga {
     }
 
     @Suppress("UnusedParameter")
-    @SagaEventHandler(associationProperty = "invoiceId", keyName = "restaurantInvoiceId")
+    @SagaEventHandler(associationProperty = "invoiceId")
     fun on(event: InvoiceCreatedEvent) {
-        val payee = getPayeeById(event.invoiceId)
+        val payee = getPayeeById(event.payeeId)
 
         commandGateway.sendAndWait<Void>(
             SendInvoiceEmailCommand(
@@ -97,7 +100,7 @@ class WithdrawalLifecycleSaga {
 
     @Suppress("UnusedParameter", "EmptyFunctionBlock")
     @EndSaga
-    @SagaEventHandler(associationProperty = "invoiceId", keyName = "userInvoiceId")
+    @SagaEventHandler(associationProperty = "invoiceId")
     fun on(event: InvoiceEmailSentEvent) {
 
     }

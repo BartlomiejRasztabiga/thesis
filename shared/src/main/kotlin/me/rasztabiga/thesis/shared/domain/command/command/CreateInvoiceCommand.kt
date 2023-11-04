@@ -7,6 +7,7 @@ import java.util.*
 
 data class CreateInvoiceCommand(
     @TargetAggregateIdentifier val id: UUID,
+    val payeeId: UUID,
     val from: String,
     val to: String,
     val issueDate: LocalDate,

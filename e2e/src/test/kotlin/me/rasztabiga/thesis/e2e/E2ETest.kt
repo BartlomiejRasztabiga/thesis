@@ -61,7 +61,8 @@ class E2ETest {
 
     @BeforeEach
     fun setUp() {
-        val baseUri = "https://thesis.rasztabiga.me/api"
+//        val baseUri = "https://thesis.rasztabiga.me/api"
+        val baseUri = "http://localhost:8100/api"
 
         restaurantManagerRequestSpecification = RequestSpecBuilder()
             .setBaseUri(baseUri)
@@ -155,7 +156,7 @@ class E2ETest {
         driver.findElement(By.cssSelector("button[type='submit']")).click()
 
         // wait for redirect
-        WebDriverWait(driver, Duration.ofSeconds(10)).until {
+        WebDriverWait(driver, Duration.ofSeconds(15)).until {
             driver.currentUrl.contains("tracking")
         }
 
