@@ -12,11 +12,16 @@ data class PayeeResponse(
     val name: String,
     val email: String,
     val balance: BigDecimal,
-    val balanceChanges: List<BalanceChange>
+    val balanceChanges: List<BalanceChange>,
+    val type: PayeeType
 ) {
     data class BalanceChange(
         val amount: BigDecimal,
         val accountNumber: String?,
         val timestamp: Instant
     )
+
+    enum class PayeeType {
+        RESTAURANT_MANAGER, COURIER
+    }
 }

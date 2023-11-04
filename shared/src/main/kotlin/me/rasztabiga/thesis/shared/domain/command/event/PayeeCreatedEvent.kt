@@ -8,5 +8,10 @@ data class PayeeCreatedEvent(
     val payeeId: UUID,
     val userId: String,
     val name: String,
-    val email: String
-)
+    val email: String,
+    val payeeType: PayeeType
+) {
+    enum class PayeeType {
+        RESTAURANT_MANAGER, COURIER
+    }
+}
