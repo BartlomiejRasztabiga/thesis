@@ -1,5 +1,5 @@
 import type { LoaderArgs, ActionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import BottomNavbar from "~/components/courier/BottomNavbar";
 import {
   Form,
@@ -27,7 +27,17 @@ import {
 import { getCurrentPayee } from "~/models/payment.server";
 
 export async function loader({ request, params }: LoaderArgs) {
-  const courier = await getCurrentCourier(request);
+  let courier;
+  try {
+    courier = await getCurrentCourier(request);
+  } catch (error) {
+    if (error.response.data.code === "NOT_FOUND") {
+      return redirect("/v2/courier/setup");
+    } else {
+      throw error;
+    }
+  }
+
 
   let currentDelivery;
 

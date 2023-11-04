@@ -38,6 +38,12 @@ export async function getUserId(request: Request): Promise<string | undefined> {
   return session.data.user.id;
 }
 
+export async function getEmail(request: Request): Promise<string | undefined> {
+  const session = await getSession(request);
+  if (!session.data.user) return undefined;
+  return session.data.user.email;
+}
+
 export async function getUser(request: Request) {
   const userId = await getUserId(request);
   if (userId === undefined) return null;

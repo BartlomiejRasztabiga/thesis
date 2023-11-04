@@ -7,6 +7,19 @@ export const getRestaurants = async (
   return axios.get("/api/v2/restaurants").then((res) => res.data);
 };
 
+export const createRestaurant = async (
+  request: Request,
+  name: string,
+  address: string,
+  email: string,
+  imageUrl: string
+): Promise<void> => {
+  const axios = await getAxios(request);
+  return axios
+    .post(`/api/v1/restaurants`, { name, address, email, imageUrl })
+    .then((res) => res.data);
+}
+
 export const getRestaurant = async (
   request: Request,
   restaurantId: string,

@@ -1,5 +1,5 @@
-import type { LoaderArgs, ActionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import type { ActionArgs, LoaderArgs } from "@remix-run/node";
+import { json, redirect } from "@remix-run/node";
 import type { RestaurantOrderResponse } from "~/models/restaurant.server";
 import {
   acceptRestaurantOrder,
@@ -7,15 +7,10 @@ import {
   getRestaurantOrders,
   prepareRestaurantOrder,
   rejectRestaurantOrder,
-  updateRestaurantAvailability,
+  updateRestaurantAvailability
 } from "~/models/restaurant.server";
 import BottomNavbar from "~/components/manager/BottomNavbar";
-import {
-  Form,
-  useActionData,
-  useLoaderData,
-  useRevalidator,
-} from "@remix-run/react";
+import { Form, useActionData, useLoaderData, useRevalidator } from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
@@ -30,11 +25,20 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography,
+  Typography
 } from "@mui/material";
 
 export async function loader({ request, params }: LoaderArgs) {
-  const restaurant = await getCurrentRestaurant(request);
+  let restaurant;
+  try {
+    restaurant = await getCurrentRestaurant(request);
+  } catch (error) {
+    if (error.response.data.code === "NOT_FOUND") {
+      return redirect("/v2/restaurants/setup");
+    } else {
+      throw error;
+    }
+  }
 
   const payee = await getCurrentPayee(request);
 
@@ -76,7 +80,7 @@ export async function action({ request, params }: ActionArgs) {
       await updateRestaurantAvailability(
         request,
         restaurantId,
-        newAvailability,
+        newAvailability
       );
     }
   } catch (e) {
@@ -93,7 +97,7 @@ export default function V2RestaurantPage() {
   const revalidator = useRevalidator();
 
   const activeOrders = data.orders.filter((order) =>
-    ["NEW", "ACCEPTED", "PREPARED"].includes(order.status),
+    ["NEW", "ACCEPTED", "PREPARED"].includes(order.status)
   );
 
   // TODO good enough for now
@@ -192,7 +196,7 @@ export default function V2RestaurantPage() {
                     <TableCell>
                       {Object.keys(order.items).map((item, key) => {
                         const product = data.restaurant.menu.find(
-                          (product) => product.id === item,
+                          (product) => product.id === item
                         );
                         if (!product) {
                           return null;

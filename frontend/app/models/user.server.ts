@@ -1,4 +1,5 @@
 import { getAxios } from "~/services/axios.server";
+import { UuidWrapper } from "~/models/utils.server";
 
 export const getCurrentUser = async (
   request: Request,
@@ -6,6 +7,28 @@ export const getCurrentUser = async (
   const axios = await getAxios(request);
   return axios.get(`/api/v2/users/me`).then((res) => res.data);
 };
+
+export const createUser = async (
+  request: Request,
+  name: string,
+  email: string,
+): Promise<UuidWrapper> => {
+  const axios = await getAxios(request);
+  return axios
+    .post(`/api/v1/users`, { name, email })
+    .then((res) => res.data);
+}
+
+export const createDeliveryAddress = async (
+  request: Request,
+  userId: string,
+  address: string,
+): Promise<void> => {
+  const axios = await getAxios(request);
+  return axios
+    .post(`/api/v1/users/${userId}/addresses`, { address, additionalInfo: null })
+    .then((res) => res.data);
+}
 
 export const updateDefaultAddress = async (
   request: Request,

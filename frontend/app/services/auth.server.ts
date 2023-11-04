@@ -25,6 +25,7 @@ let auth0Strategy = new Auth0Strategy(
   async ({ accessToken, refreshToken, extraParams, profile }) => {
     return {
       id: profile.id,
+      email: profile.emails?.[0].value,
       accessToken: accessToken,
     };
   },

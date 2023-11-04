@@ -8,6 +8,17 @@ export const getCurrentCourier = async (
   return axios.get(`/api/v2/couriers/me`).then((res) => res.data);
 };
 
+export const createCourier = async (
+  request: Request,
+  name: string,
+  email: string
+): Promise<void> => {
+  const axios = await getAxios(request);
+  return axios
+    .post(`/api/v1/couriers`, { name, email })
+    .then((res) => res.data);
+}
+
 export const updateCourierLocation = async (
   request: Request,
   location: Location,
