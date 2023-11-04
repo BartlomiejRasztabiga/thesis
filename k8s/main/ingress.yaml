@@ -3,6 +3,7 @@ kind: Ingress
 metadata:
   name: thesis-ingress
 spec:
+  ingressClassName: nginx
   rules:
     - host: thesis.rasztabiga.me
       http:
