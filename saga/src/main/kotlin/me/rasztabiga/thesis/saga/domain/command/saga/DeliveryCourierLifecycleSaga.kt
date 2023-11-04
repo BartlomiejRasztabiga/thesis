@@ -36,7 +36,8 @@ class DeliveryCourierLifecycleSaga {
                 id = payeeId,
                 userId = event.courierId,
                 name = event.name,
-                email = event.email
+                email = event.email,
+                payeeType = CreatePayeeCommand.PayeeType.COURIER
             )
         )
     }

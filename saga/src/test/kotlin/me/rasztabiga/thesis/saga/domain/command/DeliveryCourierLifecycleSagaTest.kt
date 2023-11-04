@@ -36,7 +36,8 @@ class DeliveryCourierLifecycleSagaTest {
                     id = payeeId!!,
                     userId = courierCreatedEvent.courierId,
                     name = courierCreatedEvent.name,
-                    email = courierCreatedEvent.email
+                    email = courierCreatedEvent.email,
+                    payeeType = CreatePayeeCommand.PayeeType.COURIER
                 )
             )
             .expectActiveSagas(1)
@@ -46,7 +47,8 @@ class DeliveryCourierLifecycleSagaTest {
             payeeId!!,
             courierCreatedEvent.courierId,
             courierCreatedEvent.name,
-            courierCreatedEvent.email
+            courierCreatedEvent.email,
+            PayeeCreatedEvent.PayeeType.COURIER
         )
 
         testFixture.whenPublishingA(payeeCreatedEvent)

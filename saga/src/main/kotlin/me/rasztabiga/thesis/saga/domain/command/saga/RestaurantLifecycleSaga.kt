@@ -35,7 +35,8 @@ class RestaurantLifecycleSaga {
                 id = payeeId,
                 userId = event.managerId,
                 name = event.name,
-                email = event.email
+                email = event.email,
+                payeeType = CreatePayeeCommand.PayeeType.RESTAURANT_MANAGER
             )
         )
     }

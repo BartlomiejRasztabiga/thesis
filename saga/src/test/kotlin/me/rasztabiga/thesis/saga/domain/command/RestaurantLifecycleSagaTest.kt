@@ -44,7 +44,8 @@ class RestaurantLifecycleSagaTest {
                     id = payeeId!!,
                     userId = restaurantCreatedEvent.managerId,
                     name = restaurantCreatedEvent.name,
-                    email = restaurantCreatedEvent.email
+                    email = restaurantCreatedEvent.email,
+                    payeeType = CreatePayeeCommand.PayeeType.RESTAURANT_MANAGER
                 )
             )
             .expectActiveSagas(1)
@@ -54,7 +55,8 @@ class RestaurantLifecycleSagaTest {
             payeeId!!,
             restaurantCreatedEvent.managerId,
             restaurantCreatedEvent.name,
-            restaurantCreatedEvent.email
+            restaurantCreatedEvent.email,
+            PayeeCreatedEvent.PayeeType.RESTAURANT_MANAGER
         )
 
         testFixture.whenPublishingA(payeeCreatedEvent)
