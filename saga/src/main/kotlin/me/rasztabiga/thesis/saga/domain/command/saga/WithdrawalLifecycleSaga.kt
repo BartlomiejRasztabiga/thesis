@@ -47,6 +47,7 @@ class WithdrawalLifecycleSaga {
                 commandGateway.sendAndWait<Void>(
                     CreateInvoiceCommand(
                         id = invoiceId,
+                        payeeId = payee.id,
                         from = payee.name,
                         to = "Food Delivery App",
                         issueDate = LocalDate.now(),
@@ -67,6 +68,7 @@ class WithdrawalLifecycleSaga {
                 commandGateway.sendAndWait<Void>(
                     CreateInvoiceCommand(
                         id = invoiceId,
+                        payeeId = payee.id,
                         from = payee.name,
                         to = "Food Delivery App",
                         issueDate = LocalDate.now(),

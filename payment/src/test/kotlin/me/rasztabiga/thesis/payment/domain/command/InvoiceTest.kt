@@ -36,6 +36,7 @@ class InvoiceTest {
     fun `should create invoice`() {
         val createInvoiceCommand = CreateInvoiceCommand(
             id = UUID.randomUUID(),
+            payeeId = UUID.randomUUID(),
             from = "John Doe",
             to = "Jane Doe",
             issueDate = LocalDate.now(),
@@ -57,6 +58,7 @@ class InvoiceTest {
 
         val invoiceCreatedEvent = InvoiceCreatedEvent(
             invoiceId = createInvoiceCommand.id,
+            payeeId = createInvoiceCommand.payeeId,
             from = createInvoiceCommand.from,
             to = createInvoiceCommand.to,
             issueDate = createInvoiceCommand.issueDate,
@@ -81,6 +83,7 @@ class InvoiceTest {
     fun `given created invoice, should send invoice`() {
         val invoiceCreatedEvent = InvoiceCreatedEvent(
             invoiceId = UUID.randomUUID(),
+            payeeId = UUID.randomUUID(),
             from = "John Doe",
             to = "Jane Doe",
             issueDate = LocalDate.now(),

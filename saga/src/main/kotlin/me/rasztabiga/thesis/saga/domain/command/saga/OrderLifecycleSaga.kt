@@ -265,6 +265,7 @@ class OrderLifecycleSaga {
         commandGateway.sendAndWait<Void>(
             CreateInvoiceCommand(
                 id = userInvoiceId,
+                payeeId = UUID.randomUUID(), // TODO hacky, User doesn't have payeeId because it's not a payee
                 from = "Food Delivery App",
                 to = user.name,
                 issueDate = LocalDate.now(),
