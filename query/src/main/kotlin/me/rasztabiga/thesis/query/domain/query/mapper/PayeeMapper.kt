@@ -14,7 +14,8 @@ object PayeeMapper {
             name = event.name,
             email = event.email,
             balance = BigDecimal.ZERO,
-            balanceChanges = mutableListOf()
+            balanceChanges = mutableListOf(),
+            type = PayeeEntity.PayeeType.valueOf(event.payeeType.name)
         )
     }
 
@@ -31,7 +32,8 @@ object PayeeMapper {
                     accountNumber = it.accountNumber,
                     timestamp = it.timestamp
                 )
-            }
+            },
+            type = PayeeResponse.PayeeType.valueOf(entity.type.name)
         )
     }
 }

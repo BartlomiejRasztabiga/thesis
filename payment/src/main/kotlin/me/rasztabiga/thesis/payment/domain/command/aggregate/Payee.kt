@@ -41,7 +41,8 @@ internal class Payee {
                 payeeId = command.id,
                 userId = command.userId,
                 name = command.name,
-                email = command.email
+                email = command.email,
+                payeeType = PayeeCreatedEvent.PayeeType.valueOf(command.payeeType.name)
             )
         )
     }

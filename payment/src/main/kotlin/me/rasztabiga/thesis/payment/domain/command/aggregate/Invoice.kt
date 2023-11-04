@@ -26,6 +26,7 @@ class Invoice {
     private lateinit var dueDate: LocalDate
     private lateinit var items: List<InvoiceItem>
     private lateinit var status: InvoiceStatus
+    private var amountPaid: String? = null
 
     data class InvoiceItem(
         val name: String,
@@ -54,7 +55,8 @@ class Invoice {
                         quantity = it.quantity,
                         unitPrice = it.unitPrice
                     )
-                }
+                },
+                amountPaid = command.amountPaid
             )
         )
     }
@@ -78,8 +80,10 @@ class Invoice {
                         quantity = it.quantity,
                         unitPrice = it.unitPrice
                     )
-                }
-            ))
+                },
+                amountPaid = this.amountPaid
+            )
+        )
 
         emailSendingPort.send(command.email, pdf!!)
 
@@ -106,6 +110,7 @@ class Invoice {
             )
         }
         this.status = InvoiceStatus.CREATED
+        this.amountPaid = event.amountPaid
     }
 
     @Suppress("UnusedParameter")

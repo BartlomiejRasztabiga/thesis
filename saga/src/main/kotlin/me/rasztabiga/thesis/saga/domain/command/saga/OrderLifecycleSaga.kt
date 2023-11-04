@@ -25,7 +25,6 @@ import me.rasztabiga.thesis.shared.domain.command.event.OrderFinalizedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaidEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderPaymentPaidEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
-import me.rasztabiga.thesis.shared.domain.command.event.PayeeBalanceAddedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderRejectedEvent
 import me.rasztabiga.thesis.shared.domain.query.query.FindCourierByIdQuery
@@ -72,12 +71,8 @@ class OrderLifecycleSaga {
     private lateinit var deliveryCourierPayeeId: UUID
 
     private lateinit var userInvoiceId: UUID
-    private lateinit var restaurantInvoiceId: UUID
-    private lateinit var courierInvoiceId: UUID
 
     private var userInvoiceSent: Boolean = false
-    private var restaurantInvoiceSent: Boolean = false
-    private var courierInvoiceSent: Boolean = false
 
     @StartSaga
     @SagaEventHandler(associationProperty = "orderId")
@@ -222,7 +217,6 @@ class OrderLifecycleSaga {
         )
     }
 
-    @Suppress("MagicNumber")
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: OrderDeliveryDeliveredEvent) {
         courierId = event.courierId
@@ -263,7 +257,6 @@ class OrderLifecycleSaga {
             )
         )
 
-        // TODO create user invoice (PAID)
         val user = getUser(order.userId)
 
         userInvoiceId = UUID.randomUUID()
@@ -275,7 +268,7 @@ class OrderLifecycleSaga {
                 from = "Food Delivery App",
                 to = user.name,
                 issueDate = LocalDate.now(),
-                dueDate = LocalDate.now().plusDays(14),
+                dueDate = LocalDate.now(),
                 items = order.items.map {
                     val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.key }!!
 
@@ -295,67 +288,9 @@ class OrderLifecycleSaga {
         )
     }
 
-    @Suppress("MagicNumber", "UnusedParameter")
-    @SagaEventHandler(associationProperty = "payeeId", keyName = "restaurantManagerPayeeId")
-    fun on1(event: PayeeBalanceAddedEvent) {
-        val restaurant = getRestaurant(restaurantId)
-        val order = getOrder(orderId)
-
-        // TODO create restaurant invoice
-        restaurantInvoiceId = UUID.randomUUID()
-        SagaLifecycle.associateWith("restaurantInvoiceId", restaurantInvoiceId.toString())
-
-        commandGateway.sendAndWait<Void>(
-            CreateInvoiceCommand(
-                id = restaurantInvoiceId,
-                from = restaurant.name,
-                to = "Food Delivery App",
-                issueDate = LocalDate.now(),
-                dueDate = LocalDate.now().plusDays(14),
-                items = order.items.map {
-                    val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.key }!!
-
-                    CreateInvoiceCommand.InvoiceItem(
-                        name = menuItem.name,
-                        quantity = it.value,
-                        unitPrice = menuItem.price
-                    )
-                }
-            )
-        )
-    }
-
-    @Suppress("MagicNumber", "UnusedParameter")
-    @SagaEventHandler(associationProperty = "payeeId", keyName = "deliveryCourierPayeeId")
-    fun on2(event: PayeeBalanceAddedEvent) {
-        val courier = getCourier(courierId)
-        val delivery = getDelivery(deliveryId)
-
-        // TODO create delivery invoice
-        courierInvoiceId = UUID.randomUUID()
-        SagaLifecycle.associateWith("courierInvoiceId", courierInvoiceId.toString())
-
-        commandGateway.sendAndWait<Void>(
-            CreateInvoiceCommand(
-                id = courierInvoiceId,
-                from = courier.name,
-                to = "Food Delivery App",
-                issueDate = LocalDate.now(),
-                dueDate = LocalDate.now().plusDays(14),
-                items = listOf(
-                    CreateInvoiceCommand.InvoiceItem(
-                        name = "Delivery fee",
-                        quantity = 1,
-                        unitPrice = delivery.courierFee
-                    )
-                )
-            )
-        )
-    }
-
     @Suppress("UnusedParameter")
     @SagaEventHandler(associationProperty = "invoiceId", keyName = "userInvoiceId")
-    fun on1(event: InvoiceCreatedEvent) {
+    fun on(event: InvoiceCreatedEvent) {
         val user = getUser(orderingUserId)
 
         commandGateway.sendAndWait<Void>(
@@ -367,59 +302,10 @@ class OrderLifecycleSaga {
     }
 
     @Suppress("UnusedParameter")
-    @SagaEventHandler(associationProperty = "invoiceId", keyName = "restaurantInvoiceId")
-    fun on2(event: InvoiceCreatedEvent) {
-        val restaurant = getRestaurant(restaurantId)
-
-        commandGateway.sendAndWait<Void>(
-            SendInvoiceEmailCommand(
-                id = restaurantInvoiceId,
-                email = restaurant.email
-            )
-        )
-    }
-
-    @Suppress("UnusedParameter")
-    @SagaEventHandler(associationProperty = "invoiceId", keyName = "courierInvoiceId")
-    fun on3(event: InvoiceCreatedEvent) {
-        val courier = getCourier(courierId)
-
-        commandGateway.sendAndWait<Void>(
-            SendInvoiceEmailCommand(
-                id = courierInvoiceId,
-                email = courier.email
-            )
-        )
-    }
-
-    @Suppress("UnusedParameter")
+    @EndSaga
     @SagaEventHandler(associationProperty = "invoiceId", keyName = "userInvoiceId")
-    fun on1(event: InvoiceEmailSentEvent) {
+    fun on(event: InvoiceEmailSentEvent) {
         userInvoiceSent = true
-
-        if (restaurantInvoiceSent && courierInvoiceSent) {
-            SagaLifecycle.end()
-        }
-    }
-
-    @Suppress("UnusedParameter")
-    @SagaEventHandler(associationProperty = "invoiceId", keyName = "restaurantInvoiceId")
-    fun on2(event: InvoiceEmailSentEvent) {
-        restaurantInvoiceSent = true
-
-        if (userInvoiceSent && courierInvoiceSent) {
-            SagaLifecycle.end()
-        }
-    }
-
-    @Suppress("UnusedParameter")
-    @SagaEventHandler(associationProperty = "invoiceId", keyName = "courierInvoiceId")
-    fun on3(event: InvoiceEmailSentEvent) {
-        courierInvoiceSent = true
-
-        if (userInvoiceSent && restaurantInvoiceSent) {
-            SagaLifecycle.end()
-        }
     }
 
     private fun getOrder(orderId: UUID): OrderResponse {
@@ -452,9 +338,5 @@ class OrderLifecycleSaga {
         ).join()
     }
 
-    private fun getCourier(courierId: String): CourierResponse {
-        return queryGateway.query(
-            FindCourierByIdQuery(courierId), ResponseTypes.instanceOf(CourierResponse::class.java)
-        ).join()
-    }
+
 }

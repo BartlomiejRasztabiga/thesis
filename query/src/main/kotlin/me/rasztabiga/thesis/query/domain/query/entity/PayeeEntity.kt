@@ -1,5 +1,6 @@
 package me.rasztabiga.thesis.query.domain.query.entity
 
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.PayeeResponse
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import java.math.BigDecimal
@@ -14,11 +15,16 @@ data class PayeeEntity(
     val name: String,
     val email: String,
     var balance: BigDecimal,
-    val balanceChanges: MutableList<BalanceChange>
+    val balanceChanges: MutableList<BalanceChange>,
+    val type: PayeeType
 ) {
     data class BalanceChange(
         val amount: BigDecimal,
         val accountNumber: String?,
         val timestamp: Instant
     )
+
+    enum class PayeeType {
+        RESTAURANT_MANAGER, COURIER
+    }
 }

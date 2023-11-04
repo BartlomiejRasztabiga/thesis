@@ -10,6 +10,7 @@ import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.PayeeResponse
 import me.rasztabiga.thesis.shared.domain.command.event.PayeeBalanceAddedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.PayeeBalanceWithdrawnEvent
 import me.rasztabiga.thesis.shared.domain.command.event.PayeeCreatedEvent
+import me.rasztabiga.thesis.shared.domain.query.query.FindPayeeByIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindPayeeByUserIdQuery
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
@@ -64,6 +65,13 @@ class PayeeHandler(
         return payeeRepository.loadByUserId(query.userId)
             ?.let { Mono.just(mapToResponse(it)) }
             ?: Mono.error(PayeeByUserIdNotFoundException(query.userId))
+    }
+
+    @QueryHandler
+    fun handle(query: FindPayeeByIdQuery): Mono<PayeeResponse> {
+        return payeeRepository.load(query.id)
+            ?.let { Mono.just(mapToResponse(it)) }
+            ?: Mono.error(PayeeNotFoundException(query.id))
     }
 
     private fun getPayee(payeeId: UUID): PayeeEntity {

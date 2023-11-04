@@ -12,7 +12,8 @@ data class InvoiceCreatedEvent(
     val to: String,
     val issueDate: LocalDate,
     val dueDate: LocalDate,
-    val items: List<InvoiceItem>
+    val items: List<InvoiceItem>,
+    val amountPaid: String?
 ) {
     data class InvoiceItem(
         val name: String,

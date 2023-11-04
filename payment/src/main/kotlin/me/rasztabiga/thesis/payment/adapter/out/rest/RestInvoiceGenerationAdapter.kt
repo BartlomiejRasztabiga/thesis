@@ -5,6 +5,7 @@ import me.rasztabiga.thesis.payment.domain.command.port.InvoiceGenerationPort
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import java.math.BigDecimal
+import java.util.StringTokenizer
 
 @Service
 class RestInvoiceGenerationAdapter : InvoiceGenerationPort {
@@ -27,7 +28,8 @@ class RestInvoiceGenerationAdapter : InvoiceGenerationPort {
                             quantity = it.quantity,
                             unitCost = it.unitPrice
                         )
-                    }
+                    },
+                    amountPaid = invoiceData.amountPaid
                 )
             )
             .retrieve()
@@ -45,6 +47,7 @@ class RestInvoiceGenerationAdapter : InvoiceGenerationPort {
         val currency: String,
         val date: String,
         @get:JsonProperty("due_date") val dueDate: String,
+        @get:JsonProperty("amount_paid") val amountPaid: String?,
         val items: List<InvoiceItem>
     ) {
         data class InvoiceItem(
