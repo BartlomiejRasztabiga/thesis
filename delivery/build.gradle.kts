@@ -52,6 +52,7 @@ dependencies {
     implementation(kotlin("stdlib"))
 
     implementation("com.google.maps:google-maps-services:2.2.0")
+    implementation("io.axoniq.console:console-framework-client-spring-boot-starter:1.1.0")
 
     testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.18.7"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
