@@ -18,6 +18,8 @@ spec:
               value: axonserver
             - name: AXONIQ_CONSOLE_CREDENTIALS
               value: "68447ea9-1:4ac1289d784047ac88cc1e1ab39bdefc"
+            - name: SPRING_PROFILES_ACTIVE
+              value: nosecurity
           image: ghcr.io/bartlomiejrasztabiga/thesis/order:0.19.0
           name: order-service
           ports:

@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: order-service
+  name: delivery-service
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: order-service
+      app: delivery-service
   template:
     metadata:
       labels:
-        app: order-service
+        app: delivery-service
     spec:
       containers:
         - env:
@@ -18,20 +18,22 @@ spec:
               value: axonserver
             - name: AXONIQ_CONSOLE_CREDENTIALS
               value: "68447ea9-1:4ac1289d784047ac88cc1e1ab39bdefc"
-          image: ghcr.io/bartlomiejrasztabiga/thesis/order:0.19.0
-          name: order-service
+            - name: SPRING_PROFILES_ACTIVE
+              value: nosecurity
+          image: ghcr.io/bartlomiejrasztabiga/thesis/delivery:0.19.0
+          name: delivery-service
           ports:
-            - containerPort: 8102
+            - containerPort: 8104
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
-              port: 8102
+              port: 8104
             initialDelaySeconds: 30
             periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
-              port: 8102
+              port: 8104
             initialDelaySeconds: 30
             periodSeconds: 10
           resources:
