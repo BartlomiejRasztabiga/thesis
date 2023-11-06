@@ -10,6 +10,14 @@ import java.util.*
 
 object OrderDeliveryControllerMapper {
 
+    fun mapToAssignSuitableDeliveryOffer(
+        exchange: ServerWebExchange
+    ): AssignSuitableDeliveryOfferCommand {
+        return AssignSuitableDeliveryOfferCommand(
+            courierId = exchange.getUserId()
+        )
+    }
+
     fun mapToRejectDeliveryOfferCommand(
         deliveryId: UUID,
         exchange: ServerWebExchange

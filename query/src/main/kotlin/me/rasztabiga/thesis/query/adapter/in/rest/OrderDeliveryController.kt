@@ -23,18 +23,6 @@ import reactor.core.publisher.Mono
 class OrderDeliveryController(
     private val reactorQueryGateway: ReactorQueryGateway
 ) {
-    @GetMapping("/offer")
-    @PreAuthorize("hasAnyAuthority('${COURIER.READ}')")
-    fun getSuitableDeliveryOffer(
-        exchange: ServerWebExchange
-    ): Mono<OrderDeliveryOfferResponse> {
-        return reactorQueryGateway.query(
-            FindSuitableDeliveryOfferQuery(
-                courierId = exchange.getUserId()
-            ),
-            ResponseTypes.instanceOf(OrderDeliveryOfferResponse::class.java)
-        )
-    }
 
     @GetMapping("/current")
     @PreAuthorize("hasAnyAuthority('${COURIER.READ}')")
