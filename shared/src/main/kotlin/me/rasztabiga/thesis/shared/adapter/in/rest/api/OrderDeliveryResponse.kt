@@ -11,8 +11,7 @@ data class OrderDeliveryResponse(
     val deliveryLocation: Location,
     val status: DeliveryStatus,
     val courierFee: BigDecimal,
-    val createdAt: Instant,
-    val courierIdsDeclined: List<String>,
+    val createdAt: Instant
 ) {
     enum class DeliveryStatus {
         OFFER,

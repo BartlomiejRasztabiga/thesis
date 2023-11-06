@@ -225,7 +225,7 @@ class E2ETest {
             try {
                 offer = given(courierRequestSpecification)
                     .`when`()
-                    .put("/v2/deliveries/offer")
+                    .put("/v1/deliveries/offer")
                     .body.`as`(OrderDeliveryOfferResponse::class.java)
             } catch (e: RuntimeException) {
                 continue

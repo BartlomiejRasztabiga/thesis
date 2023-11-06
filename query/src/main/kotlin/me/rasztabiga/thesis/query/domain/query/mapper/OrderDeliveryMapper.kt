@@ -18,8 +18,8 @@ object OrderDeliveryMapper {
             status = DeliveryStatus.OFFER,
             courierFee = event.courierFee,
             courierId = null,
-            courierIdsDeclined = mutableListOf(),
-            createdAt = Instant.now()
+            createdAt = Instant.now(),
+            locked = false
         )
     }
 
@@ -31,7 +31,6 @@ object OrderDeliveryMapper {
             deliveryLocation = entity.deliveryLocation,
             status = OrderDeliveryResponse.DeliveryStatus.valueOf(entity.status.name),
             courierFee = entity.courierFee,
-            courierIdsDeclined = entity.courierIdsDeclined,
             createdAt = entity.createdAt
         )
     }
@@ -49,8 +48,7 @@ object OrderDeliveryMapper {
             deliveryLocation = entity.deliveryLocation,
             distanceToDeliveryAddressInKm = distanceToDeliveryAddressInKm,
             status = OrderDeliveryOfferResponse.DeliveryStatus.valueOf(entity.status.name),
-            courierFee = entity.courierFee,
-            courierIdsDeclined = entity.courierIdsDeclined
+            courierFee = entity.courierFee
         )
     }
 }
