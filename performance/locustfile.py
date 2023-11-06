@@ -194,13 +194,14 @@ class DeliveryCourier(HttpUser):
         })
 
         # TODO does it work?
-        with self.client.get(f"/v2/deliveries/offer", catch_response=True) as response:
+        with self.client.put(f"/v1/deliveries/offer", catch_response=True) as response:
             if response.status_code == 404:
                 response.success()
                 return
             else:
-                offer = response.json()
                 response.success()
+
+        offer = self.client.get(f"/v1/deliveries/current").json()
 
         print(f"DELIVERY Found offer {offer}")
 

@@ -21,7 +21,7 @@ export async function action({ request, params }: ActionArgs) {
     return json({ error: e.response.data.message });
   }
 
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   return redirect("/v2/courier/delivery");
 }
@@ -40,11 +40,7 @@ export default function V2SetupCourierPage() {
           <h1 className="text-xl">Create new courier</h1>
           <Form method="post">
             <FormControl>
-              <TextField
-                name="name"
-                label="Name"
-                variant="outlined"
-              />
+              <TextField name="name" label="Name" variant="outlined" />
               <Button variant="contained" type="submit">
                 Setup courier
               </Button>

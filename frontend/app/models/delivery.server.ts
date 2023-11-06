@@ -11,13 +11,13 @@ export const getCurrentCourier = async (
 export const createCourier = async (
   request: Request,
   name: string,
-  email: string
+  email: string,
 ): Promise<void> => {
   const axios = await getAxios(request);
   return axios
     .post(`/api/v1/couriers`, { name, email })
     .then((res) => res.data);
-}
+};
 
 export const updateCourierLocation = async (
   request: Request,

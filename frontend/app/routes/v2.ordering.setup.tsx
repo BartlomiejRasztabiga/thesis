@@ -23,7 +23,7 @@ export async function action({ request, params }: ActionArgs) {
     return json({ error: e.response.data.message });
   }
 
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   return redirect("/v2/ordering/restaurants");
 }
@@ -42,16 +42,8 @@ export default function V2SetupUserPage() {
           <h1 className="text-xl">Create new user</h1>
           <Form method="post">
             <FormControl>
-              <TextField
-                name="name"
-                label="Name"
-                variant="outlined"
-              />
-              <TextField
-                name="address"
-                label="Address"
-                variant="outlined"
-              />
+              <TextField name="name" label="Name" variant="outlined" />
+              <TextField name="address" label="Address" variant="outlined" />
               <Button variant="contained" type="submit">
                 Setup user
               </Button>

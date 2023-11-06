@@ -14,10 +14,8 @@ export const createUser = async (
   email: string,
 ): Promise<UuidWrapper> => {
   const axios = await getAxios(request);
-  return axios
-    .post(`/api/v1/users`, { name, email })
-    .then((res) => res.data);
-}
+  return axios.post(`/api/v1/users`, { name, email }).then((res) => res.data);
+};
 
 export const createDeliveryAddress = async (
   request: Request,
@@ -26,9 +24,12 @@ export const createDeliveryAddress = async (
 ): Promise<void> => {
   const axios = await getAxios(request);
   return axios
-    .post(`/api/v1/users/${userId}/addresses`, { address, additionalInfo: null })
+    .post(`/api/v1/users/${userId}/addresses`, {
+      address,
+      additionalInfo: null,
+    })
     .then((res) => res.data);
-}
+};
 
 export const updateDefaultAddress = async (
   request: Request,

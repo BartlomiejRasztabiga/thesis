@@ -16,8 +16,8 @@ export const getAxios = async (request: Request): Promise<Axios> => {
   const axiosInstance = axios.create({
     baseURL: process.env.API_GATEWAY_URL,
     headers: {
-      Authorization: `Bearer ${accessToken}`
-    }
+      Authorization: `Bearer ${accessToken}`,
+    },
   });
 
   axiosInstance.interceptors.response.use(
@@ -27,8 +27,8 @@ export const getAxios = async (request: Request): Promise<Axios> => {
         return redirect("/");
       }
       return Promise.reject(error);
-    }
+    },
   );
 
-  return axiosInstance
+  return axiosInstance;
 };

@@ -3,7 +3,13 @@ import { json, redirect } from "@remix-run/node";
 import { getRestaurants } from "~/models/restaurant.server";
 import Topbar from "~/components/user/Topbar";
 import { NavLink, useLoaderData, useNavigate } from "@remix-run/react";
-import { Card, CardActionArea, CardContent, CardMedia, Fab } from "@mui/material";
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  CardMedia,
+  Fab,
+} from "@mui/material";
 import { DeliveryDining, StarRate } from "@mui/icons-material";
 import { getCurrentUser } from "~/models/user.server";
 import { getOrderId } from "~/services/session.server";
@@ -25,7 +31,6 @@ export async function loader({ request }: LoaderArgs) {
 
   const restaurants = await getRestaurants(request);
 
-
   const activeOrderId = await getOrderId(request);
   const activeOrder = activeOrderId
     ? await getOrder(request, activeOrderId)
@@ -39,7 +44,7 @@ export default function V2RestaurantsPage() {
   const navigate = useNavigate();
 
   const openRestaurants = data.restaurants.filter(
-    (restaurant) => restaurant.availability === "OPEN"
+    (restaurant) => restaurant.availability === "OPEN",
   );
 
   return (
@@ -95,7 +100,7 @@ export default function V2RestaurantsPage() {
 
                 if (
                   ["CANCELED", "FINALIZED", "REJECTED"].includes(
-                    data.activeOrder.status
+                    data.activeOrder.status,
                   )
                 ) {
                   return;
@@ -103,11 +108,11 @@ export default function V2RestaurantsPage() {
 
                 if (data.activeOrder.status === "CREATED") {
                   navigate(
-                    `/v2/ordering/restaurants/${data.activeOrder.restaurantId}`
+                    `/v2/ordering/restaurants/${data.activeOrder.restaurantId}`,
                   );
                 } else {
                   navigate(
-                    `/v2/ordering/orders/${data.activeOrder.id}/tracking`
+                    `/v2/ordering/orders/${data.activeOrder.id}/tracking`,
                   );
                 }
               }}

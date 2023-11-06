@@ -7,10 +7,15 @@ import {
   getRestaurantOrders,
   prepareRestaurantOrder,
   rejectRestaurantOrder,
-  updateRestaurantAvailability
+  updateRestaurantAvailability,
 } from "~/models/restaurant.server";
 import BottomNavbar from "~/components/manager/BottomNavbar";
-import { Form, useActionData, useLoaderData, useRevalidator } from "@remix-run/react";
+import {
+  Form,
+  useActionData,
+  useLoaderData,
+  useRevalidator,
+} from "@remix-run/react";
 import invariant from "tiny-invariant";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
@@ -25,7 +30,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Typography
+  Typography,
 } from "@mui/material";
 
 export async function loader({ request, params }: LoaderArgs) {
@@ -80,7 +85,7 @@ export async function action({ request, params }: ActionArgs) {
       await updateRestaurantAvailability(
         request,
         restaurantId,
-        newAvailability
+        newAvailability,
       );
     }
   } catch (e) {
@@ -97,7 +102,7 @@ export default function V2RestaurantPage() {
   const revalidator = useRevalidator();
 
   const activeOrders = data.orders.filter((order) =>
-    ["NEW", "ACCEPTED", "PREPARED"].includes(order.status)
+    ["NEW", "ACCEPTED", "PREPARED"].includes(order.status),
   );
 
   // TODO good enough for now
@@ -196,7 +201,7 @@ export default function V2RestaurantPage() {
                     <TableCell>
                       {Object.keys(order.items).map((item, key) => {
                         const product = data.restaurant.menu.find(
-                          (product) => product.id === item
+                          (product) => product.id === item,
                         );
                         if (!product) {
                           return null;

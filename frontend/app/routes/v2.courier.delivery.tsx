@@ -38,7 +38,6 @@ export async function loader({ request, params }: LoaderArgs) {
     }
   }
 
-
   let currentDelivery;
 
   try {
@@ -49,7 +48,7 @@ export async function loader({ request, params }: LoaderArgs) {
 
   if (!currentDelivery) {
     try {
-      const deliveryOffer = await getDeliveryOffer(request);
+      await getDeliveryOffer(request);
     } catch (error) {
       // ignore, no delivery offer
     }

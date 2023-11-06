@@ -12,13 +12,13 @@ export const createRestaurant = async (
   name: string,
   address: string,
   email: string,
-  imageUrl: string
+  imageUrl: string,
 ): Promise<void> => {
   const axios = await getAxios(request);
   return axios
     .post(`/api/v1/restaurants`, { name, address, email, imageUrl })
     .then((res) => res.data);
-}
+};
 
 export const getRestaurant = async (
   request: Request,

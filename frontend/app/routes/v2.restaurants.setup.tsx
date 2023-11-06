@@ -16,14 +16,20 @@ export async function action({ request, params }: ActionArgs) {
 
   try {
     const email = await getEmail(request);
-    await createRestaurant(request, values.name, values.address, email!, values.imageUrl);
+    await createRestaurant(
+      request,
+      values.name,
+      values.address,
+      email!,
+      values.imageUrl,
+    );
     console.log("test");
   } catch (e) {
     console.log(e);
     return json({ error: e.response.data.message });
   }
 
-  await new Promise(resolve => setTimeout(resolve, 1000));
+  await new Promise((resolve) => setTimeout(resolve, 1000));
 
   return redirect("/v2/restaurants/orders");
 }
@@ -42,21 +48,9 @@ export default function V2SetupRestaurantPage() {
           <h1 className="text-xl">Create new restaurant</h1>
           <Form method="post">
             <FormControl>
-              <TextField
-                name="name"
-                label="Name"
-                variant="outlined"
-              />
-              <TextField
-                name="address"
-                label="Address"
-                variant="outlined"
-              />
-              <TextField
-                name="imageUrl"
-                label="Image url"
-                variant="outlined"
-              />
+              <TextField name="name" label="Name" variant="outlined" />
+              <TextField name="address" label="Address" variant="outlined" />
+              <TextField name="imageUrl" label="Image url" variant="outlined" />
               <Button variant="contained" type="submit">
                 Setup restaurant
               </Button>
