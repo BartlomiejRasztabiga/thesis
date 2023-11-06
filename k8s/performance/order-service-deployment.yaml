@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: order-service
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: order-service
@@ -28,14 +28,14 @@ spec:
             httpGet:
               path: /actuator/health/liveness
               port: 8102
-            initialDelaySeconds: 30
-            periodSeconds: 10
+            initialDelaySeconds: 60
+            periodSeconds: 30
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
               port: 8102
-            initialDelaySeconds: 30
-            periodSeconds: 10
+            initialDelaySeconds: 60
+            periodSeconds: 30
           resources:
             requests:
               memory: "250Mi"
