@@ -8,17 +8,14 @@ import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.OrderDeliveryContr
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.OrderDeliveryControllerMapper.mapToPickupDeliveryCommand
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.OrderDeliveryControllerMapper.mapToRejectDeliveryOfferCommand
 import me.rasztabiga.thesis.shared.UuidWrapper
-import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryOfferResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.shared.config.getUserId
-import me.rasztabiga.thesis.shared.domain.query.query.FindOrderDeliveryByIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindSuitableDeliveryOfferQuery
 import me.rasztabiga.thesis.shared.security.Scopes.COURIER
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
@@ -36,8 +33,8 @@ class OrderDeliveryController(
     @PreAuthorize("hasAnyAuthority('${COURIER.WRITE}')")
     fun assignSuitableDeliveryOffer(
         exchange: ServerWebExchange
-    ): Mono<OrderDeliveryResponse> {
-        return reactorQueryGateway.query(
+    ): Mono<UuidWrapper> {
+        val id = reactorQueryGateway.query(
             FindSuitableDeliveryOfferQuery(
                 courierId = exchange.getUserId()
             ),
@@ -45,12 +42,8 @@ class OrderDeliveryController(
         ).flatMap {
             val command = mapToAssignDeliveryCommand(it.id, exchange)
             reactorCommandGateway.send<UUID>(command)
-        }.flatMap { id ->
-            reactorQueryGateway.query(
-                FindOrderDeliveryByIdQuery(id),
-                OrderDeliveryResponse::class.java
-            )
         }
+        return id.map { UuidWrapper(it) }
     }
 
     @PutMapping("/{deliveryId}/reject")
