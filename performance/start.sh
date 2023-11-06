@@ -1,1 +1,1 @@
-locust --modern-ui
+locust --modern-ui --host=https://thesis.rasztabiga.me/api

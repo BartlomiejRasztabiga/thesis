@@ -3,7 +3,7 @@ kind: StatefulSet
 metadata:
   name: axonserver
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: axonserver
@@ -18,6 +18,8 @@ spec:
           name: axonserver
           env:
             - name: AXONIQ_AXONSERVER_DEVMODE_ENABLED
+              value: "true"
+            - name: AXONIQ_AXONSERVER_STANDALONE
               value: "true"
             - name: AXONIQ_LICENSE
               value: "/axonserver/license/axoniq.license"
@@ -67,18 +69,3 @@ spec:
         - name: axonserver-license
           secret:
             secretName: axonserver-license
-  volumeClaimTemplates:
-    - metadata:
-        name: axonserver-events
-      spec:
-        accessModes: [ "ReadWriteOnce" ]
-        resources:
-          requests:
-            storage: 5Gi
-    - metadata:
-        name: axonserver-data
-      spec:
-        accessModes: [ "ReadWriteOnce" ]
-        resources:
-          requests:
-            storage: 1Gi
