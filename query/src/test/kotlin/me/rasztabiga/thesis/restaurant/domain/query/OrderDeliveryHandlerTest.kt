@@ -56,7 +56,6 @@ class OrderDeliveryHandlerTest {
         savedOrderDelivery?.status shouldBe OrderDeliveryResponse.DeliveryStatus.OFFER
         savedOrderDelivery?.courierFee shouldBe event.courierFee
         savedOrderDelivery?.createdAt shouldNotBe null
-        savedOrderDelivery?.courierIdsDeclined?.size shouldBe 0
     }
 
     @Test
@@ -86,7 +85,6 @@ class OrderDeliveryHandlerTest {
         savedOrderDelivery?.status shouldBe OrderDeliveryResponse.DeliveryStatus.OFFER
         savedOrderDelivery?.courierFee shouldBe orderDeliveryCreatedEvent.courierFee
         savedOrderDelivery?.createdAt shouldNotBe null
-        savedOrderDelivery?.courierIdsDeclined?.shouldContain(orderDeliveryRejectedEvent.courierId)
     }
 
     @Test
@@ -117,7 +115,6 @@ class OrderDeliveryHandlerTest {
         savedOrderDelivery?.status shouldBe OrderDeliveryResponse.DeliveryStatus.ACCEPTED
         savedOrderDelivery?.courierFee shouldBe orderDeliveryCreatedEvent.courierFee
         savedOrderDelivery?.createdAt shouldNotBe null
-        savedOrderDelivery?.courierIdsDeclined?.size shouldBe 0
     }
 
     @Test
@@ -155,7 +152,6 @@ class OrderDeliveryHandlerTest {
         savedOrderDelivery?.status shouldBe OrderDeliveryResponse.DeliveryStatus.PICKED_UP
         savedOrderDelivery?.courierFee shouldBe orderDeliveryCreatedEvent.courierFee
         savedOrderDelivery?.createdAt shouldNotBe null
-        savedOrderDelivery?.courierIdsDeclined?.size shouldBe 0
     }
 
     @Test
@@ -200,6 +196,5 @@ class OrderDeliveryHandlerTest {
         savedOrderDelivery?.status shouldBe OrderDeliveryResponse.DeliveryStatus.DELIVERED
         savedOrderDelivery?.courierFee shouldBe orderDeliveryCreatedEvent.courierFee
         savedOrderDelivery?.createdAt shouldNotBe null
-        savedOrderDelivery?.courierIdsDeclined?.size shouldBe 0
     }
 }

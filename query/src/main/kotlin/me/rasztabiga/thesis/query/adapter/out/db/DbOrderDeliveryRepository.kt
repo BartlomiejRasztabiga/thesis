@@ -27,7 +27,8 @@ class DbOrderDeliveryRepository(
 
     override fun loadCurrentDeliveryByCourierId(courierId: String): OrderDeliveryEntity? {
         val orders = springDataOrderDeliveryRepository.findByCourierId(courierId).collectList().block() ?: listOf()
-        return orders.firstOrNull { it.status == DeliveryStatus.ACCEPTED || it.status == DeliveryStatus.PICKED_UP }
+        val activeStatuses = setOf(DeliveryStatus.ASSIGNED, DeliveryStatus.ACCEPTED, DeliveryStatus.PICKED_UP)
+        return orders.firstOrNull { activeStatuses.contains(it.status) }
     }
 
     override fun loadAllByCourierId(courierId: String): Flux<OrderDeliveryEntity> {

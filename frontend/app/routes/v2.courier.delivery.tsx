@@ -47,11 +47,9 @@ export async function loader({ request, params }: LoaderArgs) {
     // ignore, no delivery in progress
   }
 
-  let deliveryOffer;
-
   if (!currentDelivery) {
     try {
-      deliveryOffer = await getDeliveryOffer(request);
+      const deliveryOffer = await getDeliveryOffer(request);
     } catch (error) {
       // ignore, no delivery offer
     }
@@ -59,7 +57,7 @@ export async function loader({ request, params }: LoaderArgs) {
 
   const payee = await getCurrentPayee(request);
 
-  return json({ courier, currentDelivery, deliveryOffer, payee });
+  return json({ courier, currentDelivery, payee });
 }
 
 export async function action({ request, params }: ActionArgs) {
@@ -154,7 +152,7 @@ export default function V2CourierPage() {
 
   // TODO update to MUI
   const getContent = () => {
-    if (data.currentDelivery) {
+    if (data.currentDelivery && data.currentDelivery.status !== "ASSIGNED") {
       return (
         <div className="justify-center">
           <p>Delivery in progress</p>
@@ -219,24 +217,24 @@ export default function V2CourierPage() {
       );
     }
 
-    if (data.deliveryOffer) {
+    if (data.currentDelivery && data.currentDelivery.status === "ASSIGNED") {
       return (
         <div className="justify-center">
           <p>Delivery offer</p>
           <p>
-            From: {data.deliveryOffer.restaurantLocation.streetAddress} (
-            {data.deliveryOffer.distanceToRestaurantInKm.toFixed(2)} km)
+            From: {data.currentDelivery.restaurantLocation.streetAddress} (
+            {data.currentDelivery.distanceToRestaurantInKm.toFixed(2)} km)
           </p>
           <p>
-            To: {data.deliveryOffer.deliveryLocation.streetAddress} (
-            {data.deliveryOffer.distanceToDeliveryAddressInKm.toFixed(2)} km)
+            To: {data.currentDelivery.deliveryLocation.streetAddress} (
+            {data.currentDelivery.distanceToDeliveryAddressInKm.toFixed(2)} km)
           </p>
-          <p>Reward: {data.deliveryOffer.courierFee} PLN</p>
+          <p>Reward: {data.currentDelivery.courierFee} PLN</p>
           <Form method="post" className="flex justify-between">
             <input
               type={"hidden"}
               name={"deliveryId"}
-              value={data.deliveryOffer.id}
+              value={data.currentDelivery.id}
             />
             <Button
               type="submit"

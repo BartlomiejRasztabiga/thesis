@@ -20,7 +20,7 @@ spec:
               value: "68447ea9-1:4ac1289d784047ac88cc1e1ab39bdefc"
             - name: SPRING_PROFILES_ACTIVE
               value: nosecurity
-          image: ghcr.io/bartlomiejrasztabiga/thesis/order:0.19.4
+          image: ghcr.io/bartlomiejrasztabiga/thesis/order:0.19.5
           name: order-service
           ports:
             - containerPort: 8102
