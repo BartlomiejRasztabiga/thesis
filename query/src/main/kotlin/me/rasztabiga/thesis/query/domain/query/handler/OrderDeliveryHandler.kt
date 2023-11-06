@@ -3,6 +3,7 @@ package me.rasztabiga.thesis.query.domain.query.handler
 import me.rasztabiga.thesis.query.domain.query.entity.CourierEntity
 import me.rasztabiga.thesis.query.domain.query.entity.DeliveryStatus
 import me.rasztabiga.thesis.query.domain.query.entity.OrderDeliveryEntity
+import me.rasztabiga.thesis.query.domain.query.exception.CourierLocationNotSetException
 import me.rasztabiga.thesis.query.domain.query.exception.CourierNotFoundException
 import me.rasztabiga.thesis.query.domain.query.exception.DeliveryNotFoundException
 import me.rasztabiga.thesis.query.domain.query.exception.SuitableDeliveryOfferNotFoundException
@@ -16,6 +17,7 @@ import me.rasztabiga.thesis.query.domain.query.repository.OrderDeliveryRepositor
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryOfferResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAcceptedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAssignedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryDeliveredEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryPickedUpEvent
@@ -46,9 +48,20 @@ class OrderDeliveryHandler(
     }
 
     @EventHandler
+    fun on(event: OrderDeliveryAssignedEvent) {
+        val entity = getDelivery(event.deliveryId)
+        entity.courierId = event.courierId
+        entity.status = DeliveryStatus.ASSIGNED
+        entity.locked = true
+        orderDeliveryRepository.save(entity)
+    }
+
+    @EventHandler
     fun on(event: OrderDeliveryRejectedEvent) {
         val entity = getDelivery(event.deliveryId)
-        entity.courierIdsDeclined.add(event.courierId)
+        entity.courierId = null
+        entity.status = DeliveryStatus.OFFER
+        entity.locked = false
         orderDeliveryRepository.save(entity)
     }
 
@@ -57,8 +70,10 @@ class OrderDeliveryHandler(
         val entity = getDelivery(event.deliveryId)
         entity.courierId = event.courierId
         entity.status = DeliveryStatus.ACCEPTED
+        entity.locked = false
         orderDeliveryRepository.save(entity)
     }
+
 
     @EventHandler
     fun on(event: OrderDeliveryPickedUpEvent) {
@@ -79,10 +94,10 @@ class OrderDeliveryHandler(
     fun handle(query: FindSuitableDeliveryOfferQuery): Mono<OrderDeliveryOfferResponse> {
         val courier = getCourier(query.courierId)
         if (courier.location == null) {
-            return Mono.error(SuitableDeliveryOfferNotFoundException())
+            return Mono.error(CourierLocationNotSetException())
         }
 
-        val offers = orderDeliveryRepository.loadOffers().filter { !it.courierIdsDeclined.contains(query.courierId) }
+        val offers = orderDeliveryRepository.loadOffers()
         if (offers.isEmpty()) {
             return Mono.error(SuitableDeliveryOfferNotFoundException())
         }

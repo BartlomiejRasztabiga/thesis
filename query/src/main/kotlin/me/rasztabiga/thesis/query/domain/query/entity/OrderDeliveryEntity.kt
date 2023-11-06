@@ -17,7 +17,6 @@ data class OrderDeliveryEntity(
     var status: DeliveryStatus,
     val courierFee: BigDecimal,
     var courierId: String?,
-    val courierIdsDeclined: MutableList<String>,
     val createdAt: Instant,
     var locked: Boolean
 )

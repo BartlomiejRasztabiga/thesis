@@ -16,6 +16,7 @@ data class OrderDeliveryResponse(
 ) {
     enum class DeliveryStatus {
         OFFER,
+        ASSIGNED,
         ACCEPTED,
         PICKED_UP,
         DELIVERED

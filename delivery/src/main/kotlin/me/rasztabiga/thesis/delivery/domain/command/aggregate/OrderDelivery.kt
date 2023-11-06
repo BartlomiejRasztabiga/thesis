@@ -10,6 +10,7 @@ import me.rasztabiga.thesis.delivery.domain.command.port.CourierOnlineVerifierPo
 import me.rasztabiga.thesis.delivery.domain.command.port.OrderPreparedVerifierPort
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderDeliveryOfferCommand
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAcceptedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAssignedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryDeliveredEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryPickedUpEvent
@@ -57,7 +58,6 @@ class OrderDelivery {
         apply(
             OrderDeliveryAssignedEvent(
                 deliveryId = command.id,
-                orderId = this.orderId,
                 courierId = command.courierId
             )
         )
@@ -160,11 +160,13 @@ class OrderDelivery {
         this.courierId = event.courierId
     }
 
+    @Suppress("UnusedParameter")
     @EventSourcingHandler
     fun on(event: OrderDeliveryAcceptedEvent) {
         this.status = DeliveryStatus.ACCEPTED
     }
 
+    @Suppress("UnusedParameter")
     @EventSourcingHandler
     fun on(event: OrderDeliveryRejectedEvent) {
         this.status = DeliveryStatus.OFFER

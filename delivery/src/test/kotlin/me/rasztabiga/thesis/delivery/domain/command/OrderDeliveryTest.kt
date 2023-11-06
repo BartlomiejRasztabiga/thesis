@@ -13,6 +13,7 @@ import me.rasztabiga.thesis.delivery.domain.command.port.OrderPreparedVerifierPo
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderDeliveryOfferCommand
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAcceptedEvent
+import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAssignedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryDeliveredEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryPickedUpEvent
@@ -79,6 +80,11 @@ class OrderDeliveryTest {
 
         val courierId = UUID.randomUUID().toString()
 
+        val orderDeliveryAssignedEvent = OrderDeliveryAssignedEvent(
+            deliveryId = orderDeliveryCreatedEvent.deliveryId,
+            courierId = courierId
+        )
+
         every { courierOnlineVerifierPort.isCourierOnline(courierId) } returns true
 
         val rejectDeliveryOfferCommand = RejectDeliveryOfferCommand(
@@ -91,7 +97,7 @@ class OrderDeliveryTest {
             courierId = courierId
         )
 
-        testFixture.given(orderDeliveryCreatedEvent)
+        testFixture.given(orderDeliveryCreatedEvent, orderDeliveryAssignedEvent)
             .`when`(rejectDeliveryOfferCommand)
             .expectSuccessfulHandlerExecution()
             .expectEvents(orderDeliveryRejectedEvent)
@@ -109,6 +115,11 @@ class OrderDeliveryTest {
 
         val courierId = UUID.randomUUID().toString()
 
+        val orderDeliveryAssignedEvent = OrderDeliveryAssignedEvent(
+            deliveryId = orderDeliveryCreatedEvent.deliveryId,
+            courierId = courierId
+        )
+
         every { courierOnlineVerifierPort.isCourierOnline(courierId) } returns true
 
         val acceptDeliveryOfferCommand = AcceptDeliveryOfferCommand(
@@ -122,7 +133,7 @@ class OrderDeliveryTest {
             courierId = courierId
         )
 
-        testFixture.given(orderDeliveryCreatedEvent)
+        testFixture.given(orderDeliveryCreatedEvent, orderDeliveryAssignedEvent)
             .`when`(acceptDeliveryOfferCommand)
             .expectSuccessfulHandlerExecution()
             .expectEvents(orderDeliveryAcceptedEvent)
@@ -138,10 +149,15 @@ class OrderDeliveryTest {
             courierFee = BigDecimal(10)
         )
 
+        val orderDeliveryAssignedEvent = OrderDeliveryAssignedEvent(
+            deliveryId = orderDeliveryCreatedEvent.deliveryId,
+            courierId = UUID.randomUUID().toString()
+        )
+
         val orderDeliveryAcceptedEvent = OrderDeliveryAcceptedEvent(
             deliveryId = orderDeliveryCreatedEvent.deliveryId,
             orderId = orderDeliveryCreatedEvent.orderId,
-            courierId = UUID.randomUUID().toString()
+            courierId = orderDeliveryAssignedEvent.courierId
         )
 
         every { courierOnlineVerifierPort.isCourierOnline(orderDeliveryAcceptedEvent.courierId) } returns true
@@ -158,7 +174,7 @@ class OrderDeliveryTest {
             orderId = orderDeliveryCreatedEvent.orderId
         )
 
-        testFixture.given(orderDeliveryCreatedEvent, orderDeliveryAcceptedEvent)
+        testFixture.given(orderDeliveryCreatedEvent, orderDeliveryAssignedEvent, orderDeliveryAcceptedEvent)
             .`when`(pickupDeliveryCommand)
             .expectSuccessfulHandlerExecution()
             .expectEvents(orderDeliveryPickedUpEvent)
@@ -174,10 +190,15 @@ class OrderDeliveryTest {
             courierFee = BigDecimal(10)
         )
 
+        val orderDeliveryAssignedEvent = OrderDeliveryAssignedEvent(
+            deliveryId = orderDeliveryCreatedEvent.deliveryId,
+            courierId = UUID.randomUUID().toString()
+        )
+
         val orderDeliveryAcceptedEvent = OrderDeliveryAcceptedEvent(
             deliveryId = orderDeliveryCreatedEvent.deliveryId,
             orderId = orderDeliveryCreatedEvent.orderId,
-            courierId = UUID.randomUUID().toString()
+            courierId = orderDeliveryAssignedEvent.courierId
         )
 
         val orderDeliveryPickedUpEvent = OrderDeliveryPickedUpEvent(
@@ -199,7 +220,12 @@ class OrderDeliveryTest {
             orderId = orderDeliveryCreatedEvent.orderId
         )
 
-        testFixture.given(orderDeliveryCreatedEvent, orderDeliveryAcceptedEvent, orderDeliveryPickedUpEvent)
+        testFixture.given(
+            orderDeliveryCreatedEvent,
+            orderDeliveryAssignedEvent,
+            orderDeliveryAcceptedEvent,
+            orderDeliveryPickedUpEvent
+        )
             .`when`(deliverDeliveryCommand)
             .expectSuccessfulHandlerExecution()
             .expectEvents(orderDeliveryDeliveredEvent)
