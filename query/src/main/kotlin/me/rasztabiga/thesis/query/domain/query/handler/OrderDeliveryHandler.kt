@@ -14,7 +14,6 @@ import me.rasztabiga.thesis.query.domain.query.query.FindAllDeliveriesByCourierI
 import me.rasztabiga.thesis.query.domain.query.query.FindCurrentDeliveryQuery
 import me.rasztabiga.thesis.query.domain.query.repository.CourierRepository
 import me.rasztabiga.thesis.query.domain.query.repository.OrderDeliveryRepository
-import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryOfferResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAssignedEvent
@@ -91,7 +90,7 @@ class OrderDeliveryHandler(
 
     @Suppress("ReturnCount")
     @QueryHandler
-    fun handle(query: FindSuitableDeliveryOfferQuery): Mono<OrderDeliveryOfferResponse> {
+    fun handle(query: FindSuitableDeliveryOfferQuery): Mono<OrderDeliveryResponse> {
         val courier = getCourier(query.courierId)
         if (courier.location == null) {
             return Mono.error(CourierLocationNotSetException())
@@ -125,9 +124,17 @@ class OrderDeliveryHandler(
 
     @QueryHandler
     fun handle(query: FindCurrentDeliveryQuery): Mono<OrderDeliveryResponse> {
-        return orderDeliveryRepository.loadCurrentDeliveryByCourierId(query.courierId)
-            ?.let { Mono.just(mapToResponse(it)) }
-            ?: Mono.error(DeliveryNotFoundException())
+        val courier = getCourier(query.courierId)
+
+        val delivery = orderDeliveryRepository.loadCurrentDeliveryByCourierId(query.courierId)
+            ?: return Mono.error(DeliveryNotFoundException())
+
+        val distanceToRestaurant =
+            distanceCalculatorPort.calculateDistance(courier.location!!, delivery.restaurantLocation)
+        val distanceToDeliveryAddress =
+            distanceCalculatorPort.calculateDistance(delivery.restaurantLocation, delivery.deliveryLocation)
+
+        return Mono.just(mapToResponse(delivery, distanceToRestaurant, distanceToDeliveryAddress))
     }
 
     @QueryHandler

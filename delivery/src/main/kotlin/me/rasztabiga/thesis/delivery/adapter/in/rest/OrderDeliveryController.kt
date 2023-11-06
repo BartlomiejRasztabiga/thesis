@@ -9,6 +9,7 @@ import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.OrderDeliveryContr
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.OrderDeliveryControllerMapper.mapToRejectDeliveryOfferCommand
 import me.rasztabiga.thesis.shared.UuidWrapper
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryOfferResponse
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.shared.config.getUserId
 import me.rasztabiga.thesis.shared.domain.query.query.FindOrderDeliveryByIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindSuitableDeliveryOfferQuery
@@ -35,19 +36,19 @@ class OrderDeliveryController(
     @PreAuthorize("hasAnyAuthority('${COURIER.WRITE}')")
     fun assignSuitableDeliveryOffer(
         exchange: ServerWebExchange
-    ): Mono<OrderDeliveryOfferResponse> {
+    ): Mono<OrderDeliveryResponse> {
         return reactorQueryGateway.query(
             FindSuitableDeliveryOfferQuery(
                 courierId = exchange.getUserId()
             ),
-            OrderDeliveryOfferResponse::class.java
+            OrderDeliveryResponse::class.java
         ).flatMap {
             val command = mapToAssignDeliveryCommand(it.id, exchange)
             reactorCommandGateway.send<UUID>(command)
         }.flatMap { id ->
             reactorQueryGateway.query(
                 FindOrderDeliveryByIdQuery(id),
-                OrderDeliveryOfferResponse::class.java
+                OrderDeliveryResponse::class.java
             )
         }
     }

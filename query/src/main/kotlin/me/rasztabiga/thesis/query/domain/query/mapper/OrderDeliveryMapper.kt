@@ -39,16 +39,17 @@ object OrderDeliveryMapper {
         entity: OrderDeliveryEntity,
         distanceToRestaurantInKm: Double,
         distanceToDeliveryAddressInKm: Double
-    ): OrderDeliveryOfferResponse {
-        return OrderDeliveryOfferResponse(
+    ): OrderDeliveryResponse {
+        return OrderDeliveryResponse(
             id = entity.id,
             orderId = entity.orderId,
             restaurantLocation = entity.restaurantLocation,
             distanceToRestaurantInKm = distanceToRestaurantInKm,
             deliveryLocation = entity.deliveryLocation,
             distanceToDeliveryAddressInKm = distanceToDeliveryAddressInKm,
-            status = OrderDeliveryOfferResponse.DeliveryStatus.valueOf(entity.status.name),
-            courierFee = entity.courierFee
+            status = OrderDeliveryResponse.DeliveryStatus.valueOf(entity.status.name),
+            courierFee = entity.courierFee,
+            createdAt = entity.createdAt
         )
     }
 }
