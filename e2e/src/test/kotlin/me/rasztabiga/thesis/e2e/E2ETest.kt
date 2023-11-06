@@ -23,6 +23,7 @@ import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateCourierLocationRe
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateRestaurantAvailabilityRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.UpdateRestaurantMenuRequest
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.WithdrawBalanceRequest
+import org.hamcrest.Matchers.lessThan
 import org.junit.jupiter.api.AfterEach
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -33,6 +34,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import java.time.Duration
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class E2ETest {
 
@@ -78,7 +80,7 @@ class E2ETest {
             .build()
 
         val responseSpecification = ResponseSpecBuilder()
-//            .expectResponseTime(lessThan(3L), TimeUnit.SECONDS)
+            .expectResponseTime(lessThan(3L), TimeUnit.SECONDS)
             .build()
 
         RestAssured.responseSpecification = responseSpecification
@@ -223,10 +225,14 @@ class E2ETest {
                 .`when`()
                 .put("/v1/deliveries/offer")
 
-            val offer = given(courierRequestSpecification)
-                .`when`()
-                .get("/v2/deliveries/current")
-                .body.`as`(OrderDeliveryResponse::class.java)
+            val offer = try {
+                given(courierRequestSpecification)
+                    .`when`()
+                    .get("/v2/deliveries/current")
+                    .body.`as`(OrderDeliveryResponse::class.java)
+            } catch (e: Exception) {
+                continue
+            }
 
             offerId = offer.id
             if (offer.orderId == orderId) {
