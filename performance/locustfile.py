@@ -30,6 +30,7 @@ class OrderingUser(HttpUser):
 
     @task
     def e2e(self):
+        time.sleep(1)
         restaurants = self.client.get("/v2/restaurants").json()
         if len(restaurants) == 0:
             return
@@ -39,15 +40,18 @@ class OrderingUser(HttpUser):
         # TODO how to ensure, that we've selected proper restaurant?
 
         # TODO fails with User with ID userId not found?
-        # TODO remove sleep
-        time.sleep(10)
 
-        order_id = self.client.post("/v1/orders", json={
-            "restaurantId": selected_restaurant.get("id")
-        }).json().get("id")
+        order_id = None
+        while True:
+            try:
+                order_id = self.client.post("/v1/orders", json={
+                    "restaurantId": selected_restaurant.get("id")
+                }).json().get("id")
 
-        if order_id is None:
-            return
+                if order_id is not None:
+                    break
+            except:
+                continue
 
         number_of_products = random.randint(1, 5)
         menu = selected_restaurant.get("menu")
@@ -63,12 +67,11 @@ class OrderingUser(HttpUser):
 
         self.client.put(f"/v1/orders/{order_id}/finalize")
 
-        # TODO remove sleep
-
         # TODO wait for paymentId to be set
         payment_id = None
         while True:
             try:
+                time.sleep(1)
                 order = self.client.get(f"/v2/orders/{order_id}").json()
                 payment_id = order.get("paymentId")
                 if payment_id is not None:
@@ -82,6 +85,7 @@ class OrderingUser(HttpUser):
         # TODO wait for PAID status
 
         while True:
+            time.sleep(1)
             order = self.client.get(f"/v2/orders/{order_id}").json()
             print(f"ORDERING Order status: {order.get('status')}")
             if order.get("status") == "DELIVERED":
@@ -112,6 +116,7 @@ class RestaurantManager(HttpUser):
 
     @task
     def e2e(self):
+        time.sleep(1)
         restaurant_orders = self.client.get(f"/v2/restaurants/{self.restaurant_id}/orders").json()
         print(f"RESTAURANT Found {restaurant_orders} orders")
         restaurant_orders = list(filter(lambda order: order.get("status") == "NEW", restaurant_orders))
@@ -158,14 +163,6 @@ class RestaurantManager(HttpUser):
             "availability": "OPEN"
         })
 
-        while True:
-            try:
-                created_restaurant = self.client.get(f"/v2/restaurants/me").json()
-                if created_restaurant.get("availability") == "OPEN":
-                    break
-            except:
-                continue
-
 
 class DeliveryCourier(HttpUser):
     host = "http://thesis.rasztabiga.me/api"
@@ -201,7 +198,10 @@ class DeliveryCourier(HttpUser):
             else:
                 response.success()
 
-        offer = self.client.get(f"/v1/deliveries/current").json()
+        time.sleep(1)
+        offer = self.client.get(f"/v2/deliveries/current").json()
+        if offer is None:
+            return
 
         print(f"DELIVERY Found offer {offer}")
 
@@ -234,4 +234,4 @@ class DeliveryCourier(HttpUser):
 
 
 if __name__ == "__main__":
-    run_single_user(DeliveryCourier)
+    run_single_user(OrderingUser)
