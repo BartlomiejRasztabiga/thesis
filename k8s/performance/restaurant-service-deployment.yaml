@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: restaurant-service
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: restaurant-service

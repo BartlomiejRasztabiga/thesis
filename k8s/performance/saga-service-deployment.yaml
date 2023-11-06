@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: saga-service
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
       app: saga-service
@@ -21,7 +21,7 @@ spec:
             - name: SPRING_PROFILES_ACTIVE
               value: nosecurity
             - name: SPRING_DATA_MONGODB_URI
-              value: "mongodb://root:password@saga-db:27017/saga?authSource=admin"
+              value: "mongodb+srv://thesis:thesis@prod.xop3q7m.mongodb.net/saga?retryWrites=true&w=majority"
           image: ghcr.io/bartlomiejrasztabiga/thesis/saga:0.19.8
           name: saga-service
           ports:
