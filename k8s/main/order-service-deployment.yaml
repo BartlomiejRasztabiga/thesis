@@ -18,7 +18,7 @@ spec:
               value: axonserver
             - name: AXONIQ_CONSOLE_CREDENTIALS
               value: "68447ea9-1:4ac1289d784047ac88cc1e1ab39bdefc"
-          image: ghcr.io/bartlomiejrasztabiga/thesis/order:0.19.2
+          image: ghcr.io/bartlomiejrasztabiga/thesis/order:0.19.3
           name: order-service
           ports:
             - containerPort: 8102

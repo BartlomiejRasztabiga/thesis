@@ -1,7 +1,5 @@
 package me.rasztabiga.thesis.e2e
 
-import com.fasterxml.jackson.databind.exc.MismatchedInputException
-import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
 import io.restassured.RestAssured
 import io.restassured.RestAssured.given
 import io.restassured.builder.RequestSpecBuilder
@@ -227,7 +225,7 @@ class E2ETest {
             try {
                 offer = given(courierRequestSpecification)
                     .`when`()
-                    .get("/v2/deliveries/offer")
+                    .put("/v2/deliveries/offer")
                     .body.`as`(OrderDeliveryOfferResponse::class.java)
             } catch (e: RuntimeException) {
                 continue
