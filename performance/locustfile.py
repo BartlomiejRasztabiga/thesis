@@ -6,16 +6,18 @@ from faker import Faker
 fake = Faker()
 
 addresses = [
-    "Bukowińska 26C, 02-703 Warszawa",
-    "Cypryjska 70, 02-762 Warszawa",
-    "Oskara Langego 8, 02-685 Warszawa"
+    {"streetAddress": "Bukowińska 26C, 02-703 Warszawa", "lat": "52.1840", "lng": "21.0251"},
+    {"streetAddress": "Cypryjska 70, 02-762 Warszawa", "lat": "52.1730", "lng": "21.0585"},
+    {"streetAddress": "Oskara Langego 8, 02-685 Warszawa", "lat": "52.1818", "lng": "21.0086"},
 ]
 
 
-# TODO create users using auth0 API
-
+# TODO add more GETs to verify that the data is changed
+# TODO add util to await for the data to be changed instead of using while True
 
 class OrderingUser(HttpUser):
+    host = "https://thesis.rasztabiga.me/api"
+
     def on_start(self):
         self.client.headers["X-User-Id"] = fake.uuid4()
 
@@ -48,10 +50,9 @@ class OrderingUser(HttpUser):
                 "productId": selected_product.get("id")
             })
 
-        self.client.put(f"/v1/orders/{order_id}/finalize", json={
-            "deliveryAddressId": self.delivery_address_id
-        })
+        self.client.put(f"/v1/orders/{order_id}/finalize")
 
+        # TODO wait for paymentId to be set
         order = self.client.get(f"/v2/orders/{order_id}").json()
         payment_id = order.get("paymentId")
         self.client.put(f"/v1/payments/{payment_id}/pay")
@@ -66,20 +67,21 @@ class OrderingUser(HttpUser):
                 break
 
     def _create_user(self):
-        # TODO may already exist
         self.user_id = self.client.post("/v1/users", json={
             "name": fake.name(),
             "email": "contact@rasztabiga.me"
         }).json().get("id")
 
     def _create_delivery_address(self):
-        self.delivery_address_id = self.client.post(f"/v1/users/{self.user_id}/addresses", json={
-            "address": random.choice(addresses),
-            "additionalInfo": "additional info",
-        }).json().get("id")
+        self.client.post(f"/v1/users/{self.user_id}/addresses", json={
+            "address": random.choice(addresses).streetAddress,
+            "additionalInfo": None,
+        })
 
 
 class RestaurantManager(HttpUser):
+    host = "https://thesis.rasztabiga.me/api"
+
     def on_start(self):
         self.client.headers["X-User-Id"] = fake.uuid4()
         self._create_restaurant()
@@ -89,7 +91,6 @@ class RestaurantManager(HttpUser):
     @task
     def e2e(self):
         restaurant_orders = self.client.get(f"/v2/restaurants/{self.restaurant_id}/orders").json()
-        print(restaurant_orders)
         restaurant_orders = list(filter(lambda order: order.get("status") == "NEW", restaurant_orders))
         if len(restaurant_orders) == 0:
             return
@@ -99,35 +100,47 @@ class RestaurantManager(HttpUser):
         self.client.put(f"/v1/restaurants/{self.restaurant_id}/orders/{selected_order.get('restaurantOrderId')}/accept")
         # print(f"RESTAURANT Accepted order")
 
-        self.client.put(f"/v1/restaurants/{self.restaurant_id}/orders/{selected_order.get('restaurantOrderId')}/prepare")
+        self.client.put(
+            f"/v1/restaurants/{self.restaurant_id}/orders/{selected_order.get('restaurantOrderId')}/prepare")
         # print(f"RESTAURANT Prepared order")
 
     def _create_restaurant(self):
         self.restaurant_id = self.client.post("/v1/restaurants", json={
-            "id": fake.uuid4(),
             "name": fake.name(),
+            "address": random.choice(addresses).streetAddress,
             "email": "contact@rasztabiga.me",
-            "address": random.choice(addresses)
-        }).json().get("id")
+            "imageUrl": "https://mui.com/static/images/cards/contemplative-reptile.jpg"
 
-        self.client.put(f"/v1/restaurants/{self.restaurant_id}/availability", json={
-            "availability": "OPEN"
-        })
+        }).json().get("id")
 
         self.client.put(f"/v1/restaurants/{self.restaurant_id}/menu", json={
             "menu": [
                 {
                     "name": "Product #1",
                     "description": "Description",
-                    "price": 21.37
+                    "price": 21.37,
+                    "imageUrl": "https://www.foodiesfeed.com/wp-content/uploads/2023/04/cheeseburger.jpg"
                 },
                 {
                     "name": "Product #2",
                     "description": "Description 2",
-                    "price": 23.37
+                    "price": 23.37,
+                    "imageUrl": "https://www.foodiesfeed.com/wp-content/uploads/2023/04/cheeseburger.jpg"
                 }
             ]
         })
+
+        self.client.put(f"/v1/restaurants/{self.restaurant_id}/availability", json={
+            "availability": "OPEN"
+        })
+
+        while True:
+            try:
+                created_restaurant = self.client.get(f"/v2/restaurants/me").json()
+                if created_restaurant.get("availability") == "OPEN":
+                    break
+            except:
+                continue
 
 
 class DeliveryCourier(HttpUser):
@@ -142,6 +155,16 @@ class DeliveryCourier(HttpUser):
 
     @task
     def e2e(self):
+        # TODO update courier location
+        location = random.choice(addresses)
+        self.client.put(f"/v1/couriers/me/location", json={
+            "location": {
+                "lat": location.get("lat"),
+                "lng": location.get("lng")
+            }
+        })
+
+        # TODO does it work?
         with self.client.get(f"/v2/deliveries/offer", catch_response=True) as response:
             if response.status_code == 404:
                 response.success()
@@ -160,6 +183,7 @@ class DeliveryCourier(HttpUser):
         self.client.put(f"/v1/deliveries/{offer.get('id')}/accept")
         # print(f"DELIVERY Accepted offer {offer}")
 
+        # TODO wait for order to be ready for pickup?
         while True:
             try:
                 self.client.put(f"/v1/deliveries/{offer.get('id')}/pickup")
@@ -185,4 +209,4 @@ def on_test_stop(environment, **kwargs):
 
 
 if __name__ == "__main__":
-    run_single_user(RestaurantManager)
+    run_single_user(DeliveryCourier)
