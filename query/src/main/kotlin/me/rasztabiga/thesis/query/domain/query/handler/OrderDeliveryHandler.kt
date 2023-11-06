@@ -11,7 +11,6 @@ import me.rasztabiga.thesis.query.domain.query.mapper.OrderDeliveryMapper.mapToR
 import me.rasztabiga.thesis.query.domain.query.port.DistanceCalculatorPort
 import me.rasztabiga.thesis.query.domain.query.query.FindAllDeliveriesByCourierId
 import me.rasztabiga.thesis.query.domain.query.query.FindCurrentDeliveryQuery
-import me.rasztabiga.thesis.query.domain.query.query.FindSuitableDeliveryOfferQuery
 import me.rasztabiga.thesis.query.domain.query.repository.CourierRepository
 import me.rasztabiga.thesis.query.domain.query.repository.OrderDeliveryRepository
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryOfferResponse
@@ -22,6 +21,7 @@ import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryDeliveredEv
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryPickedUpEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryRejectedEvent
 import me.rasztabiga.thesis.shared.domain.query.query.FindOrderDeliveryByIdQuery
+import me.rasztabiga.thesis.shared.domain.query.query.FindSuitableDeliveryOfferQuery
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
 import org.axonframework.queryhandling.QueryHandler
@@ -95,6 +95,9 @@ class OrderDeliveryHandler(
             distanceCalculatorPort.calculateDistance(courier.location!!, bestOffer.restaurantLocation)
         val distanceToDeliveryAddress =
             distanceCalculatorPort.calculateDistance(bestOffer.restaurantLocation, bestOffer.deliveryLocation)
+
+        bestOffer.locked = true
+        orderDeliveryRepository.save(bestOffer)
 
         val response = mapToResponse(
             bestOffer,

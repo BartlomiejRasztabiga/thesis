@@ -18,5 +18,6 @@ data class OrderDeliveryEntity(
     val courierFee: BigDecimal,
     var courierId: String?,
     val courierIdsDeclined: MutableList<String>,
-    val createdAt: Instant
+    val createdAt: Instant,
+    var locked: Boolean
 )

@@ -1,6 +1,7 @@
 package me.rasztabiga.thesis.delivery.domain.command.aggregate
 
 import me.rasztabiga.thesis.delivery.domain.command.command.AcceptDeliveryOfferCommand
+import me.rasztabiga.thesis.delivery.domain.command.command.AssignDeliveryCommand
 import me.rasztabiga.thesis.delivery.domain.command.command.DeliverDeliveryCommand
 import me.rasztabiga.thesis.delivery.domain.command.command.PickupDeliveryCommand
 import me.rasztabiga.thesis.delivery.domain.command.command.RejectDeliveryOfferCommand
@@ -50,8 +51,24 @@ class OrderDelivery {
     }
 
     @CommandHandler
+    fun handle(command: AssignDeliveryCommand) {
+        require(this.status == DeliveryStatus.OFFER) { "Delivery can be assigned only if it's in OFFER status." }
+
+        apply(
+            OrderDeliveryAssignedEvent(
+                deliveryId = command.id,
+                orderId = this.orderId,
+                courierId = command.courierId
+            )
+        )
+    }
+
+    @CommandHandler
     fun handle(command: RejectDeliveryOfferCommand, courierOnlineVerifierPort: CourierOnlineVerifierPort) {
-        require(this.status == DeliveryStatus.OFFER) { "Delivery can be rejected only if it's in OFFER status." }
+        require(this.status == DeliveryStatus.ASSIGNED) { "Delivery can be rejected only if it's in ASSIGNED status." }
+        require(this.courierId == command.courierId) {
+            "Delivery can be rejected only by the courier who was assigned to it."
+        }
         require(courierOnlineVerifierPort.isCourierOnline(command.courierId)) {
             "Delivery can be rejected only if the courier is online."
         }
@@ -66,7 +83,10 @@ class OrderDelivery {
 
     @CommandHandler
     fun handle(command: AcceptDeliveryOfferCommand, courierOnlineVerifierPort: CourierOnlineVerifierPort) {
-        require(this.status == DeliveryStatus.OFFER) { "Delivery can be accepted only if it's in OFFER status." }
+        require(this.status == DeliveryStatus.ASSIGNED) { "Delivery can be accepted only if it's in ASSIGNED status." }
+        require(this.courierId == command.courierId) {
+            "Delivery can be rejected only by the courier who was assigned to it."
+        }
         require(courierOnlineVerifierPort.isCourierOnline(command.courierId)) {
             "Delivery can be accepted only if the courier is online."
         }
@@ -135,9 +155,20 @@ class OrderDelivery {
     }
 
     @EventSourcingHandler
+    fun on(event: OrderDeliveryAssignedEvent) {
+        this.status = DeliveryStatus.ASSIGNED
+        this.courierId = event.courierId
+    }
+
+    @EventSourcingHandler
     fun on(event: OrderDeliveryAcceptedEvent) {
         this.status = DeliveryStatus.ACCEPTED
-        this.courierId = event.courierId
+    }
+
+    @EventSourcingHandler
+    fun on(event: OrderDeliveryRejectedEvent) {
+        this.status = DeliveryStatus.OFFER
+        this.courierId = null
     }
 
     @Suppress("UnusedParameter")

@@ -21,7 +21,8 @@ class DbOrderDeliveryRepository(
     }
 
     override fun loadOffers(): List<OrderDeliveryEntity> {
-        return springDataOrderDeliveryRepository.findAllByStatus(DeliveryStatus.OFFER).collectList().block() ?: listOf()
+        return springDataOrderDeliveryRepository.findAllByStatus(DeliveryStatus.OFFER).filter { !it.locked }
+            .collectList().block() ?: listOf()
     }
 
     override fun loadCurrentDeliveryByCourierId(courierId: String): OrderDeliveryEntity? {

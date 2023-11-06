@@ -3,6 +3,7 @@
 package me.rasztabiga.thesis.delivery.adapter.`in`.rest
 
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.OrderDeliveryControllerMapper.mapToAcceptDeliveryOfferCommand
+import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.OrderDeliveryControllerMapper.mapToAssignDeliveryCommand
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.OrderDeliveryControllerMapper.mapToDeliverDeliveryCommand
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.OrderDeliveryControllerMapper.mapToPickupDeliveryCommand
 import me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper.OrderDeliveryControllerMapper.mapToRejectDeliveryOfferCommand
@@ -10,10 +11,10 @@ import me.rasztabiga.thesis.shared.UuidWrapper
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryOfferResponse
 import me.rasztabiga.thesis.shared.config.getUserId
 import me.rasztabiga.thesis.shared.domain.query.query.FindOrderDeliveryByIdQuery
+import me.rasztabiga.thesis.shared.domain.query.query.FindSuitableDeliveryOfferQuery
 import me.rasztabiga.thesis.shared.security.Scopes.COURIER
 import org.axonframework.extensions.reactor.commandhandling.gateway.ReactorCommandGateway
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway
-import org.axonframework.messaging.responsetypes.ResponseTypes
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -30,24 +31,25 @@ class OrderDeliveryController(
     private val reactorCommandGateway: ReactorCommandGateway,
     private val reactorQueryGateway: ReactorQueryGateway
 ) {
-    @PostMapping("/offer")
+    @PutMapping("/offer")
     @PreAuthorize("hasAnyAuthority('${COURIER.WRITE}')")
     fun assignSuitableDeliveryOffer(
         exchange: ServerWebExchange
     ): Mono<OrderDeliveryOfferResponse> {
-        val offer = reactorQueryGateway.query(
+        return reactorQueryGateway.query(
             FindSuitableDeliveryOfferQuery(
                 courierId = exchange.getUserId()
             ),
             OrderDeliveryOfferResponse::class.java
-        )
-
-        reactorCommandGateway.send<>()
-
-        return reactorQueryGateway.query(
-            FindOrderDeliveryByIdQuery(UUID.randomUUID()),
-            OrderDeliveryOfferResponse::class.java
-        )
+        ).flatMap {
+            val command = mapToAssignDeliveryCommand(it.id, exchange)
+            reactorCommandGateway.send<UUID>(command)
+        }.flatMap { id ->
+            reactorQueryGateway.query(
+                FindOrderDeliveryByIdQuery(id),
+                OrderDeliveryOfferResponse::class.java
+            )
+        }
     }
 
     @PutMapping("/{deliveryId}/reject")

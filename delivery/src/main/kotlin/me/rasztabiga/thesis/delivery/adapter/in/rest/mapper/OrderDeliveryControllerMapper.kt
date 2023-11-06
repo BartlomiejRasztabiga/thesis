@@ -1,6 +1,7 @@
 package me.rasztabiga.thesis.delivery.adapter.`in`.rest.mapper
 
 import me.rasztabiga.thesis.delivery.domain.command.command.AcceptDeliveryOfferCommand
+import me.rasztabiga.thesis.delivery.domain.command.command.AssignDeliveryCommand
 import me.rasztabiga.thesis.delivery.domain.command.command.DeliverDeliveryCommand
 import me.rasztabiga.thesis.delivery.domain.command.command.PickupDeliveryCommand
 import me.rasztabiga.thesis.delivery.domain.command.command.RejectDeliveryOfferCommand
@@ -10,10 +11,12 @@ import java.util.*
 
 object OrderDeliveryControllerMapper {
 
-    fun mapToAssignSuitableDeliveryOffer(
+    fun mapToAssignDeliveryCommand(
+        deliveryId: UUID,
         exchange: ServerWebExchange
-    ): AssignSuitableDeliveryOfferCommand {
-        return AssignSuitableDeliveryOfferCommand(
+    ): AssignDeliveryCommand {
+        return AssignDeliveryCommand(
+            id = deliveryId,
             courierId = exchange.getUserId()
         )
     }
