@@ -34,7 +34,7 @@ val axonVersion = "4.9.0"
 val kotestVersion = "5.8.0"
 
 dependencies {
-    implementation("me.rasztabiga.thesis:shared:0.19.13")
+    implementation("me.rasztabiga.thesis:shared:0.19.14")
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -54,7 +54,7 @@ dependencies {
     implementation("com.google.maps:google-maps-services:2.2.0")
     implementation("io.axoniq.console:console-framework-client-spring-boot-starter:1.1.0")
 
-    testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.19.13"))
+    testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.19.14"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.axonframework:axon-test")
