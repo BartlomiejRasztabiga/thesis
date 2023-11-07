@@ -19,6 +19,7 @@ addresses = [
 
 class OrderingUser(HttpUser):
     host = "http://thesis.rasztabiga.me/api"
+    weight = 10
 
     def on_start(self):
         self.client.headers["X-User-Id"] = fake.uuid4()
@@ -110,6 +111,7 @@ class OrderingUser(HttpUser):
 
 class RestaurantManager(HttpUser):
     host = "http://thesis.rasztabiga.me/api"
+    weight = 1
 
     def on_start(self):
         self.client.headers["X-User-Id"] = fake.uuid4()
@@ -169,6 +171,7 @@ class RestaurantManager(HttpUser):
 
 class DeliveryCourier(HttpUser):
     host = "http://thesis.rasztabiga.me/api"
+    weight = 2
 
     def on_start(self):
         self.client.headers["X-User-Id"] = fake.uuid4()

@@ -20,7 +20,7 @@ class TokenStoreConfiguration {
             .mongoTemplate(
                 DefaultMongoTemplate
                     .builder()
-                    .mongoDatabase(client)
+                    .mongoDatabase(client, "axon-saga")
                     .build()
             )
             .serializer(serializer)
@@ -34,7 +34,7 @@ class TokenStoreConfiguration {
             .mongoTemplate(
                 DefaultMongoTemplate
                     .builder()
-                    .mongoDatabase(client)
+                    .mongoDatabase(client, "axon-saga")
                     .build()
             )
             .serializer(serializer)

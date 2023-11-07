@@ -21,7 +21,8 @@ spec:
             - name: SPRING_PROFILES_ACTIVE
               value: nosecurity
             - name: SPRING_DATA_MONGODB_URI
-              value: "mongodb+srv://thesis:thesis@prod.xop3q7m.mongodb.net/saga?retryWrites=true&w=majority"
+#              value: "mongodb+srv://thesis:thesis@prod.xop3q7m.mongodb.net/saga?retryWrites=true&w=majority"
+              value: "mongodb://root:password@saga-db:27017/saga?authSource=admin"
           image: ghcr.io/bartlomiejrasztabiga/thesis/saga:0.19.8
           name: saga-service
           ports:
