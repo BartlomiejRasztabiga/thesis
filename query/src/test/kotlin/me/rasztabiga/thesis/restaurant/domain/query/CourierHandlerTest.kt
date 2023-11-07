@@ -2,7 +2,9 @@ package me.rasztabiga.thesis.restaurant.domain.query
 
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
+import io.mockk.mockk
 import me.rasztabiga.thesis.query.domain.query.handler.CourierHandler
+import me.rasztabiga.thesis.query.domain.query.port.DistanceCalculatorPort
 import me.rasztabiga.thesis.restaurant.domain.query.repository.InMemoryCourierRepository
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CourierResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
@@ -17,10 +19,12 @@ import java.util.*
 class CourierHandlerTest {
 
     private lateinit var courierHandler: CourierHandler
+    private lateinit var distanceCalculatorPort: DistanceCalculatorPort
 
     @BeforeEach
     fun setUp() {
-        courierHandler = CourierHandler(InMemoryCourierRepository())
+        distanceCalculatorPort = mockk<DistanceCalculatorPort>()
+        courierHandler = CourierHandler(InMemoryCourierRepository(), distanceCalculatorPort)
     }
 
     @Test

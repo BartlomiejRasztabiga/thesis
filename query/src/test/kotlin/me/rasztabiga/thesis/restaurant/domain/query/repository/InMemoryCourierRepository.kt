@@ -18,4 +18,8 @@ class InMemoryCourierRepository : CourierRepository,
     override fun load(id: String): CourierEntity? {
         return loadEntity(id)
     }
+
+    override fun loadAllOnlineWithoutCurrentDelivery(): List<CourierEntity> {
+        return loadAllEntities()
+    }
 }

@@ -218,6 +218,7 @@ class E2ETest {
         log.info("Restaurant order prepared")
     }
 
+    @Suppress("SwallowedException", "LoopWithTooManyJumpStatements")
     private fun acceptDeliveryOffer() {
         var offerId: UUID?
         while (true) {
