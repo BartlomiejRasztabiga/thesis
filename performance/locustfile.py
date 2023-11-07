@@ -7,10 +7,28 @@ from faker import Faker
 
 fake = Faker()
 
+# TODO more addresses
 addresses = [
     {"streetAddress": "Bukowińska 26C, 02-703 Warszawa", "lat": "52.1840", "lng": "21.0251"},
     {"streetAddress": "Cypryjska 70, 02-762 Warszawa", "lat": "52.1730", "lng": "21.0585"},
     {"streetAddress": "Oskara Langego 8, 02-685 Warszawa", "lat": "52.1818", "lng": "21.0086"},
+    {"streetAddress": "Mokotowska 15, 00-954 Warszawa", "lat": "52.2283", "lng": "21.0173"},
+    {"streetAddress": "Krakowskie Przedmieście 24, 00-325 Warszawa", "lat": "52.2437", "lng": "21.0132"},
+    {"streetAddress": "Nowy Świat 22, 00-373 Warszawa", "lat": "52.2362", "lng": "21.0209"},
+    {"streetAddress": "Łazienki Królewskie, 00-001 Warszawa", "lat": "52.2120", "lng": "21.0347"},
+    {"streetAddress": "Plac Zamkowy, 00-277 Warszawa", "lat": "52.2476", "lng": "21.0134"},
+    {"streetAddress": "Wilanów Palace, 02-098 Warszawa", "lat": "52.1652", "lng": "21.0901"},
+    {"streetAddress": "Warsaw Chopin Airport, 00-001 Warszawa", "lat": "52.1686", "lng": "20.9671"},
+    {"streetAddress": "PGE Narodowy, 03-595 Warszawa", "lat": "52.2393", "lng": "21.0499"},
+    {"streetAddress": "Saxon Garden, 00-001 Warszawa", "lat": "52.2441", "lng": "21.0130"},
+    {"streetAddress": "National Museum, 00-272 Warszawa", "lat": "52.2354", "lng": "21.0143"},
+    {"streetAddress": "Copernicus Science Centre, 00-390 Warszawa", "lat": "52.2432", "lng": "21.0452"},
+    {"streetAddress": "Old Town Market Place, 00-270 Warszawa", "lat": "52.2497", "lng": "21.0140"},
+    {"streetAddress": "Praga District, 03-735 Warszawa", "lat": "52.2525", "lng": "21.0451"},
+    {"streetAddress": "Powiśle District, 00-001 Warszawa", "lat": "52.2390", "lng": "21.0219"},
+    {"streetAddress": "Vistula River, 00-001 Warszawa", "lat": "52.2413", "lng": "21.0369"},
+    {"streetAddress": "Muranów District, 00-001 Warszawa", "lat": "52.2541", "lng": "21.0085"},
+    {"streetAddress": "Solec District, 00-002 Warszawa", "lat": "52.2383", "lng": "21.0456"}
 ]
 
 # TODO add more GETs to verify that the data is changed
@@ -202,7 +220,7 @@ class RestaurantManager(HttpUser):
 
 class DeliveryCourier(HttpUser):
     host = "http://thesis.rasztabiga.me/api"
-    weight = 3
+    weight = 4
 
     def on_start(self):
         self.client.headers["X-User-Id"] = fake.uuid4()
