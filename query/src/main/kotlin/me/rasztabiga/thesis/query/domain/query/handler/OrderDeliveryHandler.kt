@@ -3,6 +3,7 @@ package me.rasztabiga.thesis.query.domain.query.handler
 import me.rasztabiga.thesis.query.domain.query.entity.CourierEntity
 import me.rasztabiga.thesis.query.domain.query.entity.DeliveryStatus
 import me.rasztabiga.thesis.query.domain.query.entity.OrderDeliveryEntity
+import me.rasztabiga.thesis.query.domain.query.exception.CourierAlreadyHasDeliveryAssignedException
 import me.rasztabiga.thesis.query.domain.query.exception.CourierLocationNotSetException
 import me.rasztabiga.thesis.query.domain.query.exception.CourierNotFoundException
 import me.rasztabiga.thesis.query.domain.query.exception.DeliveryNotFoundException
@@ -94,6 +95,11 @@ class OrderDeliveryHandler(
         val courier = getCourier(query.courierId)
         if (courier.location == null) {
             return Mono.error(CourierLocationNotSetException())
+        }
+
+        val currentDelivery = orderDeliveryRepository.loadCurrentDeliveryByCourierId(courier.id)
+        if (currentDelivery != null) {
+            return Mono.error(CourierAlreadyHasDeliveryAssignedException())
         }
 
         val offers = orderDeliveryRepository.loadOffers()

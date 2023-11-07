@@ -178,11 +178,6 @@ class DeliveryCourier(HttpUser):
 
         self._create_courier()
 
-        # print(f"DELIVERY Created courier with id {self.courier_id}")
-
-    @task
-    def e2e(self):
-        # TODO update courier location
         location = random.choice(addresses)
         self.client.put(f"/v1/couriers/me/location", json={
             "location": {
@@ -196,15 +191,21 @@ class DeliveryCourier(HttpUser):
             "availability": "ONLINE"
         })
 
-        # TODO does it work?
-        with self.client.put(f"/v1/deliveries/offer", catch_response=True) as response:
-            if response.status_code == 404:
-                response.success()
-                return
-            else:
-                response.success()
+        # print(f"DELIVERY Created courier with id {self.courier_id}")
 
-        time.sleep(1)
+    @task
+    def e2e(self):
+        # TODO does it work?
+        while True:
+            with self.client.put(f"/v1/deliveries/offer", catch_response=True) as response:
+                if response.status_code == 404:
+                    response.success()
+                    time.sleep(1)
+                    continue
+                else:
+                    response.success()
+
+        time.sleep(2)
         offer = None
         while True:
             try:
@@ -245,4 +246,4 @@ class DeliveryCourier(HttpUser):
 
 
 if __name__ == "__main__":
-    run_single_user(OrderingUser)
+    run_single_user(DeliveryCourier)
