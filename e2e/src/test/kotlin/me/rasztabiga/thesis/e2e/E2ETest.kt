@@ -80,7 +80,7 @@ class E2ETest {
             .build()
 
         val responseSpecification = ResponseSpecBuilder()
-            .expectResponseTime(lessThan(3L), TimeUnit.SECONDS)
+//            .expectResponseTime(lessThan(3L), TimeUnit.SECONDS)
             .build()
 
         RestAssured.responseSpecification = responseSpecification

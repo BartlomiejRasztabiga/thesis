@@ -2,6 +2,7 @@ package me.rasztabiga.thesis.query.domain.query.entity
 
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 import java.math.BigDecimal
 import java.util.*
@@ -10,7 +11,7 @@ import java.util.*
 data class RestaurantEntity(
     @Id
     val id: UUID,
-    val managerId: String,
+    @field:Indexed val managerId: String,
     val name: String,
     val email: String,
     val availability: Availability,

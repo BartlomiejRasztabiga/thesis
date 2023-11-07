@@ -2,6 +2,7 @@ package me.rasztabiga.thesis.query.domain.query.entity
 
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 import java.math.BigDecimal
 import java.time.Instant
@@ -13,7 +14,7 @@ data class OrderEntity(
     val id: UUID,
     val restaurantId: UUID,
     val restaurantLocation: Location,
-    val userId: String,
+    @field:Indexed val userId: String,
     var status: OrderStatus,
     val items: MutableMap<UUID, Int>,
     var total: BigDecimal?,

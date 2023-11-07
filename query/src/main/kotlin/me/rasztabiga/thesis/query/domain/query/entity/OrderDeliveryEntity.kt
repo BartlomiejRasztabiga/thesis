@@ -2,6 +2,7 @@ package me.rasztabiga.thesis.query.domain.query.entity
 
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 import java.math.BigDecimal
 import java.time.Instant
@@ -14,9 +15,9 @@ data class OrderDeliveryEntity(
     val orderId: UUID,
     val restaurantLocation: Location,
     val deliveryLocation: Location,
-    var status: DeliveryStatus,
+    @field:Indexed var status: DeliveryStatus,
     val courierFee: BigDecimal,
-    var courierId: String?,
+    @field:Indexed var courierId: String?,
     val createdAt: Instant,
     var locked: Boolean
 )

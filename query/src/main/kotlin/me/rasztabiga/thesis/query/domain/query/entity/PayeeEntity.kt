@@ -1,7 +1,7 @@
 package me.rasztabiga.thesis.query.domain.query.entity
 
-import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.PayeeResponse
 import org.springframework.data.annotation.Id
+import org.springframework.data.mongodb.core.index.Indexed
 import org.springframework.data.mongodb.core.mapping.Document
 import java.math.BigDecimal
 import java.time.Instant
@@ -11,7 +11,7 @@ import java.util.*
 data class PayeeEntity(
     @Id
     val id: UUID,
-    val userId: String,
+    @field:Indexed val userId: String,
     val name: String,
     val email: String,
     var balance: BigDecimal,

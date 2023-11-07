@@ -1,6 +1,9 @@
 package me.rasztabiga.thesis.query.adapter.out.db
 
 import me.rasztabiga.thesis.query.domain.query.entity.DeliveryStatus
+import me.rasztabiga.thesis.query.domain.query.entity.DeliveryStatus.ACCEPTED
+import me.rasztabiga.thesis.query.domain.query.entity.DeliveryStatus.ASSIGNED
+import me.rasztabiga.thesis.query.domain.query.entity.DeliveryStatus.PICKED_UP
 import me.rasztabiga.thesis.query.domain.query.entity.OrderDeliveryEntity
 import me.rasztabiga.thesis.query.domain.query.repository.OrderDeliveryRepository
 import me.rasztabiga.thesis.query.infrastructure.db.SpringDataOrderDeliveryRepository
@@ -21,14 +24,15 @@ class DbOrderDeliveryRepository(
     }
 
     override fun loadOffers(): List<OrderDeliveryEntity> {
-        return springDataOrderDeliveryRepository.findAllByStatus(DeliveryStatus.OFFER).filter { !it.locked }
-            .collectList().block() ?: listOf()
+        return springDataOrderDeliveryRepository.findAllByStatusAndLockedIsFalse(DeliveryStatus.OFFER).collectList()
+            .block() ?: listOf()
     }
 
     override fun loadCurrentDeliveryByCourierId(courierId: String): OrderDeliveryEntity? {
-        val orders = springDataOrderDeliveryRepository.findByCourierId(courierId).collectList().block() ?: listOf()
-        val activeStatuses = setOf(DeliveryStatus.ASSIGNED, DeliveryStatus.ACCEPTED, DeliveryStatus.PICKED_UP)
-        return orders.firstOrNull { activeStatuses.contains(it.status) }
+        return springDataOrderDeliveryRepository.findFirstByCourierIdAndStatusIn(
+            courierId,
+            setOf(ASSIGNED, ACCEPTED, PICKED_UP)
+        ).block()
     }
 
     override fun loadAllByCourierId(courierId: String): Flux<OrderDeliveryEntity> {
