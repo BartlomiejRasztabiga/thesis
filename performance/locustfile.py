@@ -13,9 +13,16 @@ addresses = [
     {"streetAddress": "Oskara Langego 8, 02-685 Warszawa", "lat": "52.1818", "lng": "21.0086"},
 ]
 
-
 # TODO add more GETs to verify that the data is changed
 # TODO add util to await for the data to be changed instead of using while True
+
+DEBUG = True
+
+
+def log(*args, **kwargs):
+    if DEBUG:
+        return print(*args, **kwargs)
+
 
 class OrderingUser(HttpUser):
     host = "http://thesis.rasztabiga.me/api"
@@ -27,7 +34,7 @@ class OrderingUser(HttpUser):
         self._create_user()
         self._create_delivery_address()
 
-        # print(f"ORDERING Created user with id {self.user_id} and delivery address")
+        # log(f"ORDERING Created user with id {self.user_id} and delivery address")
 
     @task
     def e2e(self):
@@ -42,6 +49,7 @@ class OrderingUser(HttpUser):
 
         # TODO fails with User with ID userId not found?
 
+        time.sleep(1)
         order_id = None
         while True:
             try:
@@ -49,23 +57,40 @@ class OrderingUser(HttpUser):
                     "restaurantId": selected_restaurant.get("id")
                 }).json().get("id")
 
+                log(f"ORDERING Created order with id {order_id}")
+
                 if order_id is not None:
+                    log(f"ORDERING break")
                     break
-            except:
+                log("ORDERING order_id is None")
+            except Exception as e:
+                log(f"ORDERING exception occurred {e}")
                 continue
 
-        number_of_products = random.randint(1, 5)
-        menu = selected_restaurant.get("menu")
+        while True:
+            number_of_products = random.randint(1, 5)
 
-        if len(menu) == 0:
-            return
+            selected_restaurant = self.client.get(f"/v2/restaurants/{selected_restaurant.get('id')}").json()
+            menu = selected_restaurant.get("menu")
+
+            log(f"ORDERING number_of_products {number_of_products}")
+
+            if len(menu) == 0:
+                log("ORDERING menu is empty")
+                time.sleep(1)
+                continue
+            else:
+                break
 
         for _ in range(number_of_products):
             selected_product = random.choice(menu)
+            log(f"ORDERING selected_product {selected_product}")
             self.client.post(f"/v1/orders/{order_id}/items", json={
                 "productId": selected_product.get("id")
             })
+            log(f"ORDERING added product {selected_product} to order {order_id}")
 
+        log(f"ORDERING Finalizing order {order_id}")
         self.client.put(f"/v1/orders/{order_id}/finalize")
 
         # TODO wait for paymentId to be set
@@ -81,7 +106,7 @@ class OrderingUser(HttpUser):
                 continue
         self.client.put(f"/v1/payments/{payment_id}/pay")
 
-        # print(f"ORDERING Paid for order {order_id}")
+        log(f"ORDERING Paid for order {order_id}")
 
         # TODO wait for PAID status
 
@@ -89,9 +114,9 @@ class OrderingUser(HttpUser):
             try:
                 time.sleep(1)
                 order = self.client.get(f"/v2/orders/{order_id}").json()
-                # print(f"ORDERING Order status: {order.get('status')}")
+                # log(f"ORDERING Order status: {order.get('status')}")
                 if order.get("status") == "DELIVERED":
-                    # print(f"ORDERING Order delivered")
+                    # log(f"ORDERING Order delivered")
                     break
             except:
                 continue
@@ -117,26 +142,26 @@ class RestaurantManager(HttpUser):
         self.client.headers["X-User-Id"] = fake.uuid4()
         self._create_restaurant()
 
-        # print(f"RESTAURANT Created restaurant with id {self.restaurant_id}")
+        # log(f"RESTAURANT Created restaurant with id {self.restaurant_id}")
 
     @task
     def e2e(self):
         time.sleep(1)
         restaurant_orders = self.client.get(f"/v2/restaurants/{self.restaurant_id}/orders").json()
-        # print(f"RESTAURANT Found {restaurant_orders} orders")
+        # log(f"RESTAURANT Found {restaurant_orders} orders")
         restaurant_orders = list(filter(lambda order: order.get("status") == "NEW", restaurant_orders))
-        # print(f"RESTAURANT Found {restaurant_orders} new orders")
+        # log(f"RESTAURANT Found {restaurant_orders} new orders")
         if len(restaurant_orders) == 0:
             return
 
         selected_order = random.choice(restaurant_orders)
 
         self.client.put(f"/v1/restaurants/{self.restaurant_id}/orders/{selected_order.get('restaurantOrderId')}/accept")
-        # print(f"RESTAURANT Accepted order")
+        log(f"RESTAURANT Accepted order")
 
         self.client.put(
             f"/v1/restaurants/{self.restaurant_id}/orders/{selected_order.get('restaurantOrderId')}/prepare")
-        # print(f"RESTAURANT Prepared order")
+        log(f"RESTAURANT Prepared order")
 
     def _create_restaurant(self):
         self.restaurant_id = self.client.post("/v1/restaurants", json={
@@ -178,6 +203,73 @@ class DeliveryCourier(HttpUser):
 
         self._create_courier()
 
+        # log(f"DELIVERY Created courier with id {self.courier_id}")
+
+    @task
+    def e2e(self):
+        # TODO does it work?
+        while True:
+            with self.client.put(f"/v1/deliveries/offer", catch_response=True) as response:
+                if response.status_code == 404:
+                    log(f"DELIVERY No offers")
+                    response.success()
+                    time.sleep(1)
+                    continue
+                else:
+                    log(f"DELIVERY Assigned offer? {response.status_code}")
+                    if response.status_code != 200:
+                        log(f"DELIVERY error assigning offer ${response.json()}")
+                        continue
+                    response.success()
+                    break
+
+        time.sleep(5)
+        offer = None
+        retries = 0
+        while True:
+            try:
+                offer = self.client.get(f"/v2/deliveries/current").json()
+                retries += 1
+                if retries > 10:
+                    log(f"DELIVERY retries exceeded")
+                    return
+                log(f"DELIVERY offer {offer}")
+                if offer.get('id') is not None:
+                    log(f"DELIVERY Found offer {offer}")
+                    break
+                else:
+                    log(f"DELIVERY offer is None")
+            except Exception as e:
+                log(f"DELIVERY exception occurred {e}")
+                continue
+
+        # TODO delete rejecting?
+        # if random.random() < 0.1:
+        #     self.client.put(f"/v1/deliveries/{offer.get('id')}/reject")
+        #     log(f"DELIVERY Rejected offer {offer}")
+        #     return
+
+        self.client.put(f"/v1/deliveries/{offer.get('id')}/accept")
+        log(f"DELIVERY Accepted offer {offer}")
+
+        # TODO wait for order to be ready for pickup?
+        while True:
+            try:
+                self.client.put(f"/v1/deliveries/{offer.get('id')}/pickup")
+                log(f"DELIVERY Picked up order {offer}")
+                break
+            except:
+                continue
+
+        self.client.put(f"/v1/deliveries/{offer.get('id')}/deliver")
+        log(f"DELIVERY Delivered order {offer}")
+
+    def _create_courier(self):
+        self.courier_id = self.client.post("/v1/couriers", json={
+            "name": fake.name(),
+            "email": "contact@rasztabiga.me"
+        }).json().get("id")
+
         location = random.choice(addresses)
         self.client.put(f"/v1/couriers/me/location", json={
             "location": {
@@ -190,59 +282,6 @@ class DeliveryCourier(HttpUser):
         self.client.put(f"/v1/couriers/me/availability", json={
             "availability": "ONLINE"
         })
-
-        # print(f"DELIVERY Created courier with id {self.courier_id}")
-
-    @task
-    def e2e(self):
-        # TODO does it work?
-        while True:
-            with self.client.put(f"/v1/deliveries/offer", catch_response=True) as response:
-                if response.status_code == 404:
-                    response.success()
-                    time.sleep(1)
-                    continue
-                else:
-                    response.success()
-
-        time.sleep(2)
-        offer = None
-        while True:
-            try:
-                offer = self.client.get(f"/v2/deliveries/current").json()
-                if offer.get('id') is not None:
-                    break
-            except:
-                continue
-
-        # print(f"DELIVERY Found offer {offer}")
-
-        # TODO delete rejecting?
-        # if random.random() < 0.1:
-        #     self.client.put(f"/v1/deliveries/{offer.get('id')}/reject")
-        #     print(f"DELIVERY Rejected offer {offer}")
-        #     return
-
-        self.client.put(f"/v1/deliveries/{offer.get('id')}/accept")
-        # print(f"DELIVERY Accepted offer {offer}")
-
-        # TODO wait for order to be ready for pickup?
-        while True:
-            try:
-                self.client.put(f"/v1/deliveries/{offer.get('id')}/pickup")
-                # print(f"DELIVERY Picked up order {offer}")
-                break
-            except:
-                continue
-
-        self.client.put(f"/v1/deliveries/{offer.get('id')}/deliver")
-        # print(f"DELIVERY Delivered order {offer}")
-
-    def _create_courier(self):
-        self.courier_id = self.client.post("/v1/couriers", json={
-            "name": fake.name(),
-            "email": "contact@rasztabiga.me"
-        }).json().get("id")
 
 
 if __name__ == "__main__":

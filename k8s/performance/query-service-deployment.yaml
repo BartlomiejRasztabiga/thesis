@@ -23,7 +23,7 @@ spec:
 #              value: "mongodb://root:password@query-db:27017/query?authSource=admin"
             - name: SPRING_PROFILES_ACTIVE
               value: nosecurity
-          image: ghcr.io/bartlomiejrasztabiga/thesis/query:0.19.9
+          image: ghcr.io/bartlomiejrasztabiga/thesis/query:0.19.10
           name: query-service
           ports:
             - containerPort: 8105
