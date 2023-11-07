@@ -57,7 +57,7 @@
     "autoprefixer": "^10.4.16",
     "binode": "^1.0.5",
     "c8": "^8.0.1",
-    "cookie": "^0.5.0",
+    "cookie": "^0.6.0",
     "cross-env": "^7.0.3",
     "cypress": "^13.4.0",
     "eslint": "^8.53.0",
