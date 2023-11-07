@@ -58,8 +58,8 @@ class E2ETest {
 
     @BeforeEach
     fun setUp() {
-//        val baseUri = "https://thesis.rasztabiga.me/api"
-        val baseUri = "http://localhost:8100/api"
+        val baseUri = "http://thesis.rasztabiga.me/api"
+//        val baseUri = "http://localhost:8100/api"
 
         restaurantManagerRequestSpecification = RequestSpecBuilder()
             .setBaseUri(baseUri)
@@ -88,7 +88,7 @@ class E2ETest {
 
     @AfterEach
     fun tearDown() {
-        driver.quit()
+//        driver.quit()
     }
 
     @Test
@@ -140,24 +140,35 @@ class E2ETest {
     }
 
     private fun payOrder() {
-        driver = ChromeDriver()
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5))
+//        driver = ChromeDriver()
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10))
+//
+//        driver.get(stripeSessionUrl)
+//
+//        driver.findElement(By.id("email")).sendKeys("test@example.com")
+//        driver.findElement(By.id("cardNumber")).sendKeys("4242424242424242")
+//        driver.findElement(By.id("cardExpiry")).sendKeys("1225")
+//        driver.findElement(By.id("cardCvc")).sendKeys("123")
+//        driver.findElement(By.id("billingName")).sendKeys("Test User")
+//        driver.findElement(By.cssSelector("button[type='submit']")).click()
+//
+//        // wait for redirect
+//        WebDriverWait(driver, Duration.ofSeconds(15)).until {
+//            driver.currentUrl.contains("tracking")
+//        }
+//
+//        driver.quit()
 
-        driver.get(stripeSessionUrl)
+        val order = given(orderingUserRequestSpecification)
+            .`when`()
+            .get("/v2/orders/$orderId")
+            .body.`as`(OrderResponse::class.java)
 
-        driver.findElement(By.id("email")).sendKeys("test@example.com")
-        driver.findElement(By.id("cardNumber")).sendKeys("4242424242424242")
-        driver.findElement(By.id("cardExpiry")).sendKeys("1225")
-        driver.findElement(By.id("cardCvc")).sendKeys("123")
-        driver.findElement(By.id("billingName")).sendKeys("Test User")
-        driver.findElement(By.cssSelector("button[type='submit']")).click()
-
-        // wait for redirect
-        WebDriverWait(driver, Duration.ofSeconds(15)).until {
-            driver.currentUrl.contains("tracking")
-        }
-
-        driver.quit()
+        given(orderingUserRequestSpecification)
+            .`when`()
+            .put("/v1/payments/${order.paymentId}/pay")
+            .then()
+            .statusCode(200)
 
         while (true) {
             val order = given(orderingUserRequestSpecification)
