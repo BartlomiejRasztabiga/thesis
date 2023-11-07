@@ -52,7 +52,6 @@ class OrderDeliveryHandler(
         val entity = getDelivery(event.deliveryId)
         entity.courierId = event.courierId
         entity.status = DeliveryStatus.ASSIGNED
-        entity.locked = true
         orderDeliveryRepository.save(entity)
     }
 
@@ -61,7 +60,6 @@ class OrderDeliveryHandler(
         val entity = getDelivery(event.deliveryId)
         entity.courierId = null
         entity.status = DeliveryStatus.OFFER
-        entity.locked = false
         orderDeliveryRepository.save(entity)
     }
 
@@ -70,10 +68,8 @@ class OrderDeliveryHandler(
         val entity = getDelivery(event.deliveryId)
         entity.courierId = event.courierId
         entity.status = DeliveryStatus.ACCEPTED
-        entity.locked = false
         orderDeliveryRepository.save(entity)
     }
-
 
     @EventHandler
     fun on(event: OrderDeliveryPickedUpEvent) {
@@ -87,46 +83,6 @@ class OrderDeliveryHandler(
         val entity = getDelivery(event.deliveryId)
         entity.status = DeliveryStatus.DELIVERED
         orderDeliveryRepository.save(entity)
-    }
-
-    @Suppress("ReturnCount")
-    @QueryHandler
-    fun handle(query: FindSuitableDeliveryOfferQuery): Mono<OrderDeliveryResponse> {
-        val courier = getCourier(query.courierId)
-        if (courier.location == null) {
-            return Mono.error(CourierLocationNotSetException())
-        }
-
-        val currentDelivery = orderDeliveryRepository.loadCurrentDeliveryByCourierId(courier.id)
-        if (currentDelivery != null) {
-            return Mono.error(CourierAlreadyHasDeliveryAssignedException())
-        }
-
-        val offers = orderDeliveryRepository.loadOffers()
-        if (offers.isEmpty()) {
-            return Mono.error(SuitableDeliveryOfferNotFoundException())
-        }
-
-        val bestOffer = offers.minBy {
-            distanceCalculatorPort.calculateDistance(courier.location!!, it.restaurantLocation)
-        }
-
-        val distanceToRestaurant =
-            distanceCalculatorPort.calculateDistance(courier.location!!, bestOffer.restaurantLocation)
-        val distanceToDeliveryAddress =
-            distanceCalculatorPort.calculateDistance(bestOffer.restaurantLocation, bestOffer.deliveryLocation)
-
-        // TODO hack, shouldn't lock in readmodel, move to command
-        bestOffer.locked = true
-        orderDeliveryRepository.save(bestOffer)
-
-        val response = mapToResponse(
-            bestOffer,
-            distanceToRestaurant,
-            distanceToDeliveryAddress
-        )
-
-        return Mono.just(response)
     }
 
     @QueryHandler

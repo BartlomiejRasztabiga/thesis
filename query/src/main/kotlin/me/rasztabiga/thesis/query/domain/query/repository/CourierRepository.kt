@@ -6,4 +6,6 @@ interface CourierRepository {
     fun save(courier: CourierEntity)
 
     fun load(id: String): CourierEntity?
+
+    fun loadAllOnlineWithoutCurrentDelivery(): List<CourierEntity>
 }

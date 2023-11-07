@@ -18,6 +18,5 @@ data class OrderDeliveryEntity(
     @field:Indexed var status: DeliveryStatus,
     val courierFee: BigDecimal,
     @field:Indexed var courierId: String?,
-    val createdAt: Instant,
-    var locked: Boolean
+    val createdAt: Instant
 )

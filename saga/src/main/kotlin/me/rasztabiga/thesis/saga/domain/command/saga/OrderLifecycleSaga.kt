@@ -316,11 +316,11 @@ class OrderLifecycleSaga {
         // TODO spring retryable?
         var retries = 0
         while (true) {
+            retries++
+            if (retries > 10) {
+                throw RuntimeException("Order not found")
+            }
             try {
-                retries++
-                if (retries > 10) {
-                    throw RuntimeException("Order not found")
-                }
                 return queryGateway.query(
                     FindOrderByIdQuery(orderId), ResponseTypes.instanceOf(OrderResponse::class.java)
                 ).join()

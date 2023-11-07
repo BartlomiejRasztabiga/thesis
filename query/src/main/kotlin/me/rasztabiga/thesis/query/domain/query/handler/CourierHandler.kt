@@ -1,14 +1,17 @@
 package me.rasztabiga.thesis.query.domain.query.handler
 
 import me.rasztabiga.thesis.query.domain.query.entity.CourierEntity
+import me.rasztabiga.thesis.query.domain.query.exception.BestCourierNotFoundException
 import me.rasztabiga.thesis.query.domain.query.exception.CourierNotFoundException
 import me.rasztabiga.thesis.query.domain.query.mapper.CourierMapper.mapToEntity
 import me.rasztabiga.thesis.query.domain.query.mapper.CourierMapper.mapToResponse
+import me.rasztabiga.thesis.query.domain.query.port.DistanceCalculatorPort
 import me.rasztabiga.thesis.query.domain.query.repository.CourierRepository
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CourierResponse
 import me.rasztabiga.thesis.shared.domain.command.event.CourierAvailabilityUpdatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.CourierCreatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.CourierLocationUpdatedEvent
+import me.rasztabiga.thesis.shared.domain.query.query.FindBestCourierForDeliveryQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindCourierByIdQuery
 import org.axonframework.config.ProcessingGroup
 import org.axonframework.eventhandling.EventHandler
@@ -19,7 +22,8 @@ import reactor.core.publisher.Mono
 @Component
 @ProcessingGroup("projection")
 class CourierHandler(
-    private val courierRepository: CourierRepository
+    private val courierRepository: CourierRepository,
+    private val distanceCalculatorPort: DistanceCalculatorPort
 ) {
 
     @EventHandler
@@ -47,6 +51,17 @@ class CourierHandler(
         return courierRepository.load(query.courierId)
             ?.let { Mono.just(mapToResponse(it)) }
             ?: Mono.error(CourierNotFoundException(query.courierId))
+    }
+
+    @QueryHandler
+    fun handle(query: FindBestCourierForDeliveryQuery): Mono<CourierResponse> {
+        val couriers = courierRepository.loadAllOnlineWithoutCurrentDelivery()
+        val bestCourier = couriers.minByOrNull {
+            distanceCalculatorPort.calculateDistance(it.location!!, query.restaurantLocation)
+        }
+
+        return bestCourier?.let { Mono.just(mapToResponse(it)) }
+            ?: Mono.error(BestCourierNotFoundException())
     }
 
     private fun getCourier(id: String): CourierEntity {
