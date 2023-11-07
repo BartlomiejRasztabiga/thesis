@@ -1,6 +1,5 @@
 package me.rasztabiga.thesis.saga.domain.command.saga
 
-import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.CourierResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.PayeeResponse
@@ -27,7 +26,6 @@ import me.rasztabiga.thesis.shared.domain.command.event.OrderPaymentPaidEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderRejectedEvent
-import me.rasztabiga.thesis.shared.domain.query.query.FindCourierByIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindOrderByIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindOrderDeliveryByIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindPayeeByUserIdQuery
@@ -81,7 +79,7 @@ class OrderLifecycleSaga {
         restaurantId = event.restaurantId
         orderId = event.orderId
 
-        val order = getOrder(event.orderId)
+        val order = getOrder(event.orderId) // TODO czasami rzuci not found! jak ograc? retry?
         val user = getUser(event.userId)
 
         val deliveryLocation = user.deliveryAddresses.find { it.id == user.defaultAddressId }?.location
@@ -311,9 +309,23 @@ class OrderLifecycleSaga {
     }
 
     private fun getOrder(orderId: UUID): OrderResponse {
-        return queryGateway.query(
-            FindOrderByIdQuery(orderId), ResponseTypes.instanceOf(OrderResponse::class.java)
-        ).join()
+        // TODO hacky
+        // TODO spring retryable?
+        var retries = 0
+        while (true) {
+            try {
+                retries++
+                if (retries > 10) {
+                    throw RuntimeException("Order not found")
+                }
+                return queryGateway.query(
+                    FindOrderByIdQuery(orderId), ResponseTypes.instanceOf(OrderResponse::class.java)
+                ).join()
+            } catch (e: Exception) {
+                // retry if not found
+                Thread.sleep(1000)
+            }
+        }
     }
 
     private fun getUser(userId: String): UserResponse {

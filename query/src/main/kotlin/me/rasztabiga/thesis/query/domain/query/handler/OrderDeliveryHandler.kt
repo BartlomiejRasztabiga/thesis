@@ -116,6 +116,7 @@ class OrderDeliveryHandler(
         val distanceToDeliveryAddress =
             distanceCalculatorPort.calculateDistance(bestOffer.restaurantLocation, bestOffer.deliveryLocation)
 
+        // TODO hack, shouldn't lock in readmodel, move to command
         bestOffer.locked = true
         orderDeliveryRepository.save(bestOffer)
 

@@ -60,7 +60,6 @@ class OrderingUser(HttpUser):
                 log(f"ORDERING Created order with id {order_id}")
 
                 if order_id is not None:
-                    log(f"ORDERING break")
                     break
                 log("ORDERING order_id is None")
             except Exception as e:
@@ -101,11 +100,16 @@ class OrderingUser(HttpUser):
                 order = self.client.get(f"/v2/orders/{order_id}").json()
                 payment_id = order.get("paymentId")
                 if payment_id is not None:
+                    log(f"ORDERING payment_id {payment_id}")
                     break
-            except:
+                else:
+                    log(f"ORDERING payment_id is None")
+            except Exception as e:
+                log(f"ORDERING exception occurred {e}")
                 continue
-        self.client.put(f"/v1/payments/{payment_id}/pay")
 
+        log(f"ORDERING Paying for order {order_id}")
+        self.client.put(f"/v1/payments/{payment_id}/pay")
         log(f"ORDERING Paid for order {order_id}")
 
         # TODO wait for PAID status
@@ -196,7 +200,7 @@ class RestaurantManager(HttpUser):
 
 class DeliveryCourier(HttpUser):
     host = "http://thesis.rasztabiga.me/api"
-    weight = 2
+    weight = 3
 
     def on_start(self):
         self.client.headers["X-User-Id"] = fake.uuid4()
@@ -219,7 +223,7 @@ class DeliveryCourier(HttpUser):
                     log(f"DELIVERY Assigned offer? {response.status_code}")
                     if response.status_code != 200:
                         log(f"DELIVERY error assigning offer ${response.json()}")
-                        continue
+                        break
                     response.success()
                     break
 
