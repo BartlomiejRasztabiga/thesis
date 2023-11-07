@@ -308,6 +308,7 @@ class OrderLifecycleSaga {
         userInvoiceSent = true
     }
 
+    @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown", "SwallowedException", "MagicNumber")
     private fun getOrder(orderId: UUID): OrderResponse {
         // TODO hacky
         // TODO spring retryable?

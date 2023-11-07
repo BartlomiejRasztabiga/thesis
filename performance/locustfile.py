@@ -92,6 +92,8 @@ class OrderingUser(HttpUser):
         log(f"ORDERING Finalizing order {order_id}")
         self.client.put(f"/v1/orders/{order_id}/finalize")
 
+        time.sleep(5)
+
         # TODO wait for paymentId to be set
         payment_id = None
         while True:
@@ -234,7 +236,7 @@ class DeliveryCourier(HttpUser):
             try:
                 offer = self.client.get(f"/v2/deliveries/current").json()
                 retries += 1
-                if retries > 10:
+                if retries > 5:
                     log(f"DELIVERY retries exceeded")
                     return
                 log(f"DELIVERY offer {offer}")
@@ -243,8 +245,11 @@ class DeliveryCourier(HttpUser):
                     break
                 else:
                     log(f"DELIVERY offer is None")
+                    time.sleep(1)
+                    continue
             except Exception as e:
                 log(f"DELIVERY exception occurred {e}")
+                time.sleep(1)
                 continue
 
         # TODO delete rejecting?
