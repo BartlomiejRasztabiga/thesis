@@ -217,6 +217,8 @@ class OrderLifecycleSaga {
 
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: OrderDeliveryDeliveredEvent) {
+        // TODO reduce calls to query?
+
         courierId = event.courierId
 
         commandGateway.sendAndWait<Void>(
