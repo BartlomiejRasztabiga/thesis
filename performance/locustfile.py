@@ -213,6 +213,7 @@ class DeliveryCourier(HttpUser):
 
     @task
     def e2e(self):
+        time.sleep(5)
         offer = None
         while True:
             with self.client.get(f"/v2/deliveries/current", catch_response=True) as response:
