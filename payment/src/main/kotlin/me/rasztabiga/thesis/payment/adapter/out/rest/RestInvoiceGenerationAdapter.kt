@@ -2,11 +2,13 @@ package me.rasztabiga.thesis.payment.adapter.out.rest
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import me.rasztabiga.thesis.payment.domain.command.port.InvoiceGenerationPort
+import org.springframework.context.annotation.Profile
 import org.springframework.stereotype.Service
 import org.springframework.web.reactive.function.client.WebClient
 import java.math.BigDecimal
 import java.util.StringTokenizer
 
+@Profile("invoice")
 @Service
 class RestInvoiceGenerationAdapter : InvoiceGenerationPort {
     override fun generate(invoiceData: InvoiceGenerationPort.InvoiceData): ByteArray? {

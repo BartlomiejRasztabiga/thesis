@@ -12,7 +12,7 @@ class FakeGmapsClientImpl : GmapsClient {
         val a = from.length
         val b = to.length
         val c = Random.nextDouble()
-        return (a + b) * c.toLong()
+        return (a + b) * c.toLong() * 100
     }
 
     @Suppress("MagicNumber")

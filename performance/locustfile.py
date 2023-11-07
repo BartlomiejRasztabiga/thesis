@@ -16,7 +16,7 @@ addresses = [
 # TODO add more GETs to verify that the data is changed
 # TODO add util to await for the data to be changed instead of using while True
 
-DEBUG = True
+DEBUG = False
 
 
 def log(*args, **kwargs):
