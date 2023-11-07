@@ -2,6 +2,9 @@ package me.rasztabiga.thesis.query.adapter.out.db
 
 import me.rasztabiga.thesis.query.domain.query.entity.CourierEntity
 import me.rasztabiga.thesis.query.domain.query.entity.CourierEntity.Availability.ONLINE
+import me.rasztabiga.thesis.query.domain.query.entity.DeliveryStatus.ACCEPTED
+import me.rasztabiga.thesis.query.domain.query.entity.DeliveryStatus.ASSIGNED
+import me.rasztabiga.thesis.query.domain.query.entity.DeliveryStatus.PICKED_UP
 import me.rasztabiga.thesis.query.domain.query.repository.CourierRepository
 import me.rasztabiga.thesis.query.infrastructure.db.SpringDataCourierRepository
 import me.rasztabiga.thesis.query.infrastructure.db.SpringDataOrderDeliveryRepository
@@ -21,13 +24,17 @@ class DbCourierRepository(
     }
 
     override fun loadAllOnlineWithoutCurrentDelivery(): List<CourierEntity> {
-        val deliveries = springDataOrderDeliveryRepository.findAll().collectList().block() ?: emptyList()
+        val activeDeliveries = springDataOrderDeliveryRepository.findAllByStatusIn(
+            setOf(
+                ASSIGNED, ACCEPTED, PICKED_UP
+            )
+        ).collectList().block() ?: emptyList()
         val couriers =
             springDataCourierRepository.findAllByAvailabilityEqualsAndLocationIsNotNull(ONLINE).collectList().block()
                 ?: emptyList()
 
         return couriers.filter { courier ->
-            deliveries.none { it.courierId == courier.id }
+            activeDeliveries.none { it.courierId == courier.id }
         }
     }
 }

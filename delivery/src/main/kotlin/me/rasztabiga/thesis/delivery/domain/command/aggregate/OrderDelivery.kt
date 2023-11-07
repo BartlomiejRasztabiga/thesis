@@ -1,13 +1,13 @@
 package me.rasztabiga.thesis.delivery.domain.command.aggregate
 
 import me.rasztabiga.thesis.delivery.domain.command.command.AcceptDeliveryOfferCommand
-import me.rasztabiga.thesis.delivery.domain.command.command.AssignDeliveryCommand
 import me.rasztabiga.thesis.delivery.domain.command.command.DeliverDeliveryCommand
 import me.rasztabiga.thesis.delivery.domain.command.command.PickupDeliveryCommand
 import me.rasztabiga.thesis.delivery.domain.command.command.RejectDeliveryOfferCommand
 import me.rasztabiga.thesis.delivery.domain.command.port.CalculateDeliveryFeePort
 import me.rasztabiga.thesis.delivery.domain.command.port.CourierOnlineVerifierPort
 import me.rasztabiga.thesis.delivery.domain.command.port.OrderPreparedVerifierPort
+import me.rasztabiga.thesis.shared.domain.command.command.AssignDeliveryCommand
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderDeliveryOfferCommand
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAssignedEvent
@@ -20,7 +20,6 @@ import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
 import org.axonframework.modelling.command.AggregateLifecycle.apply
 import org.axonframework.spring.stereotype.Aggregate
-import java.math.BigDecimal
 import java.util.*
 
 @Aggregate

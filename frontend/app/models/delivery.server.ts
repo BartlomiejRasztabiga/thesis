@@ -45,14 +45,6 @@ export const getCurrentDelivery = async (
   const axios = await getAxios(request);
   return axios.get(`/api/v2/deliveries/current`).then((res) => res.data);
 };
-
-export const getDeliveryOffer = async (
-  request: Request,
-): Promise<DeliveryResponse> => {
-  const axios = await getAxios(request);
-  return axios.get(`/api/v2/deliveries/offer`).then((res) => res.data);
-};
-
 export const acceptDeliveryOffer = async (
   request: Request,
   deliveryId: string,

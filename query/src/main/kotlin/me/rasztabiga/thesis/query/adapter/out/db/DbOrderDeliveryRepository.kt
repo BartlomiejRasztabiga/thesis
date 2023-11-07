@@ -24,7 +24,7 @@ class DbOrderDeliveryRepository(
     }
 
     override fun loadOffers(): List<OrderDeliveryEntity> {
-        return springDataOrderDeliveryRepository.findAllByStatusAndLockedIsFalse(DeliveryStatus.OFFER).collectList()
+        return springDataOrderDeliveryRepository.findAllByStatus(DeliveryStatus.OFFER).collectList()
             .block() ?: listOf()
     }
 

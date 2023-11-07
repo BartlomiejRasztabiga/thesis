@@ -18,7 +18,6 @@ import {
   deliverDelivery,
   getCurrentCourier,
   getCurrentDelivery,
-  getDeliveryOffer,
   pickupDelivery,
   rejectDeliveryOffer,
   updateCourierAvailability,
@@ -43,15 +42,7 @@ export async function loader({ request, params }: LoaderArgs) {
   try {
     currentDelivery = await getCurrentDelivery(request);
   } catch (error) {
-    // ignore, no delivery in progress
-  }
-
-  if (!currentDelivery) {
-    try {
-      await getDeliveryOffer(request);
-    } catch (error) {
-      // ignore, no delivery offer
-    }
+    // ignore, no delivery or offer in progress
   }
 
   const payee = await getCurrentPayee(request);

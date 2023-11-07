@@ -10,7 +10,9 @@ import java.util.*
 
 @Repository
 interface SpringDataOrderDeliveryRepository : ReactiveMongoRepository<OrderDeliveryEntity, UUID> {
-    fun findAllByStatusAndLockedIsFalse(status: DeliveryStatus): Flux<OrderDeliveryEntity>
+    fun findAllByStatus(status: DeliveryStatus): Flux<OrderDeliveryEntity>
+
+    fun findAllByStatusIn(statuses: Set<DeliveryStatus>): Flux<OrderDeliveryEntity>
 
     fun findByCourierId(courierId: String): Flux<OrderDeliveryEntity>
 

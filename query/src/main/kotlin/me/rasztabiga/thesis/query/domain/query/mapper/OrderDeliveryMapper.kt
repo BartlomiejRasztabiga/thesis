@@ -17,8 +17,7 @@ object OrderDeliveryMapper {
             status = DeliveryStatus.OFFER,
             courierFee = event.courierFee,
             courierId = null,
-            createdAt = Instant.now(),
-            locked = false
+            createdAt = Instant.now()
         )
     }
 

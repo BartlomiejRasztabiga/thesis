@@ -221,10 +221,6 @@ class E2ETest {
     private fun acceptDeliveryOffer() {
         var offerId: UUID?
         while (true) {
-            given(courierRequestSpecification)
-                .`when`()
-                .put("/v1/deliveries/offer")
-
             val offer = try {
                 given(courierRequestSpecification)
                     .`when`()

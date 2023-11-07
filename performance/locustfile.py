@@ -213,45 +213,19 @@ class DeliveryCourier(HttpUser):
 
     @task
     def e2e(self):
-        # TODO does it work?
-        time.sleep(5)
+        offer = None
         while True:
-            with self.client.put(f"/v1/deliveries/offer", catch_response=True) as response:
+            with self.client.get(f"/v2/deliveries/current", catch_response=True) as response:
                 if response.status_code == 404:
                     log(f"DELIVERY No offers")
                     response.success()
                     time.sleep(1)
                     continue
                 else:
-                    log(f"DELIVERY Assigned offer? {response.status_code}")
-                    if response.status_code != 200:
-                        log(f"DELIVERY error assigning offer ${response.json()}")
-                        break
+                    log(f"DELIVERY Assigned offer")
+                    offer = response.json()
                     response.success()
                     break
-
-        time.sleep(5)
-        offer = None
-        retries = 0
-        while True:
-            try:
-                offer = self.client.get(f"/v2/deliveries/current").json()
-                retries += 1
-                if retries > 5:
-                    log(f"DELIVERY retries exceeded")
-                    return
-                log(f"DELIVERY offer {offer}")
-                if offer.get('id') is not None:
-                    log(f"DELIVERY Found offer {offer}")
-                    break
-                else:
-                    log(f"DELIVERY offer is None")
-                    time.sleep(1)
-                    continue
-            except Exception as e:
-                log(f"DELIVERY exception occurred {e}")
-                time.sleep(1)
-                continue
 
         # TODO delete rejecting?
         # if random.random() < 0.1:
