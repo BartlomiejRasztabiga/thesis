@@ -11,8 +11,7 @@ class FakeGmapsClientImpl : GmapsClient {
     override fun getDistanceInMeters(from: String, to: String): Long {
         val a = from.length
         val b = to.length
-        val c = Random.nextDouble()
-        return (a + b) * c.toLong() * 100
+        return (a + b) * 100L
     }
 
     @Suppress("MagicNumber")

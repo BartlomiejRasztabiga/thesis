@@ -26,7 +26,7 @@ def log(*args, **kwargs):
 
 class OrderingUser(HttpUser):
     host = "http://thesis.rasztabiga.me/api"
-    weight = 10
+    weight = 3
 
     def on_start(self):
         self.client.headers["X-User-Id"] = fake.uuid4()
@@ -156,7 +156,7 @@ class RestaurantManager(HttpUser):
         restaurant_orders = self.client.get(f"/v2/restaurants/{self.restaurant_id}/orders").json()
         # log(f"RESTAURANT Found {restaurant_orders} orders")
         restaurant_orders = list(filter(lambda order: order.get("status") == "NEW", restaurant_orders))
-        # log(f"RESTAURANT Found {restaurant_orders} new orders")
+        log(f"RESTAURANT Found {len(restaurant_orders)} new orders")
         if len(restaurant_orders) == 0:
             return
 
@@ -214,6 +214,7 @@ class DeliveryCourier(HttpUser):
     @task
     def e2e(self):
         # TODO does it work?
+        time.sleep(5)
         while True:
             with self.client.put(f"/v1/deliveries/offer", catch_response=True) as response:
                 if response.status_code == 404:
