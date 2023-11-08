@@ -243,7 +243,11 @@ class OrderLifecycleSaga {
             )
         )
 
-        val deliveryCourierPayee = getPayeeByUserId(order.courierId!!)
+        // TODO NPE???
+        // chyba mozliwe, kiedy tak szybko pojdzie assign orderu do couriera i caly proces dostawy
+        // IRL nierealne, ale w testach juz tak
+        // czy order jest w ogole mi potrzebny? moze uda sie zalatwic samych payees
+        val deliveryCourierPayee = getPayeeByUserId(courierId)
         val delivery = getDelivery(event.deliveryId)
 
         deliveryCourierPayeeId = deliveryCourierPayee.id
