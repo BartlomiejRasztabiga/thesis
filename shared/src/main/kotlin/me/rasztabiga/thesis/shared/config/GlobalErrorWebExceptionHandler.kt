@@ -1,6 +1,7 @@
 package me.rasztabiga.thesis.shared.config
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import io.sentry.Sentry
 import org.axonframework.commandhandling.CommandExecutionException
 import org.axonframework.queryhandling.QueryExecutionException
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler
@@ -36,7 +37,7 @@ class GlobalErrorWebExceptionHandler(
     // TODO manually report sentry exception?
 
     private fun createError(ex: Throwable): ApiError {
-        return when (ex) {
+        val error = when (ex) {
             is CommandExecutionException -> {
                 when {
                     ex.localizedMessage.contains("not found") -> {
@@ -73,6 +74,10 @@ class GlobalErrorWebExceptionHandler(
                 ApiError(ex.message!!, INTERNAL_SERVER_ERROR)
             }
         }
+
+        Sentry.captureException(ex)
+
+        return error
     }
 }
 
