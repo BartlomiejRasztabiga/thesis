@@ -10,6 +10,7 @@ plugins {
     id("maven-publish")
     id("java-test-fixtures")
     id("io.gitlab.arturbosch.detekt") version "1.23.3"
+    id("io.sentry.jvm.gradle") version "3.14.0"
 }
 
 group = "me.rasztabiga.thesis"
@@ -50,6 +51,13 @@ dependencyManagement {
     imports {
         mavenBom("org.axonframework:axon-bom:${axonVersion}")
     }
+}
+
+sentry {
+    includeSourceContext = true
+    org = "bartomiej-rasztabiga"
+    projectName = "thesis"
+    authToken = "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"
 }
 
 val bootJar: BootJar by tasks

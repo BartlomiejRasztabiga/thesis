@@ -33,6 +33,8 @@ class GlobalErrorWebExceptionHandler(
 
     // TODO Can I make it better? Currently Axon swallows all of my original exceptions
 
+    // TODO manually report sentry exception?
+
     private fun createError(ex: Throwable): ApiError {
         return when (ex) {
             is CommandExecutionException -> {

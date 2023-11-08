@@ -56,7 +56,7 @@ class OrderingUser(HttpUser):
 
     @task
     def e2e(self):
-        time.sleep(1)
+        time.sleep(5)
         restaurants = self.client.get("/v2/restaurants").json()
         if len(restaurants) == 0:
             return
@@ -232,10 +232,15 @@ class DeliveryCourier(HttpUser):
     @task
     def e2e(self):
         time.sleep(5)
+        retries = 0
         offer = None
         while True:
             with self.client.get(f"/v2/deliveries/current", catch_response=True) as response:
                 if response.status_code == 404:
+                    retries += 1
+                    if retries > 60:
+                        log(f"DELIVERY No offers after {retries} retries")
+                        return
                     log(f"DELIVERY No offers")
                     response.success()
                     time.sleep(1)
