@@ -91,3 +91,7 @@ tasks.withType<KotlinCompile> {
         jvmTarget = "17"
     }
 }
+
+tasks.named("sourcesJar") {
+    dependsOn("collectExternalDependenciesForSentry", "generateSentryDebugMetaPropertiesjava")
+}
