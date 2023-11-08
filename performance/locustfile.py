@@ -251,6 +251,10 @@ class DeliveryCourier(HttpUser):
                     response.success()
                     break
 
+        if offer.get('id') is None:
+            log(f"DELIVERY Offer id is None")
+            return
+
         # TODO delete rejecting?
         # if random.random() < 0.1:
         #     self.client.put(f"/v1/deliveries/{offer.get('id')}/reject")
