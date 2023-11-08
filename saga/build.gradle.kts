@@ -6,6 +6,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "1.9.10"
     id("org.jetbrains.kotlin.plugin.spring") version "1.9.10"
     id("io.gitlab.arturbosch.detekt") version "1.23.3"
+    id("io.sentry.jvm.gradle") version "3.14.0"
 }
 
 group = "me.rasztabiga.thesis"
