@@ -169,12 +169,9 @@ class OrderHandler(
 
     @QueryHandler
     fun handle(query: FindOrderByIdQuery): Mono<OrderResponse> {
-        val order = orderRepository.load(query.orderId)
-        val courier = order?.courierId?.let { courierRepository.load(it) }
-
-        return order
-            ?.let { Mono.just(mapToResponse(it, courier)) }
-            ?: Mono.error(OrderNotFoundException(query.orderId))
+        val order = orderRepository.load(query.orderId) ?: throw OrderNotFoundException(query.orderId)
+        val courier = order.courierId?.let { courierRepository.load(it) }
+        return Mono.just(mapToResponse(order, courier))
     }
 
     @QueryHandler

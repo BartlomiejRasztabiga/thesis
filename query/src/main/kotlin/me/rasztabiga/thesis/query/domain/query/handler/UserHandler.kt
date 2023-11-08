@@ -61,8 +61,7 @@ class UserHandler(
 
     @QueryHandler
     fun handle(query: FindUserByIdQuery): Mono<UserResponse> {
-        return userRepository.load(query.userId)
-            ?.let { Mono.just(mapToResponse(it)) }
-            ?: Mono.error(UserNotFoundException(query.userId))
+        val user = userRepository.load(query.userId) ?: throw UserNotFoundException(query.userId)
+        return Mono.just(mapToResponse(user))
     }
 }

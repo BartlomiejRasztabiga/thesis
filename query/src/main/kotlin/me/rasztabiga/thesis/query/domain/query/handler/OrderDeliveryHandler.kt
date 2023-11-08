@@ -85,8 +85,8 @@ class OrderDeliveryHandler(
     fun handle(query: FindCurrentDeliveryQuery): Mono<OrderDeliveryResponse> {
         val courier = getCourier(query.courierId)
 
-        val delivery = orderDeliveryRepository.loadCurrentDeliveryByCourierId(query.courierId)
-            ?: return Mono.error(DeliveryNotFoundException())
+        val delivery =
+            orderDeliveryRepository.loadCurrentDeliveryByCourierId(query.courierId) ?: throw DeliveryNotFoundException()
 
         val distanceToRestaurant =
             distanceCalculatorPort.calculateDistance(courier.location!!, delivery.restaurantLocation)
@@ -98,9 +98,9 @@ class OrderDeliveryHandler(
 
     @QueryHandler
     fun handle(query: FindOrderDeliveryByIdQuery): Mono<OrderDeliveryResponse> {
-        return orderDeliveryRepository.load(query.deliveryId)
-            ?.let { Mono.just(mapToResponse(it)) }
-            ?: Mono.error(DeliveryNotFoundException())
+        val delivery =
+            orderDeliveryRepository.load(query.deliveryId) ?: throw DeliveryNotFoundException(query.deliveryId)
+        return Mono.just(mapToResponse(delivery))
     }
 
     @QueryHandler

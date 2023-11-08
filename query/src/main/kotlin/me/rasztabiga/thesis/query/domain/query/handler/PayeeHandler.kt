@@ -62,16 +62,14 @@ class PayeeHandler(
 
     @QueryHandler
     fun handle(query: FindPayeeByUserIdQuery): Mono<PayeeResponse> {
-        return payeeRepository.loadByUserId(query.userId)
-            ?.let { Mono.just(mapToResponse(it)) }
-            ?: Mono.error(PayeeByUserIdNotFoundException(query.userId))
+        val payee = payeeRepository.loadByUserId(query.userId) ?: throw PayeeByUserIdNotFoundException(query.userId)
+        return Mono.just(mapToResponse(payee))
     }
 
     @QueryHandler
     fun handle(query: FindPayeeByIdQuery): Mono<PayeeResponse> {
-        return payeeRepository.load(query.id)
-            ?.let { Mono.just(mapToResponse(it)) }
-            ?: Mono.error(PayeeNotFoundException(query.id))
+        val payee = payeeRepository.load(query.id) ?: throw PayeeNotFoundException(query.id)
+        return Mono.just(mapToResponse(payee))
     }
 
     private fun getPayee(payeeId: UUID): PayeeEntity {

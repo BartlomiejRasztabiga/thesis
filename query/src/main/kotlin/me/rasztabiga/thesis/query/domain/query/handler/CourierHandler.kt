@@ -48,9 +48,8 @@ class CourierHandler(
 
     @QueryHandler
     fun handle(query: FindCourierByIdQuery): Mono<CourierResponse> {
-        return courierRepository.load(query.courierId)
-            ?.let { Mono.just(mapToResponse(it)) }
-            ?: Mono.error(CourierNotFoundException(query.courierId))
+        val courier = courierRepository.load(query.courierId) ?: throw CourierNotFoundException(query.courierId)
+        return Mono.just(mapToResponse(courier))
     }
 
     @QueryHandler
@@ -58,10 +57,9 @@ class CourierHandler(
         val couriers = courierRepository.loadAllOnlineWithoutCurrentDelivery()
         val bestCourier = couriers.minByOrNull {
             distanceCalculatorPort.calculateDistance(it.location!!, query.restaurantLocation)
-        }
+        } ?: throw BestCourierNotFoundException()
 
-        return bestCourier?.let { Mono.just(mapToResponse(it)) }
-            ?: Mono.error(BestCourierNotFoundException())
+        return Mono.just(mapToResponse(bestCourier))
     }
 
     private fun getCourier(id: String): CourierEntity {

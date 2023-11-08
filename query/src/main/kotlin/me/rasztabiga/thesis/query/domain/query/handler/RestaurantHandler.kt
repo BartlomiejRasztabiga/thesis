@@ -112,8 +112,8 @@ class RestaurantHandler(
 
     @QueryHandler
     fun handle(query: FindRestaurantByManagerIdQuery): Mono<RestaurantResponse> {
-        return restaurantRepository.loadByManagerId(query.managerId)
-            ?.let { Mono.just(mapToResponse(it, null)) }
-            ?: Mono.error(RestaurantNotFoundForManagerIdException(query.managerId))
+        val restaurant = restaurantRepository.loadByManagerId(query.managerId)
+            ?: throw RestaurantNotFoundForManagerIdException(query.managerId)
+        return Mono.just(mapToResponse(restaurant, null))
     }
 }

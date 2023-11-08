@@ -35,7 +35,7 @@ val axonVersion = "4.9.0"
 val kotestVersion = "5.8.0"
 
 dependencies {
-    implementation("me.rasztabiga.thesis:shared:0.19.28")
+    implementation("me.rasztabiga.thesis:shared:0.19.29")
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-security")
@@ -55,7 +55,7 @@ dependencies {
 
     implementation("io.axoniq.console:console-framework-client-spring-boot-starter:1.1.0")
 
-    testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.19.28"))
+    testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.19.29"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.axonframework:axon-test")
