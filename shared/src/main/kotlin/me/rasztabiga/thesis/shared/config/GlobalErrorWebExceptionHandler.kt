@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import io.sentry.Sentry
 import org.axonframework.commandhandling.CommandExecutionException
 import org.axonframework.queryhandling.QueryExecutionException
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.Ordered
@@ -21,6 +23,8 @@ import reactor.core.publisher.Mono
 class GlobalErrorWebExceptionHandler(
     private val objectMapper: ObjectMapper
 ) : ErrorWebExceptionHandler {
+
+    private val log: Logger = LoggerFactory.getLogger(GlobalErrorWebExceptionHandler::class.java)
 
     override fun handle(exchange: ServerWebExchange, ex: Throwable): Mono<Void> {
         val bufferFactory = exchange.response.bufferFactory()
@@ -75,6 +79,7 @@ class GlobalErrorWebExceptionHandler(
             }
         }
 
+        log.error("Logging exception to Sentry: ${error.message}")
         Sentry.captureException(ex)
 
         return error
