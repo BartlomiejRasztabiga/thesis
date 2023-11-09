@@ -117,8 +117,7 @@ class OrderLifecycleSaga {
     fun on(event: OrderTotalCalculatedEvent) {
         val paymentId = UUID.randomUUID()
 
-        val order = getOrder(event.orderId)
-        val restaurant = getRestaurant(order.restaurantId)
+        val restaurant = getRestaurant(event.restaurantId)
 
         commandGateway.sendAndWait<Void>(
             CreateOrderPaymentCommand(
@@ -126,7 +125,7 @@ class OrderLifecycleSaga {
                 orderId = event.orderId,
                 payerId = this.orderingUserId,
                 amount = event.productsTotal + event.deliveryFee,
-                items = order.items.map {
+                items = event.items.map {
                     val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.key }!!
                     CreateOrderPaymentCommand.OrderItem(
                         name = menuItem.name,
@@ -151,8 +150,6 @@ class OrderLifecycleSaga {
 
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: OrderPaidEvent) {
-        val order = getOrder(event.orderId)
-
         restaurantOrderId = UUID.randomUUID()
 
         // TODO aggregate id must be unique?
@@ -161,8 +158,8 @@ class OrderLifecycleSaga {
             CreateRestaurantOrderCommand(
                 restaurantOrderId = restaurantOrderId,
                 orderId = event.orderId,
-                restaurantId = order.restaurantId,
-                items = order.items
+                restaurantId = event.restaurantId,
+                items = event.items
             )
         )
     }
@@ -172,7 +169,7 @@ class OrderLifecycleSaga {
     fun on(event: RestaurantOrderAcceptedEvent) {
         val order = getOrder(event.orderId)
         val user = getUser(order.userId)
-        val restaurant = getRestaurant(order.restaurantId)
+        val restaurant = getRestaurant(event.restaurantId)
 
         val deliveryAddress = user.deliveryAddresses.find { it.id == order.deliveryAddressId }
         checkNotNull(deliveryAddress) { "Delivery address not found" }
@@ -244,7 +241,6 @@ class OrderLifecycleSaga {
         )
 
         val deliveryCourierPayee = getPayeeByUserId(courierId)
-        val delivery = getDelivery(event.deliveryId)
 
         deliveryCourierPayeeId = deliveryCourierPayee.id
 
@@ -253,7 +249,7 @@ class OrderLifecycleSaga {
         commandGateway.sendAndWait<Void>(
             AddPayeeBalanceCommand(
                 payeeId = deliveryCourierPayeeId,
-                amount = delivery.courierFee
+                amount = event.courierFee
             )
         )
 
@@ -348,12 +344,4 @@ class OrderLifecycleSaga {
             FindPayeeByUserIdQuery(userId), ResponseTypes.instanceOf(PayeeResponse::class.java)
         ).join()
     }
-
-    private fun getDelivery(deliveryId: UUID): OrderDeliveryResponse {
-        return queryGateway.query(
-            FindOrderDeliveryByIdQuery(deliveryId), ResponseTypes.instanceOf(OrderDeliveryResponse::class.java)
-        ).join()
-    }
-
-
 }

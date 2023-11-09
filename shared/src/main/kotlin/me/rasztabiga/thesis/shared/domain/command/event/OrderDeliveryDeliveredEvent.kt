@@ -8,5 +8,6 @@ import java.util.*
 data class OrderDeliveryDeliveredEvent(
     val deliveryId: UUID,
     val orderId: UUID,
-    val courierId: String
+    val courierId: String,
+    val courierFee: BigDecimal
 )

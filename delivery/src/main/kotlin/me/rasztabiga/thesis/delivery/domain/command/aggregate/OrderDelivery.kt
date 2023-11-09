@@ -21,6 +21,7 @@ import org.axonframework.eventsourcing.EventSourcingHandler
 import org.axonframework.modelling.command.AggregateIdentifier
 import org.axonframework.modelling.command.AggregateLifecycle.apply
 import org.axonframework.spring.stereotype.Aggregate
+import java.math.BigDecimal
 import java.util.*
 
 @Aggregate
@@ -30,6 +31,7 @@ class OrderDelivery {
     private lateinit var orderId: UUID
     private lateinit var status: DeliveryStatus
     private lateinit var restaurantLocation: Location
+    private lateinit var courierFee: BigDecimal
     private var courierId: String? = null
 
     private constructor()
@@ -41,6 +43,7 @@ class OrderDelivery {
             command.deliveryLocation.streetAddress!!
         )
 
+        this.courierFee = baseFee
         this.restaurantLocation = command.restaurantLocation
 
         apply(

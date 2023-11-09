@@ -7,6 +7,8 @@ import java.util.*
 @Revision("1.0")
 data class OrderTotalCalculatedEvent(
     val orderId: UUID,
+    val restaurantId: UUID,
     val productsTotal: BigDecimal,
-    val deliveryFee: BigDecimal
+    val deliveryFee: BigDecimal,
+    val items: Map<UUID, Int>
 )

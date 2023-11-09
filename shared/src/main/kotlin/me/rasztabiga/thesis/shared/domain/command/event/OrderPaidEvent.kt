@@ -5,5 +5,7 @@ import java.util.UUID
 
 @Revision("1.0")
 data class OrderPaidEvent(
-    val orderId: UUID
+    val orderId: UUID,
+    val restaurantId: UUID,
+    val items: Map<UUID, Int>
 )
