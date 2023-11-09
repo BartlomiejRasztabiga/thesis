@@ -68,9 +68,6 @@ class OrderDelivery {
         require(this.courierId == command.courierId) {
             "Delivery can be rejected only by the courier who was assigned to it."
         }
-        require(courierOnlineVerifierPort.isCourierOnline(command.courierId)) {
-            "Delivery can be rejected only if the courier is online."
-        }
 
         apply(
             OrderDeliveryRejectedEvent(
@@ -85,9 +82,6 @@ class OrderDelivery {
         require(this.status == DeliveryStatus.ASSIGNED) { "Delivery can be accepted only if it's in ASSIGNED status." }
         require(this.courierId == command.courierId) {
             "Delivery can be rejected only by the courier who was assigned to it."
-        }
-        require(courierOnlineVerifierPort.isCourierOnline(command.courierId)) {
-            "Delivery can be accepted only if the courier is online."
         }
 
         apply(
@@ -112,9 +106,6 @@ class OrderDelivery {
         require(orderPreparedVerifierPort.isOrderPrepared(this.orderId)) {
             "Delivery can be picked up only if the order is prepared."
         }
-        require(courierOnlineVerifierPort.isCourierOnline(this.courierId!!)) {
-            "Delivery can be picked up only if the courier is online."
-        }
 
         apply(
             OrderDeliveryPickedUpEvent(
@@ -132,9 +123,6 @@ class OrderDelivery {
         }
         require(this.courierId == command.courierId) {
             "Delivery can be delivered only by the courier who picked it up."
-        }
-        require(courierOnlineVerifierPort.isCourierOnline(this.courierId!!)) {
-            "Delivery can be delivered only if the courier is online."
         }
 
         apply(

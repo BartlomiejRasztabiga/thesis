@@ -47,8 +47,6 @@ class OrderDeliveryLifecycleSaga {
     @Suppress("UnusedParameter")
     @SagaEventHandler(associationProperty = "deliveryId")
     fun on(event: OrderDeliveryRejectedEvent) {
-        val delivery = getOrderDelivery(event.deliveryId) ?: error("Cannot find delivery")
-
         // TODO handle exception?
         val courier = findBestCourier(delivery.restaurantLocation) ?: error("Cannot find best courier for delivery")
 
@@ -62,7 +60,6 @@ class OrderDeliveryLifecycleSaga {
     @EndSaga
     @SagaEventHandler(associationProperty = "deliveryId")
     fun on(event: OrderDeliveryAcceptedEvent) {
-        println("test")
         // TODO check if courier doesnt' have two deliveries?
         // if so, unassign one of them (leaving only one) xD
     }
@@ -89,12 +86,5 @@ class OrderDeliveryLifecycleSaga {
                 currentWait *= waitMultiplier
             }
         }
-    }
-
-    private fun getOrderDelivery(deliveryId: UUID): OrderDeliveryResponse? {
-        return queryGateway.query(
-            FindOrderDeliveryByIdQuery(deliveryId),
-            ResponseTypes.instanceOf(OrderDeliveryResponse::class.java)
-        ).join()
     }
 }

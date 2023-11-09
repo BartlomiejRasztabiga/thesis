@@ -24,8 +24,6 @@ class GlobalErrorWebExceptionHandler(
     private val objectMapper: ObjectMapper
 ) : ErrorWebExceptionHandler {
 
-    private val log: Logger = LoggerFactory.getLogger(GlobalErrorWebExceptionHandler::class.java)
-
     override fun handle(exchange: ServerWebExchange, ex: Throwable): Mono<Void> {
         val bufferFactory = exchange.response.bufferFactory()
         val error = createError(ex)

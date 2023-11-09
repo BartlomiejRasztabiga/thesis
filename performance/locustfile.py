@@ -183,6 +183,8 @@ class RestaurantManager(HttpUser):
         self.client.put(f"/v1/restaurants/{self.restaurant_id}/orders/{selected_order.get('restaurantOrderId')}/accept")
         log(f"RESTAURANT Accepted order")
 
+        time.sleep(1)
+
         self.client.put(
             f"/v1/restaurants/{self.restaurant_id}/orders/{selected_order.get('restaurantOrderId')}/prepare")
         log(f"RESTAURANT Prepared order")

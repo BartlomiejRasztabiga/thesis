@@ -29,15 +29,10 @@ class WithdrawalLifecycleSaga {
     @Transient
     private lateinit var commandGateway: CommandGateway
 
-    @Autowired
-    @Transient
-    private lateinit var queryGateway: QueryGateway
-
     @Suppress("MagicNumber")
     @StartSaga
     @SagaEventHandler(associationProperty = "payeeId")
     fun on(event: PayeeBalanceWithdrawnEvent) {
-        val payee = getPayeeById(event.payeeId)
         val invoiceId = UUID.randomUUID()
 
         SagaLifecycle.associateWith("invoiceId", invoiceId.toString())
@@ -90,8 +85,6 @@ class WithdrawalLifecycleSaga {
     @Suppress("UnusedParameter")
     @SagaEventHandler(associationProperty = "invoiceId")
     fun on(event: InvoiceCreatedEvent) {
-        val payee = getPayeeById(event.payeeId)
-
         commandGateway.sendAndWait<Void>(
             SendInvoiceEmailCommand(
                 id = event.invoiceId,
@@ -105,11 +98,5 @@ class WithdrawalLifecycleSaga {
     @SagaEventHandler(associationProperty = "invoiceId")
     fun on(event: InvoiceEmailSentEvent) {
 
-    }
-
-    private fun getPayeeById(id: UUID): PayeeResponse {
-        return queryGateway.query(
-            FindPayeeByIdQuery(id), ResponseTypes.instanceOf(PayeeResponse::class.java)
-        ).join()
     }
 }
