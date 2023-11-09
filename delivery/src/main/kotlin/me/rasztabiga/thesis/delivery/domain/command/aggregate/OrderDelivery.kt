@@ -43,9 +43,6 @@ class OrderDelivery {
             command.deliveryLocation.streetAddress!!
         )
 
-        this.courierFee = baseFee
-        this.restaurantLocation = command.restaurantLocation
-
         apply(
             OrderDeliveryCreatedEvent(
                 deliveryId = command.id,
@@ -70,7 +67,7 @@ class OrderDelivery {
     }
 
     @CommandHandler
-    fun handle(command: RejectDeliveryOfferCommand, courierOnlineVerifierPort: CourierOnlineVerifierPort) {
+    fun handle(command: RejectDeliveryOfferCommand) {
         require(this.status == DeliveryStatus.ASSIGNED) { "Delivery can be rejected only if it's in ASSIGNED status." }
         require(this.courierId == command.courierId) {
             "Delivery can be rejected only by the courier who was assigned to it."
@@ -80,13 +77,13 @@ class OrderDelivery {
             OrderDeliveryRejectedEvent(
                 deliveryId = command.id,
                 courierId = command.courierId,
-                restaurantLocation = restaurantLocation
+                restaurantLocation = this.restaurantLocation
             )
         )
     }
 
     @CommandHandler
-    fun handle(command: AcceptDeliveryOfferCommand, courierOnlineVerifierPort: CourierOnlineVerifierPort) {
+    fun handle(command: AcceptDeliveryOfferCommand) {
         require(this.status == DeliveryStatus.ASSIGNED) { "Delivery can be accepted only if it's in ASSIGNED status." }
         require(this.courierId == command.courierId) {
             "Delivery can be rejected only by the courier who was assigned to it."
@@ -104,8 +101,7 @@ class OrderDelivery {
     @CommandHandler
     fun handle(
         command: PickupDeliveryCommand,
-        orderPreparedVerifierPort: OrderPreparedVerifierPort,
-        courierOnlineVerifierPort: CourierOnlineVerifierPort
+        orderPreparedVerifierPort: OrderPreparedVerifierPort
     ) {
         require(this.status == DeliveryStatus.ACCEPTED) { "Delivery can be picked up only if it's in ACCEPTED status." }
         require(this.courierId == command.courierId) {
@@ -125,7 +121,7 @@ class OrderDelivery {
     }
 
     @CommandHandler
-    fun handle(command: DeliverDeliveryCommand, courierOnlineVerifierPort: CourierOnlineVerifierPort) {
+    fun handle(command: DeliverDeliveryCommand) {
         require(this.status == DeliveryStatus.PICKED_UP) {
             "Delivery can be delivered only if it's in PICKED_UP status."
         }
@@ -147,6 +143,8 @@ class OrderDelivery {
         this.id = event.deliveryId
         this.orderId = event.orderId
         this.status = DeliveryStatus.OFFER
+        this.restaurantLocation = event.restaurantLocation
+        this.courierFee = event.courierFee
     }
 
     @EventSourcingHandler
