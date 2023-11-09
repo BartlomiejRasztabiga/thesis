@@ -133,7 +133,8 @@ class OrderDelivery {
             OrderDeliveryDeliveredEvent(
                 deliveryId = command.id,
                 orderId = this.orderId,
-                courierId = command.courierId
+                courierId = command.courierId,
+                courierFee = this.courierFee
             )
         )
     }

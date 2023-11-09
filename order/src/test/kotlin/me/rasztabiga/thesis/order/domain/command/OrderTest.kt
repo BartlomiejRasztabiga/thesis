@@ -212,7 +212,9 @@ class OrderTest {
         )
 
         val orderPaidEvent = OrderPaidEvent(
-            orderId = orderStartedEvent.orderId
+            orderId = orderStartedEvent.orderId,
+            restaurantId = orderStartedEvent.restaurantId,
+            items = mutableMapOf()
         )
 
         testFixture.given(orderStartedEvent, orderFinalizedEvent)
@@ -238,7 +240,9 @@ class OrderTest {
         )
 
         val orderPaidEvent = OrderPaidEvent(
-            orderId = orderStartedEvent.orderId
+            orderId = orderStartedEvent.orderId,
+            restaurantId = orderStartedEvent.restaurantId,
+            items = orderFinalizedEvent.items
         )
 
         val markOrderAsDeliveredCommand = MarkOrderAsDeliveredCommand(
@@ -272,7 +276,9 @@ class OrderTest {
         )
 
         val orderPaidEvent = OrderPaidEvent(
-            orderId = orderStartedEvent.orderId
+            orderId = orderStartedEvent.orderId,
+            restaurantId = orderStartedEvent.restaurantId,
+            items = orderFinalizedEvent.items
         )
 
         val rejectOrderCommand = RejectOrderCommand(
@@ -306,7 +312,9 @@ class OrderTest {
         )
 
         val orderPaidEvent = OrderPaidEvent(
-            orderId = orderStartedEvent.orderId
+            orderId = orderStartedEvent.orderId,
+            restaurantId = orderStartedEvent.restaurantId,
+            items = orderFinalizedEvent.items
         )
 
         val orderDeliveredEvent = OrderDeliveredEvent(

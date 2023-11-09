@@ -218,7 +218,8 @@ class OrderDeliveryTest {
         val orderDeliveryDeliveredEvent = OrderDeliveryDeliveredEvent(
             deliveryId = orderDeliveryCreatedEvent.deliveryId,
             courierId = orderDeliveryAcceptedEvent.courierId,
-            orderId = orderDeliveryCreatedEvent.orderId
+            orderId = orderDeliveryCreatedEvent.orderId,
+            courierFee = orderDeliveryCreatedEvent.courierFee
         )
 
         testFixture.given(

@@ -141,7 +141,8 @@ internal class Order {
         apply(
             OrderPaidEvent(
                 orderId = command.orderId,
-                restaurantId = this.restaurantId
+                restaurantId = this.restaurantId,
+                items = this.items
             )
         )
     }
