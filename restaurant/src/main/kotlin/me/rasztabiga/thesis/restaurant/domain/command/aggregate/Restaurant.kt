@@ -103,7 +103,15 @@ internal class Restaurant {
         val deliveryFee =
             calculateDeliveryFeePort.calculateDeliveryFee(command.restaurantAddress, command.deliveryAddress)
 
-        apply(OrderTotalCalculatedEvent(orderId = command.orderId, productsTotal = total, deliveryFee = deliveryFee))
+        apply(
+            OrderTotalCalculatedEvent(
+                orderId = command.orderId,
+                restaurantId = command.restaurantId,
+                productsTotal = total,
+                deliveryFee = deliveryFee,
+                items = command.items
+            )
+        )
     }
 
     @EventSourcingHandler

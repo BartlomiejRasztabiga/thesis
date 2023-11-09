@@ -58,8 +58,8 @@ class E2ETest {
 
     @BeforeEach
     fun setUp() {
-        val baseUri = "http://thesis.rasztabiga.me/api"
-//        val baseUri = "http://localhost:8100/api"
+//        val baseUri = "http://thesis.rasztabiga.me/api"
+        val baseUri = "http://localhost:8100/api"
 
         restaurantManagerRequestSpecification = RequestSpecBuilder()
             .setBaseUri(baseUri)
