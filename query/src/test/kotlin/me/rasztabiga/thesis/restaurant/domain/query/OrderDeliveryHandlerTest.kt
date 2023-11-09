@@ -180,7 +180,8 @@ class OrderDeliveryHandlerTest {
         val orderDeliveryDeliveredEvent = OrderDeliveryDeliveredEvent(
             deliveryId = orderDeliveryCreatedEvent.deliveryId,
             orderId = orderDeliveryCreatedEvent.orderId,
-            courierId = UUID.randomUUID().toString()
+            courierId = UUID.randomUUID().toString(),
+            courierFee = orderDeliveryCreatedEvent.courierFee
         )
 
         orderDeliveryHandler.on(orderDeliveryCreatedEvent)

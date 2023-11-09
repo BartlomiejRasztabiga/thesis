@@ -77,7 +77,7 @@ class GlobalErrorWebExceptionHandler(
             }
         }
 
-        Sentry.captureException(ex)
+//        Sentry.captureException(ex)
 
         return error
     }
