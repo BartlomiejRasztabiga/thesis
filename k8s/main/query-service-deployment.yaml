@@ -27,7 +27,7 @@ spec:
                 secretKeyRef:
                   name: gmaps-api-key
                   key: key
-          image: ghcr.io/bartlomiejrasztabiga/thesis/query:0.20.0
+          image: ghcr.io/bartlomiejrasztabiga/thesis/query:0.20.1
           name: query-service
           ports:
             - containerPort: 8105

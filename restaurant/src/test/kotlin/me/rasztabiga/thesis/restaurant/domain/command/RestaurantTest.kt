@@ -244,7 +244,11 @@ class RestaurantTest {
         val orderTotalCalculatedEvent = OrderTotalCalculatedEvent(
             orderId = calculateOrderTotalCommand.orderId,
             productsTotal = 6.0.toBigDecimal(),
-            deliveryFee = 10.0.toBigDecimal()
+            deliveryFee = 10.0.toBigDecimal(),
+            restaurantId = calculateOrderTotalCommand.restaurantId,
+            items = mapOf(
+                restaurantMenuUpdatedEvent.menu[0].id to 3
+            )
         )
 
         testFixture.given(restaurantCreatedEvent, restaurantMenuUpdatedEvent)

@@ -45,7 +45,7 @@ spec:
                 secretKeyRef:
                   name: stripe-api-key
                   key: frontend-domain
-          image: ghcr.io/bartlomiejrasztabiga/thesis/payment:0.20.0
+          image: ghcr.io/bartlomiejrasztabiga/thesis/payment:0.20.1
           name: payment-service
           ports:
             - containerPort: 8103
