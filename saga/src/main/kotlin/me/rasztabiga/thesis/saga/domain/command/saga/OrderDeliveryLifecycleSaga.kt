@@ -48,7 +48,7 @@ class OrderDeliveryLifecycleSaga {
     @SagaEventHandler(associationProperty = "deliveryId")
     fun on(event: OrderDeliveryRejectedEvent) {
         // TODO handle exception?
-        val courier = findBestCourier(delivery.restaurantLocation) ?: error("Cannot find best courier for delivery")
+        val courier = findBestCourier(event.restaurantLocation) ?: error("Cannot find best courier for delivery")
 
         // TODO handle exception?
         commandGateway.sendAndWait<Any>(AssignDeliveryCommand(event.deliveryId, courier.id))

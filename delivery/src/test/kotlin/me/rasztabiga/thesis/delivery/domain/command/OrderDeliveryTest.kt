@@ -94,7 +94,8 @@ class OrderDeliveryTest {
 
         val orderDeliveryRejectedEvent = OrderDeliveryRejectedEvent(
             deliveryId = orderDeliveryCreatedEvent.deliveryId,
-            courierId = courierId
+            courierId = courierId,
+            restaurantLocation = orderDeliveryCreatedEvent.restaurantLocation
         )
 
         testFixture.given(orderDeliveryCreatedEvent, orderDeliveryAssignedEvent)

@@ -9,6 +9,7 @@ data class PayeeBalanceWithdrawnEvent(
     val payeeId: UUID,
     val amount: BigDecimal,
     val targetBankAccount: String,
+    val payeeName: String,
     val payeeEmail: String,
     val payeeType: PayeeType
 ) {

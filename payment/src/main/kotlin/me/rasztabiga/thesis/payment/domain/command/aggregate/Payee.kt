@@ -26,6 +26,7 @@ internal class Payee {
     private lateinit var userId: String
     private lateinit var name: String
     private lateinit var email: String
+    private lateinit var type: PayeeCreatedEvent.PayeeType
 
     private lateinit var balance: BigDecimal
 
@@ -71,7 +72,9 @@ internal class Payee {
             PayeeBalanceWithdrawnEvent(
                 payeeId = command.payeeId,
                 amount = command.amount,
-                targetBankAccount = command.targetBankAccount
+                targetBankAccount = command.targetBankAccount,
+                payeeEmail = this.email,
+                payeeType = PayeeBalanceWithdrawnEvent.PayeeType.valueOf(this.type.name)
             )
         )
     }
@@ -82,6 +85,7 @@ internal class Payee {
         this.userId = event.userId
         this.name = event.name
         this.email = event.email
+        this.type = event.payeeType
         this.balance = BigDecimal.ZERO
         this.withdrawals = mutableListOf()
     }

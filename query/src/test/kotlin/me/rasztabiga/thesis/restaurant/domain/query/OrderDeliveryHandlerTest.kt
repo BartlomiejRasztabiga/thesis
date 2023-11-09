@@ -70,7 +70,8 @@ class OrderDeliveryHandlerTest {
 
         val orderDeliveryRejectedEvent = OrderDeliveryRejectedEvent(
             deliveryId = orderDeliveryCreatedEvent.deliveryId,
-            courierId = UUID.randomUUID().toString()
+            courierId = UUID.randomUUID().toString(),
+            restaurantLocation = orderDeliveryCreatedEvent.restaurantLocation,
         )
 
         orderDeliveryHandler.on(orderDeliveryCreatedEvent)

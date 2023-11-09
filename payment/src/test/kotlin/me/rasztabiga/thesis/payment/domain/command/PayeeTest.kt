@@ -97,7 +97,9 @@ class PayeeTest {
         val payeeBalanceWithdrawnEvent = PayeeBalanceWithdrawnEvent(
             payeeId = withdrawPayeeBalanceCommand.payeeId,
             amount = withdrawPayeeBalanceCommand.amount,
-            targetBankAccount = withdrawPayeeBalanceCommand.targetBankAccount
+            targetBankAccount = withdrawPayeeBalanceCommand.targetBankAccount,
+            payeeEmail = payeeCreatedEvent.email,
+            payeeType = PayeeBalanceWithdrawnEvent.PayeeType.RESTAURANT_MANAGER
         )
 
         testFixture.given(payeeCreatedEvent, payeeBalanceAddedEvent)

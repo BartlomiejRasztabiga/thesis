@@ -29,21 +29,25 @@ class WithdrawalLifecycleSaga {
     @Transient
     private lateinit var commandGateway: CommandGateway
 
+    private lateinit var payeeEmail: String
+
     @Suppress("MagicNumber")
     @StartSaga
     @SagaEventHandler(associationProperty = "payeeId")
     fun on(event: PayeeBalanceWithdrawnEvent) {
         val invoiceId = UUID.randomUUID()
 
+        payeeEmail = event.payeeEmail
+
         SagaLifecycle.associateWith("invoiceId", invoiceId.toString())
 
-        when (payee.type) {
-            PayeeResponse.PayeeType.RESTAURANT_MANAGER -> {
+        when (event.payeeType) {
+            PayeeBalanceWithdrawnEvent.PayeeType.RESTAURANT_MANAGER -> {
                 commandGateway.sendAndWait<Void>(
                     CreateInvoiceCommand(
                         id = invoiceId,
-                        payeeId = payee.id,
-                        from = payee.name,
+                        payeeId = event.payeeId,
+                        from = event.payeeName,
                         to = "Food Delivery App",
                         issueDate = LocalDate.now(),
                         dueDate = LocalDate.now().plusDays(14),
@@ -59,12 +63,12 @@ class WithdrawalLifecycleSaga {
                 )
             }
 
-            PayeeResponse.PayeeType.COURIER -> {
+            PayeeBalanceWithdrawnEvent.PayeeType.COURIER -> {
                 commandGateway.sendAndWait<Void>(
                     CreateInvoiceCommand(
                         id = invoiceId,
-                        payeeId = payee.id,
-                        from = payee.name,
+                        payeeId = event.payeeId,
+                        from = event.payeeName,
                         to = "Food Delivery App",
                         issueDate = LocalDate.now(),
                         dueDate = LocalDate.now().plusDays(14),
@@ -88,7 +92,7 @@ class WithdrawalLifecycleSaga {
         commandGateway.sendAndWait<Void>(
             SendInvoiceEmailCommand(
                 id = event.invoiceId,
-                email = payee.email
+                email = payeeEmail
             )
         )
     }

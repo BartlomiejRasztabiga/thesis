@@ -7,6 +7,7 @@ import me.rasztabiga.thesis.delivery.domain.command.command.RejectDeliveryOfferC
 import me.rasztabiga.thesis.delivery.domain.command.port.CalculateDeliveryFeePort
 import me.rasztabiga.thesis.delivery.domain.command.port.CourierOnlineVerifierPort
 import me.rasztabiga.thesis.delivery.domain.command.port.OrderPreparedVerifierPort
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import me.rasztabiga.thesis.shared.domain.command.command.AssignDeliveryCommand
 import me.rasztabiga.thesis.shared.domain.command.command.CreateOrderDeliveryOfferCommand
 import me.rasztabiga.thesis.shared.domain.command.event.OrderDeliveryAcceptedEvent
@@ -28,6 +29,7 @@ class OrderDelivery {
     private lateinit var id: UUID
     private lateinit var orderId: UUID
     private lateinit var status: DeliveryStatus
+    private lateinit var restaurantLocation: Location
     private var courierId: String? = null
 
     private constructor()
@@ -38,6 +40,8 @@ class OrderDelivery {
             command.restaurantLocation.streetAddress!!,
             command.deliveryLocation.streetAddress!!
         )
+
+        this.restaurantLocation = command.restaurantLocation
 
         apply(
             OrderDeliveryCreatedEvent(
@@ -72,7 +76,8 @@ class OrderDelivery {
         apply(
             OrderDeliveryRejectedEvent(
                 deliveryId = command.id,
-                courierId = command.courierId
+                courierId = command.courierId,
+                restaurantLocation = restaurantLocation
             )
         )
     }
