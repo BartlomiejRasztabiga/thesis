@@ -79,7 +79,6 @@ class GlobalErrorWebExceptionHandler(
             }
         }
 
-        log.error("Logging exception to Sentry: ${error.message}")
         Sentry.captureException(ex)
 
         return error
