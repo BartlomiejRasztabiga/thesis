@@ -31,7 +31,7 @@ repositories {
     }
 }
 
-val axonVersion = "4.9.0"
+val axonVersion = "4.9.1"
 val kotestVersion = "5.8.0"
 
 dependencies {
