@@ -52,11 +52,6 @@ internal class Order {
             "Restaurant with id ${command.restaurantId} is closed"
         }
 
-//        TODO disabled temporarily to reduce failures during performance testing
-//        require(orderVerificationPort.userExists(command.userId)) {
-//            "User with id ${command.userId} does not exist"
-//        }
-
         apply(
             OrderStartedEvent(
                 orderId = command.orderId,
@@ -145,7 +140,8 @@ internal class Order {
 
         apply(
             OrderPaidEvent(
-                orderId = command.orderId
+                orderId = command.orderId,
+                restaurantId = this.restaurantId
             )
         )
     }
