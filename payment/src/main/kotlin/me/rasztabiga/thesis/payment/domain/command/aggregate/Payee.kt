@@ -73,6 +73,7 @@ internal class Payee {
                 payeeId = command.payeeId,
                 amount = command.amount,
                 targetBankAccount = command.targetBankAccount,
+                payeeName = this.name,
                 payeeEmail = this.email,
                 payeeType = PayeeBalanceWithdrawnEvent.PayeeType.valueOf(this.type.name)
             )

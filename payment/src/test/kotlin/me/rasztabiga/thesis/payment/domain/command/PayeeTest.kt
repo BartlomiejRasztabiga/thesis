@@ -98,6 +98,7 @@ class PayeeTest {
             payeeId = withdrawPayeeBalanceCommand.payeeId,
             amount = withdrawPayeeBalanceCommand.amount,
             targetBankAccount = withdrawPayeeBalanceCommand.targetBankAccount,
+            payeeName = payeeCreatedEvent.name,
             payeeEmail = payeeCreatedEvent.email,
             payeeType = PayeeBalanceWithdrawnEvent.PayeeType.RESTAURANT_MANAGER
         )
