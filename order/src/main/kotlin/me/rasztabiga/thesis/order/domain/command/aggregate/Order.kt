@@ -150,7 +150,7 @@ internal class Order {
     @CommandHandler
     fun handle(command: MarkOrderAsDeliveredCommand) {
         require(this.status == OrderStatus.PAID) {
-            "Order can be marked as delivered only if it's in PAID status."
+            "Order can be marked as delivered only if it's in PAID status. Current status: ${this.status}"
         }
 
         apply(
