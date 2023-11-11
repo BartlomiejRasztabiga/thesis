@@ -1,6 +1,6 @@
 package me.rasztabiga.thesis.saga.domain.command.saga
 
-import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderDeliveryResponse
+import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.Location
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.OrderResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.PayeeResponse
 import me.rasztabiga.thesis.shared.adapter.`in`.rest.api.RestaurantResponse
@@ -27,7 +27,6 @@ import me.rasztabiga.thesis.shared.domain.command.event.OrderTotalCalculatedEven
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderAcceptedEvent
 import me.rasztabiga.thesis.shared.domain.command.event.RestaurantOrderRejectedEvent
 import me.rasztabiga.thesis.shared.domain.query.query.FindOrderByIdQuery
-import me.rasztabiga.thesis.shared.domain.query.query.FindOrderDeliveryByIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindPayeeByUserIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindRestaurantByIdQuery
 import me.rasztabiga.thesis.shared.domain.query.query.FindUserByIdQuery
@@ -41,6 +40,7 @@ import org.axonframework.modelling.saga.StartSaga
 import org.axonframework.queryhandling.QueryGateway
 import org.axonframework.spring.stereotype.Saga
 import org.springframework.beans.factory.annotation.Autowired
+import java.math.BigDecimal
 import java.time.LocalDate
 import java.util.*
 
@@ -70,6 +70,13 @@ class OrderLifecycleSaga {
 
     private lateinit var userInvoiceId: UUID
 
+    private lateinit var orderTotal: BigDecimal
+    private lateinit var productsTotal: BigDecimal
+    private lateinit var userPaidDeliveryFee: BigDecimal
+
+    private lateinit var orderItems: Map<UUID, Int>
+    private lateinit var deliveryAddress: Location
+
     private var userInvoiceSent: Boolean = false
 
     @StartSaga
@@ -79,11 +86,13 @@ class OrderLifecycleSaga {
         restaurantId = event.restaurantId
         orderId = event.orderId
 
-        val order = getOrder(event.orderId) // TODO czasami rzuci not found! jak ograc? retry?
         val user = getUser(event.userId)
-
-        val deliveryLocation = user.deliveryAddresses.find { it.id == user.defaultAddressId }?.location
+        deliveryAddress = user.deliveryAddresses.find { it.id == user.defaultAddressId }!!.location
         // little hack, because OrderFinalizedEvent might not be yet handled by query service
+
+        orderItems = event.items
+
+        val order = getOrder(event.orderId) // TODO czasami rzuci not found! jak ograc? retry?
 
         commandGateway.sendAndWait<Void>(
             CalculateOrderTotalCommand(
@@ -91,7 +100,7 @@ class OrderLifecycleSaga {
                 restaurantId = event.restaurantId,
                 items = event.items,
                 restaurantAddress = order.restaurantLocation.streetAddress!!,
-                deliveryAddress = deliveryLocation!!.streetAddress!!
+                deliveryAddress = deliveryAddress.streetAddress!!
             )
         )
     }
@@ -119,12 +128,17 @@ class OrderLifecycleSaga {
 
         val restaurant = getRestaurant(event.restaurantId)
 
+        // TODO save total, items etc here
+        orderTotal = event.productsTotal + event.deliveryFee
+        productsTotal = event.productsTotal
+        userPaidDeliveryFee = event.deliveryFee
+
         commandGateway.sendAndWait<Void>(
             CreateOrderPaymentCommand(
                 id = paymentId,
                 orderId = event.orderId,
                 payerId = this.orderingUserId,
-                amount = event.productsTotal + event.deliveryFee,
+                amount = orderTotal,
                 items = event.items.map {
                     val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.key }!!
                     CreateOrderPaymentCommand.OrderItem(
@@ -167,12 +181,7 @@ class OrderLifecycleSaga {
     @Suppress("TooGenericExceptionCaught", "SwallowedException")
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: RestaurantOrderAcceptedEvent) {
-        val order = getOrder(event.orderId)
-        val user = getUser(order.userId)
         val restaurant = getRestaurant(event.restaurantId)
-
-        val deliveryAddress = user.deliveryAddresses.find { it.id == order.deliveryAddressId }
-        checkNotNull(deliveryAddress) { "Delivery address not found" }
 
         deliveryId = UUID.randomUUID()
 
@@ -182,7 +191,7 @@ class OrderLifecycleSaga {
                     id = deliveryId,
                     orderId = event.orderId,
                     restaurantLocation = restaurant.location,
-                    deliveryLocation = deliveryAddress.location
+                    deliveryLocation = deliveryAddress
                 )
             )
         } catch (e: Exception) {
@@ -225,8 +234,6 @@ class OrderLifecycleSaga {
         )
 
         val restaurant = getRestaurant(restaurantId)
-        val order = getOrder(event.orderId)
-
         val restaurantManagerPayee = getPayeeByUserId(restaurant.managerId)
 
         restaurantManagerPayeeId = restaurantManagerPayee.id
@@ -236,7 +243,7 @@ class OrderLifecycleSaga {
         commandGateway.sendAndWait<Void>(
             AddPayeeBalanceCommand(
                 payeeId = restaurantManagerPayeeId,
-                amount = order.itemsTotal!!
+                amount = productsTotal // TODO NPE https://rasztabigab-thesis.sentry.io/issues/4623555368/?project=4506195047219200&query=is%3Aunresolved&referrer=issue-stream&statsPeriod=14d&stream_index=0
             )
         )
 
@@ -253,7 +260,7 @@ class OrderLifecycleSaga {
             )
         )
 
-        val user = getUser(order.userId)
+        val user = getUser(orderingUserId)
 
         userInvoiceId = UUID.randomUUID()
         SagaLifecycle.associateWith("userInvoiceId", userInvoiceId.toString())
@@ -266,7 +273,7 @@ class OrderLifecycleSaga {
                 to = user.name,
                 issueDate = LocalDate.now(),
                 dueDate = LocalDate.now(),
-                items = order.items.map {
+                items = orderItems.map {
                     val menuItem = restaurant.menu.find { menuItem -> menuItem.id == it.key }!!
 
                     CreateInvoiceCommand.InvoiceItem(
@@ -278,10 +285,10 @@ class OrderLifecycleSaga {
                     CreateInvoiceCommand.InvoiceItem(
                         name = "Delivery fee",
                         quantity = 1,
-                        unitPrice = order.deliveryFee!!
+                        unitPrice = userPaidDeliveryFee
                     )
                 ),
-                amountPaid = (order.itemsTotal!! + order.deliveryFee!!).toString(),
+                amountPaid = orderTotal.toString(),
             )
         )
     }
