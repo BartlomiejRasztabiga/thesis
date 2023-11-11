@@ -9,6 +9,7 @@ import me.rasztabiga.thesis.shared.config.getUserId
 import me.rasztabiga.thesis.shared.security.Scopes.COURIER
 import org.axonframework.extensions.reactor.queryhandling.gateway.ReactorQueryGateway
 import org.axonframework.messaging.responsetypes.ResponseTypes
+import org.springframework.http.ResponseEntity
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -26,13 +27,14 @@ class OrderDeliveryController(
     @PreAuthorize("hasAnyAuthority('${COURIER.READ}')")
     fun getCurrentDelivery(
         exchange: ServerWebExchange
-    ): Mono<OrderDeliveryResponse> {
+    ): Mono<ResponseEntity<OrderDeliveryResponse>> {
         return reactorQueryGateway.query(
             FindCurrentDeliveryQuery(
                 courierId = exchange.getUserId()
-            ),
-            ResponseTypes.instanceOf(OrderDeliveryResponse::class.java)
+            ), ResponseTypes.instanceOf(OrderDeliveryResponse::class.java)
         )
+            .map { ResponseEntity.ok(it) }
+            .defaultIfEmpty(ResponseEntity.notFound().build())
     }
 
     @GetMapping
@@ -43,8 +45,7 @@ class OrderDeliveryController(
         return reactorQueryGateway.query(
             FindAllDeliveriesByCourierId(
                 courierId = exchange.getUserId()
-            ),
-            ResponseTypes.multipleInstancesOf(OrderDeliveryResponse::class.java)
+            ), ResponseTypes.multipleInstancesOf(OrderDeliveryResponse::class.java)
         )
     }
 }

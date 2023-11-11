@@ -86,7 +86,7 @@ class OrderDeliveryHandler(
         val courier = getCourier(query.courierId)
 
         val delivery =
-            orderDeliveryRepository.loadCurrentDeliveryByCourierId(query.courierId) ?: throw DeliveryNotFoundException()
+            orderDeliveryRepository.loadCurrentDeliveryByCourierId(query.courierId) ?: return Mono.empty()
 
         val distanceToRestaurant =
             distanceCalculatorPort.calculateDistance(courier.location!!, delivery.restaurantLocation)
