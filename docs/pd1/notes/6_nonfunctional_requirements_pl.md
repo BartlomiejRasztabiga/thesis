@@ -13,6 +13,6 @@ W niniejszym rozdziale przedstawiono szczegółowe wymagania niefunkcjonalne apl
 - [ ] Monitorowanie i logowanie - aplikacja powinna umożliwiać monitorowanie i logowanie zdarzeń w celu analizy i
   debugowania. Na przykład, każdy mikroserwis powinien logować swoje zdarzenia w centralnym repozytorium, a aplikacja
   powinna umożliwiać monitorowanie stanu mikroserwisów.
-- [ ] Wydajność - system powinien umożliwiać na przetwarzanie minimum 10 żądań na sekundę
+- [ ] Wydajność - system powinien umożliwiać na przetwarzanie minimum 50 żądań na sekundę
 - [ ] Synchronizacja i spójność danych - system powinien zapewniać spójność danych na przełomie mikroserwisów.
 - [ ] Testowalność - system powinien być łatwy do testowania, zarówno jednostkowo jak i integracyjnie

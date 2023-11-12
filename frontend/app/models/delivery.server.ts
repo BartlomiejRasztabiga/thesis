@@ -89,7 +89,7 @@ export const getAllDeliveries = async (
   request: Request,
 ): Promise<DeliveryResponse[]> => {
   const axios = await getAxios(request);
-  return axios.get(`/api/vr/deliveries`).then((res) => res.data);
+  return axios.get(`/api/v2/deliveries`).then((res) => res.data);
 };
 
 export interface CourierResponse {

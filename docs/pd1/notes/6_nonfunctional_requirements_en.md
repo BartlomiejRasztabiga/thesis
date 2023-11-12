@@ -13,7 +13,7 @@ This chapter presents detailed non-functional requirements of the application.
 - [ ] Monitoring and Logging - the application should enable event monitoring and logging for analysis and debugging
   purposes. For example, each microservice should log its events in a central repository, and the application should
   allow monitoring the state of microservices.
-- [ ] Performance - the system should be capable of processing a minimum of 10 requests per second.
+- [ ] Performance - the system should be capable of processing a minimum of 50 requests per second.
 - [ ] Data Synchronization and Consistency - the system should ensure data synchronization and consistency across
   microservices.
 - [ ] Testability - the system should be easy to test, both at the unit and integration levels.
