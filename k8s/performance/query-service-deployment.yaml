@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: query-service
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
       app: query-service
@@ -23,7 +23,7 @@ spec:
 #              value: "mongodb://root:password@query-db:27017/query?authSource=admin"
             - name: SPRING_PROFILES_ACTIVE
               value: nosecurity
-          image: ghcr.io/bartlomiejrasztabiga/thesis/query:0.20.5
+          image: ghcr.io/bartlomiejrasztabiga/thesis/query:0.20.6
           name: query-service
           ports:
             - containerPort: 8105

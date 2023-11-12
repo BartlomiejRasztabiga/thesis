@@ -222,7 +222,7 @@ class RestaurantManager(HttpUser):
 
 class DeliveryCourier(HttpUser):
     host = "http://thesis.rasztabiga.me/api"
-    weight = 4
+    weight = 3
 
     def on_start(self):
         self.client.headers["X-User-Id"] = fake.uuid4()
