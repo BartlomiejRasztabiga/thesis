@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: query-service
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: query-service
@@ -27,7 +27,7 @@ spec:
                 secretKeyRef:
                   name: gmaps-api-key
                   key: key
-          image: ghcr.io/bartlomiejrasztabiga/thesis/query:0.20.6
+          image: ghcr.io/bartlomiejrasztabiga/thesis/query:0.20.7
           name: query-service
           ports:
             - containerPort: 8105

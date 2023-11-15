@@ -44,7 +44,7 @@ def log(*args, **kwargs):
 
 class OrderingUser(HttpUser):
     host = "http://thesis.rasztabiga.me/api"
-    weight = 3
+    weight = 10
 
     def on_start(self):
         self.client.headers["X-User-Id"] = fake.uuid4()
@@ -222,7 +222,7 @@ class RestaurantManager(HttpUser):
 
 class DeliveryCourier(HttpUser):
     host = "http://thesis.rasztabiga.me/api"
-    weight = 3
+    weight = 10
 
     def on_start(self):
         self.client.headers["X-User-Id"] = fake.uuid4()
