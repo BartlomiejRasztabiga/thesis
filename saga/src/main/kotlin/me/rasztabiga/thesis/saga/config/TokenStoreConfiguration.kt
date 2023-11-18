@@ -36,9 +36,7 @@ class TokenStoreConfiguration {
     fun sagaStore(client: MongoClient, serializer: Serializer): SagaStore<Any> {
         val collection = client.getDatabase("axon-saga").getCollection("sagas")
         createIndexIfNotExists(collection, Indexes.ascending("sagaIdentifier"))
-        createIndexIfNotExists(collection, Indexes.ascending("sagaType"))
-        createIndexIfNotExists(collection, Indexes.ascending("associations.key"))
-        createIndexIfNotExists(collection, Indexes.ascending("associations.value"))
+        createIndexIfNotExists(collection, Indexes.ascending("sagaType", "associations.key", "associations.value"))
 
         return MongoSagaStore.builder()
             .mongoTemplate(
