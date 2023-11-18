@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: saga-service
 spec:
-  replicas: 8
+  replicas: 4
   selector:
     matchLabels:
       app: saga-service
