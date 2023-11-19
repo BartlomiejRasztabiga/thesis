@@ -1,0 +1,6 @@
+build
+test/**/*.textest
+test/**/*.pdf
+.sconsign.dblite
+.vscode
+/*.pdf

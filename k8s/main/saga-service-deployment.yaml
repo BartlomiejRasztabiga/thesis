@@ -20,7 +20,7 @@ spec:
               value: "68447ea9-1:b8b5aeb75a1a48b89b4a8b10a0be3282"
             - name: SPRING_DATA_MONGODB_URI
               value: "mongodb://root:password@saga-db:27017/saga?authSource=admin"
-          image: ghcr.io/bartlomiejrasztabiga/thesis/saga:0.20.8
+          image: ghcr.io/bartlomiejrasztabiga/thesis/saga:0.20.9
           name: saga-service
           ports:
             - containerPort: 8106

@@ -25,7 +25,7 @@ spec:
                 secretKeyRef:
                   name: gmaps-api-key
                   key: key
-          image: ghcr.io/bartlomiejrasztabiga/thesis/order:0.20.8
+          image: ghcr.io/bartlomiejrasztabiga/thesis/order:0.20.9
           name: order-service
           ports:
             - containerPort: 8102
