@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     id("org.springframework.boot") version "3.1.5"
-    id("io.spring.dependency-management") version "1.1.3"
+    id("io.spring.dependency-management") version "1.1.4"
     id("org.jetbrains.kotlin.jvm") version "1.9.10"
     id("org.jetbrains.kotlin.plugin.spring") version "1.9.10"
     id("io.gitlab.arturbosch.detekt") version "1.23.3"
@@ -52,7 +52,7 @@ dependencies {
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib"))
 
-    implementation("io.axoniq.console:console-framework-client-spring-boot-starter:1.1.0")
+    implementation("io.axoniq.console:console-framework-client-spring-boot-starter:1.2.0")
 
     testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.20.9"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
