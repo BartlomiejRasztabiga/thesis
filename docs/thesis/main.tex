@@ -31,12 +31,14 @@
 %------------------
 % Strona tytułowa
 %------------------
-\instytut{XXXXXX}
-\kierunek{XXXXXX}
-\specjalnosc{XXXXXX}
+% TODO na pewno? a nie instytut promotora?
+\instytut{Automatyki i Informatyki Stosowanej}
+\kierunek{Informatyka}
+\specjalnosc{Inżynieria Oprogramowania}
 \title{
-    Niepotrzebnie długi i skomplikowany tytuł pracy \\
-    trudny do przeczytania, zrozumienia i wymówienia
+    Zastosowanie architektur mikroserwisowych\\
+    w tworzeniu skalowalnych aplikacji webowych\\ 
+    na przykładzie aplikacji do obsługi zamówień restauracyjnych
 }
 % Title in English for English theses
 % In English theses, you may remove this command
@@ -50,9 +52,9 @@
     Niepotrzebnie długi i skomplikowany tytuł pracy \\
     trudny do przeczytania, zrozumienia i wymówienia
 }
-\author{\{Imię i Nazwisko\}}
-\album{XXXXXX}
-\promotor{XXXXXX}
+\author{Bartłomiej Patryk Rasztabiga}
+\album{304117}
+\promotor{mgr inż. Zbigniew Szymański}
 \date{\the\year}
 \maketitle
 
@@ -86,14 +88,8 @@
 \cleardoublepage % Zaczynamy od nieparzystej strony
 \pagestyle{headings}
 
-\input{tex/1-wstep}         % Wygodnie jest trzymać każdy rozdział w osobnym pliku.
-\input{tex/2-de-finibus}    % Umożliwia to również łatwą migrację do nowej wersji szablonu:
-\input{tex/3-code-listings} % zazwyczaj wystarczy podmienić plik src/wut-thesis.cls
-
- % Można też pisać rozdziały w jednym pliku.
-\clearpage % Zawsze zaczynamy rozdział od nowej strony
-\section{Summatio}
-\lipsum[4-10]
+\input{tex/1-wybor-tematu}         % Wygodnie jest trzymać każdy rozdział w osobnym pliku.
+\input{tex/2-realizacja-pd1.tex}    % Umożliwia to również łatwą migrację do nowej wersji szablonu:
 
 %---------------
 % Bibliografia
@@ -129,33 +125,33 @@
 % Załączniki
 %-------------
 
-% Obrazki i tabele w załącznikach nie trafiają do spisów
-\captionsetup[figure]{list=no}
-\captionsetup[table]{list=no}
+% % Obrazki i tabele w załącznikach nie trafiają do spisów
+% \captionsetup[figure]{list=no}
+% \captionsetup[table]{list=no}
 
-% Załącznik 1
-\clearpage
-\appendix{Nazwa załącznika 1}
-\lipsum[1-3]
-\begin{figure}[!h]
-	\centering \includegraphics[width=0.5\linewidth]{logopw2.png}
-	\caption{Obrazek w załączniku.}
-\end{figure}
-\lipsum[4-7]
+% % Załącznik 1
+% \clearpage
+% \appendix{Nazwa załącznika 1}
+% \lipsum[1-3]
+% \begin{figure}[!h]
+% 	\centering \includegraphics[width=0.5\linewidth]{logopw2.png}
+% 	\caption{Obrazek w załączniku.}
+% \end{figure}
+% \lipsum[4-7]
 
-% Załącznik 2
-\clearpage
-\appendix{Nazwa załącznika 2}
-\lipsum[1-2]
-\begin{table}[!h] \centering
-    \caption{Tabela w załączniku.}
-    \begin{tabular} {| c | c | r |} \hline
-        Kolumna 1       & Kolumna 2 & Liczba \\ \hline\hline
-        cell1           & cell2     & 60     \\ \hline
-        \multicolumn{2}{|r|}{Suma:} & 123,45 \\ \hline
-    \end{tabular}
-\end{table}
-\lipsum[3-4]
+% % Załącznik 2
+% \clearpage
+% \appendix{Nazwa załącznika 2}
+% \lipsum[1-2]
+% \begin{table}[!h] \centering
+%     \caption{Tabela w załączniku.}
+%     \begin{tabular} {| c | c | r |} \hline
+%         Kolumna 1       & Kolumna 2 & Liczba \\ \hline\hline
+%         cell1           & cell2     & 60     \\ \hline
+%         \multicolumn{2}{|r|}{Suma:} & 123,45 \\ \hline
+%     \end{tabular}
+% \end{table}
+% \lipsum[3-4]
 
 % Używając powyższych spisów jako szablonu,
 % możesz dodać również swój własny wykaz,

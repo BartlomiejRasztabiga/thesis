@@ -1,0 +1,276 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{none/global//global/global}
+    \entry{eventstorming}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://www.ibm.com/cloud/architecture/architecture/practices/event-storming-methodology-architecture}}
+      \field{title}{Event Storming}
+    \endentry
+    \entry{miro}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://miro.com}}
+      \field{title}{Platforma Miro}
+    \endentry
+    \entry{boundedcontext}{unpublished}{}
+      \name{author}{1}{}{%
+        {{hash=312ac886938a9b2be4f8eb607567fe4c}{%
+           family={Fowler},
+           familyi={F\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{fullhash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{bibnamehash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{authorbibnamehash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{authornamehash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{authorfullhash}{312ac886938a9b2be4f8eb607567fe4c}
+      \field{extraname}{1}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Dostęp zdalny (07.06.2023): \url{https://martinfowler.com/bliki/BoundedContext.html}}
+      \field{title}{Bounded Context}
+      \field{year}{2014}
+    \endentry
+    \entry{axonframework}{misc}{}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://docs.axoniq.io/reference-guide}}
+      \field{title}{Axon Framework}
+    \endentry
+    \entry{cqrs}{unpublished}{}
+      \name{author}{1}{}{%
+        {{hash=312ac886938a9b2be4f8eb607567fe4c}{%
+           family={Fowler},
+           familyi={F\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{fullhash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{bibnamehash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{authorbibnamehash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{authornamehash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{authorfullhash}{312ac886938a9b2be4f8eb607567fe4c}
+      \field{extraname}{2}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Dostęp zdalny (07.06.2023): \url{https://martinfowler.com/bliki/CQRS.html}}
+      \field{title}{CQRS}
+      \field{year}{2011}
+    \endentry
+    \entry{eventsourcing}{unpublished}{}
+      \name{author}{1}{}{%
+        {{hash=312ac886938a9b2be4f8eb607567fe4c}{%
+           family={Fowler},
+           familyi={F\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{fullhash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{bibnamehash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{authorbibnamehash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{authornamehash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{authorfullhash}{312ac886938a9b2be4f8eb607567fe4c}
+      \field{extraname}{3}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Dostęp zdalny (07.06.2023): \url{https://martinfowler.com/eaaDev/EventSourcing.html}}
+      \field{title}{Event Sourcing}
+      \field{year}{2005}
+    \endentry
+    \entry{springboot}{misc}{}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://spring.io/projects/spring-boot}}
+      \field{title}{Framework Spring Boot}
+    \endentry
+    \entry{jvm}{misc}{}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://docs.oracle.com/en/database/oracle/oracle-database/21/jjdev/Oracle-JVM-overview.html}}
+      \field{title}{Platforma Java Virtual Machine}
+    \endentry
+    \entry{nosql}{misc}{}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://www.mongodb.com/nosql-explained}}
+      \field{title}{Bazy danych NoSQL}
+    \endentry
+    \entry{mongodb}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://www.mongodb.com/docs/manual}}
+      \field{title}{Baza MongoDB}
+    \endentry
+    \entry{json}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://www.json.org/json-en.html}}
+      \field{title}{Specyfikacja formatu JSON}
+    \endentry
+    \entry{react}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://react.dev}}
+      \field{title}{Biblioteka React}
+    \endentry
+    \entry{remix}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://remix.run}}
+      \field{title}{Biblioteka Remix}
+    \endentry
+    \entry{kotlin}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://kotlinlang.org}}
+      \field{title}{Język Kotlin}
+    \endentry
+    \entry{typescript}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://www.typescriptlang.org}}
+      \field{title}{Język TypeScript}
+    \endentry
+    \entry{docker}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://www.docker.com}}
+      \field{title}{Narzędzie Docker}
+    \endentry
+    \entry{kubernetes}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://kubernetes.io}}
+      \field{title}{Narzędzie Kubernetes}
+    \endentry
+    \entry{githubactions}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://github.com/features/actions}}
+      \field{title}{Platforma Github Actions}
+    \endentry
+    \entry{prometheus}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://prometheus.io}}
+      \field{title}{Narzędzie Prometheus}
+    \endentry
+    \entry{grafana}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://grafana.com}}
+      \field{title}{Narzędzie Grafana}
+    \endentry
+    \entry{loki}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://grafana.com/oss/loki}}
+      \field{title}{Narzędzie Loki}
+    \endentry
+    \entry{intellij}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://www.jetbrains.com/idea}}
+      \field{title}{IDE IntelliJ IDEA}
+    \endentry
+    \entry{dockercompose}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://docs.docker.com/compose}}
+      \field{title}{Narzędzie Docker Compose}
+    \endentry
+    \entry{git}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://git-scm.com}}
+      \field{title}{Narzędzie Git}
+    \endentry
+    \entry{ubuntu2204}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://releases.ubuntu.com/jammy/}}
+      \field{title}{System operacyjny Ubuntu 22.04}
+    \endentry
+    \entry{microk8s}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://microk8s.io}}
+      \field{title}{Klaster Kubernetes - MicroK8s}
+    \endentry
+    \entry{auth0}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://auth0.com}}
+      \field{title}{Platforma Auth0}
+    \endentry
+    \entry{moqups}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://moqups.com}}
+      \field{title}{Narzędzie Moqups}
+    \endentry
+    \entry{wireframing}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://www.experienceux.co.uk/faqs/what-is-wireframing}}
+      \field{title}{Technika "wireframingu"}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
