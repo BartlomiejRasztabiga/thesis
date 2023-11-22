@@ -17,7 +17,7 @@ spec:
             - name: AXON_AXONSERVER_SERVERS
               value: axonserver
             - name: AXONIQ_CONSOLE_CREDENTIALS
-              value: "68447ea9-1:b8b5aeb75a1a48b89b4a8b10a0be3282"
+              value: "68447ea9-1:4ac1289d784047ac88cc1e1ab39bdefc"
             - name: SPRING_PROFILES_ACTIVE
               value: mailjet,stripe,invoice
             - name: MAILJET_API_KEY_PUBLIC
@@ -45,7 +45,7 @@ spec:
                 secretKeyRef:
                   name: stripe-api-key
                   key: frontend-domain
-          image: ghcr.io/bartlomiejrasztabiga/thesis/payment:0.20.9
+          image: ghcr.io/bartlomiejrasztabiga/thesis/payment:0.20.10
           name: payment-service
           ports:
             - containerPort: 8103

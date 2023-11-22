@@ -17,7 +17,7 @@ spec:
             - name: AXON_AXONSERVER_SERVERS
               value: axonserver
             - name: AXONIQ_CONSOLE_CREDENTIALS
-              value: "68447ea9-1:b8b5aeb75a1a48b89b4a8b10a0be3282"
+              value: "68447ea9-1:4ac1289d784047ac88cc1e1ab39bdefc"
             - name: SPRING_PROFILES_ACTIVE
               value: gmaps
             - name: GMAPS_API_KEY
@@ -25,7 +25,7 @@ spec:
                 secretKeyRef:
                   name: gmaps-api-key
                   key: key
-          image: ghcr.io/bartlomiejrasztabiga/thesis/order:0.20.9
+          image: ghcr.io/bartlomiejrasztabiga/thesis/order:0.20.10
           name: order-service
           ports:
             - containerPort: 8102
