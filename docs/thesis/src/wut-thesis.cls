@@ -219,6 +219,7 @@
 
 	\AtBeginDocument{
 		\renewcommand{\listfigurename}{Spis rysunków}
+        \renewcommand{\lstlistlistingname}{Spis wycinków kodu}
 		\renewcommand{\listtablename}{Spis tabel}
 		\renewcommand{\tablename}{Tabela}
 	}
@@ -496,4 +497,12 @@
 
     \standardappendix
     \renewcommand{\thesection}{\arabic{section}}
+}
+
+%-------------------
+% Spis listingów
+%-------------------
+\newcommand{\listoflistingstoc}{
+    \lstlistoflistings
+    \addcontentsline{toc}{section}{\lstlistlistingname}
 }

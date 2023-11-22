@@ -88,8 +88,14 @@
 \cleardoublepage % Zaczynamy od nieparzystej strony
 \pagestyle{headings}
 
-\input{tex/1-wybor-tematu}         % Wygodnie jest trzymać każdy rozdział w osobnym pliku.
-\input{tex/2-realizacja-pd1.tex}    % Umożliwia to również łatwą migrację do nowej wersji szablonu:
+\input{tex/1-wstep}         % Wygodnie jest trzymać każdy rozdział w osobnym pliku.
+\input{tex/2-techniki}    % Umożliwia to również łatwą migrację do nowej wersji szablonu:
+\input{tex/3-analiza}
+\input{tex/4-architektura}
+\input{tex/5-implementacja}
+\input{tex/6-wdrozenie}
+\input{tex/7-testowanie}
+\input{tex/8-podsumowanie}
 
 %---------------
 % Bibliografia
@@ -120,6 +126,10 @@
 \listoftablestoc     % Spis tabel.
 \vspace{1cm}         % vertical space
 \listofappendicestoc % Spis załączników
+\vspace{1cm}
+\listoflistingstoc   % Spis listingów
+
+% TODO spis listingów
 
 %-------------
 % Załączniki
