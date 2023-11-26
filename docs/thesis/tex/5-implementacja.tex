@@ -4,6 +4,18 @@
 
 \subsection{Część serwerowa}
 
-\subsubsection{Np. warstwa danych???}
+\subsubsection{Użyte narzędzia?}
+
+Spring Boot to framework w ekosystemie Spring, który ułatwia tworzenie i rozwijanie aplikacji webowych oraz mikroserwisów w językach Java i Kotlin. Spring Boot oferuje wsparcie dla mikroserwisów, ułatwiając ich tworzenie, testowanie i wdrażanie, co czyni go popularnym wyborem wśród programistów pracujących nad nowoczesnymi, skalowalnymi aplikacjami.
+
+Spring Boot ma silne powiązanie z koncepcją "cloud native", która odnosi się do projektowania aplikacji specjalnie na potrzeby chmury. Spring Boot ułatwia tworzenie aplikacji mikroserwisowych, które są nieodzownym elementem architektury cloud native, dostarczając funkcjonalności takie jak łatwa integracja z kontenerami (np. Docker), obsługa konfiguracji zewnętrznej, zarządzanie usługami przez service discovery oraz wspieranie wzorców takich jak circuit breaker. Te cechy sprawiają, że Spring Boot jest idealnym wyborem dla tworzenia aplikacji przygotowanych do działania w środowiskach chmurowych, oferujących skalowalność, elastyczność i odporność.
+
+Axon Framework to narzędzie do tworzenia aplikacji w architekturze opartej na zdarzeniach (event-driven) i wzorcu CQRS. Wspiera równie DDD, Event Sourcing oraz wzorzec Saga. Został zaprojektowany, aby ułatwić budowę skalowalnych i łatwych w utrzymaniu aplikacji. Oferuje wsparcie dla projektowania zorientowanego na zdarzenia, zarządzania zdarzeniami oraz ich dystrybucji. Axon zapewnia również mechanizmy do obsługi złożonych scenariuszy transakcyjnych w rozproszonych systemach dzięki wzorcowi Saga. Jego integracja z mikroserwisami i wsparcie dla event sourcing'u czynią go idealnym narzędziem do tworzenia skalowalnych aplikacji webowych.
+
+Axon Server działa jako dedykowany hub do przetwarzania komunikatów i zarządzania zdarzeniami w aplikacjach opartych na Axon Framework. Jako centralny punkt dla komunikacji opartej na zdarzeniach, Axon Server efektywnie zarządza przepływem zdarzeń, poleceń i zapytań między różnymi mikroserwisami. Działa jako serwer zdarzeń i kolejka wiadomości, które są często wykorzystywane w architekturach opartych na zdarzeniach i CQRS, wspierając skalowalność i wydajność aplikacji. Dzięki tej centralizacji, Axon Server umożliwia łatwiejsze zarządzanie, monitorowanie i optymalizację przepływu danych w aplikacjach webowych.
+
+TODO
 
 \subsection{Część kliencka}
+
+XXX

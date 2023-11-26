@@ -2,10 +2,22 @@
 
 \section{Wdrożenie}
 
-XXX
+\subsection{Konteneryzacja}
 
-\subsection{Klaster Kubernetes}
+Wdrażanie systemów mikroserwisowych z wykorzystaniem Docker i Kubernetes stało się standardem w rozwoju nowoczesnych aplikacji webowych. Docker umożliwia tworzenie lekkich, przenośnych kontenerów dla każdego mikroserwisu, zapewniając izolację i spójność środowiska. Kontenery Docker mogą być następnie zarządzane i orkiestrowane za pomocą Kubernetes, platformy umożliwiającej automatyczne skalowanie, podział ruchu  i samonaprawę. Kubernetes zapewnia także mechanizmy do zarządzania siecią i komunikacji między kontenerami, co jest kluczowe dla sprawnego działania rozproszonych systemów mikroserwisowych.
 
-\subsection{Axon Server}
+TODO
 
-\subsection{Google Cloud Platform}
+\subsection{Orkiestracja kontenerów}
+
+TODO
+
+\subsection{Chmura Google Cloud Platform}
+
+Serwisy te zostały wdrożone jako osobne kontenery, orkiestrowane za pomocą narzędzia Kubernetes, na prywatnym klastrze uruchomionym w chmurze publicznej od firmy Google - Google Cloud Platform.
+
+Klaster ten złożony jest z trzech maszyn typu e2-standard-4 (4 vCPU, 2 rdzenie, 16GB pamięci RAM, 100GB dysku twardego).
+
+Domyślnie uruchomiono po jednej instancji serwisów obsługujących komendy (Dostawy, Zamówienia, Płatności, Restauracje) oraz po cztery instancje serwisów obsługujących większy ruch niż pozostałe (Zapytania oraz Sagi).
+
+TODO

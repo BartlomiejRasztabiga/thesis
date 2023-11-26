@@ -22,6 +22,5 @@
 \contentsline {subsubsection}{\numberline {2.6.1\relax .\enspace }Wymagania funkcjonalne}{11}{subsubsection.2.6.1}%
 \contentsline {subsubsection}{\numberline {2.6.2\relax .\enspace }Wymagania niefunkcjonalne}{11}{subsubsection.2.6.2}%
 \contentsline {subsection}{\numberline {2.7\relax .\enspace }Wykonanie makiet interfejsu użytkownika}{12}{subsection.2.7}%
-\contentsline {section}{Bibliografia}{13}{section*.3}%
-\contentsline {section}{Spis rysunków}{15}{section*.3}%
-\contentsline {section}{Spis tabel}{15}{section*.3}%
+\contentsline {section}{Spis rysunków}{13}{figure.caption.2}%
+\contentsline {section}{Spis tabel}{13}{figure.caption.2}%

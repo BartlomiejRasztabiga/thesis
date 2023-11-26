@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.19)  22 NOV 2023 22:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.19)  26 NOV 2023 18:58
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1056,15 +1056,15 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `futs' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-<src/pl/header/eiti.pdf, id=181, 483.72722pt x 76.8471pt>
+<src/pl/header/eiti.pdf, id=197, 483.72722pt x 76.8471pt>
 File: src/pl/header/eiti.pdf Graphic file (type pdf)
 <use src/pl/header/eiti.pdf>
-Package pdftex.def Info: src/pl/header/eiti.pdf  used on input line 59.
+Package pdftex.def Info: src/pl/header/eiti.pdf  used on input line 61.
 (pdftex.def)             Requested size: 441.01775pt x 70.06229pt.
-<src/pl/title/inz.pdf, id=182, 483.72722pt x 105.39375pt>
+<src/pl/title/inz.pdf, id=198, 483.72722pt x 105.39375pt>
 File: src/pl/title/inz.pdf Graphic file (type pdf)
 <use src/pl/title/inz.pdf>
-Package pdftex.def Info: src/pl/title/inz.pdf  used on input line 59.
+Package pdftex.def Info: src/pl/title/inz.pdf  used on input line 61.
 (pdftex.def)             Requested size: 441.01775pt x 96.08856pt.
  [1
 
@@ -1105,6 +1105,9 @@ LaTeX Font Info:    Font shape `U/futm/m/n' will be
 (Font)              scaled to size 8.27998pt on input line 2.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
 (Font)              scaled to size 6.43999pt on input line 2.
+
+Underfull \vbox (badness 1048) has occurred while \output is active []
+
  [5
 
 
@@ -1116,22 +1119,65 @@ LaTeX Font Info:    Font shape `U/futm/m/n' will be
 
 
 
-]) (./tex/3-analiza.tex [8
+]
+<tex/img//mikroserwisy.png, id=287, 1204.5pt x 582.175pt>
+File: tex/img//mikroserwisy.png Graphic file (type png)
+<use tex/img//mikroserwisy.png>
+Package pdftex.def Info: tex/img//mikroserwisy.png  used on input line 11.
+(pdftex.def)             Requested size: 441.01775pt x 213.1628pt.
+ [8
 
-]) (./tex/4-architektura.tex [9
+ <./tex/img//mikroserwisy.png>]
+<tex/img//cap.jpg, id=301, 401.5pt x 314.17375pt>
+File: tex/img//cap.jpg Graphic file (type jpg)
+<use tex/img//cap.jpg>
+Package pdftex.def Info: tex/img//cap.jpg  used on input line 37.
+(pdftex.def)             Requested size: 220.50887pt x 172.5516pt.
+ [9 <./tex/img//cap.jpg>]
+<tex/img//cqrs.png, id=310, 593.21625pt x 352.31625pt>
+File: tex/img//cqrs.png Graphic file (type png)
+<use tex/img//cqrs.png>
+Package pdftex.def Info: tex/img//cqrs.png  used on input line 60.
+(pdftex.def)             Requested size: 264.61333pt x 157.15923pt.
+ [10 <./tex/img//cqrs.png>]
+<tex/img//event_sourcing.png, id=319, 723.70375pt x 653.44125pt>
+File: tex/img//event_sourcing.png Graphic file (type png)
+<use tex/img//event_sourcing.png>
+Package pdftex.def Info: tex/img//event_sourcing.png  used on input line 71.
+(pdftex.def)             Requested size: 352.81554pt x 318.56378pt.
+ [11 <./tex/img//event_sourcing.png>]) (./tex/3-analiza.tex [12]
+<tex/img//event_storming.png, id=330, 1536.74126pt x 1061.9675pt>
+File: tex/img//event_storming.png Graphic file (type png)
+<use tex/img//event_storming.png>
+Package pdftex.def Info: tex/img//event_storming.png  used on input line 16.
+(pdftex.def)             Requested size: 352.81554pt x 243.80986pt.
+ [13
 
-]) (./tex/5-implementacja.tex [10
+ <./tex/img//event_storming.png>]
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 13.24796pt on input line 51.
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 9.19998pt on input line 51.
+LaTeX Font Info:    Font shape `FMX/futm/m/n' will be
+(Font)              scaled to size 7.35999pt on input line 51.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 13.24796pt on input line 51.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 9.19998pt on input line 51.
+LaTeX Font Info:    Font shape `U/futm/m/n' will be
+(Font)              scaled to size 7.35999pt on input line 51.
+ [14]) (./tex/4-architektura.tex [15]) (./tex/5-implementacja.tex [16
 
-]) (./tex/6-wdrozenie.tex [11
+]) (./tex/6-wdrozenie.tex [17
 
-]) (./tex/7-testowanie.tex [12
+]) (./tex/7-testowanie.tex [18
 
-]) (./tex/8-podsumowanie.tex [13
+]) (./tex/8-podsumowanie.tex [19
 
-]) [14
+]) [20
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 104.
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 116.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
@@ -1139,7 +1185,22 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `cmtt' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
- [15
+
+Overfull \hbox (2.92612pt too wide) in paragraph at lines 117--117
+[]\T1/futs/m/it/12 (-20) Strona in-ter-ne-towa ko-lejki wia-do-mo-±ci Rab-bitMQ\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (24.11.2023): [][]$\T1/cmtt/m/n/12 https :
+ []
+
+
+Overfull \hbox (4.13127pt too wide) in paragraph at lines 117--117
+\T1/futs/m/n/12 (-20) (24.11.2023): [][]$\T1/cmtt/m/n/12 https : / / asseconews . pl / dlaczego -[] wartosc -[] tworzyc -[] aplikacje -[]
+ []
+
+
+Overfull \hbox (2.15727pt too wide) in paragraph at lines 117--117
+[]\T1/futs/m/n/12 (-20) M. Fow-ler, ^^R  Bo-un-ded Con-text^^Q, Do-st¦p zdalny (07.06.2023): [][]$\T1/cmtt/m/n/12 https : / / martinfowler .
+ []
+
+[21
 
 
 {/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}] (./main.lof)
@@ -1158,28 +1219,28 @@ Package microtype Info: Loading generic protrusion settings for font family
 \tf@lol=\write9
 \openout9 = `main.lol'.
 
- [16
+ [22
 
 ] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 421B5F848C06FF73C16526714001E60D;6436.
+(rerunfilecheck)             Checksum: D8D81C70F345E85324EEE3B1EDECDFB8;7926.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 27724 strings out of 476025
- 486655 string characters out of 5790016
+ 28071 strings out of 476025
+ 492469 string characters out of 5790016
  1868388 words of memory out of 5000000
- 47500 multiletter control sequences out of 15000+600000
- 578674 words of font info for 189 fonts, out of 8000000 for 9000
+ 47644 multiletter control sequences out of 15000+600000
+ 618607 words of font info for 338 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 123i,12n,120p,1100b,2169s stack positions out of 10000i,1000n,20000p,200000b,200000s
-</usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on main.pdf (16 pages, 172834 bytes).
+ 123i,12n,120p,1100b,2615s stack positions out of 10000i,1000n,20000p,200000b,200000s
+</usr/local/texlive/2023/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
+Output written on main.pdf (22 pages, 743712 bytes).
 PDF statistics:
- 344 PDF objects out of 1000 (max. 8388607)
- 312 compressed objects within 4 object streams
- 60 named destinations out of 1000 (max. 500000)
- 50035 words of extra memory for PDF output out of 51595 (max. 10000000)
+ 458 PDF objects out of 1000 (max. 8388607)
+ 406 compressed objects within 5 object streams
+ 84 named destinations out of 1000 (max. 500000)
+ 66476 words of extra memory for PDF output out of 74296 (max. 10000000)
 

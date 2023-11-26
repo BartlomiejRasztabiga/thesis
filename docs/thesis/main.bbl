@@ -19,12 +19,103 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global}
-    \entry{docker}{misc}{}
+    \entry{grpc}{misc}{}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labeltitlesource}{title}
-      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://www.docker.com}}
-      \field{title}{Narzędzie Docker}
+      \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://grpc.io}}
+      \field{title}{Strona internetowa protokołu gRPC}
+    \endentry
+    \entry{rabbitmq}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://www.rabbitmq.com}}
+      \field{title}{Strona internetowa kolejki wiadomości RabbitMQ}
+    \endentry
+    \entry{kafka}{misc}{}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://kafka.apache.org}}
+      \field{title}{Strona internetowa kolejki wiadomości Apache Kafka}
+    \endentry
+    \entry{rys1}{misc}{}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://asseconews.pl/dlaczego-wartosc-tworzyc-aplikacje-w-architekturze-mikroserwisowej}}
+      \field{title}{Reprezentacja graficzna systemu o architekturze mikroserwisowej}
+    \endentry
+    \entry{eventual_consistency}{misc}{}
+      \field{sortinit}{6}
+      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://www.scylladb.com/glossary/eventual-consistency}}
+      \field{title}{Definicja pojęcia spójności ostatecznej}
+    \endentry
+    \entry{rys2}{misc}{}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://datascience.eu/pl/programowanie-komputerowe/twierdzenie-cap-i-rozproszone-systemy-zarzadzania-bazami-danych}}
+      \field{title}{Reprezentacja graficzna twierdzenia "{CAP}"}
+    \endentry
+    \entry{event_storming_rys}{book}{}
+      \name{author}{1}{}{%
+        {{hash=7d37228f815a506321a0d4ab9835e15d}{%
+           family={Brandolini},
+           familyi={B\bibinitperiod},
+           given={Alberto},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{7d37228f815a506321a0d4ab9835e15d}
+      \strng{fullhash}{7d37228f815a506321a0d4ab9835e15d}
+      \strng{bibnamehash}{7d37228f815a506321a0d4ab9835e15d}
+      \strng{authorbibnamehash}{7d37228f815a506321a0d4ab9835e15d}
+      \strng{authornamehash}{7d37228f815a506321a0d4ab9835e15d}
+      \strng{authorfullhash}{7d37228f815a506321a0d4ab9835e15d}
+      \field{sortinit}{9}
+      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Introducing Event Storming}
+    \endentry
+    \entry{miro}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://miro.com}}
+      \field{title}{Platforma Miro}
+    \endentry
+    \entry{boundedcontext}{unpublished}{}
+      \name{author}{1}{}{%
+        {{hash=312ac886938a9b2be4f8eb607567fe4c}{%
+           family={Fowler},
+           familyi={F\bibinitperiod},
+           given={Martin},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{fullhash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{bibnamehash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{authorbibnamehash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{authornamehash}{312ac886938a9b2be4f8eb607567fe4c}
+      \strng{authorfullhash}{312ac886938a9b2be4f8eb607567fe4c}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{note}{Dostęp zdalny (07.06.2023): \url{https://martinfowler.com/bliki/BoundedContext.html}}
+      \field{title}{Bounded Context}
+      \field{year}{2014}
+    \endentry
+    \entry{locust}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://locust.io}}
+      \field{title}{Strona internetowa biblioteki Locust}
     \endentry
   \enddatalist
 \endrefsection

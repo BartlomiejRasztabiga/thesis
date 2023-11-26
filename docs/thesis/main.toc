@@ -7,40 +7,44 @@
 \contentsline {subsection}{\numberline {1.5\relax .\enspace }Struktura pracy}{7}{subsection.1.5}%
 \contentsline {section}{\numberline {2\relax .\enspace }Techniki tworzenia skalowalnych aplikacji webowych}{8}{section.2}%
 \contentsline {subsection}{\numberline {2.1\relax .\enspace }Architektura mikroserwisowa}{8}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2\relax .\enspace }DDD}{8}{subsection.2.2}%
-\contentsline {subsection}{\numberline {2.3\relax .\enspace }CQRS}{8}{subsection.2.3}%
-\contentsline {subsection}{\numberline {2.4\relax .\enspace }Event Sourcing}{8}{subsection.2.4}%
-\contentsline {subsection}{\numberline {2.5\relax .\enspace }Wzorzec Saga}{8}{subsection.2.5}%
-\contentsline {section}{\numberline {3\relax .\enspace }Analiza wymagań systemu}{9}{section.3}%
-\contentsline {subsection}{\numberline {3.1\relax .\enspace }Słownik dziedziny problemu}{9}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2\relax .\enspace }Event Storming}{9}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3\relax .\enspace }Narzędzie Miro}{9}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4\relax .\enspace }Identyfikacja Bounded Contextów}{9}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5\relax .\enspace }Wymagania funkcjonalne}{9}{subsection.3.5}%
-\contentsline {subsection}{\numberline {3.6\relax .\enspace }Wymagania niefunkcjonalne}{9}{subsection.3.6}%
-\contentsline {section}{\numberline {4\relax .\enspace }Architektura systemu}{10}{section.4}%
-\contentsline {subsection}{\numberline {4.1\relax .\enspace }Axon Server}{10}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2\relax .\enspace }co tu wsadzic?}{10}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3\relax .\enspace }Model 3C}{10}{subsection.4.3}%
-\contentsline {section}{\numberline {5\relax .\enspace }Implementacja}{11}{section.5}%
-\contentsline {subsection}{\numberline {5.1\relax .\enspace }Część serwerowa}{11}{subsection.5.1}%
-\contentsline {subsubsection}{\numberline {5.1.1\relax .\enspace }Np. warstwa danych???}{11}{subsubsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.2\relax .\enspace }Część kliencka}{11}{subsection.5.2}%
-\contentsline {section}{\numberline {6\relax .\enspace }Wdrożenie}{12}{section.6}%
-\contentsline {subsection}{\numberline {6.1\relax .\enspace }Klaster Kubernetes}{12}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2\relax .\enspace }Axon Server}{12}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3\relax .\enspace }Google Cloud Platform}{12}{subsection.6.3}%
-\contentsline {section}{\numberline {7\relax .\enspace }Testowanie systemu}{13}{section.7}%
-\contentsline {subsection}{\numberline {7.1\relax .\enspace }Testy jednostkowe}{13}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2\relax .\enspace }Testy integracyjne}{13}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3\relax .\enspace }Testy akceptacyjne}{13}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4\relax .\enspace }Testy wydajnościowe}{13}{subsection.7.4}%
-\contentsline {section}{\numberline {8\relax .\enspace }Podsumowanie}{14}{section.8}%
-\contentsline {subsection}{\numberline {8.1\relax .\enspace }Wnioski}{14}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2\relax .\enspace }Możliwości dalszego rozwoju}{14}{subsection.8.2}%
-\contentsline {section}{Bibliografia}{15}{section*.1}%
-\contentsline {section}{Wykaz symboli i skrótów}{16}{section*.2}%
-\contentsline {section}{Spis rysunków}{16}{section*.2}%
-\contentsline {section}{Spis tabel}{16}{section*.2}%
-\contentsline {section}{Spis załączników}{16}{section*.3}%
-\contentsline {section}{Spis wycinków kodu}{16}{section*.3}%
+\contentsline {subsection}{\numberline {2.2\relax .\enspace }Skalowalność}{9}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3\relax .\enspace }Architektura zorientowana na zdarzenia}{10}{subsection.2.3}%
+\contentsline {subsection}{\numberline {2.4\relax .\enspace }Projektowanie zorientowane na dziedzinę}{10}{subsection.2.4}%
+\contentsline {subsection}{\numberline {2.5\relax .\enspace }Separacja odpowiedzialności komend i zapytań}{10}{subsection.2.5}%
+\contentsline {subsection}{\numberline {2.6\relax .\enspace }Event Sourcing}{11}{subsection.2.6}%
+\contentsline {subsection}{\numberline {2.7\relax .\enspace }Wzorzec Saga}{11}{subsection.2.7}%
+\contentsline {section}{\numberline {3\relax .\enspace }Analiza wymagań systemu}{13}{section.3}%
+\contentsline {subsection}{\numberline {3.1\relax .\enspace }Słownik dziedziny problemu}{13}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2\relax .\enspace }Burza Zdarzeń}{13}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3\relax .\enspace }Identyfikacja Ograniczonych Kontekstów}{14}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4\relax .\enspace }Wymagania funkcjonalne}{14}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5\relax .\enspace }Przypadki użycia}{15}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6\relax .\enspace }Wymagania niefunkcjonalne}{15}{subsection.3.6}%
+\contentsline {section}{\numberline {4\relax .\enspace }Architektura systemu}{16}{section.4}%
+\contentsline {subsection}{\numberline {4.1\relax .\enspace }Podział na mikroserwisy}{16}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2\relax .\enspace }Model C4 systemu}{16}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3\relax .\enspace }Persystencja danych}{16}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4\relax .\enspace }Kolejka komunikatów i magazyn zdarzeń}{16}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5\relax .\enspace }Uwierzytelnianie i autoryzacja}{16}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6\relax .\enspace }Integracje zewnętrzne}{16}{subsection.4.6}%
+\contentsline {section}{\numberline {5\relax .\enspace }Implementacja}{17}{section.5}%
+\contentsline {subsection}{\numberline {5.1\relax .\enspace }Część serwerowa}{17}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1\relax .\enspace }Użyte narzędzia?}{17}{subsubsection.5.1.1}%
+\contentsline {subsection}{\numberline {5.2\relax .\enspace }Część kliencka}{17}{subsection.5.2}%
+\contentsline {section}{\numberline {6\relax .\enspace }Wdrożenie}{18}{section.6}%
+\contentsline {subsection}{\numberline {6.1\relax .\enspace }Konteneryzacja}{18}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2\relax .\enspace }Orkiestracja kontenerów}{18}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3\relax .\enspace }Chmura Google Cloud Platform}{18}{subsection.6.3}%
+\contentsline {section}{\numberline {7\relax .\enspace }Testowanie systemu}{19}{section.7}%
+\contentsline {subsection}{\numberline {7.1\relax .\enspace }Testy jednostkowe}{19}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2\relax .\enspace }Testy integracyjne}{19}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3\relax .\enspace }Testy akceptacyjne}{19}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4\relax .\enspace }Testy wydajnościowe}{19}{subsection.7.4}%
+\contentsline {section}{\numberline {8\relax .\enspace }Podsumowanie}{20}{section.8}%
+\contentsline {subsection}{\numberline {8.1\relax .\enspace }Wnioski}{20}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2\relax .\enspace }Możliwości dalszego rozwoju}{20}{subsection.8.2}%
+\contentsline {section}{Bibliografia}{21}{section*.6}%
+\contentsline {section}{Spis rysunków}{22}{section*.6}%
+\contentsline {section}{Spis tabel}{22}{section*.6}%
+\contentsline {section}{Spis załączników}{22}{section*.7}%
+\contentsline {section}{Spis wycinków kodu}{22}{section*.7}%
