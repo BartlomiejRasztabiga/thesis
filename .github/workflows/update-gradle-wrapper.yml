@@ -24,8 +24,10 @@ jobs:
         with:
           paths: |
             delivery/**
-            gateway/**
+            e2e/**
             order/**
             payment/**
+            query/**
             restaurant/**
+            saga/**
             shared/**
