@@ -7,25 +7,41 @@ Wybór tematu pracy dyplomowej został podyktowany chęcią pogłębienia wiedzy
 
 Wybraną przez Autora dziedziną do tego celu jest branża gastronomiczna. W ostatnich latach, wraz z rozwojem techniki, zaczęło powstawać wiele aplikacji służących do zamawiania jedzenia z restauracji. Aplikacje te cieszą się ogromną popularnością, więc ich twórcy muszą zapewnić odpowiednią skalowalność systemu, aby móc obsłużyć duży ruch. Jednym z rozwiązań tego problemu jest zastosowanie skalowalnych architektur, np. architektury mikroserwisowej.
 
+Jednym z największych wyzwań stojących przed twórcami takich systemów jest zapewnienie niezawodności i ciągłości działania, co jest kluczowe w branży, gdzie każda minuta przestoju może skutkować znaczącymi stratami finansowymi i reputacyjnymi. Aplikacje służące do zamawiania jedzenia muszą być nie tylko funkcjonalne i intuicyjne dla użytkownika, ale także wydajne i elastyczne pod względem technologicznym.
+
 Architektura mikroserwisowa jest jednym z najbardziej innowacyjnych podejść do tworzenia aplikacji webowych. W ostatnich latach zyskała ona na popularności, a jej zalety są doceniane przez coraz większą liczbę programistów. Wymaga ona jednak zupełnie innego podejścia niż architektura monolityczna, która jest najczęściej stosowana w aplikacjach tego typu. Różnice wynikają np. z innego podejścia do transakcyjności, synchronizacji danych oraz komunikacji między komponentami.
+
+Zastosowanie architektury mikroserwisowej pozwala na elastyczne zarządzanie złożonymi systemami, umożliwiając jednocześnie łatwiejszą integrację z różnorodnymi usługami zewnętrznymi, takimi jak systemy płatności, zarządzanie dostawami czy integracja z mediami społecznościowymi. To podejście zapewnia również łatwiejsze skalowanie poszczególnych elementów systemu, co jest niezbędne w branży, gdzie wzrost popularności restauracji może gwałtownie zwiększyć zapotrzebowanie na zasoby informatyczne.
 
 W pracy dyplomowej Autor prezentuje przykład aplikacji webowej zbudowanej zgodnie z najlepszymi praktykami architektury mikroserwisowej. Aplikacja ta będzie służyła do obsługi zamówień restauracyjnych z trzech perspektyw: klienta, restauracji oraz dostawcy.
 
-TODO
+Praca ta ma na celu nie tylko zaspokojenie potrzeb akademickich, ale także praktyczne pokazanie, jak nowoczesne technologie informatyczne mogą być wykorzystywane do rozwiązywania realnych problemów biznesowych. Opracowany system ma stanowić modelowy przykład aplikacji, która dzięki zastosowaniu architektury mikroserwisowej, może być łatwo dostosowywana do zmieniających się potrzeb rynku i rosnącej liczby użytkowników, co ma szczególne znaczenie w szybko rozwijającej się branży gastronomicznej.
 
 \subsection{Cel pracy}
 
-XXX
+Celem niniejszej pracy było zaprojektowanie, stworzenie, wdrożenie oraz przetestowanie systemu informatycznego do obsługi zamówień restauracyjnych, opartego na architekturze mikroserwisowej. System ten ma na celu zapewnienie wydajnego, elastycznego i skalowalnego rozwiązania, które będzie mogło sprostać wymaganiom i oczekiwaniom trzech głównych grup użytkowników: zamawiających, restauracji oraz kurierów.
 
 \subsection{Charakterystyka problemu}
 
-XXX
+Zastosowana architektura wymagała odpowiedniego podziału systemu informatycznego na mikroserwisy, które komunikują się między sobą w celu spełnienia wymagań biznesowych. System został podzielony na dwie części: kliencką i serwerową. Część kliencka jest aplikacją webową, uruchamianą w przeglądarce klienta, komunikującą się z częścią serwerową przy pomocy interfejsu REST. Część serwerowa została wykonana we wcześniej wspomnianej architekturze mikroserwisowej i zawiera całą logikę biznesową systemu. Niniejsza praca przedstawia jakie techniki zostały zastosowane do stworzenia tych modułów oraz jakie korzyści daje nam zastosowanie takiej architektury. Przedstawiono również krótkie porównanie z architekturą monolityczną w kontekście dopasowania do przedstawionego problemu.
 
 \subsection{Przegląd podobnych rozwiązań}
 
-XXX
+W ramach tej pracy inżynierskiej, Autor stwierdza, że nie był w stanie przeprowadzić dogłębnego porównania projektowanego systemu z istniejącymi na rynku rozwiązaniami takimi jak Uber Eats, Wolt, Pyszne.pl, Bolt Food. Powodem tego jest ograniczony dostęp do szczegółowych informacji na temat ich architektury serwerowej i rozwiązań technologicznych. Ponadto, porównanie funkcjonalności z perspektywy użytkownika końcowego nie było głównym celem pracy, gdyż nacisk położono nie na rozwój licznych funkcjonalności, lecz na badanie aspektów technicznych związanych z tworzeniem skalowalnych aplikacji webowych. W związku z tym, analiza skupia się bardziej na kwestiach architektonicznych i wydajnościowych, a nie na bezpośredniej konkurencji z funkcjami oferowanymi przez wymienione platformy.
+
 
 \subsection{Struktura pracy}
 
-XXX
+Kolejne rozdziały prezentują kolejne etapy prac nad prezentowanym systemem.
 
+Na początku zostaną omówione popularne techniki tworzenia skalowalnych aplikacji webowych wykorzystane w niniejszej pracy inżynierskiej, w tym architektura mikroserwisowa. Zostanie następnie przedstawione jej porównanie do standardowej architektury monolitycznej.
+
+Kolejny rozdział będzie poświęcony analizie wymagań budowanego systemu. Przedstawiony zostanie słownik dziedziny problemu, metoda wydzielania mikroserwisów, wymagania funkcjonalne i niefunkcjonalne.
+
+W kolejnym rozdziale zostanie przedstawiona proponowana architektura systemowa i wdrożeniowa systemu, wraz z jej modelem C4. Opisane zostaną zastosowane mechanizmy persystencji danych, przechowywania i transportu komunikatów. Pokrótce opisane zostaną również mechanizmy uwierzytelniania i autoryzacji oraz zastosowane integracje z zewnętrznymi usługami.
+
+Następnie zostanie omówiona implementacja systemu. W tym rozdziale przedstawiony zostanie proces tworzenia obu części systemu informatycznego, wraz z użytymi narzędziami, technikami, oraz ich ogólnym opisem i przykładem wykorzystania w systemie.
+
+Przedostatni rozdział będzie dotyczył testowania systemu. Zostaną omówione zastosowane rodzaje testów oraz w jaki sposób zostały użyte do weryfikacji wymagań systemu.
+
+W ostatnim rozdziale zostanie przedstawione podsumowanie implementacji systemu oraz wniosków wyciągniętych z testów wydajnościowych. Zostanie zaprezentowane jakich błędów mógłby uniknąć Autor, gdyby system był tworzony z wiedzą posiadaną po zakończeniu obecnej implementacji. Przedstawione zostaną rownież możliwości dalszego rozwoju systemu.
