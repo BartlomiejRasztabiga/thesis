@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: delivery-service
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: delivery-service
@@ -20,7 +20,7 @@ spec:
               value: "68447ea9-1:4ac1289d784047ac88cc1e1ab39bdefc"
             - name: SPRING_PROFILES_ACTIVE
               value: nosecurity
-          image: ghcr.io/bartlomiejrasztabiga/thesis/delivery:0.20.12
+          image: ghcr.io/bartlomiejrasztabiga/thesis/delivery:0.21.0
           name: delivery-service
           ports:
             - containerPort: 8104
