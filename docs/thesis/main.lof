@@ -1,6 +1,6 @@
 \babel@toc {polish}{}\relax 
 \contentsline {figure}{\numberline {2.1}{\ignorespaces Reprezentacja graficzna systemu o architekturze mikroserwisowej \blx@tocontentsinit {0}\cite {rys1}\relax }}{10}{figure.caption.1}%
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Reprezentacja graficzna twierdzenia CAP \blx@tocontentsinit {0}\cite {rys2}\relax }}{11}{figure.caption.2}%
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Schemat architektoniczny implementacji wzorca CQRS\relax }}{12}{figure.caption.3}%
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Schemat architektoniczny implementacji wzorca Event Sourcing\relax }}{13}{figure.caption.4}%
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Rezultat sesji Burzy Zdarzeń \blx@tocontentsinit {0}\cite {event_storming_rys}\relax }}{15}{figure.caption.5}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Reprezentacja graficzna twierdzenia CAP \blx@tocontentsinit {0}\cite {rys2}\relax }}{12}{figure.caption.2}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Schemat architektoniczny implementacji wzorca CQRS\relax }}{15}{figure.caption.3}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Schemat architektoniczny implementacji wzorca Event Sourcing\relax }}{16}{figure.caption.4}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Rezultat sesji Burzy Zdarzeń \blx@tocontentsinit {0}\cite {event_storming_rys}\relax }}{19}{figure.caption.5}%

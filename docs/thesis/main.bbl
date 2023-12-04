@@ -19,44 +19,78 @@
 
 \refsection{0}
   \datalist[entry]{none/global//global/global}
-    \entry{grpc}{misc}{}
+    \entry{bass2012software}{book}{}
+      \name{author}{3}{}{%
+        {{hash=50041c939d5493483f2d929339ea1d47}{%
+           family={Bass},
+           familyi={B\bibinitperiod},
+           given={L.},
+           giveni={L\bibinitperiod}}}%
+        {{hash=8a1a9dbbb5cb2dac06dd4861500b670a}{%
+           family={Clements},
+           familyi={C\bibinitperiod},
+           given={P.},
+           giveni={P\bibinitperiod}}}%
+        {{hash=68e88c0c5a45914642d049ebc7c622fc}{%
+           family={Kazman},
+           familyi={K\bibinitperiod},
+           given={R.},
+           giveni={R\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Addison-Wesley}%
+      }
+      \strng{namehash}{6821f67dbe311aabed40319cdbcc7ac4}
+      \strng{fullhash}{6821f67dbe311aabed40319cdbcc7ac4}
+      \strng{bibnamehash}{6821f67dbe311aabed40319cdbcc7ac4}
+      \strng{authorbibnamehash}{6821f67dbe311aabed40319cdbcc7ac4}
+      \strng{authornamehash}{6821f67dbe311aabed40319cdbcc7ac4}
+      \strng{authorfullhash}{6821f67dbe311aabed40319cdbcc7ac4}
       \field{sortinit}{1}
       \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{title}{Software Architecture in Practice}
+      \field{year}{2003}
+    \endentry
+    \entry{grpc}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labeltitlesource}{title}
       \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://grpc.io}}
       \field{title}{Strona internetowa protokołu gRPC}
     \endentry
     \entry{rabbitmq}{misc}{}
-      \field{sortinit}{2}
-      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labeltitlesource}{title}
       \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://www.rabbitmq.com}}
       \field{title}{Strona internetowa kolejki wiadomości RabbitMQ}
     \endentry
     \entry{kafka}{misc}{}
-      \field{sortinit}{3}
-      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labeltitlesource}{title}
       \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://kafka.apache.org}}
       \field{title}{Strona internetowa kolejki wiadomości Apache Kafka}
     \endentry
     \entry{rys1}{misc}{}
-      \field{sortinit}{4}
-      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labeltitlesource}{title}
       \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://asseconews.pl/dlaczego-wartosc-tworzyc-aplikacje-w-architekturze-mikroserwisowej}}
       \field{title}{Reprezentacja graficzna systemu o architekturze mikroserwisowej}
     \endentry
     \entry{eventual_consistency}{misc}{}
-      \field{sortinit}{6}
-      \field{sortinithash}{b33bc299efb3c36abec520a4c896a66d}
+      \field{sortinit}{7}
+      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
       \field{labeltitlesource}{title}
       \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://www.scylladb.com/glossary/eventual-consistency}}
       \field{title}{Definicja pojęcia spójności ostatecznej}
     \endentry
     \entry{rys2}{misc}{}
-      \field{sortinit}{7}
-      \field{sortinithash}{108d0be1b1bee9773a1173443802c0a3}
+      \field{sortinit}{8}
+      \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labeltitlesource}{title}
       \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://datascience.eu/pl/programowanie-komputerowe/twierdzenie-cap-i-rozproszone-systemy-zarzadzania-bazami-danych}}
       \field{title}{Reprezentacja graficzna twierdzenia "{CAP}"}
@@ -75,8 +109,8 @@
       \strng{authorbibnamehash}{7d37228f815a506321a0d4ab9835e15d}
       \strng{authornamehash}{7d37228f815a506321a0d4ab9835e15d}
       \strng{authorfullhash}{7d37228f815a506321a0d4ab9835e15d}
-      \field{sortinit}{9}
-      \field{sortinithash}{0a5ebc79d83c96b6579069544c73c7d4}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
       \field{labelnamesource}{author}
       \field{labeltitlesource}{title}
       \field{title}{Introducing Event Storming}

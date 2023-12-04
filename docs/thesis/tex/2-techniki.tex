@@ -1,9 +1,15 @@
-\clearpage % Rozdziały zaczynamy od nowej strony.
+\clearpage
 \section{Techniki tworzenia skalowalnych aplikacji webowych}
 
-Taki rozdział w ogóle będzie przydatny?
+Przed przystąpieniem do implementacji projektu inżynierskiego, istotne jest zrozumienie technik i narzędzi stosowanych w tworzeniu nowoczesnych, skalowalnych aplikacji webowych. Opisane poniżej elementy znalazły zastosowanie w ramach niniejszej pracy.
 
 \subsection{Architektura mikroserwisowa}
+
+Przez lata pojawiło się wiele definicji architektury oprogramowania. Dobrze pojęcie to obrazują Panowie Bass, Clements i Kazman podając w 2003 roku \cite{bass2012software}, że
+
+\begin{displayquote}
+\emph{Architektura oprogramowania programu lub systemu informatycznego jest strukturą lub zbiorem struktur tego systemu, obejmującym elementy oprogramowania, widoczne dla pozostałych elementów oprogramowania oraz zależności między nimi.}
+\end{displayquote}
 
 Architektura mikroserwisowa to podejście do strukturyzacji aplikacji jako zbiór niewielkich, niezależnych usług, które komunikują się ze sobą przy użyciu standardowych protokołów komunikacji synchronicznej, takich jak HTTP/gRPC \cite{grpc} lub asynchronicznych kolejek komunikatów, np. RabbitMQ \cite{rabbitmq}/Apache Kafka \cite{kafka}. Każdy mikroserwis jest odpowiedzialny za wykonanie określonej funkcjonalności lub usługi i może być rozwijany, wdrażany oraz zarządzany niezależnie od innych. Ta architektura zapewnia wysoką skalowalność i elastyczność, umożliwiając łatwe wprowadzanie zmian i adaptację do zmieniających się wymagań. Mikroserwisy przechowujące dane często mają swoje własne bazy danych, co zwiększa ich niezależność i izolację od innych części systemu.
 
@@ -17,9 +23,31 @@ Główną konsekwencją zastosowania takiej architektury, jest możliwości niez
 
 Z powodu konieczności komunikacji między elementami systemu, często utrudnione jest zastosowanie spójności natychmiastowej, znanej np. z relacyjnych baz danych. W systemach takich stosowana jest tzw. spójność ostateczna (ang. "eventual consistency") \cite{eventual_consistency}. Powoduje ona, że najnowszy odczyt nie gwarantuje otrzymania danych wynikających z najnowszego zapisu. Utrudnia to m.in. tworzenie interfejsów graficznych dla użytkowników końcowych oraz testowanie aplikacji.
 
-Stosując architekturę mikroserwisową, systemy informatyczne mogą spełniać wymagania dotyczące wysokiej niezawodności i dostępności - każdy serwis może być uruchomiony w więcej niż jednej instancji, równo rozkładając ruch pomiędzy nie. System jest wtedy też odporny na chwilową niedostępność niektórych instancji.
+Architektura mikroserwisowa sprzyja tworzeniu systemów o wysokiej niezawodności i dostępności. Uruchamiając wielokrotne instancje poszczególnych serwisów, system staje się odporny na chwilowe awarie. Umożliwia to rozłożenie ruchu pomiędzy instancje.
 
-TODO porównanie z monolitem
+\begin{longtable}{| m{0.2\linewidth} | m{0.4\linewidth} | m{0.4\linewidth} |}
+    \caption{Porównanie architektur: mikroserwisowej i monolitycznej.}
+    \label{table:architektura_porownanie} \\
+
+    \hline
+    Aspekt & Architektura mikroserwisowa & Architektura monolityczna \\ \hline\hline \endfirsthead \endfoot
+    \hline \endlastfoot
+
+    Struktura & Podzielona na mniejsze, niezależne usługi. & Jednolita aplikacja, gdzie wszystkie funkcje są ściśle powiązane i działają jako jedna jednostka. \\ \hline
+    Skalowalność & Wysoka; poszczególne mikroserwisy mogą być skalowane niezależnie. & Ograniczona; skalowanie często oznacza konieczność skalowania całej aplikacji. \\ \hline
+    Zarządzanie & Możliwość niezależnego zarządzania, rozwijania i wdrażania poszczególnych mikroserwisów. & Zarządzanie całością aplikacji odbywa się centralnie. \\ \hline
+    Bazy danych & Każdy mikroserwis może mieć własną bazę danych, zwiększając izolację i niezależność. & Zazwyczaj jedna baza danych dla całej aplikacji. \\ \hline
+    Złożoność & Większa złożoność w zarządzaniu i koordynacji między serwisami. & Mniejsza złożoność, ponieważ wszystkie komponenty są w jednym miejscu. \\ \hline
+    Odporność na awarie & Wysoka; awaria jednego mikroserwisu zazwyczaj nie wpływa na cały system. & Niższa; awaria w jednym miejscu może wpłynąć na całą aplikację. \\ \hline
+    Aktualizacje & Możliwość aktualizowania poszczególnych mikroserwisów niezależnie, bez wpływu na resztę systemu. & Aktualizacje wymagają zwykle zatrzymania i aktualizacji całej aplikacji. \\ \hline
+    Komunikacja & Używa lekkich protokołów komunikacyjnych, takich jak HTTP/gRPC, kolejki komunikatów. & Komunikacja wewnętrzna jest mniej skomplikowana, ponieważ wszystko jest częścią jednego systemu. \\ \hline
+    Rozwój i utrzymanie	& Może być bardziej skomplikowany ze względu na większą liczbę komponentów i ich niezależność. & Prostsze do zarządzania, dopóki aplikacja nie staje się zbyt duża. \\ \hline
+    Spójność danych & Często stosuje model „eventual consistency”, co może komplikować pewne aspekty działania aplikacji. & Łatwiejsza do osiągnięcia spójność danych dzięki centralnej bazie danych. \\ \hline
+    Niezawodność  & Każdy serwis może być uruchamiany w wielu instancjach, co zwiększa niezawodność i dostępność.		 & Zależy od pojedynczej instancji aplikacji, co może ograniczać niezawodność.
+    \\ \hline
+\end{longtable}
+
+Architektura mikroserwisowa jest preferowana do tworzenia skalowalnych aplikacji webowych ze względu na jej zdolność do niezależnego skalowania poszczególnych usług i większą odporność na awarie, co zapewnia elastyczność, niezawodność i szybkość adaptacji do zmieniających się potrzeb.
 
 \subsection{Skalowalność}
 
@@ -34,48 +62,104 @@ Architektura mikroserwisowa umożliwia efektywne skalowanie dzięki izolacji pos
 Tworząc rozproszone systemy przetwarzające dane, należy pamiętać o tzw. twierdzeniu Brewera o CAP.
 
 \begin{figure}[!h]
-    \centering \includegraphics[width=0.5\linewidth]{cap.jpg}
+    \centering \includegraphics[width=0.3\linewidth]{cap.jpg}
     \caption{Reprezentacja graficzna twierdzenia CAP \cite{rys2}}
 \end{figure}
 
 Twierdzenie CAP, odnosi się do trzech podstawowych właściwości, które mogą być gwarantowane w systemach rozproszonych: spójność (Consistency), dostępność (Availability) oraz odporność na rozbicia (Partition Tolerance). Stwierdza ono, że system rozproszony może zapewnić jednocześnie tylko dwie z tych trzech właściwości. Decyzje dotyczące skalowania i zarządzania danymi muszą uwzględniać kompromisy między spójnością, dostępnością i odpornością na rozbicia.
 
-TODO
-
 \subsection{Architektura zorientowana na zdarzenia}
 
-XXX
+Architektura zorientowana na zdarzenia (Event-Driven Architecture, EDA) to podejście, w którym przepływ działania systemu jest sterowany przez zdarzenia - zazwyczaj oznacza to, że działania w systemie są wywoływane w odpowiedzi na konkretne wydarzenia, które mogą być generowane przez różne części aplikacji.
+
+W architekturze mikroserwisowej, gdzie każdy mikroserwis jest odpowiedzialny za określoną funkcjonalność i działa niezależnie, zastosowanie architektury zorientowanej na zdarzenia pozwala na efektywne i elastyczne zarządzanie komunikacją między różnymi serwisami. Oto kilka kluczowych aspektów, jak architektura zorientowana na zdarzenia wspiera tworzenie skalowalnych aplikacji webowych:
+
+\begin{enumerate}
+    \item Asynchroniczność: Komunikacja oparta na zdarzeniach jest z natury asynchroniczna. Mikroserwisy mogą emitować zdarzenia bez konieczności oczekiwania na bezpośrednią odpowiedź, co pozwala na bardziej efektywne wykorzystanie zasobów i lepszą skalowalność.
+
+    \item Luźne sprzężenie: Mikroserwisy w architekturze zorientowanej na zdarzenia komunikują się ze sobą głównie poprzez zdarzenia, co minimalizuje bezpośrednie zależności między nimi. To z kolei ułatwia skalowanie, ponieważ zmiany w jednym serwisie rzadziej mają bezpośredni wpływ na inne.
+
+    \item Reaktywność i elastyczność: Systemy zorientowane na zdarzenia mogą szybko reagować na zmiany, co jest kluczowe w dynamicznym środowisku aplikacji webowych. Pozwala to na szybsze dostosowanie się do rosnącego obciążenia czy zmieniających się wymagań biznesowych.
+
+    \item Rozproszone przetwarzanie: Architektura zorientowana na zdarzenia sprzyja rozproszeniu obciążenia przetwarzania. Zamiast obciążać pojedynczy punkt w systemie, zadania mogą być przetwarzane równolegle w różnych mikroserwisach, co zwiększa skalowalność i wydajność.
+
+    \item Odporność na awarie: W przypadku awarii jednego z mikroserwisów, system zorientowany na zdarzenia może lepiej radzić sobie z takimi sytuacjami. Dzięki asynchronicznej komunikacji, pozostałe części systemu mogą kontynuować działanie, co jest kluczowe dla utrzymania ciągłości działania aplikacji.
+\end{enumerate}
+
+Podsumowując, architektura zorientowana na zdarzenia, stosowana w ramach architektury mikroserwisowej, znacząco przyczynia się do zwiększenia skalowalności, elastyczności i odporności aplikacji webowych na zmienne warunki i obciążenia.
+
+TODO jakiś rysunek?
 
 \subsection{Projektowanie zorientowane na dziedzinę}
 
-Domain-Driven Design (DDD) to podejście do projektowania oprogramowania skoncentrowane na modelowaniu i strukturyzacji systemów zgodnie z realiami i złożonościami określonej dziedziny biznesowej. W DDD kluczowe jest głębokie zrozumienie dziedziny i jej problemów, co umożliwia tworzenie efektywnych modeli i struktur aplikacji. W kontekście tworzenia skalowalnych aplikacji webowych, DDD pomaga w wyodrębnieniu granic kontekstów, co jest szczególnie istotne w architekturze mikroserwisowej. Pozwala to na efektywne projektowanie niezależnych mikroserwisów, każdy z nich odpowiedzialny za różne aspekty dziedziny biznesowej, co przyczynia się do lepszej skalowalności i łatwości w zarządzaniu.
+Projektowanie zorientowane na dziedzinę (ang. Domain-Driven Design, DDD) to podejście do projektowania oprogramowania, które koncentruje się na modelowaniu złożonych systemów biznesowych.
 
-TODO
+\begin{enumerate}
+    \item Modelowanie Dziedziny: DDD skupia się na głębokim zrozumieniu dziedziny biznesowej i jej problemów. W kontekście aplikacji webowych, modelowanie dziedziny pomaga w identyfikacji kluczowych funkcji i procesów biznesowych, które aplikacja ma obsługiwać.
+
+    \item Język powszechny (ang. Ubiquitous Language) w DDD to wspólny język, którym posługują się zarówno programiści, jak i eksperci biznesowi. Ułatwia to komunikację i zapewnia, że wszystkie zainteresowane strony mają wspólne rozumienie funkcjonalności aplikacji.
+
+    \item Podział na Ograniczone Konteksty (ang. Bounded Contexts): DDD promuje dzielenie systemu na mniejsze, zarządzane części, znane jako Ograniczone Konteksty. W architekturze mikroserwisowej, każdy mikroserwis może reprezentować osobny Kontekst, co pozwala na niezależne zarządzanie, rozwijanie i skalowanie poszczególnych części systemu.
+
+    \item Integracja i Komunikacja między Mikroserwisami: W środowisku mikroserwisowym ważne jest zapewnienie skutecznej komunikacji i integracji między różnymi serwisami. DDD może pomóc w definiowaniu jasnych interfejsów i umów między serwisami, co ułatwia ich integrację i współpracę.
+
+    \item Elastyczność i Skalowalność: Przyjmując podejście DDD w architekturze mikroserwisowej, można osiągnąć większą elastyczność i skalowalność. Mikroserwisy można niezależnie skalować w zależności od potrzeb, co jest szczególnie ważne w przypadku aplikacji webowych, które mogą doświadczać zmiennego obciążenia.
+
+    \item Zarządzanie Złożonością: DDD pomaga w zarządzaniu złożonością poprzez uporządkowanie i systematyzację podejścia do projektowania i implementacji oprogramowania. Pozwala to na efektywniejsze zarządzanie dużymi, skomplikowanymi systemami.
+
+    \item Testowanie i Utrzymanie: DDD ułatwia tworzenie testowalnego i łatwego w utrzymaniu kodu. Jego modularna natura pozwala na izolację i testowanie poszczególnych części systemu niezależnie, co jest kluczowe w skalowalnych aplikacjach webowych.
+\end{enumerate}
+
+TODO jakiś rysunek?
 
 \subsection{Separacja odpowiedzialności komend i zapytań}
 
-Command Query Responsibility Segregation (CQRS) to wzorzec projektowy, który rozdziela operacje odczytu (Query) od operacji zapisu (Command) w systemie informatycznym. W kontekście tworzenia skalowalnych aplikacji webowych, CQRS umożliwia niezależne skalowanie i optymalizację operacji odczytu i zapisu. Pozwala to na efektywniejsze wykorzystanie zasobów, zmniejsza złożoność kodu i zwiększa wydajność aplikacji. CQRS jest często stosowany w architekturze mikroserwisowej, gdzie może dodatkowo przyczynić się do lepszej separacji odpowiedzialności pomiędzy różnymi mikroserwisami.
+Separacja odpowiedzialności komend i zapytań (ang. Command Query Responsibility Segregation, CQRS) to wzorzec architektoniczny, który rozdziela operacje odczytu (Query) od operacji zapisu (Command) w systemie informatycznym na poziomie architektury. Taka separacja nie wymaga, by oba rodzaje operacji były zaimplementowane w ramach tej samej aplikacji. W przypadku tworzenia skalowalnych aplikacji internetowych, CQRS umożliwia efektywniejsze zarządzanie i optymalizację procesów odczytu i zapisu poprzez ich niezależne skalowanie. Wynikiem jest optymalne wykorzystanie zasobów, uproszczenie struktury kodu i zwiększenie ogólnej wydajności systemu. W architekturze opartej na mikroserwisach, CQRS dodatkowo sprzyja lepszemu rozdzieleniu obowiązków między poszczególnymi mikroserwisami, co przekłada się na wyższą modułowość i elastyczność systemu.
 
 \begin{figure}[!h]
     \centering \includegraphics[width=0.6\linewidth]{cqrs.png}
     \caption{Schemat architektoniczny implementacji wzorca CQRS}
 \end{figure}
 
-TODO
-
 \subsection{Event Sourcing}
 
-Event Sourcing to podejście w projektowaniu oprogramowania, w którym zmiany stanu aplikacji są przechowywane jako sekwencja zdarzeń. Zamiast zapisywać tylko bieżący stan obiektu, system zachowuje pełną historię zmian za pomocą zdarzeń, które te zmiany spowodowały. W kontekście tworzenia skalowalnych aplikacji webowych, Event Sourcing umożliwia efektywne zarządzanie i rekonstruowanie stanów systemu, zapewniając wysoce odporną na błędy i elastyczną architekturę. Ta metoda jest szczególnie przydatna w środowiskach rozproszonych, takich jak architektura mikroserwisowa, gdzie zachowanie spójności i odporności na awarie jest pożądane.
+Wzorzec Event Sourcing jest podejściem w projektowaniu oprogramowania, które polega na przechowywaniu zmian stanu aplikacji jako sekwencji zdarzeń. Każda akcja w systemie generuje zdarzenie, które zamiast modyfikować stan bezpośrednio, jest rejestrowane i służy jako podstawa do odtworzenia bieżącego stanu systemu.
+
+\begin{enumerate}
+
+    \item Śledzenie Zmian Stanu: Event Sourcing umożliwia śledzenie wszystkich zmian stanu systemu poprzez zapisywanie każdego zdarzenia. To podejście zapewnia kompletną historię zmian, co jest szczególnie przydatne w przypadkach wymagających audytu lub debugowania.
+
+    \item Odtwarzanie Stanu: W Event Sourcing stan aplikacji można odtworzyć poprzez przetworzenie sekwencji zdarzeń. Ta zdolność do "odtworzenia przeszłości" jest bardzo cenna w przypadku awarii lub potrzeby analizy historycznych danych, np. podejrzenie stanu systemu na konkretny dzień.
+
+    \item Integracja z CQRS: Event Sourcing często jest stosowany razem z CQRS (Command Query Responsibility Segregation). CQRS oddziela operacje odczytu od zapisu, co w połączeniu z Event Sourcingiem tworzy wydajny i skalowalny model do zarządzania danymi.
+
+    \item Złożoność Implementacji: Jednym z wyzwań stosowania Event Sourcing jest jego złożoność implementacyjna. Wymaga to dokładnego projektowania systemu i może prowadzić do zwiększenia złożoności kodu, szczególnie w przypadku systemów o dużej skali.
+
+    \item Zarządzanie Zdarzeniami: Event Sourcing wymaga skutecznego zarządzania i przetwarzania strumieni zdarzeń, co może być wyzwaniem w dużych systemach. Ważne jest zapewnienie odpowiedniej wydajności i skalowalności mechanizmów przetwarzających zdarzenia, tzw. magazynu zdarzeń i kolejki komunikatów.
+
+    \item Odzyskiwanie i Odporność na Awarii: Wzorzec ten zapewnia naturalną odporność na awarie, ponieważ stan aplikacji może być odtworzony z historii zdarzeń. Jest to szczególnie ważne w środowisku rozproszonym, jakim jest architektura mikroserwisowa.
+
+    \item Wersjonowanie Zdarzeń: W miarę rozwoju systemu, format zdarzeń może się zmieniać. Zarządzanie różnymi wersjami zdarzeń i ich kompatybilnością wsteczną staje się istotnym aspektem projektu.
+
+\end{enumerate}
 
 \begin{figure}[!h]
-    \centering \includegraphics[width=0.8\linewidth]{event_sourcing.png}
+    \centering \includegraphics[width=0.6\linewidth]{event_sourcing.png}
     \caption{Schemat architektoniczny implementacji wzorca Event Sourcing}
 \end{figure}
 
-TODO
-
 \subsection{Wzorzec Saga}
 
-Wzorzec Saga w projektowaniu oprogramowania odnosi się do sekwencyjnego lub równoległego wykonywania serii operacji w rozproszonym systemie, takim jak architektura mikroserwisowa. W kontekście skalowalnych aplikacji webowych, Saga zapewnia spójne zarządzanie transakcjami rozproszonymi poprzez rozkładanie ich na serię mniejszych, zarządzalnych operacji. Każda operacja w ramach Sagii jest wykonywana niezależnie, a w przypadku wystąpienia błędu, system może wykonać odpowiednie operacje kompensujące, aby przywrócić spójność danych. Wzorzec ten jest istotny w zarządzaniu złożonymi transakcjami w skalowalnych i rozproszonych systemach, gdzie tradycyjne transakcje bazodanowe mogą być niewystarczające.
+Wzorzec Saga w architekturze mikroserwisowej jest strategią zarządzania transakcjami rozproszonymi. W systemach opartych na mikroserwisach, gdzie każdy serwis zarządza własną bazą danych, tradycyjne transakcje bazodanowe (jak te stosowane w monolitycznych architekturach) nie są możliwe. Saga oferuje rozwiązanie tego problemu, umożliwiając realizację operacji, które obejmują wiele serwisów, poprzez sekwencję lokalnych transakcji.
 
-TODO
+\begin{enumerate}
+
+    \item Definicja Sag: Saga to sekwencja operacji, w której każda operacja jest lokalną transakcją w ramach jednego mikroserwisu. Jeśli wszystkie operacje zakończą się pomyślnie, cała Saga jest uznawana za zakończoną sukcesem. Jeśli jednak jedna z operacji zawiedzie, Saga inicjuje serię kompensacyjnych akcji, aby przywrócić system do spójnego stanu.
+
+    \item Orkiestracja vs Choreografia: Istnieją dwa podejścia do implementacji Sag: orkiestracja i choreografia. W orkiestracji, centralny koordynator (taki jak serwis orkiestracyjny) zarządza kolejnością i rezultatem operacji. W choreografii, każdy mikroserwis zna kolejny krok i samodzielnie publikuje zdarzenia, które są słuchane przez inne serwisy.
+
+    \item Kompensacja: Gdy jedna z operacji w Sadze zawodzi, system musi podjąć akcje kompensacyjne, aby cofnąć zmiany wprowadzone przez poprzednie operacje. Wymaga to starannego projektowania logiki kompensacji dla każdej operacji.
+
+\end{enumerate}
+
+TODO jakiś rysunek lub snippet?
