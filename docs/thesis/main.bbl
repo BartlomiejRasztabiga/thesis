@@ -115,13 +115,6 @@
       \field{labeltitlesource}{title}
       \field{title}{Introducing Event Storming}
     \endentry
-    \entry{miro}{misc}{}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
-      \field{labeltitlesource}{title}
-      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://miro.com}}
-      \field{title}{Platforma Miro}
-    \endentry
     \entry{boundedcontext}{unpublished}{}
       \name{author}{1}{}{%
         {{hash=312ac886938a9b2be4f8eb607567fe4c}{%
@@ -143,6 +136,20 @@
       \field{note}{Dostęp zdalny (07.06.2023): \url{https://martinfowler.com/bliki/BoundedContext.html}}
       \field{title}{Bounded Context}
       \field{year}{2014}
+    \endentry
+    \entry{miro}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://miro.com}}
+      \field{title}{Platforma Miro}
+    \endentry
+    \entry{12factors}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (06.12.2023): \url{https://12factor.net/pl/}}
+      \field{title}{Strona internetowa dwunastu czynników wpływających na jakość oprogramowania}
     \endentry
     \entry{locust}{misc}{}
       \field{sortinit}{1}

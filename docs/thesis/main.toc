@@ -15,36 +15,51 @@
 \contentsline {subsection}{\numberline {2.7\relax .\enspace }Wzorzec Saga}{16}{subsection.2.7}%
 \contentsline {section}{\numberline {3\relax .\enspace }Analiza wymagań systemu}{18}{section.3}%
 \contentsline {subsection}{\numberline {3.1\relax .\enspace }Słownik dziedziny problemu}{18}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2\relax .\enspace }Burza Zdarzeń}{18}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3\relax .\enspace }Identyfikacja Ograniczonych Kontekstów}{19}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4\relax .\enspace }Wymagania funkcjonalne}{20}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5\relax .\enspace }Przypadki użycia}{20}{subsection.3.5}%
-\contentsline {subsection}{\numberline {3.6\relax .\enspace }Wymagania niefunkcjonalne}{20}{subsection.3.6}%
-\contentsline {section}{\numberline {4\relax .\enspace }Architektura systemu}{22}{section.4}%
-\contentsline {subsection}{\numberline {4.1\relax .\enspace }Podział na mikroserwisy}{22}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2\relax .\enspace }Model C4 systemu}{22}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3\relax .\enspace }Persystencja danych}{22}{subsection.4.3}%
-\contentsline {subsection}{\numberline {4.4\relax .\enspace }Kolejka komunikatów i magazyn zdarzeń}{22}{subsection.4.4}%
-\contentsline {subsection}{\numberline {4.5\relax .\enspace }Uwierzytelnianie i autoryzacja}{22}{subsection.4.5}%
-\contentsline {subsection}{\numberline {4.6\relax .\enspace }Integracje zewnętrzne}{22}{subsection.4.6}%
-\contentsline {section}{\numberline {5\relax .\enspace }Implementacja}{23}{section.5}%
-\contentsline {subsection}{\numberline {5.1\relax .\enspace }Część serwerowa}{23}{subsection.5.1}%
-\contentsline {subsubsection}{\numberline {5.1.1\relax .\enspace }Użyte narzędzia?}{23}{subsubsection.5.1.1}%
-\contentsline {subsection}{\numberline {5.2\relax .\enspace }Część kliencka}{23}{subsection.5.2}%
-\contentsline {section}{\numberline {6\relax .\enspace }Wdrożenie}{24}{section.6}%
-\contentsline {subsection}{\numberline {6.1\relax .\enspace }Konteneryzacja}{24}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2\relax .\enspace }Orkiestracja kontenerów}{24}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3\relax .\enspace }Chmura Google Cloud Platform}{24}{subsection.6.3}%
-\contentsline {section}{\numberline {7\relax .\enspace }Testowanie systemu}{25}{section.7}%
-\contentsline {subsection}{\numberline {7.1\relax .\enspace }Testy jednostkowe}{25}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2\relax .\enspace }Testy integracyjne}{25}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3\relax .\enspace }Testy akceptacyjne}{25}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4\relax .\enspace }Testy wydajnościowe}{25}{subsection.7.4}%
-\contentsline {section}{\numberline {8\relax .\enspace }Podsumowanie}{26}{section.8}%
-\contentsline {subsection}{\numberline {8.1\relax .\enspace }Wnioski}{26}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2\relax .\enspace }Możliwości dalszego rozwoju}{26}{subsection.8.2}%
-\contentsline {section}{Bibliografia}{27}{section*.6}%
-\contentsline {section}{Spis rysunków}{28}{section*.6}%
-\contentsline {section}{Spis tabel}{28}{section*.6}%
-\contentsline {section}{Spis załączników}{28}{section*.7}%
-\contentsline {section}{Spis wycinków kodu}{28}{section*.7}%
+\contentsline {subsection}{\numberline {3.2\relax .\enspace }Burza Zdarzeń}{19}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3\relax .\enspace }Identyfikacja Ograniczonych Kontekstów}{21}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4\relax .\enspace }Wymagania funkcjonalne}{21}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5\relax .\enspace }Przypadki użycia}{22}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6\relax .\enspace }Wymagania niefunkcjonalne}{22}{subsection.3.6}%
+\contentsline {section}{\numberline {4\relax .\enspace }Architektura systemu}{23}{section.4}%
+\contentsline {subsection}{\numberline {4.1\relax .\enspace }Podział na mikroserwisy}{23}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2\relax .\enspace }Model C4 systemu}{23}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3\relax .\enspace }Persystencja danych}{23}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4\relax .\enspace }Kolejka komunikatów i magazyn zdarzeń}{23}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5\relax .\enspace }Uwierzytelnianie i autoryzacja}{23}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6\relax .\enspace }Integracje zewnętrzne}{23}{subsection.4.6}%
+\contentsline {section}{\numberline {5\relax .\enspace }Implementacja}{24}{section.5}%
+\contentsline {subsection}{\numberline {5.1\relax .\enspace }Część serwerowa}{24}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1\relax .\enspace }Użyte narzędzia?}{24}{subsubsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.2\relax .\enspace }Podział na pakiety}{24}{subsubsection.5.1.2}%
+\contentsline {subsubsection}{\numberline {5.1.3\relax .\enspace }Warstwa adapterów wejściowych}{24}{subsubsection.5.1.3}%
+\contentsline {subsubsection}{\numberline {5.1.4\relax .\enspace }Warstwa adapterów wyjściowych}{24}{subsubsection.5.1.4}%
+\contentsline {subsubsection}{\numberline {5.1.5\relax .\enspace }Warstwa dziedziny}{25}{subsubsection.5.1.5}%
+\contentsline {subsubsection}{\numberline {5.1.6\relax .\enspace }Warstwa prezentacji/zapytań}{25}{subsubsection.5.1.6}%
+\contentsline {subsubsection}{\numberline {5.1.7\relax .\enspace }Warstwa infrastruktury}{25}{subsubsection.5.1.7}%
+\contentsline {subsubsection}{\numberline {5.1.8\relax .\enspace }Warstwa konfiguracji}{25}{subsubsection.5.1.8}%
+\contentsline {subsubsection}{\numberline {5.1.9\relax .\enspace }Współdzielony kod}{25}{subsubsection.5.1.9}%
+\contentsline {subsection}{\numberline {5.2\relax .\enspace }Część kliencka}{25}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {5.2.1\relax .\enspace }Użyte narzędzia?}{25}{subsubsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.2\relax .\enspace }Podział na katalogi}{25}{subsubsection.5.2.2}%
+\contentsline {section}{\numberline {6\relax .\enspace }Wdrożenie}{26}{section.6}%
+\contentsline {subsection}{\numberline {6.1\relax .\enspace }CI/CD}{26}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2\relax .\enspace }Repozytorium artefaktów}{26}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3\relax .\enspace }Konteneryzacja}{26}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4\relax .\enspace }Orkiestracja kontenerów}{26}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5\relax .\enspace }Skalowanie}{26}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6\relax .\enspace }Chmura Google Cloud Platform}{26}{subsection.6.6}%
+\contentsline {subsection}{\numberline {6.7\relax .\enspace }Monitorowanie}{26}{subsection.6.7}%
+\contentsline {section}{\numberline {7\relax .\enspace }Testowanie systemu}{27}{section.7}%
+\contentsline {subsection}{\numberline {7.1\relax .\enspace }Testy jednostkowe}{27}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2\relax .\enspace }Testy integracyjne}{27}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3\relax .\enspace }Testy akceptacyjne}{27}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4\relax .\enspace }Testy wydajnościowe}{27}{subsection.7.4}%
+\contentsline {section}{\numberline {8\relax .\enspace }Podsumowanie}{28}{section.8}%
+\contentsline {subsection}{\numberline {8.1\relax .\enspace }Wnioski}{28}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2\relax .\enspace }Stopień realizacji założeń}{28}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3\relax .\enspace }Możliwości dalszego rozwoju}{28}{subsection.8.3}%
+\contentsline {section}{Bibliografia}{29}{section*.7}%
+\contentsline {section}{Spis rysunków}{30}{section*.7}%
+\contentsline {section}{Spis tabel}{30}{section*.7}%
+\contentsline {section}{Spis załączników}{30}{section*.8}%
+\contentsline {section}{Spis wycinków kodu}{30}{section*.8}%

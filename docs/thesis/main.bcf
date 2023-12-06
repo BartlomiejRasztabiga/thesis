@@ -2376,9 +2376,10 @@
     <bcf:citekey order="9" intorder="1">rys2</bcf:citekey>
     <bcf:citekey order="10" intorder="1">event_storming_rys</bcf:citekey>
     <bcf:citekey order="11" intorder="1">event_storming_rys</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">miro</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">boundedcontext</bcf:citekey>
-    <bcf:citekey order="14" intorder="1">locust</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">boundedcontext</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">miro</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">12factors</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">locust</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

@@ -25,7 +25,7 @@ Z powodu konieczności komunikacji między elementami systemu, często utrudnion
 
 Architektura mikroserwisowa sprzyja tworzeniu systemów o wysokiej niezawodności i dostępności. Uruchamiając wielokrotne instancje poszczególnych serwisów, system staje się odporny na chwilowe awarie. Umożliwia to rozłożenie ruchu pomiędzy instancje.
 
-\begin{longtable}{| m{0.2\linewidth} | m{0.4\linewidth} | m{0.4\linewidth} |}
+\begin{longtable}{| m{0.15\linewidth} | m{0.4\linewidth} | m{0.4\linewidth} |}
     \caption{Porównanie architektur: mikroserwisowej i monolitycznej.}
     \label{table:architektura_porownanie} \\
 
@@ -75,42 +75,38 @@ Architektura zorientowana na zdarzenia (Event-Driven Architecture, EDA) to podej
 W architekturze mikroserwisowej, gdzie każdy mikroserwis jest odpowiedzialny za określoną funkcjonalność i działa niezależnie, zastosowanie architektury zorientowanej na zdarzenia pozwala na efektywne i elastyczne zarządzanie komunikacją między różnymi serwisami. Oto kilka kluczowych aspektów, jak architektura zorientowana na zdarzenia wspiera tworzenie skalowalnych aplikacji webowych:
 
 \begin{enumerate}
-    \item Asynchroniczność: Komunikacja oparta na zdarzeniach jest z natury asynchroniczna. Mikroserwisy mogą emitować zdarzenia bez konieczności oczekiwania na bezpośrednią odpowiedź, co pozwala na bardziej efektywne wykorzystanie zasobów i lepszą skalowalność.
+    \item \textbf{Asynchroniczność}: Komunikacja oparta na zdarzeniach jest z natury asynchroniczna. Mikroserwisy mogą emitować zdarzenia bez konieczności oczekiwania na bezpośrednią odpowiedź, co pozwala na bardziej efektywne wykorzystanie zasobów i lepszą skalowalność.
 
-    \item Luźne sprzężenie: Mikroserwisy w architekturze zorientowanej na zdarzenia komunikują się ze sobą głównie poprzez zdarzenia, co minimalizuje bezpośrednie zależności między nimi. To z kolei ułatwia skalowanie, ponieważ zmiany w jednym serwisie rzadziej mają bezpośredni wpływ na inne.
+    \item \textbf{Luźne sprzężenie}: Mikroserwisy w architekturze zorientowanej na zdarzenia komunikują się ze sobą głównie poprzez zdarzenia, co minimalizuje bezpośrednie zależności między nimi. To z kolei ułatwia skalowanie, ponieważ zmiany w jednym serwisie rzadziej mają bezpośredni wpływ na inne.
 
-    \item Reaktywność i elastyczność: Systemy zorientowane na zdarzenia mogą szybko reagować na zmiany, co jest kluczowe w dynamicznym środowisku aplikacji webowych. Pozwala to na szybsze dostosowanie się do rosnącego obciążenia czy zmieniających się wymagań biznesowych.
+    \item \textbf{Reaktywność i elastyczność}: Systemy zorientowane na zdarzenia mogą szybko reagować na zmiany, co jest kluczowe w dynamicznym środowisku aplikacji webowych. Pozwala to na szybsze dostosowanie się do rosnącego obciążenia czy zmieniających się wymagań biznesowych.
 
-    \item Rozproszone przetwarzanie: Architektura zorientowana na zdarzenia sprzyja rozproszeniu obciążenia przetwarzania. Zamiast obciążać pojedynczy punkt w systemie, zadania mogą być przetwarzane równolegle w różnych mikroserwisach, co zwiększa skalowalność i wydajność.
+    \item \textbf{Rozproszone przetwarzanie}: Architektura zorientowana na zdarzenia sprzyja rozproszeniu obciążenia przetwarzania. Zamiast obciążać pojedynczy punkt w systemie, zadania mogą być przetwarzane równolegle w różnych mikroserwisach, co zwiększa skalowalność i wydajność.
 
-    \item Odporność na awarie: W przypadku awarii jednego z mikroserwisów, system zorientowany na zdarzenia może lepiej radzić sobie z takimi sytuacjami. Dzięki asynchronicznej komunikacji, pozostałe części systemu mogą kontynuować działanie, co jest kluczowe dla utrzymania ciągłości działania aplikacji.
+    \item \textbf{Odporność na awarie}: W przypadku awarii jednego z mikroserwisów, system zorientowany na zdarzenia może lepiej radzić sobie z takimi sytuacjami. Dzięki asynchronicznej komunikacji, pozostałe części systemu mogą kontynuować działanie, co jest kluczowe dla utrzymania ciągłości działania aplikacji.
 \end{enumerate}
 
 Podsumowując, architektura zorientowana na zdarzenia, stosowana w ramach architektury mikroserwisowej, znacząco przyczynia się do zwiększenia skalowalności, elastyczności i odporności aplikacji webowych na zmienne warunki i obciążenia.
-
-TODO jakiś rysunek?
 
 \subsection{Projektowanie zorientowane na dziedzinę}
 
 Projektowanie zorientowane na dziedzinę (ang. Domain-Driven Design, DDD) to podejście do projektowania oprogramowania, które koncentruje się na modelowaniu złożonych systemów biznesowych.
 
 \begin{enumerate}
-    \item Modelowanie Dziedziny: DDD skupia się na głębokim zrozumieniu dziedziny biznesowej i jej problemów. W kontekście aplikacji webowych, modelowanie dziedziny pomaga w identyfikacji kluczowych funkcji i procesów biznesowych, które aplikacja ma obsługiwać.
+    \item \textbf{Modelowanie Dziedziny}: DDD skupia się na głębokim zrozumieniu dziedziny biznesowej i jej problemów. W kontekście aplikacji webowych, modelowanie dziedziny pomaga w identyfikacji kluczowych funkcji i procesów biznesowych, które aplikacja ma obsługiwać.
 
-    \item Język powszechny (ang. Ubiquitous Language) w DDD to wspólny język, którym posługują się zarówno programiści, jak i eksperci biznesowi. Ułatwia to komunikację i zapewnia, że wszystkie zainteresowane strony mają wspólne rozumienie funkcjonalności aplikacji.
+    \item \textbf{Język powszechny} (ang. Ubiquitous Language): w DDD to wspólny język, którym posługują się zarówno programiści, jak i eksperci biznesowi. Ułatwia to komunikację i zapewnia, że wszystkie zainteresowane strony mają wspólne rozumienie funkcjonalności aplikacji.
 
-    \item Podział na Ograniczone Konteksty (ang. Bounded Contexts): DDD promuje dzielenie systemu na mniejsze, zarządzane części, znane jako Ograniczone Konteksty. W architekturze mikroserwisowej, każdy mikroserwis może reprezentować osobny Kontekst, co pozwala na niezależne zarządzanie, rozwijanie i skalowanie poszczególnych części systemu.
+    \item \textbf{Podział na Ograniczone Konteksty }(ang. Bounded Contexts): DDD promuje dzielenie systemu na mniejsze, zarządzane części, znane jako Ograniczone Konteksty. W architekturze mikroserwisowej, każdy mikroserwis może reprezentować osobny Kontekst, co pozwala na niezależne zarządzanie, rozwijanie i skalowanie poszczególnych części systemu.
 
-    \item Integracja i Komunikacja między Mikroserwisami: W środowisku mikroserwisowym ważne jest zapewnienie skutecznej komunikacji i integracji między różnymi serwisami. DDD może pomóc w definiowaniu jasnych interfejsów i umów między serwisami, co ułatwia ich integrację i współpracę.
+    \item \textbf{Integracja i Komunikacja między Mikroserwisami}: W środowisku mikroserwisowym ważne jest zapewnienie skutecznej komunikacji i integracji między różnymi serwisami. DDD może pomóc w definiowaniu jasnych interfejsów i umów między serwisami, co ułatwia ich integrację i współpracę.
 
-    \item Elastyczność i Skalowalność: Przyjmując podejście DDD w architekturze mikroserwisowej, można osiągnąć większą elastyczność i skalowalność. Mikroserwisy można niezależnie skalować w zależności od potrzeb, co jest szczególnie ważne w przypadku aplikacji webowych, które mogą doświadczać zmiennego obciążenia.
+    \item \textbf{Elastyczność i Skalowalność}: Przyjmując podejście DDD w architekturze mikroserwisowej, można osiągnąć większą elastyczność i skalowalność. Mikroserwisy można niezależnie skalować w zależności od potrzeb, co jest szczególnie ważne w przypadku aplikacji webowych, które mogą doświadczać zmiennego obciążenia.
 
-    \item Zarządzanie Złożonością: DDD pomaga w zarządzaniu złożonością poprzez uporządkowanie i systematyzację podejścia do projektowania i implementacji oprogramowania. Pozwala to na efektywniejsze zarządzanie dużymi, skomplikowanymi systemami.
+    \item \textbf{Zarządzanie Złożonością}: DDD pomaga w zarządzaniu złożonością poprzez uporządkowanie i systematyzację podejścia do projektowania i implementacji oprogramowania. Pozwala to na efektywniejsze zarządzanie dużymi, skomplikowanymi systemami.
 
-    \item Testowanie i Utrzymanie: DDD ułatwia tworzenie testowalnego i łatwego w utrzymaniu kodu. Jego modularna natura pozwala na izolację i testowanie poszczególnych części systemu niezależnie, co jest kluczowe w skalowalnych aplikacjach webowych.
+    \item \textbf{Testowanie i Utrzymanie}: DDD ułatwia tworzenie testowalnego i łatwego w utrzymaniu kodu. Jego modularna natura pozwala na izolację i testowanie poszczególnych części systemu niezależnie, co jest kluczowe w skalowalnych aplikacjach webowych.
 \end{enumerate}
-
-TODO jakiś rysunek?
 
 \subsection{Separacja odpowiedzialności komend i zapytań}
 
@@ -127,19 +123,19 @@ Wzorzec Event Sourcing jest podejściem w projektowaniu oprogramowania, które p
 
 \begin{enumerate}
 
-    \item Śledzenie Zmian Stanu: Event Sourcing umożliwia śledzenie wszystkich zmian stanu systemu poprzez zapisywanie każdego zdarzenia. To podejście zapewnia kompletną historię zmian, co jest szczególnie przydatne w przypadkach wymagających audytu lub debugowania.
+    \item \textbf{Śledzenie Zmian Stanu}: Event Sourcing umożliwia śledzenie wszystkich zmian stanu systemu poprzez zapisywanie każdego zdarzenia. To podejście zapewnia kompletną historię zmian, co jest szczególnie przydatne w przypadkach wymagających audytu lub debugowania.
 
-    \item Odtwarzanie Stanu: W Event Sourcing stan aplikacji można odtworzyć poprzez przetworzenie sekwencji zdarzeń. Ta zdolność do "odtworzenia przeszłości" jest bardzo cenna w przypadku awarii lub potrzeby analizy historycznych danych, np. podejrzenie stanu systemu na konkretny dzień.
+    \item \textbf{Odtwarzanie Stanu}: W Event Sourcing stan aplikacji można odtworzyć poprzez przetworzenie sekwencji zdarzeń. Ta zdolność do "odtworzenia przeszłości" jest bardzo cenna w przypadku awarii lub potrzeby analizy historycznych danych, np. podejrzenie stanu systemu na konkretny dzień.
 
-    \item Integracja z CQRS: Event Sourcing często jest stosowany razem z CQRS (Command Query Responsibility Segregation). CQRS oddziela operacje odczytu od zapisu, co w połączeniu z Event Sourcingiem tworzy wydajny i skalowalny model do zarządzania danymi.
+    \item \textbf{Integracja z CQRS}: Event Sourcing często jest stosowany razem z CQRS (Command Query Responsibility Segregation). CQRS oddziela operacje odczytu od zapisu, co w połączeniu z Event Sourcingiem tworzy wydajny i skalowalny model do zarządzania danymi.
 
-    \item Złożoność Implementacji: Jednym z wyzwań stosowania Event Sourcing jest jego złożoność implementacyjna. Wymaga to dokładnego projektowania systemu i może prowadzić do zwiększenia złożoności kodu, szczególnie w przypadku systemów o dużej skali.
+    \item \textbf{Złożoność Implementacji}: Jednym z wyzwań stosowania Event Sourcing jest jego złożoność implementacyjna. Wymaga to dokładnego projektowania systemu i może prowadzić do zwiększenia złożoności kodu, szczególnie w przypadku systemów o dużej skali.
 
-    \item Zarządzanie Zdarzeniami: Event Sourcing wymaga skutecznego zarządzania i przetwarzania strumieni zdarzeń, co może być wyzwaniem w dużych systemach. Ważne jest zapewnienie odpowiedniej wydajności i skalowalności mechanizmów przetwarzających zdarzenia, tzw. magazynu zdarzeń i kolejki komunikatów.
+    \item \textbf{Zarządzanie Zdarzeniami}: Event Sourcing wymaga skutecznego zarządzania i przetwarzania strumieni zdarzeń, co może być wyzwaniem w dużych systemach. Ważne jest zapewnienie odpowiedniej wydajności i skalowalności mechanizmów przetwarzających zdarzenia, tzw. magazynu zdarzeń i kolejki komunikatów.
 
-    \item Odzyskiwanie i Odporność na Awarii: Wzorzec ten zapewnia naturalną odporność na awarie, ponieważ stan aplikacji może być odtworzony z historii zdarzeń. Jest to szczególnie ważne w środowisku rozproszonym, jakim jest architektura mikroserwisowa.
+    \item O\textbf{dzyskiwanie i Odporność na Awarii}: Wzorzec ten zapewnia naturalną odporność na awarie, ponieważ stan aplikacji może być odtworzony z historii zdarzeń. Jest to szczególnie ważne w środowisku rozproszonym, jakim jest architektura mikroserwisowa.
 
-    \item Wersjonowanie Zdarzeń: W miarę rozwoju systemu, format zdarzeń może się zmieniać. Zarządzanie różnymi wersjami zdarzeń i ich kompatybilnością wsteczną staje się istotnym aspektem projektu.
+    \item \textbf{Wersjonowanie Zdarzeń}: W miarę rozwoju systemu, format zdarzeń może się zmieniać. Zarządzanie różnymi wersjami zdarzeń i ich kompatybilnością wsteczną staje się istotnym aspektem projektu.
 
 \end{enumerate}
 
@@ -154,12 +150,10 @@ Wzorzec Saga w architekturze mikroserwisowej jest strategią zarządzania transa
 
 \begin{enumerate}
 
-    \item Definicja Sag: Saga to sekwencja operacji, w której każda operacja jest lokalną transakcją w ramach jednego mikroserwisu. Jeśli wszystkie operacje zakończą się pomyślnie, cała Saga jest uznawana za zakończoną sukcesem. Jeśli jednak jedna z operacji zawiedzie, Saga inicjuje serię kompensacyjnych akcji, aby przywrócić system do spójnego stanu.
+    \item \textbf{Definicja Sag}: Saga to sekwencja operacji, w której każda operacja jest lokalną transakcją w ramach jednego mikroserwisu. Jeśli wszystkie operacje zakończą się pomyślnie, cała Saga jest uznawana za zakończoną sukcesem. Jeśli jednak jedna z operacji zawiedzie, Saga inicjuje serię kompensacyjnych akcji, aby przywrócić system do spójnego stanu.
 
-    \item Orkiestracja vs Choreografia: Istnieją dwa podejścia do implementacji Sag: orkiestracja i choreografia. W orkiestracji, centralny koordynator (taki jak serwis orkiestracyjny) zarządza kolejnością i rezultatem operacji. W choreografii, każdy mikroserwis zna kolejny krok i samodzielnie publikuje zdarzenia, które są słuchane przez inne serwisy.
+    \item \textbf{Orkiestracja vs Choreografia}: Istnieją dwa podejścia do implementacji Sag: orkiestracja i choreografia. W orkiestracji, centralny koordynator (taki jak serwis orkiestracyjny) zarządza kolejnością i rezultatem operacji. W choreografii, każdy mikroserwis zna kolejny krok i samodzielnie publikuje zdarzenia, które są słuchane przez inne serwisy.
 
-    \item Kompensacja: Gdy jedna z operacji w Sadze zawodzi, system musi podjąć akcje kompensacyjne, aby cofnąć zmiany wprowadzone przez poprzednie operacje. Wymaga to starannego projektowania logiki kompensacji dla każdej operacji.
+    \item \textbf{Kompensacja}: Gdy jedna z operacji w Sadze zawodzi, system musi podjąć akcje kompensacyjne, aby cofnąć zmiany wprowadzone przez poprzednie operacje. Wymaga to starannego projektowania logiki kompensacji dla każdej operacji.
 
 \end{enumerate}
-
-TODO jakiś rysunek lub snippet?
