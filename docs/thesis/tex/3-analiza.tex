@@ -84,9 +84,12 @@ Powyższe cztery konteksty stały się podstawą do wydzielenia mikroserwisów w
 
 Wymagania funkcjonalne zostały zidentyfikowane na podstawie komend i zdarzeń, które zostały wylistowane w ramach sesji Burzy Zdarzeń. Są to, z podziałem na klasy użytkowników:
 
+\medskip
+
 \textbf{Jako użytkownik zamawiający}
 \begin{itemize}
-    \item mogę zarejestrować się w systemie,
+    \item mogę utworzyć konto w systemie,
+    \item mogę uwierzytelnić się przy pomocy loginu i hasła lub konta Google,
     \item mogę dodać detale dostawy,
     \item mogę wylistować restauracje wraz z ich średnią oceną,
     \item mogę rozpocząć proces zamówienia wybierając restaurację,
@@ -102,11 +105,14 @@ Wymagania funkcjonalne zostały zidentyfikowane na podstawie komend i zdarzeń, 
 
 \textbf{Jako manager restauracji}
 \begin{itemize}
-    \item mogę zarejestrować restaurację w systemie,
+    \item mogę utworzyć konto restauracji w systemie,
+    \item mogę uwierzytelnić się przy pomocy loginu i hasła lub konta Google,
     \item mogę zaktualizować detale i dostępność (otwarta/zamknięta) restauracji,
     \item mogę skonfigurować menu restauracji,
     \item mogę wylistować zamówienia będące w trakcie,
-    \item mogę przyjąć albo odrzucić zamówienie,
+    \item mogę wylistować zamówienia historyczne,
+    \item mogę przyjąć zamówienie do realizacji,
+    \item mogę odrzucić zamówienie,
     \item mogę oznaczyć zamówienie jako gotowe,
     \item mogę wypłacić środki za zamówienia na podany numer konta,
     \item mogę otrzymać fakturę za zamówienie na podany adres e-mail.
@@ -116,18 +122,20 @@ Wymagania funkcjonalne zostały zidentyfikowane na podstawie komend i zdarzeń, 
 
 \textbf{Jako dostawca}
 \begin{itemize}
-    \item mogę zarejestrować się w systemie,
+    \item mogę utworzyć konto w systemie,
+    \item mogę uwierzytelnić się przy pomocy loginu i hasła lub konta Google,
     \item mogę zaktualizować swój status (dostępny/niedostępny),
     \item mogę zobaczyć dostępną ofertę dostawy,
     \item mogę przyjąć albo odrzucić ofertę dostawy,
     \item mogę zaktualizować status dostawy (odebrana z restauracji, dostarczona do użytkownika),
+    \item mogę wylistować historyczne dostawy,
     \item mogę wypłacić środki za dostarczone zamówienia na podany numer konta,
     \item mogę otrzymać fakturę za dostarczone zamówienia na podany adres e-mail.
 \end{itemize}
 
 \subsection{Przypadki użycia}
 
-TODO, czy są potrzebne, skoro zostały wylistowane wyżej wymagania?
+TODO
 
 \subsection{Wymagania niefunkcjonalne}
 

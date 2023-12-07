@@ -2,16 +2,75 @@
 
 \section{Architektura systemu}
 
-Potrzebna taka osobna sekcja?
+W tym rozdziale zostanie przedstawiona szczegółowa architektura projektowanego systemu. Celem tego rozdziału jest dostarczenie kompleksowego przeglądu wszystkich kluczowych komponentów, ich wzajemnych zależności, a także sposobu ich integracji.
 
 \subsection{Podział na mikroserwisy}
 
+Część serwerowa systemu została podzielona na mikroserwisy zgodnie z wcześniej wydzielonymi Ograniczonymi Kontekstami. Dodatkowo, poza serwisami związanych z Ograniczonymi Kontekstami, zostały wydzielone serwisy wspólne, które są wykorzystywane przez pozostałe elementy systemu. Są to:
+
+\begin{itemize}
+
+    \item \textbf{Dostawy} (ang. \textit{deliveries}) - implementacja kontekstu "Dostawa",
+    \item \textbf{Zamówienia} (ang. \textit{orders}) - implementacja kontekstu "Zamówienie",
+    \item \textbf{Płatności} (ang. \textit{payments}) - implementacja kontekstu "Płatność",
+    \item \textbf{Restauracje} (ang. \textit{restaurants}) - implementacja kontekstu "Restauracja",
+    \item \textbf{Zapytania} (ang. \textit{queries}) - serwis odpowiedzialny za budowanie bazodanowych projekcji danych oraz obsługę zapytań. Jest wykorzystywany przez wszystkie pozostałe serwisy oraz część kliencką systemu,
+    \item \textbf{Sagi} (ang. \textit{sagas}) - serwis odpowiedzialny za obsługę/orkiestrację długo trwających procesór biznesowych. Implementuje wzorzec Saga. Jest wykorzystywany przez wszystkie pozostałe serwisy.
+
+\end{itemize}
+
+Wydzielono również moduł niebędący mikroserwisem, a jedynie biblioteką, która jest wykorzystywana przez wszystkie pozostałe serwisy. Jest to \textbf{Wspólny kod} (ang. \textit{shared}), który zawiera wspólne dla wszystkich serwisów klasy, interfejsy, konfiguracje, itp.
+
 \subsection{Model C4 systemu}
+
+W celu przedstawienia architektury systemu w sposób zrozumiały i przejrzysty, został wykorzystany model C4. Jest to zbiór abstrakcyjnych diagramów, które pozwalają na przedstawienie architektury systemu na różnych poziomach szczegółowości. W tym rozdziale zostaną przedstawione diagramy dla poziomów kontekstu, kontenerów oraz komponentów.
+
+TODO
+
+\subsection{Protokoły i formaty komunikacji}
+
+W celu zapewnienia komunikacji pomiędzy poszczególnymi komponentami systemu, zostały wykorzystane następujące protokoły i formaty komunikacji:
+
+TODO przeczytac bo glupoty pisze
+
+\begin{itemize}
+
+    \item \textbf{Protokół HTTP} (ang. \textit{Hypertext Transfer Protocol}) - protokół warstwy aplikacji, który jest wykorzystywany do komunikacji pomiędzy częścią kliencką systemu a serwisami. Jest to protokół bezstanowy, który wykorzystuje metody takie jak GET, POST, PUT, DELETE, itp. do przesyłania danych. W projekcie został wykorzystany do komunikacji pomiędzy częścią kliencką systemu a serwisami, a także pomiędzy serwisami. W celu zapewnienia bezpieczeństwa komunikacji, został wykorzystany protokół HTTPS, który jest szyfrowaną wersją protokołu HTTP,
+
+    \item \textbf{REST} (ang. \textit{Representational State Transfer}) - styl architektoniczny, który jest wykorzystywany do projektowania rozproszonych systemów. W projekcie został wykorzystany do komunikacji pomiędzy częścią kliencką systemu a serwisami, a także pomiędzy serwisami. REST definiuje zestaw zasad, które określają jak powinny wyglądać interfejsy komunikacyjne pomiędzy komponentami systemu.
+    
+    \item \textbf{Protokół gRPC} (ang. \textit{Remote Procedure Call}) - otwarty protokół zdalnego wywoływania procedur (RPC) opracowany przez Google. Używa on formatu przesyłania danych Protocol Buffers do efektywnego serializowania struktur danych, oferując wydajne, skalowalne i językowo niezależne mechanizmy komunikacji między usługami. W projekcie został wykorzystany do komunikacji pomiędzy serwisami a kolejką komunikatów oraz magazynem zdarzeń.
+
+    \item \textbf{Format JSON} (ang. \textit{JavaScript Object Notation}) - format danych, który jest wykorzystywany do przesyłania danych pomiędzy komponentami systemu. Jest to format tekstowy, który jest niezależny od języka programowania. W projekcie został wykorzystany do przesyłania danych pomiędzy częścią kliencką systemu a serwisami.
+    
+    \item \textbf{Format XML} (ang. \textit{Extensible Markup Language}) - format danych, który jest wykorzystywany do przesyłania danych pomiędzy komponentami systemu. Jest to format tekstowy, który jest niezależny od języka programowania. W projekcie został wykorzystany do przesyłania danych pomiędzy serwisami, w postaci zdarzeń.
+
+\end{itemize}
 
 \subsection{Persystencja danych}
 
+TODO magazyn zdarzeń
+
+TODO projekcyjna baza danych
+
 \subsection{Kolejka komunikatów i magazyn zdarzeń}
+
+TODO axon server
 
 \subsection{Uwierzytelnianie i autoryzacja}
 
+TODO Auth0
+
+TODO OAuth2 (Authorization code grant)
+
+TODO JWT
+
 \subsection{Integracje zewnętrzne}
+
+TODO Google Maps Platform
+
+TODO Stripe
+
+TODO Mailjet
+
+TODO invoice generator
