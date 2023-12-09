@@ -23,7 +23,9 @@ Wydzielono również moduł niebędący mikroserwisem, a jedynie biblioteką, kt
 
 \subsection{Model C4 systemu}
 
-W celu przedstawienia architektury systemu w sposób zrozumiały i przejrzysty, został wykorzystany model C4. Jest to zbiór abstrakcyjnych diagramów, które pozwalają na przedstawienie architektury systemu na różnych poziomach szczegółowości. W tym rozdziale zostaną przedstawione diagramy dla poziomów kontekstu, kontenerów oraz komponentów.
+W celu przedstawienia architektury systemu w sposób zrozumiały i przejrzysty, został wykorzystany model C4.
+
+Model C4 (Context, Containers, Components, Code) to metoda wizualizacji architektury oprogramowania, zaprojektowana przez Simona Browna, która skupia się na dekompozycji systemu na różne poziomy abstrakcji. Model ten zaczyna od Kontekstu (poziom 1), pokazując zewnętrzne zależności systemu, przechodzi przez Kontenery (poziom 2), ukazujące główne części systemu (np. aplikacje webowe, bazy danych), aż do Komponentów (poziom 3), przedstawiających wewnętrzną budowę poszczególnych pojemników, kończąc na Kodzie (poziom 4), który pokazuje szczegóły implementacji. Model ten jest szeroko stosowany w projektowaniu i dokumentacji architektury oprogramowania, pozwalając na jasne i spójne przedstawienie skomplikowanych systemów.
 
 TODO
 
@@ -31,19 +33,17 @@ TODO
 
 W celu zapewnienia komunikacji pomiędzy poszczególnymi komponentami systemu, zostały wykorzystane następujące protokoły i formaty komunikacji:
 
-TODO przeczytac bo glupoty pisze
-
 \begin{itemize}
 
-    \item \textbf{Protokół HTTP} (ang. \textit{Hypertext Transfer Protocol}) - protokół warstwy aplikacji, który jest wykorzystywany do komunikacji pomiędzy częścią kliencką systemu a serwisami. Jest to protokół bezstanowy, który wykorzystuje metody takie jak GET, POST, PUT, DELETE, itp. do przesyłania danych. W projekcie został wykorzystany do komunikacji pomiędzy częścią kliencką systemu a serwisami, a także pomiędzy serwisami. W celu zapewnienia bezpieczeństwa komunikacji, został wykorzystany protokół HTTPS, który jest szyfrowaną wersją protokołu HTTP,
+    \item \textbf{Protokół HTTP} (ang. \textit{Hypertext Transfer Protocol}) - protokół komunikacyjny używany do przesyłania danych w Internecie, działający na zasadzie żądania i odpowiedzi między klientem a serwerem, charakteryzujący się bezstanowością i różnorodnymi metodami żądań, takimi jak GET czy POST. Bezpieczna wersja protokołu, HTTPS, dodatkowo zapewnia szyfrowanie danych, zwiększając prywatność i bezpieczeństwo transmisji. W projekcie został wykorzystany do komunikacji pomiędzy częścią kliencką systemu a serwisami serwerowymi.
 
-    \item \textbf{REST} (ang. \textit{Representational State Transfer}) - styl architektoniczny, który jest wykorzystywany do projektowania rozproszonych systemów. W projekcie został wykorzystany do komunikacji pomiędzy częścią kliencką systemu a serwisami, a także pomiędzy serwisami. REST definiuje zestaw zasad, które określają jak powinny wyglądać interfejsy komunikacyjne pomiędzy komponentami systemu.
+    \item \textbf{Styl REST} (ang. \textit{Representational State Transfer}) - styl architektury oprogramowania używany do projektowania sieciowych systemów aplikacji, oparty na bezstanowych żądaniach i odpowiedziach, wykorzystujący standardowe metody HTTP i formaty wymiany danych, takie jak JSON czy XML, do tworzenia skalowalnych i elastycznych interfejsów API. REST akcentuje prostotę komunikacji sieciowej, umożliwiając łatwą integrację między różnymi systemami w Internecie.
     
-    \item \textbf{Protokół gRPC} (ang. \textit{Remote Procedure Call}) - otwarty protokół zdalnego wywoływania procedur (RPC) opracowany przez Google. Używa on formatu przesyłania danych Protocol Buffers do efektywnego serializowania struktur danych, oferując wydajne, skalowalne i językowo niezależne mechanizmy komunikacji między usługami. W projekcie został wykorzystany do komunikacji pomiędzy serwisami a kolejką komunikatów oraz magazynem zdarzeń.
+    \item \textbf{Protokół gRPC} (ang. \textit{gRPC Remote Procedure Call}) - nowoczesny, otwartoźródłowy protokół zdalnego wywoływania procedur, opracowany przez Google, który umożliwia wydajną, szybką i bezpieczną komunikację między mikrousługami. Wykorzystuje format wymiany danych Protocol Buffers (Protobuf) i jest oparty na modelu klient-serwer, wspierając funkcje takie jak dwustronna komunikacja strumieniowa, kontrola przepływu i uwierzytelnienie oparta na certyfikatach TLS. W projekcie został wykorzystany do komunikacji pomiędzy serwisami a kolejką komunikatów oraz magazynem zdarzeń.
 
-    \item \textbf{Format JSON} (ang. \textit{JavaScript Object Notation}) - format danych, który jest wykorzystywany do przesyłania danych pomiędzy komponentami systemu. Jest to format tekstowy, który jest niezależny od języka programowania. W projekcie został wykorzystany do przesyłania danych pomiędzy częścią kliencką systemu a serwisami.
+    \item \textbf{Format JSON} (ang. \textit{JavaScript Object Notation}) - lekki format wymiany danych, łatwy do czytania i pisania dla ludzi oraz prosty do parsowania i generowania dla maszyn, wykorzystujący tekstowe struktury do reprezentowania obiektowych danych, zazwyczaj składających się z par klucz-wartość i uporządkowanych list. Jest powszechnie stosowany w komunikacji internetowej, w szczególności w interfejsach API i konfiguracjach. W projekcie został wykorzystany do przesyłania danych pomiędzy częścią kliencką systemu a serwisami.
     
-    \item \textbf{Format XML} (ang. \textit{Extensible Markup Language}) - format danych, który jest wykorzystywany do przesyłania danych pomiędzy komponentami systemu. Jest to format tekstowy, który jest niezależny od języka programowania. W projekcie został wykorzystany do przesyłania danych pomiędzy serwisami, w postaci zdarzeń.
+    \item \textbf{Format XML} (ang. \textit{Extensible Markup Language}) - elastyczny i rozszerzalny format danych oparty na znacznikach, zaprojektowany do przechowywania i transportu danych w sposób zarówno czytelny dla maszyn, jak i ludzi, często używany w różnorodnych aplikacjach internetowych i konfiguracjach systemowych. Charakteryzuje się ścisłą strukturą, z hierarchicznie uporządkowanymi elementami i atrybutami, co sprawia, że jest idealny do reprezentowania złożonych struktur danych. W projekcie został wykorzystany do serializacji i deserializacji wiadomości: zdarzeń, komend i zapytań.
 
 \end{itemize}
 
