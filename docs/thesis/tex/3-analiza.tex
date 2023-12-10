@@ -6,7 +6,7 @@ Przed rozpoczęciem implementacji systemu należy go przeanalizować pod kątem 
 
 W systemach o architekturze mikroserwisowej należy również odpowiednio wydzielić serwisy, stanowiące spójną całość.
 
-W tym rozdziale zostaną też przedstawione najważniejsze terminy i pojęcia używane w aplikacji, jej wymagania oraz przypadki użycia.
+W tym rozdziale zostaną też przedstawione najważniejsze terminy i pojęcia używane w aplikacji, jej wymagania funkcjonalne i niefunkcjonalne.
 
 \subsection{Słownik dziedziny problemu}
 
@@ -29,7 +29,7 @@ Słownik najważniejszych pojęć występujących w dziedzinie systemu. W nawias
 
 \subsection{Burza Zdarzeń}
 
-Aby móc podzielić system informatyczny na komponenty, później przekształcone w mikroserwisy, można zastosować np. technikę Burzy Zdarzeń (ang. Event Storming).
+Aby móc podzielić system informatyczny na komponenty, później przekształcone w mikroserwisy, można zastosować np. technikę Burzy Zdarzeń (ang. Event Storming \cite{eventstorming}.
 
 Burza Zdarzeń to metoda warsztatowa używana w projektowaniu i analizie systemów opartych na mikroserwisach. Została opracowana przez Alberto Brandoliniego i polega na interaktywnym modelowaniu procesów biznesowych poprzez identyfikację i dyskusję na temat "zdarzeń" mających znaczenie biznesowe. Uczestnicy, wykorzystując kolorowe karteczki, reprezentują różne aspekty systemu, takie jak wydarzenia, komendy, czy modele danych. Ta metoda sprzyja współpracy między różnymi zespołami, pomagając im lepiej zrozumieć procesy biznesowe i technologiczne oraz identyfikować potencjalne problemy i możliwości dla architektury mikroserwisowej.
 
@@ -132,10 +132,6 @@ Wymagania funkcjonalne zostały zidentyfikowane na podstawie komend i zdarzeń, 
     \item mogę wypłacić środki za dostarczone zamówienia na podany numer konta,
     \item mogę otrzymać fakturę za dostarczone zamówienia na podany adres e-mail.
 \end{itemize}
-
-\subsection{Przypadki użycia}
-
-TODO
 
 \subsection{Wymagania niefunkcjonalne}
 

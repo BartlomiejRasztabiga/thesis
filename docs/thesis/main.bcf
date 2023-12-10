@@ -2369,17 +2369,33 @@
     <bcf:citekey order="2" intorder="1">grpc</bcf:citekey>
     <bcf:citekey order="3" intorder="1">rabbitmq</bcf:citekey>
     <bcf:citekey order="4" intorder="1">kafka</bcf:citekey>
-    <bcf:citekey order="5" intorder="1">rys1</bcf:citekey>
-    <bcf:citekey order="6" intorder="1">rys1</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">microservices_rys</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">microservices_rys</bcf:citekey>
     <bcf:citekey order="7" intorder="1">eventual_consistency</bcf:citekey>
-    <bcf:citekey order="8" intorder="1">rys2</bcf:citekey>
-    <bcf:citekey order="9" intorder="1">rys2</bcf:citekey>
-    <bcf:citekey order="10" intorder="1">event_storming_rys</bcf:citekey>
-    <bcf:citekey order="11" intorder="1">event_storming_rys</bcf:citekey>
-    <bcf:citekey order="12" intorder="1">boundedcontext</bcf:citekey>
-    <bcf:citekey order="13" intorder="1">miro</bcf:citekey>
-    <bcf:citekey order="14" intorder="1">12factors</bcf:citekey>
-    <bcf:citekey order="15" intorder="1">locust</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">cap_rys</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">cap_rys</bcf:citekey>
+    <bcf:citekey order="10" intorder="1">cap</bcf:citekey>
+    <bcf:citekey order="11" intorder="1">ddd</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">cqrs</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">eventsourcing</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">saga</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">eventstorming</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">event_storming_rys</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">event_storming_rys</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">boundedcontext</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">miro</bcf:citekey>
+    <bcf:citekey order="20" intorder="1">12factors</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">json</bcf:citekey>
+    <bcf:citekey order="22" intorder="1">axonframework</bcf:citekey>
+    <bcf:citekey order="23" intorder="1">mongodb</bcf:citekey>
+    <bcf:citekey order="24" intorder="1">nosql</bcf:citekey>
+    <bcf:citekey order="25" intorder="1">auth0</bcf:citekey>
+    <bcf:citekey order="26" intorder="1">gmaps</bcf:citekey>
+    <bcf:citekey order="27" intorder="1">stripe</bcf:citekey>
+    <bcf:citekey order="28" intorder="1">mailjet</bcf:citekey>
+    <bcf:citekey order="29" intorder="1">invoicegenerator</bcf:citekey>
+    <bcf:citekey order="30" intorder="1">springboot</bcf:citekey>
+    <bcf:citekey order="31" intorder="1">locust</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

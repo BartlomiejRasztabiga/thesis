@@ -15,7 +15,7 @@ Architektura mikroserwisowa to podejście do strukturyzacji aplikacji jako zbió
 
 \begin{figure}[!h]
     \centering \includegraphics[width=1.0\linewidth]{mikroserwisy.png}
-    \caption{Reprezentacja graficzna systemu o architekturze mikroserwisowej \cite{rys1}}
+    \caption{Reprezentacja graficzna systemu o architekturze mikroserwisowej \cite{microservices_rys}}
 \end{figure}
 
 
@@ -63,10 +63,10 @@ Tworząc rozproszone systemy przetwarzające dane, należy pamiętać o tzw. twi
 
 \begin{figure}[!h]
     \centering \includegraphics[width=0.3\linewidth]{cap.jpg}
-    \caption{Reprezentacja graficzna twierdzenia CAP \cite{rys2}}
+    \caption{Reprezentacja graficzna twierdzenia CAP \cite{cap_rys}}
 \end{figure}
 
-Twierdzenie CAP, odnosi się do trzech podstawowych właściwości, które mogą być gwarantowane w systemach rozproszonych: spójność (Consistency), dostępność (Availability) oraz odporność na rozbicia (Partition Tolerance). Stwierdza ono, że system rozproszony może zapewnić jednocześnie tylko dwie z tych trzech właściwości. Decyzje dotyczące skalowania i zarządzania danymi muszą uwzględniać kompromisy między spójnością, dostępnością i odpornością na rozbicia.
+Twierdzenie CAP \cite{cap}, odnosi się do trzech podstawowych właściwości, które mogą być gwarantowane w systemach rozproszonych: spójność (Consistency), dostępność (Availability) oraz odporność na rozbicia (Partition Tolerance). Stwierdza ono, że system rozproszony może zapewnić jednocześnie tylko dwie z tych trzech właściwości. Decyzje dotyczące skalowania i zarządzania danymi muszą uwzględniać kompromisy między spójnością, dostępnością i odpornością na rozbicia.
 
 \subsection{Architektura zorientowana na zdarzenia}
 
@@ -90,7 +90,7 @@ Podsumowując, architektura zorientowana na zdarzenia, stosowana w ramach archit
 
 \subsection{Projektowanie zorientowane na dziedzinę}
 
-Projektowanie zorientowane na dziedzinę (ang. Domain-Driven Design, DDD) to podejście do projektowania oprogramowania, które koncentruje się na modelowaniu złożonych systemów biznesowych.
+Projektowanie zorientowane na dziedzinę (ang. Domain-Driven Design, DDD \cite{ddd}) to podejście do projektowania oprogramowania, które koncentruje się na modelowaniu złożonych systemów biznesowych.
 
 \begin{enumerate}
     \item \textbf{Modelowanie Dziedziny}: DDD skupia się na głębokim zrozumieniu dziedziny biznesowej i jej problemów. W kontekście aplikacji webowych, modelowanie dziedziny pomaga w identyfikacji kluczowych funkcji i procesów biznesowych, które aplikacja ma obsługiwać.
@@ -110,7 +110,7 @@ Projektowanie zorientowane na dziedzinę (ang. Domain-Driven Design, DDD) to pod
 
 \subsection{Separacja odpowiedzialności komend i zapytań}
 
-Separacja odpowiedzialności komend i zapytań (ang. Command Query Responsibility Segregation, CQRS) to wzorzec architektoniczny, który rozdziela operacje odczytu (Query) od operacji zapisu (Command) w systemie informatycznym na poziomie architektury. Taka separacja nie wymaga, by oba rodzaje operacji były zaimplementowane w ramach tej samej aplikacji. W przypadku tworzenia skalowalnych aplikacji internetowych, CQRS umożliwia efektywniejsze zarządzanie i optymalizację procesów odczytu i zapisu poprzez ich niezależne skalowanie. Wynikiem jest optymalne wykorzystanie zasobów, uproszczenie struktury kodu i zwiększenie ogólnej wydajności systemu. W architekturze opartej na mikroserwisach, CQRS dodatkowo sprzyja lepszemu rozdzieleniu obowiązków między poszczególnymi mikroserwisami, co przekłada się na wyższą modułowość i elastyczność systemu.
+Separacja odpowiedzialności komend i zapytań (ang. Command Query Responsibility Segregation, CQRS \cite{cqrs}) to wzorzec architektoniczny, który rozdziela operacje odczytu (Query) od operacji zapisu (Command) w systemie informatycznym na poziomie architektury. Taka separacja nie wymaga, by oba rodzaje operacji były zaimplementowane w ramach tej samej aplikacji. W przypadku tworzenia skalowalnych aplikacji internetowych, CQRS umożliwia efektywniejsze zarządzanie i optymalizację procesów odczytu i zapisu poprzez ich niezależne skalowanie. Wynikiem jest optymalne wykorzystanie zasobów, uproszczenie struktury kodu i zwiększenie ogólnej wydajności systemu. W architekturze opartej na mikroserwisach, CQRS dodatkowo sprzyja lepszemu rozdzieleniu obowiązków między poszczególnymi mikroserwisami, co przekłada się na wyższą modułowość i elastyczność systemu.
 
 \begin{figure}[!h]
     \centering \includegraphics[width=0.6\linewidth]{cqrs.png}
@@ -119,7 +119,7 @@ Separacja odpowiedzialności komend i zapytań (ang. Command Query Responsibilit
 
 \subsection{Event Sourcing}
 
-Wzorzec Event Sourcing jest podejściem w projektowaniu oprogramowania, które polega na przechowywaniu zmian stanu aplikacji jako sekwencji zdarzeń. Każda akcja w systemie generuje zdarzenie, które zamiast modyfikować stan bezpośrednio, jest rejestrowane i służy jako podstawa do odtworzenia bieżącego stanu systemu.
+Wzorzec Event Sourcing \cite{eventsourcing} jest podejściem w projektowaniu oprogramowania, które polega na przechowywaniu zmian stanu aplikacji jako sekwencji zdarzeń. Każda akcja w systemie generuje zdarzenie, które zamiast modyfikować stan bezpośrednio, jest rejestrowane i służy jako podstawa do odtworzenia bieżącego stanu systemu.
 
 \begin{enumerate}
 
@@ -146,7 +146,7 @@ Wzorzec Event Sourcing jest podejściem w projektowaniu oprogramowania, które p
 
 \subsection{Wzorzec Saga}
 
-Wzorzec Saga w architekturze mikroserwisowej jest strategią zarządzania transakcjami rozproszonymi. W systemach opartych na mikroserwisach, gdzie każdy serwis zarządza własną bazą danych, tradycyjne transakcje bazodanowe (jak te stosowane w monolitycznych architekturach) nie są możliwe. Saga oferuje rozwiązanie tego problemu, umożliwiając realizację operacji, które obejmują wiele serwisów, poprzez sekwencję lokalnych transakcji.
+Wzorzec Saga \cite{saga} w architekturze mikroserwisowej jest strategią zarządzania transakcjami rozproszonymi. W systemach opartych na mikroserwisach, gdzie każdy serwis zarządza własną bazą danych, tradycyjne transakcje bazodanowe (jak te stosowane w monolitycznych architekturach) nie są możliwe. Saga oferuje rozwiązanie tego problemu, umożliwiając realizację operacji, które obejmują wiele serwisów, poprzez sekwencję lokalnych transakcji.
 
 \begin{enumerate}
 

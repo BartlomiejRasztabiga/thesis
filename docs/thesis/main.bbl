@@ -74,7 +74,7 @@
       \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://kafka.apache.org}}
       \field{title}{Strona internetowa kolejki wiadomości Apache Kafka}
     \endentry
-    \entry{rys1}{misc}{}
+    \entry{microservices_rys}{misc}{}
       \field{sortinit}{5}
       \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labeltitlesource}{title}
@@ -88,12 +88,54 @@
       \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://www.scylladb.com/glossary/eventual-consistency}}
       \field{title}{Definicja pojęcia spójności ostatecznej}
     \endentry
-    \entry{rys2}{misc}{}
+    \entry{cap_rys}{misc}{}
       \field{sortinit}{8}
       \field{sortinithash}{a231b008ebf0ecbe0b4d96dcc159445f}
       \field{labeltitlesource}{title}
       \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://datascience.eu/pl/programowanie-komputerowe/twierdzenie-cap-i-rozproszone-systemy-zarzadzania-bazami-danych}}
       \field{title}{Reprezentacja graficzna twierdzenia "{CAP}"}
+    \endentry
+    \entry{cap}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://www.scylladb.com/glossary/cap-theorem}}
+      \field{title}{Definicja twierdzenia "{CAP}"}
+    \endentry
+    \entry{ddd}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://martinfowler.com/bliki/DomainDrivenDesign.html}}
+      \field{title}{Definicja techniki DDD}
+    \endentry
+    \entry{cqrs}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://martinfowler.com/bliki/CQRS.html}}
+      \field{title}{Definicja wzorca CQRS}
+    \endentry
+    \entry{eventsourcing}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://martinfowler.com/eaaDev/EventSourcing.html}}
+      \field{title}{Definicja wzorca Event Sourcing}
+    \endentry
+    \entry{saga}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://microservices.io/patterns/data/saga.html}}
+      \field{title}{Definicja wzorca Saga}
+    \endentry
+    \entry{eventstorming}{misc}{}
+      \field{sortinit}{1}
+      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://www.ibm.com/cloud/architecture/architecture/practices/event-storming-methodology-architecture}}
+      \field{title}{Event Storming}
     \endentry
     \entry{event_storming_rys}{book}{}
       \name{author}{1}{}{%
@@ -145,15 +187,85 @@
       \field{title}{Platforma Miro}
     \endentry
     \entry{12factors}{misc}{}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
       \field{labeltitlesource}{title}
-      \field{howpublished}{Dostęp zdalny (06.12.2023): \url{https://12factor.net/pl/}}
+      \field{howpublished}{Dostęp zdalny (06.12.2023): \url{https://12factor.net/pl}}
       \field{title}{Strona internetowa dwunastu czynników wpływających na jakość oprogramowania}
     \endentry
+    \entry{json}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://www.json.org/json-en.html}}
+      \field{title}{Specyfikacja formatu JSON}
+    \endentry
+    \entry{axonframework}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://docs.axoniq.io/reference-guide}}
+      \field{title}{Axon Framework}
+    \endentry
+    \entry{mongodb}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://www.mongodb.com}}
+      \field{title}{Strona internetowa bazy danych MongoDB}
+    \endentry
+    \entry{nosql}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://www.mongodb.com/nosql-explained}}
+      \field{title}{Bazy danych NoSQL}
+    \endentry
+    \entry{auth0}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://auth0.com}}
+      \field{title}{Platforma Auth0}
+    \endentry
+    \entry{gmaps}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://mapsplatform.google.com}}
+      \field{title}{Strona internetowa platformy Google Maps}
+    \endentry
+    \entry{stripe}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://stripe.com}}
+      \field{title}{Strona internetowa bramki płatności Stripe}
+    \endentry
+    \entry{mailjet}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (10.12.2023): \url{https://www.mailjet.com}}
+      \field{title}{Strona internetowa platformy Mailjet}
+    \endentry
+    \entry{invoicegenerator}{misc}{}
+      \field{sortinit}{2}
+      \field{sortinithash}{8b555b3791beccb63322c22f3320aa9a}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (10.12.2023): \url{https://invoice-generator.com/developers}}
+      \field{title}{Strona internetowa serwisu "Invoice Generator"}
+    \endentry
+    \entry{springboot}{misc}{}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://spring.io/projects/spring-boot}}
+      \field{title}{Framework Spring Boot}
+    \endentry
     \entry{locust}{misc}{}
-      \field{sortinit}{1}
-      \field{sortinithash}{4f6aaa89bab872aa0999fec09ff8e98a}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
       \field{labeltitlesource}{title}
       \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://locust.io}}
       \field{title}{Strona internetowa biblioteki Locust}
