@@ -22,50 +22,50 @@
 \contentsline {section}{\numberline {4\relax .\enspace }Architektura systemu}{23}{section.4}%
 \contentsline {subsection}{\numberline {4.1\relax .\enspace }Podział na mikroserwisy}{23}{subsection.4.1}%
 \contentsline {subsection}{\numberline {4.2\relax .\enspace }Model C4 systemu}{23}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3\relax .\enspace }Protokoły i formaty komunikacji}{24}{subsection.4.3}%
-\contentsline {subsection}{\numberline {4.4\relax .\enspace }Persystencja danych i magazyn zdarzeń}{25}{subsection.4.4}%
-\contentsline {subsection}{\numberline {4.5\relax .\enspace }Kolejka komunikatów}{25}{subsection.4.5}%
-\contentsline {subsection}{\numberline {4.6\relax .\enspace }Uwierzytelnianie i autoryzacja}{25}{subsection.4.6}%
-\contentsline {subsection}{\numberline {4.7\relax .\enspace }Integracje zewnętrzne}{26}{subsection.4.7}%
-\contentsline {section}{\numberline {5\relax .\enspace }Implementacja}{28}{section.5}%
-\contentsline {subsection}{\numberline {5.1\relax .\enspace }Część serwerowa}{28}{subsection.5.1}%
-\contentsline {subsubsection}{\numberline {5.1.1\relax .\enspace }Użyte narzędzia?}{28}{subsubsection.5.1.1}%
-\contentsline {subsubsection}{\numberline {5.1.2\relax .\enspace }Architektura heksagonalna}{28}{subsubsection.5.1.2}%
-\contentsline {subsubsection}{\numberline {5.1.3\relax .\enspace }Podział na pakiety}{28}{subsubsection.5.1.3}%
-\contentsline {subsubsection}{\numberline {5.1.4\relax .\enspace }Warstwa adapterów wejściowych}{28}{subsubsection.5.1.4}%
+\contentsline {subsection}{\numberline {4.3\relax .\enspace }Protokoły i formaty komunikacji}{25}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4\relax .\enspace }Persystencja danych i magazyn zdarzeń}{26}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5\relax .\enspace }Kolejka komunikatów}{26}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6\relax .\enspace }Uwierzytelnianie i autoryzacja}{26}{subsection.4.6}%
+\contentsline {subsection}{\numberline {4.7\relax .\enspace }Integracje zewnętrzne}{27}{subsection.4.7}%
+\contentsline {section}{\numberline {5\relax .\enspace }Implementacja}{29}{section.5}%
+\contentsline {subsection}{\numberline {5.1\relax .\enspace }Część serwerowa}{29}{subsection.5.1}%
+\contentsline {subsubsection}{\numberline {5.1.1\relax .\enspace }Użyte narzędzia}{29}{subsubsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.2\relax .\enspace }Architektura heksagonalna}{29}{subsubsection.5.1.2}%
+\contentsline {subsubsection}{\numberline {5.1.3\relax .\enspace }Podział na pakiety}{29}{subsubsection.5.1.3}%
+\contentsline {subsubsection}{\numberline {5.1.4\relax .\enspace }Warstwa adapterów wejściowych}{29}{subsubsection.5.1.4}%
 \contentsline {subsubsection}{\numberline {5.1.5\relax .\enspace }Warstwa adapterów wyjściowych}{29}{subsubsection.5.1.5}%
-\contentsline {subsubsection}{\numberline {5.1.6\relax .\enspace }Warstwa dziedziny}{29}{subsubsection.5.1.6}%
-\contentsline {subsubsection}{\numberline {5.1.7\relax .\enspace }Warstwa prezentacji/zapytań}{29}{subsubsection.5.1.7}%
-\contentsline {subsubsection}{\numberline {5.1.8\relax .\enspace }Warstwa infrastruktury}{29}{subsubsection.5.1.8}%
-\contentsline {subsubsection}{\numberline {5.1.9\relax .\enspace }Warstwa konfiguracji}{29}{subsubsection.5.1.9}%
-\contentsline {subsubsection}{\numberline {5.1.10\relax .\enspace }Współdzielony kod}{29}{subsubsection.5.1.10}%
-\contentsline {subsection}{\numberline {5.2\relax .\enspace }Część kliencka}{29}{subsection.5.2}%
-\contentsline {subsubsection}{\numberline {5.2.1\relax .\enspace }Użyte narzędzia?}{29}{subsubsection.5.2.1}%
-\contentsline {subsubsection}{\numberline {5.2.2\relax .\enspace }Podział na katalogi}{29}{subsubsection.5.2.2}%
-\contentsline {subsubsection}{\numberline {5.2.3\relax .\enspace }Komponenty interfejsu użytkownika}{29}{subsubsection.5.2.3}%
-\contentsline {subsubsection}{\numberline {5.2.4\relax .\enspace }Komunikacja z częścią serwerową}{29}{subsubsection.5.2.4}%
-\contentsline {subsubsection}{\numberline {5.2.5\relax .\enspace }Obsługa ścieżek}{29}{subsubsection.5.2.5}%
-\contentsline {subsubsection}{\numberline {5.2.6\relax .\enspace }Współdzielony kod}{29}{subsubsection.5.2.6}%
-\contentsline {subsubsection}{\numberline {5.2.7\relax .\enspace }Przechowywanie stanu aplikacji}{29}{subsubsection.5.2.7}%
-\contentsline {section}{\numberline {6\relax .\enspace }Wdrożenie}{30}{section.6}%
-\contentsline {subsection}{\numberline {6.1\relax .\enspace }CI/CD}{30}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2\relax .\enspace }Repozytorium artefaktów}{30}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3\relax .\enspace }Konteneryzacja}{30}{subsection.6.3}%
-\contentsline {subsection}{\numberline {6.4\relax .\enspace }Orkiestracja kontenerów}{30}{subsection.6.4}%
-\contentsline {subsection}{\numberline {6.5\relax .\enspace }Skalowanie}{30}{subsection.6.5}%
-\contentsline {subsection}{\numberline {6.6\relax .\enspace }Chmura Google Cloud Platform}{30}{subsection.6.6}%
-\contentsline {subsection}{\numberline {6.7\relax .\enspace }Monitorowanie}{30}{subsection.6.7}%
-\contentsline {section}{\numberline {7\relax .\enspace }Testowanie systemu}{31}{section.7}%
-\contentsline {subsection}{\numberline {7.1\relax .\enspace }Testy jednostkowe}{31}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2\relax .\enspace }Testy integracyjne}{31}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3\relax .\enspace }Testy akceptacyjne}{31}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4\relax .\enspace }Testy wydajnościowe}{31}{subsection.7.4}%
-\contentsline {section}{\numberline {8\relax .\enspace }Podsumowanie}{32}{section.8}%
-\contentsline {subsection}{\numberline {8.1\relax .\enspace }Wnioski}{32}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2\relax .\enspace }Stopień realizacji założeń}{32}{subsection.8.2}%
-\contentsline {subsection}{\numberline {8.3\relax .\enspace }Możliwości dalszego rozwoju}{32}{subsection.8.3}%
-\contentsline {section}{Bibliografia}{33}{section*.7}%
-\contentsline {section}{Spis rysunków}{35}{section*.7}%
-\contentsline {section}{Spis tabel}{35}{section*.7}%
-\contentsline {section}{Spis załączników}{35}{section*.8}%
-\contentsline {section}{Spis wycinków kodu}{35}{section*.8}%
+\contentsline {subsubsection}{\numberline {5.1.6\relax .\enspace }Warstwa dziedziny}{30}{subsubsection.5.1.6}%
+\contentsline {subsubsection}{\numberline {5.1.7\relax .\enspace }Warstwa prezentacji/zapytań}{30}{subsubsection.5.1.7}%
+\contentsline {subsubsection}{\numberline {5.1.8\relax .\enspace }Warstwa infrastruktury}{30}{subsubsection.5.1.8}%
+\contentsline {subsubsection}{\numberline {5.1.9\relax .\enspace }Warstwa konfiguracji}{30}{subsubsection.5.1.9}%
+\contentsline {subsubsection}{\numberline {5.1.10\relax .\enspace }Współdzielony kod}{30}{subsubsection.5.1.10}%
+\contentsline {subsection}{\numberline {5.2\relax .\enspace }Część kliencka}{30}{subsection.5.2}%
+\contentsline {subsubsection}{\numberline {5.2.1\relax .\enspace }Użyte narzędzia}{30}{subsubsection.5.2.1}%
+\contentsline {subsubsection}{\numberline {5.2.2\relax .\enspace }Podział na katalogi}{30}{subsubsection.5.2.2}%
+\contentsline {subsubsection}{\numberline {5.2.3\relax .\enspace }Komponenty interfejsu użytkownika}{30}{subsubsection.5.2.3}%
+\contentsline {subsubsection}{\numberline {5.2.4\relax .\enspace }Komunikacja z częścią serwerową}{30}{subsubsection.5.2.4}%
+\contentsline {subsubsection}{\numberline {5.2.5\relax .\enspace }Obsługa ścieżek}{30}{subsubsection.5.2.5}%
+\contentsline {subsubsection}{\numberline {5.2.6\relax .\enspace }Współdzielony kod}{30}{subsubsection.5.2.6}%
+\contentsline {subsubsection}{\numberline {5.2.7\relax .\enspace }Przechowywanie stanu aplikacji}{30}{subsubsection.5.2.7}%
+\contentsline {section}{\numberline {6\relax .\enspace }Wdrożenie}{31}{section.6}%
+\contentsline {subsection}{\numberline {6.1\relax .\enspace }CI/CD}{31}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2\relax .\enspace }Repozytorium artefaktów}{31}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3\relax .\enspace }Konteneryzacja}{31}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4\relax .\enspace }Orkiestracja kontenerów}{31}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5\relax .\enspace }Skalowanie}{31}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6\relax .\enspace }Chmura Google Cloud Platform}{31}{subsection.6.6}%
+\contentsline {subsection}{\numberline {6.7\relax .\enspace }Monitorowanie}{31}{subsection.6.7}%
+\contentsline {section}{\numberline {7\relax .\enspace }Testowanie systemu}{32}{section.7}%
+\contentsline {subsection}{\numberline {7.1\relax .\enspace }Testy jednostkowe}{32}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2\relax .\enspace }Testy integracyjne}{32}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3\relax .\enspace }Testy akceptacyjne}{32}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4\relax .\enspace }Testy wydajnościowe}{32}{subsection.7.4}%
+\contentsline {section}{\numberline {8\relax .\enspace }Podsumowanie}{33}{section.8}%
+\contentsline {subsection}{\numberline {8.1\relax .\enspace }Wnioski}{33}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2\relax .\enspace }Stopień realizacji założeń}{33}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3\relax .\enspace }Możliwości dalszego rozwoju}{33}{subsection.8.3}%
+\contentsline {section}{Bibliografia}{35}{section*.9}%
+\contentsline {section}{Spis rysunków}{37}{section*.9}%
+\contentsline {section}{Spis tabel}{37}{section*.9}%
+\contentsline {section}{Spis załączników}{37}{section*.10}%
+\contentsline {section}{Spis wycinków kodu}{37}{section*.10}%

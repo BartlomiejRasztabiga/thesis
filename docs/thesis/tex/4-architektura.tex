@@ -27,7 +27,30 @@ W celu przedstawienia architektury systemu w sposób zrozumiały i przejrzysty, 
 
 Model C4 (Context, Containers, Components, Code) to metoda wizualizacji architektury oprogramowania, zaprojektowana przez Simona Browna, która skupia się na dekompozycji systemu na różne poziomy abstrakcji. Model ten zaczyna od Kontekstu (poziom 1), pokazując zewnętrzne zależności systemu, przechodzi przez Kontenery (poziom 2), ukazujące główne części systemu (np. aplikacje webowe, bazy danych), aż do Komponentów (poziom 3), przedstawiających wewnętrzną budowę poszczególnych pojemników, kończąc na Kodzie (poziom 4), który pokazuje szczegóły implementacji. Model ten jest szeroko stosowany w projektowaniu i dokumentacji architektury oprogramowania, pozwalając na jasne i spójne przedstawienie skomplikowanych systemów.
 
-TODO
+Pierwszym poziomem modelu C4 jest \textbf{Kontekst} (ang. \textit{Context}), który przedstawia zewnętrzne zależności systemu. Został on przedstawiony na rysunku \ref{fig:c4context}.
+
+\begin{figure}[!h]
+    \centering \includegraphics[width=1.0\linewidth]{c4context.png}
+    \caption{Model C4 systemu - Kontekst}
+    \label{fig:c4context}
+\end{figure}
+
+Na poziomie Kontekstu zostały przedstawione zewnętrzne systemy, z którymi system wchodzi w interakcję, a także użytkownicy systemu.
+
+Drugim poziomem modelu C4 są \textbf{Kontenery} (ang. \textit{Containers}), które przedstawiają główne części systemu. Został on przedstawiony na rysunku \ref{fig:c4containers}.
+
+\begin{figure}[!h]
+    \centering \includegraphics[width=1.0\linewidth]{c4containers.png}
+    \caption{Model C4 systemu - Kontenery}
+    \label{fig:c4containers}
+\end{figure}
+
+Na poziomie Kontenerów zostały przedstawione poszczególne serwisy, które zostały wydzielone w ramach części serwerowej systemu.
+
+Trzecim poziomem modelu C4 są \textbf{Komponenty} (ang. \textit{Components}), które przedstawiają wewnętrzną budowę poszczególnych Kontenerów. Nie zostały one przedstawione w niniejszej pracy, ze względu na zbyt dużą szczegółowość. 
+
+Czwarty poziom modelu C4 to \textbf{Kod} (ang. \textit{Code}), który przedstawia szczegóły implementacji poszczególnych Komponentów, został pominięty z tego samego powodu.
+
 
 \subsection{Protokoły i formaty komunikacji}
 

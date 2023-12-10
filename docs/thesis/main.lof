@@ -5,3 +5,5 @@
 \contentsline {figure}{\numberline {2.4}{\ignorespaces Schemat architektoniczny implementacji wzorca Event Sourcing\relax }}{16}{figure.caption.4}%
 \contentsline {figure}{\numberline {3.1}{\ignorespaces Przykładowy rezultat sesji Burzy Zdarzeń \blx@tocontentsinit {0}\cite {event_storming_rys}\relax }}{19}{figure.caption.5}%
 \contentsline {figure}{\numberline {3.2}{\ignorespaces Rezultat sesji Burzy Zdarzeń dla projektowanego systemu\relax }}{20}{figure.caption.6}%
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Model C4 systemu - Kontekst\relax }}{24}{figure.caption.7}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Model C4 systemu - Kontenery\relax }}{24}{figure.caption.8}%

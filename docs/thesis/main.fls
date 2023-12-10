@@ -1337,6 +1337,14 @@ INPUT tex/4-architektura.tex
 INPUT ./tex/4-architektura.tex
 INPUT ./tex/4-architektura.tex
 INPUT tex/4-architektura.tex
+INPUT ./tex/img//c4context.png
+INPUT tex/img//c4context.png
+INPUT ./tex/img//c4context.png
+INPUT ./tex/img//c4context.png
+INPUT ./tex/img//c4containers.png
+INPUT tex/img//c4containers.png
+INPUT ./tex/img//c4containers.png
+INPUT ./tex/img//c4containers.png
 INPUT ./tex/5-implementacja.tex
 INPUT ./tex/5-implementacja.tex
 INPUT ./tex/5-implementacja.tex
