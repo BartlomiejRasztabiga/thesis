@@ -1,13 +1,13 @@
 # Fdb version 4
-["biber main"] 1702233694 "main.bcf" "main.bbl" "main" 1702233906 0
-  "./bibliografia.bib" 1702215808 4733 eed18e2c3cb07e86fdd22581be083298 ""
-  "main.bcf" 1702233906 109166 e1b22c245092f80e89c38596c6d7f269 "pdflatex"
+["biber main"] 1702323320 "main.bcf" "main.bbl" "main" 1702325443 0
+  "./bibliografia.bib" 1702323320 5105 053bc07dc05e8edb7beb9184556e1767 ""
+  "main.bcf" 1702325442 109287 79c29457ea65b9ce86566fbc930fca92 "pdflatex"
   (generated)
   "main.bbl"
   "main.blg"
   (rewritten before read)
-["pdflatex"] 1702233901 "/Users/rasztabigab/SoftwareDevelopment/thesis/docs/thesis/main.tex" "main.pdf" "main" 1702233906 0
-  "/Users/rasztabigab/SoftwareDevelopment/thesis/docs/thesis/main.tex" 1701618060 8691 1e87f8a8f9e99b067475cbb98a3d1524 ""
+["pdflatex"] 1702325438 "/Users/rasztabigab/SoftwareDevelopment/thesis/docs/thesis/main.tex" "main.pdf" "main" 1702325443 0
+  "/Users/rasztabigab/SoftwareDevelopment/thesis/docs/thesis/main.tex" 1702321887 8502 5861ed2dedb2168dae33defeeaf3da52 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc" 1136849721 2971 def0b6c1f0b107b3b936def894055589 ""
   "/usr/local/texlive/2023/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -177,16 +177,15 @@
   "/usr/local/texlive/2023/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1700393518 4623355 b8cad38412faebe1ce5b780a45db67bd ""
   "/usr/local/texlive/2023/texmf-var/web2c/pdftex/pdflatex.fmt" 1700393447 7883457 1bd74a5f04f2187ad3078dfc816ea678 ""
   "/usr/local/texlive/2023/texmf.cnf" 1678822455 577 1b2b1af17af2508fb20dd85783af4050 ""
-  "main.app" 1702233906 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "main.aux" 1702233906 16981 564e0bbde7fbd8d96bf10d23afd93c4f "pdflatex"
-  "main.bbl" 1702233696 11883 2d39020f783c742107e43aa4a485f9ae "biber main"
-  "main.lof" 1702233906 1236 9f8fd5f824c5000fcfbabd0487f737f3 "pdflatex"
-  "main.lol" 1702233906 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "main.lot" 1702233906 166 43494c7be934666ee9c2be370a1a91b3 "pdflatex"
-  "main.out" 1702233906 11747 7c62d8a911e95b9ef4961e7ee0e2e3ca "pdflatex"
-  "main.run.xml" 1702233906 2403 538b6f202df59e7c514f7f39e5a89723 "pdflatex"
-  "main.tex" 1701618060 8691 1e87f8a8f9e99b067475cbb98a3d1524 ""
-  "main.toc" 1702233906 7301 2a71698d227ee76e82ee2a5353f20511 "pdflatex"
+  "main.aux" 1702325442 17105 bda3567a8f1e3638476fccfb0b04a4c1 "pdflatex"
+  "main.bbl" 1702323322 12573 04d5282b85963e4c770531100e24f722 "biber main"
+  "main.lof" 1702325442 1236 9f8fd5f824c5000fcfbabd0487f737f3 "pdflatex"
+  "main.lol" 1702325442 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "main.lot" 1702325442 166 43494c7be934666ee9c2be370a1a91b3 "pdflatex"
+  "main.out" 1702325442 11608 c0095fb69bd24ce6eea3e5e2049a8996 "pdflatex"
+  "main.run.xml" 1702325442 2403 538b6f202df59e7c514f7f39e5a89723 "pdflatex"
+  "main.tex" 1702321887 8502 5861ed2dedb2168dae33defeeaf3da52 ""
+  "main.toc" 1702325442 7237 2ba03bca68136eeeb7f2e72f16ff20e4 "pdflatex"
   "src/pl/header/eiti.pdf" 1674814146 69964 105a6f84868d9a51737c8f17fcc1d7a4 ""
   "src/pl/title/inz.pdf" 1674814146 5882 61d0d15069bc4a1f9c4f0d5a577209b4 ""
   "src/wut-thesis.cls" 1700688153 13846 aec4a01adb61041cb515dcbdd262d37f ""
@@ -194,7 +193,7 @@
   "tex/2-techniki.tex" 1702215630 18388 4f5b92ae7867a0797df792f02f08ece8 ""
   "tex/3-analiza.tex" 1702215246 12696 37d6717d6f37ba6c83431fafbec11e1f ""
   "tex/4-architektura.tex" 1702233901 14964 256f925915354fc42178958f25663c0a ""
-  "tex/5-implementacja.tex" 1702229527 3298 1455e9fba77727b02b3a380ba4fc8b91 ""
+  "tex/5-implementacja.tex" 1702325435 4351 905245f08049eae5e6048591d9c1ab54 ""
   "tex/6-wdrozenie.tex" 1701901969 1550 e080e0a7b5813e748230bd0b65f86c45 ""
   "tex/7-testowanie.tex" 1702229495 395 0293f11c6fdbb0e3a53be5889010cdb8 ""
   "tex/8-podsumowanie.tex" 1701901354 185 64e1d23dd1f5a7f63d567824636e4df9 ""
@@ -207,7 +206,6 @@
   "tex/img//event_storming2.png" 1701813985 973643 bedae343105937103a2c348ae05f589f ""
   "tex/img//mikroserwisy.png" 1701020083 296634 a5f4f2492a8c6634cbc4435f015f9219 ""
   (generated)
-  "main.app"
   "main.aux"
   "main.bcf"
   "main.lof"

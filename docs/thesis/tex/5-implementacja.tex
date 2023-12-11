@@ -2,17 +2,25 @@
 
 \section{Implementacja}
 
+Rozdział ten ma na celu szczegółowy opis implementacji systemu. Zostaną w nim przedstawione wykorzystane narzędzia, podział na moduły oraz szczegóły implementacyjne. Swoje miejsce znajdą tutaj również fragmenty kodu źródłowego, które mają na celu ułatwić zrozumienie sposobu działania systemu.
+
 \subsection{Część serwerowa}
+
+Część serwerową systemu stanowi aplikacja o architekturze mikroserwisowej, napisana w języku Kotlin z wykorzystaniem frameworków Spring Boot oraz Axon Framework.
 
 \subsubsection{Użyte narzędzia}
 
-Spring Boot \cite{springboot} to framework w ekosystemie Spring, który ułatwia tworzenie i rozwijanie aplikacji webowych oraz mikroserwisów w językach Java i Kotlin. Spring Boot oferuje wsparcie dla mikroserwisów, ułatwiając ich tworzenie, testowanie i wdrażanie, co czyni go popularnym wyborem wśród programistów pracujących nad nowoczesnymi, skalowalnymi aplikacjami.
+W części serwerowej aplikacji wykorzystano następujące najważniejsze narzędzia:
+
+\textbf{Kotlin} \cite{kotlin} to język programowania stworzony przez firmę JetBrains, działający na maszynie wirtualnej Javy (JVM) \cite{jvm}. Kotlin jest językiem statycznie typowanym, który łączy w sobie cechy zarówno języków obiektowych, jak i funkcyjnych. Jest on kompilowany do kodu bajtowego Javy, a jego składnia jest w dużej mierze zgodna z Javą, co czyni go łatwym do nauki i zrozumienia dla programistów Javy. Kotlin jest językiem wieloplatformowym, co oznacza, że może być kompilowany do kodu bajtowego Javy, kodu bajtowego Javy na Androida, kodu JavaScript oraz kodu natywnego. Kotlin jest językiem ogólnego przeznaczenia, który może być wykorzystywany do tworzenia aplikacji webowych, mobilnych, desktopowych, a nawet do tworzenia skryptów. Jego jedną z ważniejszych zalet jest wprowadzenie nullowalności na poziomie systemu typów, co pozwala na wykrywanie błędów związanych z niepoprawnym użyciem wartości null w czasie kompilacji, a nie w czasie działania programu.
+
+\textbf{Spring Boot} \cite{springboot} to framework w ekosystemie Spring, który ułatwia tworzenie i rozwijanie aplikacji webowych oraz mikroserwisów w językach Java i Kotlin. Spring Boot oferuje wsparcie dla mikroserwisów, ułatwiając ich tworzenie, testowanie i wdrażanie, co czyni go popularnym wyborem wśród programistów pracujących nad nowoczesnymi, skalowalnymi aplikacjami.
 
 Spring Boot ma silne powiązanie z koncepcją "cloud native", która odnosi się do projektowania aplikacji specjalnie na potrzeby chmury. Spring Boot ułatwia tworzenie aplikacji mikroserwisowych, które są nieodzownym elementem architektury cloud native, dostarczając funkcjonalności takie jak łatwa integracja z kontenerami (np. Docker), obsługa konfiguracji zewnętrznej, zarządzanie usługami przez service discovery oraz wspieranie wzorców takich jak circuit breaker. Te cechy sprawiają, że Spring Boot jest idealnym wyborem dla tworzenia aplikacji przygotowanych do działania w środowiskach chmurowych, oferujących skalowalność, elastyczność i odporność.
 
-Axon Framework to narzędzie do tworzenia aplikacji w architekturze opartej na zdarzeniach (event-driven) i wzorcu CQRS. Wspiera równie DDD, Event Sourcing oraz wzorzec Saga. Został zaprojektowany, aby ułatwić budowę skalowalnych i łatwych w utrzymaniu aplikacji. Oferuje wsparcie dla projektowania zorientowanego na zdarzenia, zarządzania zdarzeniami oraz ich dystrybucji. Axon zapewnia również mechanizmy do obsługi złożonych scenariuszy transakcyjnych w rozproszonych systemach dzięki wzorcowi Saga. Jego integracja z mikroserwisami i wsparcie dla event sourcing'u czynią go idealnym narzędziem do tworzenia skalowalnych aplikacji webowych.
+\textbf{Axon Framework} to framework do tworzenia aplikacji w architekturze opartej na zdarzeniach (event-driven) i wzorcu CQRS. Wspiera również DDD, Event Sourcing oraz wzorzec Saga. Axon Framework jest napisany w języku Java, ale może być wykorzystywany również w języku Kotlin. Axon Framework dostarcza abstrakcje do tworzenia aplikacji opartych na zdarzeniach, takich jak agregaty, komendy, zdarzenia, szyna wiadomości, sagi, itp. Axon Framework jest narzędziem open source, rozwijanym przez firmę AxonIQ.
 
-Axon Server działa jako dedykowany hub do przetwarzania komunikatów i zarządzania zdarzeniami w aplikacjach opartych na Axon Framework. Jako centralny punkt dla komunikacji opartej na zdarzeniach, Axon Server efektywnie zarządza przepływem zdarzeń, poleceń i zapytań między różnymi mikroserwisami. Działa jako serwer zdarzeń i kolejka wiadomości, które są często wykorzystywane w architekturach opartych na zdarzeniach i CQRS, wspierając skalowalność i wydajność aplikacji. Dzięki tej centralizacji, Axon Server umożliwia łatwiejsze zarządzanie, monitorowanie i optymalizację przepływu danych w aplikacjach webowych.
+\textbf{Axon Server} jest infrastrukturalnym elementem ekosystemu Axon, pełniącym rolę kolejki komunikatów oraz magazynu zdarzeń. Oferuje on również narzędzia do monitoringu i zarządzania aplikacjami opartymi na Axon Framework.
 
 \subsubsection{Architektura heksagonalna}
 

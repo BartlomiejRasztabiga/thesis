@@ -256,6 +256,20 @@
       \field{howpublished}{Dostęp zdalny (10.12.2023): \url{https://invoice-generator.com/developers}}
       \field{title}{Strona internetowa serwisu "Invoice Generator"}
     \endentry
+    \entry{kotlin}{misc}{}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (11.12.2023): \url{https://kotlinlang.org}}
+      \field{title}{Strona internetowa języka programowania Kotlin}
+    \endentry
+    \entry{jvm}{misc}{}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (11.12.2023): \url{https://docs.oracle.com/en/database/oracle/oracle-database/21/jjdev/Oracle-JVM-overview.html}}
+      \field{title}{Opis maszyny wirtualnej Java}
+    \endentry
     \entry{springboot}{misc}{}
       \field{sortinit}{3}
       \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}

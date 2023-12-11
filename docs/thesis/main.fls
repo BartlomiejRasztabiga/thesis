@@ -1387,10 +1387,6 @@ INPUT ./main.lot
 INPUT main.lot
 INPUT main.lot
 OUTPUT main.lot
-INPUT ./main.app
-INPUT main.app
-INPUT main.app
-OUTPUT main.app
 INPUT ./main.lol
 INPUT main.lol
 INPUT main.lol
