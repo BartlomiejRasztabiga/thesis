@@ -24,7 +24,22 @@ Spring Boot ma silne powiązanie z koncepcją "cloud native", która odnosi się
 
 \subsubsection{Architektura heksagonalna}
 
+Część serwerowa aplikacji została zaimplementowana zgodnie z architekturą heksagonalną (ang. hexagonal architecture), która jest jedną z popularnych architektur aplikacji serwerowych, wykorzystywanych przy złożonych projektach informatycznych. Architektura heksagonalna jest również znana pod nazwą architektury czystej (ang. clean architecture) lub architektury portów i adapterów (ang. ports and adapters architecture). Architektura heksagonalna została zaproponowana przez Alistaira Cockburna w 2005 roku \cite{cockburn2005hexagonal}.
+
+Architektura heksagonalna jest architekturą warstwową, która składa się z trzech warstw: warstwy adapterów, warstwy dziedziny oraz warstwy infrastruktury. Warstwa dziedziny jest główną warstwą aplikacji, która zawiera logikę biznesową. Warstwa adapterów jest warstwą zewnętrzną, która zawiera adaptery wejściowe i wyjściowe, które są odpowiedzialne za komunikację z zewnętrznymi systemami. Warstwa infrastruktury jest warstwą wewnętrzną, która zawiera implementację adapterów wejściowych i wyjściowych. Warstwa infrastruktury jest odpowiedzialna za konfigurację aplikacji oraz za integrację z zewnętrznymi systemami (np. bazą danych, systemem plików, itp.).
+
 \subsubsection{Podział na pakiety}
+
+Z powodu zastosowania architektury heksagonalnej, część serwerowa aplikacji została podzielona na pakiety zgodnie z warstwami architektury heksagonalnej. Podział na pakiety został przedstawiony na listingu \ref{lst:server-packages}.
+
+TODO
+
+TOOD czemu zly numer?
+TODO czemu spis wycinkow kodu jest wciety z lewej?
+\begin{lstlisting}[caption={Podział na pakiety części serwerowej aplikacji},label={lst:server-packages},captionpos=b]
+teest
+\end{lstlisting}
+
 
 \subsubsection{Warstwa adapterów wejściowych} adapter/in
 

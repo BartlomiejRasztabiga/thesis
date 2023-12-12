@@ -2397,7 +2397,8 @@
     <bcf:citekey order="30" intorder="1">kotlin</bcf:citekey>
     <bcf:citekey order="31" intorder="1">jvm</bcf:citekey>
     <bcf:citekey order="32" intorder="1">springboot</bcf:citekey>
-    <bcf:citekey order="33" intorder="1">locust</bcf:citekey>
+    <bcf:citekey order="33" intorder="1">cockburn2005hexagonal</bcf:citekey>
+    <bcf:citekey order="34" intorder="1">locust</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

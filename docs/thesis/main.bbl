@@ -277,6 +277,13 @@
       \field{howpublished}{Dostęp zdalny (07.06.2023): \url{https://spring.io/projects/spring-boot}}
       \field{title}{Framework Spring Boot}
     \endentry
+    \entry{cockburn2005hexagonal}{misc}{}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (13.12.2023): \url{https://alistair.cockburn.us/hexagonal-architecture}}
+      \field{title}{Opis architektury heksagonalnej}
+    \endentry
     \entry{locust}{misc}{}
       \field{sortinit}{3}
       \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
