@@ -24,34 +24,93 @@ Spring Boot ma silne powiązanie z koncepcją "cloud native", która odnosi się
 
 \subsubsection{Architektura heksagonalna}
 
-Część serwerowa aplikacji została zaimplementowana zgodnie z architekturą heksagonalną (ang. hexagonal architecture), która jest jedną z popularnych architektur aplikacji serwerowych, wykorzystywanych przy złożonych projektach informatycznych. Architektura heksagonalna jest również znana pod nazwą architektury czystej (ang. clean architecture) lub architektury portów i adapterów (ang. ports and adapters architecture). Architektura heksagonalna została zaproponowana przez Alistaira Cockburna w 2005 roku \cite{cockburn2005hexagonal}.
+Część serwerowa aplikacji została zaimplementowana zgodnie z architekturą heksagonalną (ang. hexagonal architecture), która jest jedną z popularnych architektur aplikacji serwerowych, wykorzystywanych przy złożonych projektach informatycznych. Architektura ta jest również znana pod nazwą architektury czystej (ang. clean architecture) lub architektury portów i adapterów (ang. ports and adapters architecture). Została ona zaproponowana przez Alistaira Cockburna w 2005 roku \cite{cockburn2005hexagonal}.
 
 Architektura heksagonalna jest architekturą warstwową, która składa się z trzech warstw: warstwy adapterów, warstwy dziedziny oraz warstwy infrastruktury. Warstwa dziedziny jest główną warstwą aplikacji, która zawiera logikę biznesową. Warstwa adapterów jest warstwą zewnętrzną, która zawiera adaptery wejściowe i wyjściowe, które są odpowiedzialne za komunikację z zewnętrznymi systemami. Warstwa infrastruktury jest warstwą wewnętrzną, która zawiera implementację adapterów wejściowych i wyjściowych. Warstwa infrastruktury jest odpowiedzialna za konfigurację aplikacji oraz za integrację z zewnętrznymi systemami (np. bazą danych, systemem plików, itp.).
 
 \subsubsection{Podział na pakiety}
 
-Z powodu zastosowania architektury heksagonalnej, część serwerowa aplikacji została podzielona na pakiety zgodnie z warstwami architektury heksagonalnej. Podział na pakiety został przedstawiony na listingu \ref{lst:server-packages}.
+Z powodu zastosowania architektury heksagonalnej, część serwerowa aplikacji została podzielona na pakiety zgodnie z warstwami tejże architektury. Podział na pakiety przykładowego serwisu został przedstawiony na listingu \ref{lst:server-packages}.
 
-TODO
-
-TOOD czemu zly numer?
-TODO czemu spis wycinkow kodu jest wciety z lewej?
-\begin{lstlisting}[caption={Podział na pakiety części serwerowej aplikacji},label={lst:server-packages},captionpos=b]
-teest
+\begin{lstlisting}[caption={Podział na pakiety części serwerowej projektu},label={lst:server-packages},captionpos=b]
+- adapter/
+    - in/
+    - out/
+- domain/
+    - query/
+    - command/
+- config/
+- infrastructure/
+- Application.kt
 \end{lstlisting}
 
+W kolejnych podrozdziałach zostaną przedstawione szczegóły implementacyjne poszczególnych warstw wraz z ich opisem.
 
-\subsubsection{Warstwa adapterów wejściowych} adapter/in
+\subsubsection{Warstwa adapterów wejściowych} 
 
-\subsubsection{Warstwa adapterów wyjściowych} adapter/out
+Warstwa ta obejmuje pakiet \textit{adapter.in}. Zawiera ona tzw. adaptery wejściowe, czyli komponenty odpowiedzialne za rozpoczynanie przepływu sterowania w aplikacji. Adaptery wejściowe są odpowiedzialne za obsługę zapytań i komend, które są wysyłane do aplikacji przez użytkowników lub inne systemy. W implementowanym systemie adapterami wejściowymi są kontrolery REST API oraz serwisy nasłuchujące na zdarzenia z kolejki komunikatów.
+
+Na listingu \ref{lst:server-in-adapter} przedstawiono przykładowy kod kontrolera REST API, który obsługuje zapytanie HTTP POST na ścieżce \textit{/api/v1/orders}. Zapytanie to rozpoczyna zamówienie ze strony użytkownika zamawiającego. W ciele zapytania znajduje się obiekt JSON, który jest mapowany na obiekt klasy \textit{StartOrderRequest}. Obiekt ten jest następnie przekazywany do komponentu \textit{ReactorCommandGateway}, który jest odpowiedzialny za wysłanie komendy \textit{StartOrderCommand} do szyny komend. Komenda ta jest następnie przekazywana do odpowiedniego agregatu dziedzinowego, który jest odpowiedzialny za jej obsługę. Rezultatem synchronicznym obsługi komendy jest nadany identyfikator zamówienia, w postacu UUID, który jest zwracany w odpowiedzi HTTP. 
+
+\begin{lstlisting}[caption={Przykładowy kod kontrolera REST API},label={lst:server-in-adapter},captionpos=b,language=Kotlin,numbers=left]
+    @RestController
+    @RequestMapping("/api/v1/orders")
+    class OrderController(
+        private val reactorCommandGateway: ReactorCommandGateway
+    ) {
+        @PostMapping
+        @ResponseStatus(HttpStatus.CREATED)
+        @PreAuthorize("hasAnyAuthority('${Scopes.ORDER.WRITE}')")
+        fun startOrder(
+            @RequestBody request: StartOrderRequest,
+            exchange: ServerWebExchange
+        ): Mono<UuidWrapper> {
+            val command = mapToStartOrderCommand(request, exchange)
+            val id = reactorCommandGateway.send<UUID>(command)
+            return id.map { UuidWrapper(it) }
+        }
+    }
+\end{lstlisting}
+
+Kod kontrolera został napisany z wykorzystaniem biblioteki programowania reaktywnego Spring WebFlux, która pozwala na obsługę żądań HTTP w sposób asynchroniczny. Pozwala to na obsługę większej liczby żądań przy użyciu mniejszej liczby wątków, co przekłada się na większą wydajność aplikacji.
+
+Poza kodem obsługującym żądanie HTTP, kontroler zawiera również adnotacje, które definiują uprawnienia wymagane do wykonania żądania. W tym przypadku żądanie wymaga posiadania uprawnień \textit{ORDER.WRITE}, które są zdefiniowane w klasie \textit{Scopes}. Jest to część biblioteki Spring Security, implementującej standard OAuth 2.0.
+
+\subsubsection{Warstwa adapterów wyjściowych} 
+
+Warstwa ta obejmuje pakiet \textit{adapter.out}. Zawiera ona tzw. adaptery wyjściowe, czyli komponenty odpowiedzialne za komunikację z zewnętrznymi systemami. W implementowanym systemie adapterami wyjściowymi są komponenty oferujące dostęp do bazy danych oraz komunikację z zewnętrznymi systemami np. Google Maps Platform.
+
+Na listingu \ref{lst:server-out-adapter} przedstawiono przykładowy kod komponentu oferującego dostęp do bazy danych. 
+
+\begin{lstlisting}[caption={Przykładowy kod implementacji repozytorium bazodanowego},label={lst:server-out-adapter},captionpos=b,language=Kotlin,numbers=left]
+    @Service
+    class DbOrderDeliveryRepository(
+        private val springDataOrderDeliveryRepository
+            : SpringDataOrderDeliveryRepository
+    ) : OrderDeliveryRepository {
+        override fun save(delivery: OrderDeliveryEntity) {
+            springDataOrderDeliveryRepository.save(delivery).block()
+        }
+    
+        override fun load(id: UUID): OrderDeliveryEntity? {
+            return springDataOrderDeliveryRepository.findById(id).block()
+        }
+    
+        override fun loadOffers(): List<OrderDeliveryEntity> {
+            return springDataOrderDeliveryRepository
+                .findAllByStatus(DeliveryStatus.OFFER).collectList()
+                .block() ?: listOf()
+        }
+    }
+\end{lstlisting}
 
 \subsubsection{Warstwa dziedziny} domain/command
 
 \subsubsection{Warstwa prezentacji/zapytań} domain/query
 
-\subsubsection{Warstwa infrastruktury} infrastructure
-
 \subsubsection{Warstwa konfiguracji} config
+
+\subsubsection{Warstwa infrastruktury} infrastructure
 
 \subsubsection{Współdzielony kod} shared
 

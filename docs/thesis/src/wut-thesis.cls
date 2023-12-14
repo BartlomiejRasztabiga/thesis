@@ -502,6 +502,7 @@
 %-------------------
 % Spis listingów
 %-------------------
+\renewcommand*\l@lstlisting{\@dottedtocline{1}{0.5em}{2.25em}}
 \newcommand{\listoflistingstoc}{
     \lstlistoflistings
     \addcontentsline{toc}{section}{\lstlistlistingname}

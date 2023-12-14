@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.19)  13 DEC 2023 00:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.19)  14 DEC 2023 21:43
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -868,7 +868,25 @@ LaTeX Info: Redefining \lslig on input line 902.
 Package microtype Info: Loading configuration file microtype.cfg.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/microtype/microtype.cfg
 File: microtype.cfg 2023/03/13 v3.1a microtype main configuration file (RS)
-))) (/usr/local/texlive/2023/texmf-dist/tex/generic/babel/babel.sty
+))) (/usr/local/texlive/2023/texmf-dist/tex/latex/xcolor/xcolor.sty
+Package: xcolor 2022/06/12 v2.14 LaTeX color extensions (UK)
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 227.
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/mathcolor.ltx)
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1353.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1357.
+Package xcolor Info: Model `RGB' extended on input line 1369.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1371.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1372.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1373.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1374.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1375.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1376.
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
+)) (/usr/local/texlive/2023/texmf-dist/tex/generic/babel/babel.sty
 Package: babel 2023/02/13 3.86 The Babel package
 \babel@savecnt=\count447
 \U@D=\dimen189
@@ -912,44 +930,44 @@ Package csquotes Info: Redefining alias 'default' -> 'polish'.
  (./main.aux)
 \openout1 = `main.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for FML/futm/m/it on input line 29.
-LaTeX Font Info:    Trying to load font information for FML+futm on input line 29.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for FML/futm/m/it on input line 48.
+LaTeX Font Info:    Trying to load font information for FML+futm on input line 48.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/fourier/fmlfutm.fd
 File: fmlfutm.fd 2004/10/30 Fontinst v1.926 font definitions for FML/futm.
 )
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for FMS/futm/m/n on input line 29.
-LaTeX Font Info:    Trying to load font information for FMS+futm on input line 29.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for FMS/futm/m/n on input line 48.
+LaTeX Font Info:    Trying to load font information for FMS+futm on input line 48.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/fourier/fmsfutm.fd
 File: fmsfutm.fd 2004/10/30 Fontinst v1.926 font definitions for FMS/futm.
 )
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for FMX/futm/m/n on input line 29.
-LaTeX Font Info:    Trying to load font information for FMX+futm on input line 29.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for FMX/futm/m/n on input line 48.
+LaTeX Font Info:    Trying to load font information for FMX+futm on input line 48.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/fourier/fmxfutm.fd
 File: fmxfutm.fd futm-extension
 )
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 29.
-LaTeX Font Info:    ... okay on input line 29.
-LaTeX Font Info:    Redeclaring math accent \widehat on input line 29.
-LaTeX Font Info:    Redeclaring math accent \widetilde on input line 29.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 48.
+LaTeX Font Info:    ... okay on input line 48.
+LaTeX Font Info:    Redeclaring math accent \widehat on input line 48.
+LaTeX Font Info:    Redeclaring math accent \widetilde on input line 48.
  (/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count461
@@ -983,8 +1001,8 @@ Package biblatex Info: Automatic encoding selection.
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
  (./main.bbl)
-Package biblatex Info: Reference section=0 on input line 29.
-Package biblatex Info: Reference segment=0 on input line 29.
+Package biblatex Info: Reference section=0 on input line 48.
+Package biblatex Info: Reference segment=0 on input line 48.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: hyperref package is loaded.
 Package caption Info: End \AtBeginDocument code.
@@ -1024,31 +1042,24 @@ Package caption Info: End \AtBeginDocument code.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-(/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/color.sty
-Package: color 2022/01/06 v1.3d Standard LaTeX Color (DPC)
- (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics-cfg/color.cfg
-File: color.cfg 2016/01/02 v1.6 sample color configuration
-)
-Package color Info: Driver file: pdftex.def on input line 149.
- (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/mathcolor.ltx))
-Package hyperref Info: Link coloring ON on input line 29.
- (./main.out) (./main.out)
+Package hyperref Info: Link coloring ON on input line 48.
+(./main.out) (./main.out)
 \@outlinefile=\write4
 \openout4 = `main.out'.
 
-LaTeX Info: Redefining \microtypecontext on input line 29.
-Package microtype Info: Applying patch `item' on input line 29.
-Package microtype Info: Applying patch `toc' on input line 29.
-Package microtype Info: Applying patch `eqnum' on input line 29.
-Package microtype Info: Applying patch `footnote' on input line 29.
-Package microtype Info: Applying patch `verbatim' on input line 29.
+LaTeX Info: Redefining \microtypecontext on input line 48.
+Package microtype Info: Applying patch `item' on input line 48.
+Package microtype Info: Applying patch `toc' on input line 48.
+Package microtype Info: Applying patch `eqnum' on input line 48.
+Package microtype Info: Applying patch `footnote' on input line 48.
+Package microtype Info: Applying patch `verbatim' on input line 48.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 29.
+LaTeX Info: Redefining \showhyphens on input line 48.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -1059,12 +1070,12 @@ Package microtype Info: Loading generic protrusion settings for font family
 <src/pl/header/eiti.pdf, id=278, 483.72722pt x 76.8471pt>
 File: src/pl/header/eiti.pdf Graphic file (type pdf)
 <use src/pl/header/eiti.pdf>
-Package pdftex.def Info: src/pl/header/eiti.pdf  used on input line 62.
+Package pdftex.def Info: src/pl/header/eiti.pdf  used on input line 81.
 (pdftex.def)             Requested size: 441.01775pt x 70.06229pt.
 <src/pl/title/inz.pdf, id=279, 483.72722pt x 105.39375pt>
 File: src/pl/title/inz.pdf Graphic file (type pdf)
 <use src/pl/title/inz.pdf>
-Package pdftex.def Info: src/pl/title/inz.pdf  used on input line 62.
+Package pdftex.def Info: src/pl/title/inz.pdf  used on input line 81.
 (pdftex.def)             Requested size: 441.01775pt x 96.08856pt.
  [1
 
@@ -1277,15 +1288,17 @@ Underfull \vbox (badness 2057) has occurred while \output is active []
  [27]) (./tex/5-implementacja.tex [28] [29
 
 ]
-Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 39.
- [30]) (./tex/6-wdrozenie.tex [31]) (./tex/7-testowanie.tex [32
-
-]) (./tex/8-podsumowanie.tex [33
-
-]) [34
-
-]
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 133.
+Package hyperref Info: bookmark level for unknown lstlisting defaults to 0 on input line 35.
+LaTeX Font Info:    Trying to load font information for TS1+futs on input line 36.
+ (/usr/local/texlive/2023/texmf-dist/tex/latex/fourier/ts1futs.fd
+File: ts1futs.fd 2003/09/14 Fontinst v1.801 font definitions for TS1/futs.
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `futs' (encoding: TS1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+ [30]
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 57.
  (/usr/local/texlive/2023/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2022/07/10 v2.5l Standard LaTeX font definitions
 )
@@ -1294,44 +1307,58 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
 
-Overfull \hbox (2.92612pt too wide) in paragraph at lines 134--134
+Underfull \vbox (badness 3439) has occurred while \output is active []
+
+ [31{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
+Overfull \hbox (21.5146pt too wide) in paragraph at lines 96--97
+[][][][][][][][][][][][][][][][][][][][][][][][][] 
+ []
+
+) (./tex/6-wdrozenie.tex [32] [33]) (./tex/7-testowanie.tex [34
+
+]) (./tex/8-podsumowanie.tex [35
+
+]) [36
+
+]
+Overfull \hbox (2.92612pt too wide) in paragraph at lines 153--153
 []\T1/futs/m/it/12 (-20) Strona in-ter-ne-towa ko-lejki wia-do-mo-帷i Rab-bitMQ\T1/futs/m/n/12 (-20) , Do-st如 zdalny (24.11.2023): [][]$\T1/cmtt/m/n/12 https :
  []
 
 
-Overfull \hbox (4.13127pt too wide) in paragraph at lines 134--134
+Overfull \hbox (4.13127pt too wide) in paragraph at lines 153--153
 \T1/futs/m/n/12 (-20) (24.11.2023): [][]$\T1/cmtt/m/n/12 https : / / asseconews . pl / dlaczego -[] wartosc -[] tworzyc -[] aplikacje -[]
  []
 
 
-Overfull \hbox (9.11789pt too wide) in paragraph at lines 134--134
+Overfull \hbox (9.11789pt too wide) in paragraph at lines 153--153
 []\T1/futs/m/it/12 (-20) Definicja wzorca Event So-ur-cing\T1/futs/m/n/12 (-20) , Do-st如 zdalny (24.11.2023): [][]$\T1/cmtt/m/n/12 https : / / martinfowler .
  []
 
 
-Overfull \hbox (2.15727pt too wide) in paragraph at lines 134--134
+Overfull \hbox (2.15727pt too wide) in paragraph at lines 153--153
 []\T1/futs/m/n/12 (-20) M. Fow-ler, ^^R  Bo-un-ded Con-text^^Q, Do-st如 zdalny (07.06.2023): [][]$\T1/cmtt/m/n/12 https : / / martinfowler .
  []
 
 
-Overfull \hbox (12.9905pt too wide) in paragraph at lines 134--134
+Overfull \hbox (12.9905pt too wide) in paragraph at lines 153--153
 []\T1/futs/m/it/12 (-20) Axon Fra-me-work\T1/futs/m/n/12 (-20) , Do-st如 zdalny (07.06.2023): [][]$\T1/cmtt/m/n/12 https : / / docs . axoniq . io / reference -[]
  []
 
-[35
+[37
 
 
-{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/cm-super/cm-super-t1.enc}]
-Overfull \hbox (6.71614pt too wide) in paragraph at lines 134--134
+]
+Overfull \hbox (6.71614pt too wide) in paragraph at lines 153--153
 \T1/cmtt/m/n/12 com / en / database / oracle / oracle -[] database / 21 / jjdev / Oracle -[] JVM -[] overview .
  []
 
 
-Overfull \hbox (8.34697pt too wide) in paragraph at lines 134--134
+Overfull \hbox (8.34697pt too wide) in paragraph at lines 153--153
 []\T1/futs/m/it/12 (-20) Framework Spring Boot\T1/futs/m/n/12 (-20) , Do-st如 zdalny (07.06.2023): [][]$\T1/cmtt/m/n/12 https : / / spring . io / projects /
  []
 
-[36] (./main.lof)
+[38] (./main.lof)
 \tf@lof=\write6
 \openout6 = `main.lof'.
 
@@ -1343,28 +1370,28 @@ Overfull \hbox (8.34697pt too wide) in paragraph at lines 134--134
 \tf@lol=\write8
 \openout8 = `main.lol'.
 
- [37
+ [39
 
 ] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: C0095FB69BD24CE6EEA3E5E2049A8996;11608.
+(rerunfilecheck)             Checksum: 5436038E8D2277ECE57E2E279E8221D7;11608.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 28685 strings out of 476025
- 501133 string characters out of 5790016
- 1871388 words of memory out of 5000000
- 48026 multiletter control sequences out of 15000+600000
- 630685 words of font info for 449 fonts, out of 8000000 for 9000
+ 29481 strings out of 476025
+ 511263 string characters out of 5790016
+ 1879388 words of memory out of 5000000
+ 48752 multiletter control sequences out of 15000+600000
+ 631633 words of font info for 458 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 123i,12n,120p,1160b,2616s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 123i,12n,120p,1160b,2622s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on main.pdf (37 pages, 1799160 bytes).
+Output written on main.pdf (39 pages, 1810798 bytes).
 PDF statistics:
- 765 PDF objects out of 1000 (max. 8388607)
- 690 compressed objects within 7 object streams
- 168 named destinations out of 1000 (max. 500000)
- 66651 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 833 PDF objects out of 1000 (max. 8388607)
+ 755 compressed objects within 8 object streams
+ 216 named destinations out of 1000 (max. 500000)
+ 70747 words of extra memory for PDF output out of 74296 (max. 10000000)
 
