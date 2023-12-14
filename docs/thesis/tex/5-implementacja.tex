@@ -80,31 +80,105 @@ Poza kodem obsługującym żądanie HTTP, kontroler zawiera również adnotacje,
 
 Warstwa ta obejmuje pakiet \textit{adapter.out}. Zawiera ona tzw. adaptery wyjściowe, czyli komponenty odpowiedzialne za komunikację z zewnętrznymi systemami. W implementowanym systemie adapterami wyjściowymi są komponenty oferujące dostęp do bazy danych oraz komunikację z zewnętrznymi systemami np. Google Maps Platform.
 
-Na listingu \ref{lst:server-out-adapter} przedstawiono przykładowy kod komponentu oferującego dostęp do bazy danych. 
+Na listingu \ref{lst:server-out-adapter} przedstawiono przykładowy kod komponentu oferującego dostęp do bazy danych. Jest to implementacja (adapter) interfejsu (portu) \textit{OrderDeliveryRepository}, który jest odpowiedzialny za zapisywanie i odczytywanie encji \textit{OrderDeliveryEntity} z bazy danych. Implementacja ta wykorzystuje repozytorium Spring Data, które jest komponentem oferującym dostęp do bazy MongoDB. Repozytorium to jest wstrzykiwane do klasy \textit{DbOrderDeliveryRepository} przy pomocy mechanizmu wstrzykiwania zależności oferowanego przez framework Spring. 
 
 \begin{lstlisting}[caption={Przykładowy kod implementacji repozytorium bazodanowego},label={lst:server-out-adapter},captionpos=b,language=Kotlin,numbers=left]
     @Service
     class DbOrderDeliveryRepository(
-        private val springDataOrderDeliveryRepository
-            : SpringDataOrderDeliveryRepository
+        private val repository: SpringDataOrderDeliveryRepository
     ) : OrderDeliveryRepository {
         override fun save(delivery: OrderDeliveryEntity) {
-            springDataOrderDeliveryRepository.save(delivery).block()
+            repository.save(delivery).block()
         }
     
         override fun load(id: UUID): OrderDeliveryEntity? {
-            return springDataOrderDeliveryRepository.findById(id).block()
+            return repository.findById(id).block()
         }
     
         override fun loadOffers(): List<OrderDeliveryEntity> {
-            return springDataOrderDeliveryRepository
-                .findAllByStatus(DeliveryStatus.OFFER).collectList()
-                .block() ?: listOf()
+            return repository
+                .findAllByStatus(DeliveryStatus.OFFER)
+                .collectList().block() ?: listOf()
         }
     }
 \end{lstlisting}
 
-\subsubsection{Warstwa dziedziny} domain/command
+\subsubsection{Warstwa dziedziny} 
+
+Warstwa ta obejmuje pakiet \textit{domain}. Zawiera ona komponenty, które są odpowiedzialne za logikę biznesową aplikacji. W implementowanym systemie komponentami tymi są agregaty, komendy, zdarzenia, zapytania oraz obiekty transferu danych.
+
+Warstwa dziedziny jest podzielona zgodnie ze wzorcem CQRS na część komend oraz część zapytań. Część komend jest zawarta w podpakiecie \textit{command}, a część zapytań w podpakiecie \textit{query}.
+
+TODO inaczej zrefrazować
+
+Na listingu \ref{lst:server-domain} przedstawiono przykładowy kod kilku komponentów części komend, odpowiedzialnych za obsługę operacji na zamówieniach.
+
+TODO
+
+TODO a moze podzielic ten listing na mniejsze?
+
+TODO napisac ze to axon jest odpowiedzialny za wszystko poprzez adnotacje
+
+\begin{lstlisting}[caption={Kod komponentów odpowiedzialnych za obsługę zamówień},label={lst:server-domain},captionpos=b,language=Kotlin,numbers=left]
+    @Aggregate
+    internal class Order {
+    
+        @AggregateIdentifier
+        private lateinit var id: UUID
+        private lateinit var status: OrderStatus
+    
+        @AggregateMember
+        private val items: MutableMap<UUID, Int> = mutableMapOf()
+    
+        @CommandHandler
+        constructor(
+            command: StartOrderCommand,
+            orderVerificationPort: OrderVerificationPort
+        ) {
+            require(
+                orderVerificationPort.restaurantExists(command.restaurantId)
+            ) {
+                "Restaurant with id ${command.restaurantId} does not exist"
+            }
+            require(
+                orderVerificationPort.isRestaurantOpen(command.restaurantId)
+            ) {
+                "Restaurant with id ${command.restaurantId} is closed"
+            }
+    
+            apply(
+                OrderStartedEvent(
+                    orderId = command.orderId,
+                    restaurantId = command.restaurantId,
+                    userId = command.userId,
+                    status = OrderStartedEvent.OrderStatus.CREATED
+                )
+            )
+        }
+    }
+
+    data class StartOrderCommand(
+        @TargetAggregateIdentifier val orderId: UUID,
+        val userId: String,
+        val restaurantId: UUID
+    )
+
+    data class OrderStartedEvent(
+        val orderId: UUID,
+        val restaurantId: UUID,
+        val userId: String,
+        val status: OrderStatus
+    )
+
+    interface OrderVerificationPort {
+
+        fun restaurantExists(restaurantId: UUID): Boolean
+
+        fun isRestaurantOpen(restaurantId: UUID): Boolean
+    }
+
+\end{lstlisting}
+
 
 \subsubsection{Warstwa prezentacji/zapytań} domain/query
 
@@ -112,9 +186,17 @@ Na listingu \ref{lst:server-out-adapter} przedstawiono przykładowy kod komponen
 
 \subsubsection{Warstwa infrastruktury} infrastructure
 
-\subsubsection{Współdzielony kod} shared
+\subsubsection{Współdzielony kod}
+
+Kod współdzielony przez różne serwisy w ramach systemu został umieszczony w osobnym module \textit{shared}. Zawiera on m.in. klasy reprezentujące obiekty transferu danych, wyjątki, stałe, wspólną konfigurację itp.
+
+Moduł ten jest wersjonowany i publikowany jako artefakt systemu budowania Maven, dzięki czemu może być umieszczony w centralnym repozytorium i importowany przez inne projekty.
 
 \subsection{Część kliencka}
+
+Część kliencka aplikacji została zaimplementowana jako aplikacja przeglądarkowa typu Multi Page Application (MPA) w języku TypeScript z wykorzystaniem frameworków React oraz Remix.
+
+TODO czemu nie SPA?
 
 \subsubsection{Użyte narzędzia}
 
