@@ -30,7 +30,7 @@ Architektura heksagonalna jest architekturą warstwową, która składa się z t
 
 \subsubsection{Podział na pakiety}
 
-Z powodu zastosowania architektury heksagonalnej, część serwerowa aplikacji została podzielona na pakiety zgodnie z warstwami tejże architektury. Podział na pakiety przykładowego serwisu został przedstawiony na listingu \ref{lst:server-packages}.
+Z powodu zastosowania architektury heksagonalnej, część serwerowa aplikacji została podzielona na pakiety zgodnie z warstwami tejże architektury. Podział na pakiety przykładowego serwisu został przedstawiony na wycinku \ref{lst:server-packages}.
 
 \begin{lstlisting}[caption={Podział na pakiety części serwerowej projektu},label={lst:server-packages},captionpos=b]
 - adapter/
@@ -50,9 +50,9 @@ W kolejnych podrozdziałach zostaną przedstawione szczegóły implementacyjne p
 
 Warstwa ta obejmuje pakiet \textit{adapter.in}. Zawiera ona tzw. adaptery wejściowe, czyli komponenty odpowiedzialne za rozpoczynanie przepływu sterowania w aplikacji. Adaptery wejściowe są odpowiedzialne za obsługę zapytań i komend, które są wysyłane do aplikacji przez użytkowników lub inne systemy. W implementowanym systemie adapterami wejściowymi są kontrolery REST API oraz serwisy nasłuchujące na zdarzenia z kolejki komunikatów.
 
-Na listingu \ref{lst:server-in-adapter} przedstawiono przykładowy kod kontrolera REST API, który obsługuje zapytanie HTTP POST na ścieżce \textit{/api/v1/orders}. Zapytanie to rozpoczyna zamówienie ze strony użytkownika zamawiającego. W ciele zapytania znajduje się obiekt JSON, który jest mapowany na obiekt klasy \textit{StartOrderRequest}. Obiekt ten jest następnie przekazywany do komponentu \textit{ReactorCommandGateway}, który jest odpowiedzialny za wysłanie komendy \textit{StartOrderCommand} do szyny komend. Komenda ta jest następnie przekazywana do odpowiedniego agregatu dziedzinowego, który jest odpowiedzialny za jej obsługę. Rezultatem synchronicznym obsługi komendy jest nadany identyfikator zamówienia, w postacu UUID, który jest zwracany w odpowiedzi HTTP. 
+Na wycinku \ref{lst:server-in-adapter} przedstawiono przykładowy kod kontrolera REST API, który obsługuje zapytanie HTTP POST na ścieżce \textit{/api/v1/orders}. Zapytanie to rozpoczyna zamówienie ze strony użytkownika zamawiającego. W ciele zapytania znajduje się obiekt JSON, który jest mapowany na obiekt klasy \textit{StartOrderRequest}. Obiekt ten jest następnie przekazywany do komponentu \textit{ReactorCommandGateway}, który jest odpowiedzialny za wysłanie komendy \textit{StartOrderCommand} do szyny komend. Komenda ta jest następnie przekazywana do odpowiedniego agregatu dziedzinowego, który jest odpowiedzialny za jej obsługę. Rezultatem synchronicznym obsługi komendy jest nadany identyfikator zamówienia, w postacu UUID, który jest zwracany w odpowiedzi HTTP. 
 
-\begin{lstlisting}[caption={Przykładowy kod kontrolera REST API},label={lst:server-in-adapter},captionpos=b,language=Kotlin,numbers=left]
+\begin{lstlisting}[caption={Kod kontrolera REST API obsługującego zapytania dotyczące zamówień},label={lst:server-in-adapter},captionpos=b,language=Kotlin,numbers=left]
     @RestController
     @RequestMapping("/api/v1/orders")
     class OrderController(
@@ -80,9 +80,9 @@ Poza kodem obsługującym żądanie HTTP, kontroler zawiera również adnotacje,
 
 Warstwa ta obejmuje pakiet \textit{adapter.out}. Zawiera ona tzw. adaptery wyjściowe, czyli komponenty odpowiedzialne za komunikację z zewnętrznymi systemami. W implementowanym systemie adapterami wyjściowymi są komponenty oferujące dostęp do bazy danych oraz komunikację z zewnętrznymi systemami np. Google Maps Platform.
 
-Na listingu \ref{lst:server-out-adapter} przedstawiono przykładowy kod komponentu oferującego dostęp do bazy danych. Jest to implementacja (adapter) interfejsu (portu) \textit{OrderDeliveryRepository}, który jest odpowiedzialny za zapisywanie i odczytywanie encji \textit{OrderDeliveryEntity} z bazy danych. Implementacja ta wykorzystuje repozytorium Spring Data, które jest komponentem oferującym dostęp do bazy MongoDB. Repozytorium to jest wstrzykiwane do klasy \textit{DbOrderDeliveryRepository} przy pomocy mechanizmu wstrzykiwania zależności oferowanego przez framework Spring. 
+Na wycinku \ref{lst:server-out-adapter} przedstawiono przykładowy kod komponentu oferującego dostęp do bazy danych. Jest to implementacja (adapter) interfejsu (portu) \textit{OrderDeliveryRepository}, który jest odpowiedzialny za zapisywanie i odczytywanie encji \textit{OrderDeliveryEntity} z bazy danych. Implementacja ta wykorzystuje repozytorium Spring Data, które jest komponentem oferującym dostęp do bazy MongoDB. Repozytorium to jest wstrzykiwane do klasy \textit{DbOrderDeliveryRepository} przy pomocy mechanizmu wstrzykiwania zależności oferowanego przez framework Spring. 
 
-\begin{lstlisting}[caption={Przykładowy kod implementacji repozytorium bazodanowego},label={lst:server-out-adapter},captionpos=b,language=Kotlin,numbers=left]
+\begin{lstlisting}[caption={Kod implementacji repozytorium dziedzinowego projekcji Zamówienia},label={lst:server-out-adapter},captionpos=b,language=Kotlin,numbers=left]
     @Service
     class DbOrderDeliveryRepository(
         private val repository: SpringDataOrderDeliveryRepository
@@ -109,7 +109,7 @@ Warstwa ta obejmuje pakiet \textit{domain}. Zawiera ona komponenty, które są o
 
 Warstwa dziedziny jest podzielona zgodnie ze wzorcem CQRS na część komend oraz część zapytań. Część komend jest zawarta w podpakiecie \textit{command}, a część zapytań w podpakiecie \textit{query}.
 
-Na listingu \ref{lst:server-domain} przedstawiono częściowy kod komponentów warstwy dziedziny odpowiadającej za rozpoczynanie zamówienia z perspektywy użytkownika systemu. Są to: agregat dziedzinowy \textit{Order}, komenda \textit{StartOrderCommand} oraz zdarzenie \textit{OrderStartedEvent}. Przedstawiono również zawartość portu \textit{OrderVerificationPort}, który jest odpowiedzialny za wstępną walidację zamówienia.
+Na wycinku \ref{lst:server-domain} przedstawiono częściowy kod komponentów warstwy dziedziny odpowiadającej za rozpoczynanie zamówienia z perspektywy użytkownika systemu. Są to: agregat dziedzinowy \textit{Order}, komenda \textit{StartOrderCommand} oraz zdarzenie \textit{OrderStartedEvent}. Przedstawiono również zawartość portu \textit{OrderVerificationPort}, który jest odpowiedzialny za wstępną walidację zamówienia.
 
 \begin{lstlisting}[caption={Kod komponentów odpowiedzialnych za rozpoczynanie zamówień},label={lst:server-domain},captionpos=b,language=Kotlin,numbers=left]
     @Aggregate
@@ -175,17 +175,120 @@ Dzięki zastosowaniu Axon Framework nie ma konieczności pisania kodu odpowiedzi
 
 Warstwa ta obejmuje pakiet \textit{query}. Zawiera ona komponenty, które są odpowiedzialne za obsługę zapytań użytkowników systemu. W implementowanym systemie komponentami tymi są procesory zdarzeń budujące projekcje, zapytania oraz klasy pomocnicze służące do persystencji danych w bazie danych.
 
-TODO
+Na wycinku \ref{lst:server-domain-query} przedstawiono kod procesora zdarzeń budującego projekcję zamówienia. Procesor ten nasłuchuje na zdarzenie \textit{OrderStartedEvent} i na jego podstawie buduje projekcję zamówienia, która jest zapisywana w bazie danych. Procesor ten jest wywoływany automatycznie przez Axon Framework, w momencie otrzymania odpowiednigo zdarzenia.
 
-\subsubsection{Warstwa konfiguracji} config
+\begin{lstlisting}[caption={Kod procesora zdarzeń budującego projekcję zamówienia},label={lst:server-domain-query},captionpos=b,language=Kotlin,numbers=left,showstringspaces=false]
+    @ProcessingGroup("projection")
+    class OrderHandler(
+        private val orderRepository: OrderRepository,
+        private val restaurantRepository: RestaurantRepository
+    ) {
+    
+        @EventHandler
+        fun on(event: OrderStartedEvent) {
+            val restaurant = restaurantRepository.load(
+                event.restaurantId
+            )
+    
+            val restaurantLocation = restaurant?.location 
+                ?: error("Restaurant not found")
+    
+            val entity = OrderEntity(
+                id = event.orderId,
+                restaurantId = event.restaurantId,
+                restaurantLocation = restaurantLocation,
+                userId = event.userId,
+                status = OrderStatus.CREATED,
+                items = mutableMapOf(),
+                createdAt = Instant.now()
+            )
+            orderRepository.save(entity)
+        }
+    }
+\end{lstlisting}
 
-\subsubsection{Warstwa infrastruktury} infrastructure
+\subsubsection{Warstwa konfiguracji}
+
+Warstwa ta obejmuje pakiet \textit{config}. Zawiera ona komponenty, które są odpowiedzialne za konfigurację aplikacji.
+
+Przykładowym komponentem w implementowanym systemie jest filtr zapytań, odpowiedzialny za odczytywanie atrybutu \textit{subject} z tokenu JWT oraz zapisywanie go w kontekście żądania. Jest to używane m.in. do poprawnej autoryzacji użytkownika w momencie wywoływania komendy (np. dostęp do zasobu ma tylko jego autor). Kod tego komponentu został przedstawiony na wycinku \ref{lst:server-config}.
+
+\begin{lstlisting}[caption={Kod filtra zapytań},label={lst:server-config},captionpos=b,language=Kotlin,numbers=left,showstringspaces=false]
+    @Component
+    @Profile("!nosecurity")
+    class UserContextWebFilter : WebFilter {
+        override fun filter(
+            exchange: ServerWebExchange,
+            chain: WebFilterChain
+        ): Mono<Void> {
+            return ReactiveSecurityContextHolder.getContext()
+                .mapNotNull { it.authentication.principal }
+                .cast(Jwt::class.java)
+                .doOnNext {
+                    val userId = it.subject.removePrefix("auth0|")
+                    exchange.setUserId(userId)
+                }
+                .then(chain.filter(exchange))
+        }
+    }
+\end{lstlisting}
+
+Dzięki zastosowaniu adnotacji \textit{@Profile("!nosecurity")} możliwe jest wyłączenie tego filtra w trybie \textit{nosecurity}, który jest używany w testach wydajnościowych, w których wyłączone są mechanizmy uwierzytelniania i autoryzacji.
+
+\subsubsection{Warstwa infrastruktury}
+
+Warstwa ta obejmuje pakiet \textit{infrastructure}. Zawiera ona kod, niezwiązany z domeną aplikacji, który jest odpowiedzialny za integrację z konkretnymi technologiami, np. bazą danych, systemem plików, itp. W implementowanym systemie komponentami tej warstwy są np. implementacje repozytoriów bazodanowych używające konkretnej technologii - Spring Data MongoDB. Są to również komponenty służące do komunikacji z zewnętrznymi usługami, np. klient Google Maps Platform.
+
+Na wycinku \ref{lst:server-infrastructure} przedstawiono przykładowy kod implementacji repozytorium bazodanowego. Jest to implementacja interfejsu \textit{ReactiveMongoRepository}, który jest komponentem oferującym dostęp do bazy MongoDB. Mimo faktu, że repozytorium to jest interfejsem, a nie klasą, to dzięki mechanizmowi refleksji oferowanemu przez framework Spring, implementacja ta jest automatycznie generowana w czasie uruchamiania aplikacji.
+
+\begin{lstlisting}[caption={Kod implementacji repozytorium bazodanowego},label={lst:server-infrastructure},captionpos=b,language=Kotlin,numbers=left,showstringspaces=false]
+    @Repository
+    interface SpringDataOrderRepository 
+        : ReactiveMongoRepository<OrderEntity, UUID> {
+    
+        fun findAllByUserId(userId: String): Flux<OrderEntity>
+    }
+\end{lstlisting}
+
+Repozytorium bazowe, \textit{ReactiveMongoRepository} zawiera podstawowe metody do operacji na bazie danych, takie jak np. \textit{save}, \textit{findById}, \textit{findAll}, itp. Repozytorium \textit{SpringDataOrderRepository} rozszerza repozytorium bazowe i dodaje do niego dodatkową metodę \textit{findAllByUserId}, która zwraca wszystkie zamówienia danego użytkownika.
 
 \subsubsection{Współdzielony kod}
 
 Kod współdzielony przez różne serwisy w ramach systemu został umieszczony w osobnym module \textit{shared}. Zawiera on m.in. klasy reprezentujące obiekty transferu danych, wyjątki, stałe, wspólną konfigurację itp.
 
 Moduł ten jest wersjonowany i publikowany jako artefakt systemu budowania Maven, dzięki czemu może być umieszczony w centralnym repozytorium i importowany przez inne projekty.
+
+Przykład współdzielonej klasy zaprezentowany jest na listingu \ref{lst:server-shared}
+
+\begin{lstlisting}[caption={Kod klasy konfigurującej mechanizm uwierzytelniania i autoryzacji},label={lst:server-shared},captionpos=b,language=Kotlin,numbers=left,showstringspaces=false]
+    @Configuration
+    @EnableReactiveMethodSecurity
+    @EnableWebFluxSecurity
+    @Profile("!nosecurity")
+    class SecurityConfig {
+    
+        @Bean
+        fun springSecurityFilterChain(
+            http: ServerHttpSecurity
+        ): SecurityWebFilterChain {
+            return http.authorizeExchange {
+                it.pathMatchers("/actuator/**").permitAll()
+                it.pathMatchers("/api/v1/payments/stripe-webhook").permitAll()
+                it.anyExchange().authenticated()
+            }.csrf {
+                it.disable()
+            }.cors {
+                it.disable()
+            }.oauth2ResourceServer {
+                it.jwt {}
+            }.build()
+        }
+    }
+\end{lstlisting}
+
+Klasa ta jest odpowiedzialna za konfigurację mechanizmu uwierzytelniania i autoryzacji. Została ona umieszczona w module \textit{shared}, ponieważ jest ona wspólna dla wszystkich serwisów w ramach systemu. Uruchamia ona mechanizm uwierzytelniania i autoryzacji oferowany przez framework Spring Security. Uwierzytelnianie odbywa się przy pomocy tokenów JWT. Dodatkowo, wyłącza ona mechanizmy obrony przed atakiem CSRF oraz CORS, które są niepotrzebne w przypadku zastosowanej infrastruktury sieciowej systemu.
+
+Domyślnie, żądania na wszystkie ścieżki aplikacji wymagają uwierzytelniania. Są jednak dwie ścieżki, gdzie takie mechanizmy są wyłączone. Pierwsza z nich to ścieżka \textit{/actuator/**}, która jest wykorzystywana przez framework Spring Boot do oferowania statusu aplikacji, wykorzystywanego m.in. przez orkiestratora kontenerów Kubernetes. Druga ścieżka to \textit{/api/v1/payments/stripe-webhook}, która jest wykorzystywana przez serwis odpowiedzialny za płatności, do obsługi webhooków z serwisu Stripe.
 
 \subsection{Część kliencka}
 

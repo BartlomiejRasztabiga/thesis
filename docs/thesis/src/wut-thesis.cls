@@ -507,3 +507,5 @@
     \lstlistoflistings
     \addcontentsline{toc}{section}{\lstlistlistingname}
 }
+
+\renewcommand{\lstlistingname}{Wycinek kodu}
