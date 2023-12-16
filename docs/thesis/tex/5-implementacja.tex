@@ -252,7 +252,7 @@ Na wycinku \ref{lst:server-infrastructure} przedstawiono przykładowy kod implem
 
 Repozytorium bazowe, \textit{ReactiveMongoRepository} zawiera podstawowe metody do operacji na bazie danych, takie jak np. \textit{save}, \textit{findById}, \textit{findAll}, itp. Repozytorium \textit{SpringDataOrderRepository} rozszerza repozytorium bazowe i dodaje do niego dodatkową metodę \textit{findAllByUserId}, która zwraca wszystkie zamówienia danego użytkownika.
 
-\subsubsection{Współdzielony kod}
+\subsubsection{Współdzielony kod}\subsubsection{Przechowywanie stanu aplikacji}
 
 Kod współdzielony przez różne serwisy w ramach systemu został umieszczony w osobnym module \textit{shared}. Zawiera on m.in. klasy reprezentujące obiekty transferu danych, wyjątki, stałe, wspólną konfigurację itp.
 
@@ -294,18 +294,87 @@ Domyślnie, żądania na wszystkie ścieżki aplikacji wymagają uwierzytelniani
 
 Część kliencka aplikacji została zaimplementowana jako aplikacja przeglądarkowa typu Multi Page Application (MPA) w języku TypeScript z wykorzystaniem frameworków React oraz Remix.
 
-TODO czemu nie SPA?
+W przeciwieństwie do popularnego obecnie podejścia Single Page Application (SPA), w którym cała aplikacja jest ładowana przy pierwszym wejściu użytkownika na stronę, w podejściu MPA każda strona jest ładowana osobno. MPA wymaga przeładowywania całej strony podczas nawigacji między różnymi widokami, co jest wadą tego podejścia. Zaletą jest jednak to, że każda strona może być ładowana niezależnie, co pozwala na szybsze ładowanie aplikacji, a także na łatwiejsze indeksowanie przez wyszukiwarki internetowe. Upraszcza to również proces tworzenia aplikacji, ponieważ nie ma potrzeby implementowania zaawansowanym mechanizmów trasowania lub zarządzania stanem.
 
 \subsubsection{Użyte narzędzia}
 
+W części klienckiej aplikacji wykorzystano następujące najważniejsze narzędzia:
+
+\textbf{TypeScript} \cite{typescript} to język programowania stworzony przez firmę Microsoft, będący rozszerzeniem języka JavaScript, poprzed wprowadzenie statycznego typowania, co pozwala programistom na wykrywanie błędów w czasie kompilacji i znacząco ułatwia zarządzanie dużymi projektami. 
+
+\textbf{React} \cite{react} to biblioteka JavaScript, która jest wykorzystywana do tworzenia interfejsów użytkownika. React jest deklaratywną biblioteką open source, rozwijaną przez firmę Facebook, która pozwala na tworzenie interfejsów użytkownika przy pomocy komponentów. Może ona być wykorzystywana do tworzenia zarówno aplikacji webowych, jak i mobilnych. W przeciwieństwie do poprzednich podejść w tworzeniu aplikacji internetowych, React stosuje technikę wirtualnego drzewa dokumentu (ang. virtual DOM) do renderowania interfejsu użytkownika. Technika ta polega na przechowywaniu w pamięci drzewa DOM, które jest reprezentacją interfejsu użytkownika. W momencie zmiany stanu aplikacji, drzewo DOM jest aktualizowane, a następnie porównywane z drzewem DOM przechowywanym w pamięci. Na podstawie tego porównania, React aktualizuje tylko te elementy interfejsu użytkownika, które uległy zmianie. Dzięki temu, renderowanie interfejsu użytkownika jest znacznie szybsze, co przekłada się na lepszą wydajność aplikacji.
+
+\textbf{Remix} \cite{remix} to framework do tworzenia aplikacji internetowych typu MPA, oparty na modelu SSR (ang. server side rendering), czyli renderowania interfejsu użytkownika po stronie serwera. Pozwala on na opbieranie danych na poziomie trasowania, co oznacza, że dane są ładowane przed renderowaniem komponentów, co pozwala na szybsze ładowanie aplikacji i lepsze pozycjonowanie w wyszukiwarkach internetowych.
+
 \subsubsection{Podział na katalogi}
+
+Część kliencka aplikacji została podzielona na foldery, grupując w ten sposób różne rodzaje elementów systemu. Podział przedstawiono na wycinku \ref{lst:client-packages}.
+
+\begin{lstlisting}[caption={Podział na foldery części klienckiej projektu},label={lst:client-packages},captionpos=b]
+- components/
+- routes/
+- server/
+- services/
+- styles/
+\end{lstlisting}
+
+W kolejnych podrozdziałach zostaną przedstawione szczegóły implementacyjne poszczególnych warstw wraz z ich opisem.
 
 \subsubsection{Komponenty interfejsu użytkownika}
 
-\subsubsection{Komunikacja z częścią serwerową}
+Komponenty interfejsu użytkownika zostały umieszczone w folderze \textit{components}. Zostały one podzielone na foldery, grupujące komponenty używane w częściach aplikacji przeznaczonych dla różnych klas użytkowników (zamawiających, managerów restauracji i kurierów).
 
-\subsubsection{Obsługa ścieżek}
+Przykładowy komponent został przedstawiony na wycinku \ref{lst:client-component}. Jest to komponent \textit{Topbar} odpowiedzialny za wyświetlanie paska nawigacji dla managerów restauracji. Przyjmuje on dwa parametry: \textit{payee} oraz \textit{restaurant}. Pierwszy z nich jest obiektem zawierającym informacje o aktualnie zalogowanym użytkowniku, a drugi zawiera informacje o restauracji, w której aktualnie pracuje użytkownik. Komponent ten wyświetla nazwę restauracji oraz jej aktualną dostępność. Dostępność jest wyświetlana w formie przycisku, który po kliknięciu wysyła żądanie HTTP PUT do serwera, w celu zmiany dostępności restauracji.
 
-\subsubsection{Współdzielony kod}
+\begin{lstlisting}[caption={Kod komponentu interfejsu użytkownika - pasek nawigacji managera restauracji},label={lst:client-component},captionpos=b,language=JavaScript,numbers=left,showstringspaces=false]
+export default function Topbar(props: TopbarProps) {
+    return (
+      <header
+        className="..."
+      >
+        <span>Restaurant "{props.restaurant.name}"</span>
+        <Form method="post">
+          <span className="align-middle inline-block">
+            {props.restaurant.availability}
+          </span>
+          <input
+            type="hidden"
+            name="availability"
+            value={props.restaurant.availability}
+          />
+          <input
+            type="hidden"
+            name="restaurantId"
+            value={props.restaurant.id}
+          />
+          <Button 
+            type="submit" 
+            name="_action" 
+            value="update_availability"
+          >
+            CHANGE
+          </Button>
+        </Form>
+      </header>
+    );
+}
+  
+export interface TopbarProps {
+  payee: PayeeResponse;
+  restaurant: RestaurantResponse;
+}
+\end{lstlisting}
+
+Odpowiedzialność za dostarczenie danych oraz obsługę formularza komponent ten deleguje do swojego rodzica. Jest to podejście typowe dla biblioteki React, która promuje podejście kompozycyjne do tworzenia interfejsów użytkownika.
+
+\subsubsection{Obsługa ścieżek} routes
+
+\subsubsection{Komunikacja z częścią serwerową} server
+
+\subsubsection{Współdzielony kod} services
 
 \subsubsection{Przechowywanie stanu aplikacji}
+
+\subsubsection{Interfejs użytkownika}
+
+TODO jeżeli będzie mało stron

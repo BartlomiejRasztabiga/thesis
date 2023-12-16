@@ -2398,7 +2398,10 @@
     <bcf:citekey order="31" intorder="1">jvm</bcf:citekey>
     <bcf:citekey order="32" intorder="1">springboot</bcf:citekey>
     <bcf:citekey order="33" intorder="1">cockburn2005hexagonal</bcf:citekey>
-    <bcf:citekey order="34" intorder="1">locust</bcf:citekey>
+    <bcf:citekey order="34" intorder="1">typescript</bcf:citekey>
+    <bcf:citekey order="35" intorder="1">react</bcf:citekey>
+    <bcf:citekey order="36" intorder="1">remix</bcf:citekey>
+    <bcf:citekey order="37" intorder="1">locust</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

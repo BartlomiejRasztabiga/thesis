@@ -6,3 +6,5 @@
 \contentsline {lstlisting}{\numberline {5.6}{\ignorespaces Kod filtra zapytań}}{35}{lstlisting.5.6}%
 \contentsline {lstlisting}{\numberline {5.7}{\ignorespaces Kod implementacji repozytorium bazodanowego}}{36}{lstlisting.5.7}%
 \contentsline {lstlisting}{\numberline {5.8}{\ignorespaces Kod klasy konfigurującej mechanizm uwierzytelniania i autoryzacji}}{37}{lstlisting.5.8}%
+\contentsline {lstlisting}{\numberline {5.9}{\ignorespaces Podział na foldery części klienckiej projektu}}{39}{lstlisting.5.9}%
+\contentsline {lstlisting}{\numberline {5.10}{\ignorespaces Kod komponentu interfejsu użytkownika - pasek nawigacji managera restauracji}}{39}{lstlisting.5.10}%

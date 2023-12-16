@@ -284,6 +284,27 @@
       \field{howpublished}{Dostęp zdalny (13.12.2023): \url{https://alistair.cockburn.us/hexagonal-architecture}}
       \field{title}{Opis architektury heksagonalnej}
     \endentry
+    \entry{typescript}{misc}{}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (16.12.2023): \url{https://www.typescriptlang.org}}
+      \field{title}{Strona internetowa języka TypeScript}
+    \endentry
+    \entry{react}{misc}{}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (16.12.2023): \url{https://react.dev}}
+      \field{title}{Dokumentacja biblioteki React}
+    \endentry
+    \entry{remix}{misc}{}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (16.12.2023): \url{https://remix.run}}
+      \field{title}{Strona internetowa biblioteki Remix}
+    \endentry
     \entry{locust}{misc}{}
       \field{sortinit}{3}
       \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
