@@ -105,21 +105,13 @@ Na listingu \ref{lst:server-out-adapter} przedstawiono przykładowy kod komponen
 
 \subsubsection{Warstwa dziedziny} 
 
-Warstwa ta obejmuje pakiet \textit{domain}. Zawiera ona komponenty, które są odpowiedzialne za logikę biznesową aplikacji. W implementowanym systemie komponentami tymi są agregaty, komendy, zdarzenia, zapytania oraz obiekty transferu danych.
+Warstwa ta obejmuje pakiet \textit{domain}. Zawiera ona komponenty, które są odpowiedzialne za logikę biznesową aplikacji. W implementowanym systemie komponentami tymi są agregaty dziedzinowe, komendy, zdarzenia, porty, sagi, encje bazodanowe, klasy wyjątków, zapytania, komponenty budujące projekcje oraz obiekty transferu danych.
 
 Warstwa dziedziny jest podzielona zgodnie ze wzorcem CQRS na część komend oraz część zapytań. Część komend jest zawarta w podpakiecie \textit{command}, a część zapytań w podpakiecie \textit{query}.
 
-TODO inaczej zrefrazować
+Na listingu \ref{lst:server-domain} przedstawiono częściowy kod komponentów warstwy dziedziny odpowiadającej za rozpoczynanie zamówienia z perspektywy użytkownika systemu. Są to: agregat dziedzinowy \textit{Order}, komenda \textit{StartOrderCommand} oraz zdarzenie \textit{OrderStartedEvent}. Przedstawiono również zawartość portu \textit{OrderVerificationPort}, który jest odpowiedzialny za wstępną walidację zamówienia.
 
-Na listingu \ref{lst:server-domain} przedstawiono przykładowy kod kilku komponentów części komend, odpowiedzialnych za obsługę operacji na zamówieniach.
-
-TODO
-
-TODO a moze podzielic ten listing na mniejsze?
-
-TODO napisac ze to axon jest odpowiedzialny za wszystko poprzez adnotacje
-
-\begin{lstlisting}[caption={Kod komponentów odpowiedzialnych za obsługę zamówień},label={lst:server-domain},captionpos=b,language=Kotlin,numbers=left]
+\begin{lstlisting}[caption={Kod komponentów odpowiedzialnych za rozpoczynanie zamówień},label={lst:server-domain},captionpos=b,language=Kotlin,numbers=left]
     @Aggregate
     internal class Order {
     
@@ -137,21 +129,17 @@ TODO napisac ze to axon jest odpowiedzialny za wszystko poprzez adnotacje
         ) {
             require(
                 orderVerificationPort.restaurantExists(command.restaurantId)
-            ) {
-                "Restaurant with id ${command.restaurantId} does not exist"
-            }
+            )
             require(
                 orderVerificationPort.isRestaurantOpen(command.restaurantId)
-            ) {
-                "Restaurant with id ${command.restaurantId} is closed"
-            }
+            )
     
             apply(
                 OrderStartedEvent(
                     orderId = command.orderId,
                     restaurantId = command.restaurantId,
                     userId = command.userId,
-                    status = OrderStartedEvent.OrderStatus.CREATED
+                    status = OrderStatus.CREATED
                 )
             )
         }
@@ -171,16 +159,23 @@ TODO napisac ze to axon jest odpowiedzialny za wszystko poprzez adnotacje
     )
 
     interface OrderVerificationPort {
-
         fun restaurantExists(restaurantId: UUID): Boolean
 
         fun isRestaurantOpen(restaurantId: UUID): Boolean
     }
-
 \end{lstlisting}
 
+Kod ten jest wywoływany w momencie otrzymania komendy \textit{StartOrderCommand} przez agregat \textit{Order}. Komenda ta jest wysyłana do agregatu przez adapter wejściowy, zaprezentowany w rozdziale 5.1.4. Agregat \textit{Order} jest odpowiedzialny za wstępną walidację zamówienia, która jest realizowana przy pomocy portu \textit{OrderVerificationPort}. W przypadku tej komendy, system weryfikuje czy podana resutacja istnieje i czy jest otwarta. Port walidacyjny jest interfejsem, implementowanym przez odpowiedni adapter wyjściowy.
 
-\subsubsection{Warstwa prezentacji/zapytań} domain/query
+W przypadku, gdy wstępna walidacja zamówienia zakończy się sukcesem, agregat \textit{Order} emituje zdarzenie \textit{OrderStartedEvent}, które jest zapisywane w magazynie zdarzeń, kontrolowanym przez Axon Server. Na zdarzenie nasłuchują inne komponenty systemu, które mogą na jego podstawie budować projekcje, wysyłać powiadomienia do użytkowników, lub podejmować inne akcje.
+
+Dzięki zastosowaniu Axon Framework nie ma konieczności pisania kodu odpowiedzialnego za ładowanie agregatów dziedzinowych, wywoływanie odpowiednich metod obsługujących komendy czy publikowanie zdarzeń. Większość interakcji odbywa się bez udziału programisty, przy pomocy odpowiednich adnotacji, takich jak np. \textit{@Aggregate}, \textit{@AggregateIdentifier}, \textit{@CommandHandler} itp.
+
+\subsubsection{Warstwa prezentacji/zapytań}
+
+Warstwa ta obejmuje pakiet \textit{query}. Zawiera ona komponenty, które są odpowiedzialne za obsługę zapytań użytkowników systemu. W implementowanym systemie komponentami tymi są procesory zdarzeń budujące projekcje, zapytania oraz klasy pomocnicze służące do persystencji danych w bazie danych.
+
+TODO
 
 \subsubsection{Warstwa konfiguracji} config
 
