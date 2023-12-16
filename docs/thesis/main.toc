@@ -39,7 +39,6 @@
 \contentsline {subsubsection}{\numberline {5.1.8\relax .\enspace }Warstwa konfiguracji}{35}{subsubsection.5.1.8}%
 \contentsline {subsubsection}{\numberline {5.1.9\relax .\enspace }Warstwa infrastruktury}{36}{subsubsection.5.1.9}%
 \contentsline {subsubsection}{\numberline {5.1.10\relax .\enspace }Współdzielony kod}{37}{subsubsection.5.1.10}%
-\contentsline {subsubsection}{\numberline {5.1.11\relax .\enspace }Przechowywanie stanu aplikacji}{37}{subsubsection.5.1.11}%
 \contentsline {subsection}{\numberline {5.2\relax .\enspace }Część kliencka}{38}{subsection.5.2}%
 \contentsline {subsubsection}{\numberline {5.2.1\relax .\enspace }Użyte narzędzia}{38}{subsubsection.5.2.1}%
 \contentsline {subsubsection}{\numberline {5.2.2\relax .\enspace }Podział na katalogi}{39}{subsubsection.5.2.2}%
@@ -47,25 +46,25 @@
 \contentsline {subsubsection}{\numberline {5.2.4\relax .\enspace }Obsługa ścieżek}{40}{subsubsection.5.2.4}%
 \contentsline {subsubsection}{\numberline {5.2.5\relax .\enspace }Komunikacja z częścią serwerową}{42}{subsubsection.5.2.5}%
 \contentsline {subsubsection}{\numberline {5.2.6\relax .\enspace }Współdzielony kod}{43}{subsubsection.5.2.6}%
-\contentsline {subsubsection}{\numberline {5.2.7\relax .\enspace }Przechowywanie stanu aplikacji}{43}{subsubsection.5.2.7}%
-\contentsline {section}{\numberline {6\relax .\enspace }Wdrożenie}{44}{section.6}%
-\contentsline {subsection}{\numberline {6.1\relax .\enspace }CI/CD}{44}{subsection.6.1}%
-\contentsline {subsection}{\numberline {6.2\relax .\enspace }Repozytorium artefaktów}{44}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3\relax .\enspace }Konteneryzacja}{44}{subsection.6.3}%
-\contentsline {subsection}{\numberline {6.4\relax .\enspace }Orkiestracja kontenerów}{44}{subsection.6.4}%
-\contentsline {subsection}{\numberline {6.5\relax .\enspace }Skalowanie}{44}{subsection.6.5}%
-\contentsline {subsection}{\numberline {6.6\relax .\enspace }Chmura Google Cloud Platform}{44}{subsection.6.6}%
-\contentsline {subsection}{\numberline {6.7\relax .\enspace }Monitorowanie}{44}{subsection.6.7}%
-\contentsline {section}{\numberline {7\relax .\enspace }Testowanie systemu}{45}{section.7}%
-\contentsline {subsection}{\numberline {7.1\relax .\enspace }Testy jednostkowe}{45}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2\relax .\enspace }Testy integracyjne}{45}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3\relax .\enspace }Testy akceptacyjne}{45}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4\relax .\enspace }Testy wydajnościowe}{45}{subsection.7.4}%
-\contentsline {section}{\numberline {8\relax .\enspace }Podsumowanie}{46}{section.8}%
-\contentsline {subsection}{\numberline {8.1\relax .\enspace }Wnioski}{46}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2\relax .\enspace }Stopień realizacji założeń}{46}{subsection.8.2}%
-\contentsline {subsection}{\numberline {8.3\relax .\enspace }Możliwości dalszego rozwoju}{46}{subsection.8.3}%
-\contentsline {section}{Bibliografia}{47}{section*.9}%
-\contentsline {section}{Spis rysunków}{49}{section*.9}%
-\contentsline {section}{Spis tabel}{49}{section*.9}%
-\contentsline {section}{Spis wycinków kodu}{49}{section*.9}%
+\contentsline {subsubsection}{\numberline {5.2.7\relax .\enspace }Przechowywanie stanu aplikacji}{44}{subsubsection.5.2.7}%
+\contentsline {section}{\numberline {6\relax .\enspace }Wdrożenie}{45}{section.6}%
+\contentsline {subsection}{\numberline {6.1\relax .\enspace }CI/CD}{45}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2\relax .\enspace }Repozytorium artefaktów}{45}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3\relax .\enspace }Konteneryzacja}{45}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4\relax .\enspace }Orkiestracja kontenerów}{45}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5\relax .\enspace }Skalowanie}{45}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6\relax .\enspace }Chmura Google Cloud Platform}{45}{subsection.6.6}%
+\contentsline {subsection}{\numberline {6.7\relax .\enspace }Monitorowanie}{45}{subsection.6.7}%
+\contentsline {section}{\numberline {7\relax .\enspace }Testowanie systemu}{46}{section.7}%
+\contentsline {subsection}{\numberline {7.1\relax .\enspace }Testy jednostkowe}{46}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2\relax .\enspace }Testy integracyjne}{46}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3\relax .\enspace }Testy akceptacyjne}{46}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4\relax .\enspace }Testy wydajnościowe}{46}{subsection.7.4}%
+\contentsline {section}{\numberline {8\relax .\enspace }Podsumowanie}{47}{section.8}%
+\contentsline {subsection}{\numberline {8.1\relax .\enspace }Wnioski}{47}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2\relax .\enspace }Stopień realizacji założeń}{47}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3\relax .\enspace }Możliwości dalszego rozwoju}{47}{subsection.8.3}%
+\contentsline {section}{Bibliografia}{49}{section*.9}%
+\contentsline {section}{Spis rysunków}{51}{section*.9}%
+\contentsline {section}{Spis tabel}{51}{section*.9}%
+\contentsline {section}{Spis wycinków kodu}{51}{section*.9}%

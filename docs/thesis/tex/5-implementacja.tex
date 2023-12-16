@@ -53,23 +53,23 @@ Warstwa ta obejmuje pakiet \textit{adapter.in}. Zawiera ona tzw. adaptery wejśc
 Na wycinku \ref{lst:server-in-adapter} przedstawiono przykładowy kod kontrolera REST API, który obsługuje zapytanie HTTP POST na ścieżce \textit{/api/v1/orders}. Zapytanie to rozpoczyna zamówienie ze strony użytkownika zamawiającego. W ciele zapytania znajduje się obiekt JSON, który jest mapowany na obiekt klasy \textit{StartOrderRequest}. Obiekt ten jest następnie przekazywany do komponentu \textit{ReactorCommandGateway}, który jest odpowiedzialny za wysłanie komendy \textit{StartOrderCommand} do szyny komend. Komenda ta jest następnie przekazywana do odpowiedniego agregatu dziedzinowego, który jest odpowiedzialny za jej obsługę. Rezultatem synchronicznym obsługi komendy jest nadany identyfikator zamówienia, w postacu UUID, który jest zwracany w odpowiedzi HTTP. 
 
 \begin{lstlisting}[caption={Kod kontrolera REST API obsługującego zapytania dotyczące zamówień},label={lst:server-in-adapter},captionpos=b,language=Kotlin,numbers=left]
-    @RestController
-    @RequestMapping("/api/v1/orders")
-    class OrderController(
-        private val reactorCommandGateway: ReactorCommandGateway
-    ) {
-        @PostMapping
-        @ResponseStatus(HttpStatus.CREATED)
-        @PreAuthorize("hasAnyAuthority('${Scopes.ORDER.WRITE}')")
-        fun startOrder(
-            @RequestBody request: StartOrderRequest,
-            exchange: ServerWebExchange
-        ): Mono<UuidWrapper> {
-            val command = mapToStartOrderCommand(request, exchange)
-            val id = reactorCommandGateway.send<UUID>(command)
-            return id.map { UuidWrapper(it) }
-        }
+@RestController
+@RequestMapping("/api/v1/orders")
+class OrderController(
+    private val reactorCommandGateway: ReactorCommandGateway
+) {
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAnyAuthority('${Scopes.ORDER.WRITE}')")
+    fun startOrder(
+        @RequestBody request: StartOrderRequest,
+        exchange: ServerWebExchange
+    ): Mono<UuidWrapper> {
+        val command = mapToStartOrderCommand(request, exchange)
+        val id = reactorCommandGateway.send<UUID>(command)
+        return id.map { UuidWrapper(it) }
     }
+}
 \end{lstlisting}
 
 Kod kontrolera został napisany z wykorzystaniem biblioteki programowania reaktywnego Spring WebFlux, która pozwala na obsługę żądań HTTP w sposób asynchroniczny. Pozwala to na obsługę większej liczby żądań przy użyciu mniejszej liczby wątków, co przekłada się na większą wydajność aplikacji.
@@ -83,24 +83,24 @@ Warstwa ta obejmuje pakiet \textit{adapter.out}. Zawiera ona tzw. adaptery wyjś
 Na wycinku \ref{lst:server-out-adapter} przedstawiono przykładowy kod komponentu oferującego dostęp do bazy danych. Jest to implementacja (adapter) interfejsu (portu) \textit{OrderDeliveryRepository}, który jest odpowiedzialny za zapisywanie i odczytywanie encji \textit{OrderDeliveryEntity} z bazy danych. Implementacja ta wykorzystuje repozytorium Spring Data, które jest komponentem oferującym dostęp do bazy MongoDB. Repozytorium to jest wstrzykiwane do klasy \textit{DbOrderDeliveryRepository} przy pomocy mechanizmu wstrzykiwania zależności oferowanego przez framework Spring. 
 
 \begin{lstlisting}[caption={Kod implementacji repozytorium dziedzinowego projekcji Zamówienia},label={lst:server-out-adapter},captionpos=b,language=Kotlin,numbers=left]
-    @Service
-    class DbOrderDeliveryRepository(
-        private val repository: SpringDataOrderDeliveryRepository
-    ) : OrderDeliveryRepository {
-        override fun save(delivery: OrderDeliveryEntity) {
-            repository.save(delivery).block()
-        }
-    
-        override fun load(id: UUID): OrderDeliveryEntity? {
-            return repository.findById(id).block()
-        }
-    
-        override fun loadOffers(): List<OrderDeliveryEntity> {
-            return repository
-                .findAllByStatus(DeliveryStatus.OFFER)
-                .collectList().block() ?: listOf()
-        }
+@Service
+class DbOrderDeliveryRepository(
+    private val repository: SpringDataOrderDeliveryRepository
+) : OrderDeliveryRepository {
+    override fun save(delivery: OrderDeliveryEntity) {
+        repository.save(delivery).block()
     }
+
+    override fun load(id: UUID): OrderDeliveryEntity? {
+        return repository.findById(id).block()
+    }
+
+    override fun loadOffers(): List<OrderDeliveryEntity> {
+        return repository
+            .findAllByStatus(DeliveryStatus.OFFER)
+            .collectList().block() ?: listOf()
+    }
+}
 \end{lstlisting}
 
 \subsubsection{Warstwa dziedziny} 
@@ -112,57 +112,56 @@ Warstwa dziedziny jest podzielona zgodnie ze wzorcem CQRS na część komend ora
 Na wycinku \ref{lst:server-domain} przedstawiono częściowy kod komponentów warstwy dziedziny odpowiadającej za rozpoczynanie zamówienia z perspektywy użytkownika systemu. Są to: agregat dziedzinowy \textit{Order}, komenda \textit{StartOrderCommand} oraz zdarzenie \textit{OrderStartedEvent}. Przedstawiono również zawartość portu \textit{OrderVerificationPort}, który jest odpowiedzialny za wstępną walidację zamówienia.
 
 \begin{lstlisting}[caption={Kod komponentów odpowiedzialnych za rozpoczynanie zamówień},label={lst:server-domain},captionpos=b,language=Kotlin,numbers=left]
-    @Aggregate
-    internal class Order {
-    
-        @AggregateIdentifier
-        private lateinit var id: UUID
-        private lateinit var status: OrderStatus
-    
-        @AggregateMember
-        private val items: MutableMap<UUID, Int> = mutableMapOf()
-    
-        @CommandHandler
-        constructor(
-            command: StartOrderCommand,
-            orderVerificationPort: OrderVerificationPort
-        ) {
-            require(
-                orderVerificationPort.restaurantExists(command.restaurantId)
+@Aggregate
+internal class Order {
+
+    @AggregateIdentifier
+    private lateinit var id: UUID
+    private lateinit var status: OrderStatus
+
+    @AggregateMember
+    private val items: MutableMap<UUID, Int> = mutableMapOf()
+
+    @CommandHandler
+    constructor(
+        command: StartOrderCommand,
+        orderVerificationPort: OrderVerificationPort
+    ) {
+        require(
+            orderVerificationPort.restaurantExists(command.restaurantId)
+        )
+        require(
+            orderVerificationPort.isRestaurantOpen(command.restaurantId)
+        )
+
+        apply(
+            OrderStartedEvent(
+                orderId = command.orderId,
+                restaurantId = command.restaurantId,
+                userId = command.userId,
+                status = OrderStatus.CREATED
             )
-            require(
-                orderVerificationPort.isRestaurantOpen(command.restaurantId)
-            )
-    
-            apply(
-                OrderStartedEvent(
-                    orderId = command.orderId,
-                    restaurantId = command.restaurantId,
-                    userId = command.userId,
-                    status = OrderStatus.CREATED
-                )
-            )
-        }
+        )
     }
+}
 
-    data class StartOrderCommand(
-        @TargetAggregateIdentifier val orderId: UUID,
-        val userId: String,
-        val restaurantId: UUID
-    )
+data class StartOrderCommand(
+    @TargetAggregateIdentifier val orderId: UUID,
+    val userId: String,
+    val restaurantId: UUID
+)
 
-    data class OrderStartedEvent(
-        val orderId: UUID,
-        val restaurantId: UUID,
-        val userId: String,
-        val status: OrderStatus
-    )
+data class OrderStartedEvent(
+    val orderId: UUID,
+    val restaurantId: UUID,
+    val userId: String,
+    val status: OrderStatus
+)
 
-    interface OrderVerificationPort {
-        fun restaurantExists(restaurantId: UUID): Boolean
-
-        fun isRestaurantOpen(restaurantId: UUID): Boolean
-    }
+interface OrderVerificationPort {
+    fun restaurantExists(restaurantId: UUID): Boolean
+    fun isRestaurantOpen(restaurantId: UUID): Boolean
+}
 \end{lstlisting}
 
 Kod ten jest wywoływany w momencie otrzymania komendy \textit{StartOrderCommand} przez agregat \textit{Order}. Komenda ta jest wysyłana do agregatu przez adapter wejściowy, zaprezentowany w rozdziale 5.1.4. Agregat \textit{Order} jest odpowiedzialny za wstępną walidację zamówienia, która jest realizowana przy pomocy portu \textit{OrderVerificationPort}. W przypadku tej komendy, system weryfikuje czy podana resutacja istnieje i czy jest otwarta. Port walidacyjny jest interfejsem, implementowanym przez odpowiedni adapter wyjściowy.
@@ -178,33 +177,33 @@ Warstwa ta obejmuje pakiet \textit{query}. Zawiera ona komponenty, które są od
 Na wycinku \ref{lst:server-domain-query} przedstawiono kod procesora zdarzeń budującego projekcję zamówienia. Procesor ten nasłuchuje na zdarzenie \textit{OrderStartedEvent} i na jego podstawie buduje projekcję zamówienia, która jest zapisywana w bazie danych. Procesor ten jest wywoływany automatycznie przez Axon Framework, w momencie otrzymania odpowiednigo zdarzenia.
 
 \begin{lstlisting}[caption={Kod procesora zdarzeń budującego projekcję zamówienia},label={lst:server-domain-query},captionpos=b,language=Kotlin,numbers=left,showstringspaces=false]
-    @ProcessingGroup("projection")
-    class OrderHandler(
-        private val orderRepository: OrderRepository,
-        private val restaurantRepository: RestaurantRepository
-    ) {
-    
-        @EventHandler
-        fun on(event: OrderStartedEvent) {
-            val restaurant = restaurantRepository.load(
-                event.restaurantId
-            )
-    
-            val restaurantLocation = restaurant?.location 
-                ?: error("Restaurant not found")
-    
-            val entity = OrderEntity(
-                id = event.orderId,
-                restaurantId = event.restaurantId,
-                restaurantLocation = restaurantLocation,
-                userId = event.userId,
-                status = OrderStatus.CREATED,
-                items = mutableMapOf(),
-                createdAt = Instant.now()
-            )
-            orderRepository.save(entity)
-        }
+@ProcessingGroup("projection")
+class OrderHandler(
+    private val orderRepository: OrderRepository,
+    private val restaurantRepository: RestaurantRepository
+) {
+
+    @EventHandler
+    fun on(event: OrderStartedEvent) {
+        val restaurant = restaurantRepository.load(
+            event.restaurantId
+        )
+
+        val restaurantLocation = restaurant?.location 
+            ?: error("Restaurant not found")
+
+        val entity = OrderEntity(
+            id = event.orderId,
+            restaurantId = event.restaurantId,
+            restaurantLocation = restaurantLocation,
+            userId = event.userId,
+            status = OrderStatus.CREATED,
+            items = mutableMapOf(),
+            createdAt = Instant.now()
+        )
+        orderRepository.save(entity)
     }
+}
 \end{lstlisting}
 
 \subsubsection{Warstwa konfiguracji}
@@ -214,23 +213,23 @@ Warstwa ta obejmuje pakiet \textit{config}. Zawiera ona komponenty, które są o
 Przykładowym komponentem w implementowanym systemie jest filtr zapytań, odpowiedzialny za odczytywanie atrybutu \textit{subject} z tokenu JWT oraz zapisywanie go w kontekście żądania. Jest to używane m.in. do poprawnej autoryzacji użytkownika w momencie wywoływania komendy (np. dostęp do zasobu ma tylko jego autor). Kod tego komponentu został przedstawiony na wycinku \ref{lst:server-config}.
 
 \begin{lstlisting}[caption={Kod filtra zapytań},label={lst:server-config},captionpos=b,language=Kotlin,numbers=left,showstringspaces=false]
-    @Component
-    @Profile("!nosecurity")
-    class UserContextWebFilter : WebFilter {
-        override fun filter(
-            exchange: ServerWebExchange,
-            chain: WebFilterChain
-        ): Mono<Void> {
-            return ReactiveSecurityContextHolder.getContext()
-                .mapNotNull { it.authentication.principal }
-                .cast(Jwt::class.java)
-                .doOnNext {
-                    val userId = it.subject.removePrefix("auth0|")
-                    exchange.setUserId(userId)
-                }
-                .then(chain.filter(exchange))
-        }
+@Component
+@Profile("!nosecurity")
+class UserContextWebFilter : WebFilter {
+    override fun filter(
+        exchange: ServerWebExchange,
+        chain: WebFilterChain
+    ): Mono<Void> {
+        return ReactiveSecurityContextHolder.getContext()
+            .mapNotNull { it.authentication.principal }
+            .cast(Jwt::class.java)
+            .doOnNext {
+                val userId = it.subject.removePrefix("auth0|")
+                exchange.setUserId(userId)
+            }
+            .then(chain.filter(exchange))
     }
+}
 \end{lstlisting}
 
 Dzięki zastosowaniu adnotacji \textit{@Profile("!nosecurity")} możliwe jest wyłączenie tego filtra w trybie \textit{nosecurity}, który jest używany w testach wydajnościowych, w których wyłączone są mechanizmy uwierzytelniania i autoryzacji.
@@ -242,17 +241,17 @@ Warstwa ta obejmuje pakiet \textit{infrastructure}. Zawiera ona kod, niezwiązan
 Na wycinku \ref{lst:server-infrastructure} przedstawiono przykładowy kod implementacji repozytorium bazodanowego. Jest to implementacja interfejsu \textit{ReactiveMongoRepository}, który jest komponentem oferującym dostęp do bazy MongoDB. Mimo faktu, że repozytorium to jest interfejsem, a nie klasą, to dzięki mechanizmowi refleksji oferowanemu przez framework Spring, implementacja ta jest automatycznie generowana w czasie uruchamiania aplikacji.
 
 \begin{lstlisting}[caption={Kod implementacji repozytorium bazodanowego},label={lst:server-infrastructure},captionpos=b,language=Kotlin,numbers=left,showstringspaces=false]
-    @Repository
-    interface SpringDataOrderRepository 
-        : ReactiveMongoRepository<OrderEntity, UUID> {
-    
-        fun findAllByUserId(userId: String): Flux<OrderEntity>
-    }
+@Repository
+interface SpringDataOrderRepository 
+    : ReactiveMongoRepository<OrderEntity, UUID> {
+
+    fun findAllByUserId(userId: String): Flux<OrderEntity>
+}
 \end{lstlisting}
 
 Repozytorium bazowe, \textit{ReactiveMongoRepository} zawiera podstawowe metody do operacji na bazie danych, takie jak np. \textit{save}, \textit{findById}, \textit{findAll}, itp. Repozytorium \textit{SpringDataOrderRepository} rozszerza repozytorium bazowe i dodaje do niego dodatkową metodę \textit{findAllByUserId}, która zwraca wszystkie zamówienia danego użytkownika.
 
-\subsubsection{Współdzielony kod}\subsubsection{Przechowywanie stanu aplikacji}
+\subsubsection{Współdzielony kod}
 
 Kod współdzielony przez różne serwisy w ramach systemu został umieszczony w osobnym module \textit{shared}. Zawiera on m.in. klasy reprezentujące obiekty transferu danych, wyjątki, stałe, wspólną konfigurację itp.
 
@@ -261,29 +260,29 @@ Moduł ten jest wersjonowany i publikowany jako artefakt systemu budowania Maven
 Przykład współdzielonej klasy zaprezentowany jest na wycinku \ref{lst:server-shared}
 
 \begin{lstlisting}[caption={Kod klasy konfigurującej mechanizm uwierzytelniania i autoryzacji},label={lst:server-shared},captionpos=b,language=Kotlin,numbers=left,showstringspaces=false]
-    @Configuration
-    @EnableReactiveMethodSecurity
-    @EnableWebFluxSecurity
-    @Profile("!nosecurity")
-    class SecurityConfig {
-    
-        @Bean
-        fun springSecurityFilterChain(
-            http: ServerHttpSecurity
-        ): SecurityWebFilterChain {
-            return http.authorizeExchange {
-                it.pathMatchers("/actuator/**").permitAll()
-                it.pathMatchers("/api/v1/payments/stripe-webhook").permitAll()
-                it.anyExchange().authenticated()
-            }.csrf {
-                it.disable()
-            }.cors {
-                it.disable()
-            }.oauth2ResourceServer {
-                it.jwt {}
-            }.build()
-        }
+@Configuration
+@EnableReactiveMethodSecurity
+@EnableWebFluxSecurity
+@Profile("!nosecurity")
+class SecurityConfig {
+
+    @Bean
+    fun springSecurityFilterChain(
+        http: ServerHttpSecurity
+    ): SecurityWebFilterChain {
+        return http.authorizeExchange {
+            it.pathMatchers("/actuator/**").permitAll()
+            it.pathMatchers("/api/v1/payments/stripe-webhook").permitAll()
+            it.anyExchange().authenticated()
+        }.csrf {
+            it.disable()
+        }.cors {
+            it.disable()
+        }.oauth2ResourceServer {
+            it.jwt {}
+        }.build()
     }
+}
 \end{lstlisting}
 
 Klasa ta jest odpowiedzialna za konfigurację mechanizmu uwierzytelniania i autoryzacji. Została ona umieszczona w module \textit{shared}, ponieważ jest ona wspólna dla wszystkich serwisów w ramach systemu. Uruchamia ona mechanizm uwierzytelniania i autoryzacji oferowany przez framework Spring Security. Uwierzytelnianie odbywa się przy pomocy tokenów JWT. Dodatkowo, wyłącza ona mechanizmy obrony przed atakiem CSRF oraz CORS, które są niepotrzebne w przypadku zastosowanej infrastruktury sieciowej systemu.
@@ -374,59 +373,59 @@ Komponenty aplikacji odpowiedzialne za obsługę ścieżek zostały umieszczone 
 Na wycinku \ref{lst:client-route} przedstawiono kod komponentu obsługującego ścieżkę \textit{/v2/ordering/restaurants} wyświetlającą listę restauracji, które może wybrać użytkownik zamawiający.
 
 \begin{lstlisting}[caption={Kod ścieżki wyświetlającej listę dostępnych restauracji - \textit{/v2/ordering/restaurants}},label={lst:client-route},captionpos=b,language=JavaScript,numbers=left,showstringspaces=false]
-    export async function loader({ request }: LoaderArgs) {
-        const currentUser = await getCurrentUser(request);
-        const restaurants = await getRestaurants(request);
-      
-        const activeOrderId = await getOrderId(request);
-        const activeOrder = await getOrder(request, activeOrderId)
-      
-        return json({ restaurants, currentUser, activeOrder });
-    }
+export async function loader({ request }: LoaderArgs) {
+    const currentUser = await getCurrentUser(request);
+    const restaurants = await getRestaurants(request);
+  
+    const activeOrderId = await getOrderId(request);
+    const activeOrder = await getOrder(request, activeOrderId)
+  
+    return json({ restaurants, currentUser, activeOrder });
+}
 
-    export async function action({ request, params }: ActionArgs) {
-        const formData = await request.formData();
-        ...
-      }
-      
-    export default function V2RestaurantsPage() {
-      const data = useLoaderData<typeof loader>();
-      const navigate = useNavigate();
-    
-      const openRestaurants = data.restaurants.filter(
-        (restaurant) => restaurant.availability === "OPEN",
-      );
-    
-      return (
-        <div className="flex flex-col h-full overflow-x-hidden">
-          <div>
-            <Topbar user={data.currentUser} />
-          </div>
-          <div className="h-full">
-            <div className="flex flex-col w-80 mx-auto">
-              {openRestaurants.map((restaurant, key) => (
-                <Card key={key} className={"my-4"}>
-                  <CardActionArea>
-                    <NavLink to={restaurant.id}>
-                      <CardMedia
-                        component="img"
-                        image={restaurant.imageUrl}
-                      />
-                      <CardContent>
-                        ...
-                      </CardContent>
-                    </NavLink>
-                  </CardActionArea>
-                </Card>
-              ))}
-            </div>
-          </div>
-          <div>
-            <BottomNavbar />
-          </div>
+export async function action({ request, params }: ActionArgs) {
+    const formData = await request.formData();
+    ...
+}
+
+export default function V2RestaurantsPage() {
+  const data = useLoaderData<typeof loader>();
+  const navigate = useNavigate();
+
+  const openRestaurants = data.restaurants.filter(
+    (restaurant) => restaurant.availability === "OPEN",
+  );
+
+  return (
+    <div className="flex flex-col h-full overflow-x-hidden">
+      <div>
+        <Topbar user={data.currentUser} />
+      </div>
+      <div className="h-full">
+        <div className="flex flex-col w-80 mx-auto">
+          {openRestaurants.map((restaurant, key) => (
+            <Card key={key} className={"my-4"}>
+              <CardActionArea>
+                <NavLink to={restaurant.id}>
+                  <CardMedia
+                    component="img"
+                    image={restaurant.imageUrl}
+                  />
+                  <CardContent>
+                    ...
+                  </CardContent>
+                </NavLink>
+              </CardActionArea>
+            </Card>
+          ))}
         </div>
-      );
-    }      
+      </div>
+      <div>
+        <BottomNavbar />
+      </div>
+    </div>
+  );
+}      
 \end{lstlisting}
       
 Charakterystycznymi dla aplikacji napisanych z użyciem frameworka Remix, jest obecność dwóch funkcji w każdym komponencie obsługującym ścieżkę. 
@@ -442,42 +441,75 @@ Funkcje odpowiedzialne za wykonywanie żądań HTTP do części serwerowej zosta
 Na wycinku \ref{lst:client-server} przedstawiono przykładowy kod funkcji wywołujących żądania HTTP do części serwerowej. Funkcje te są wywoływane przez funkcje \textit{loader} oraz \textit{action} opisane w poprzednim podrozdziale. Kod ten wykorzystuje bibliotekę \textit{axios}, która jest odpowiedzialna za wykonywanie żądań HTTP. Co ważne, funkcje te są wywoływane po stronie serwera, a nie klienta, co pozwala np. na ukrycie kluczy dostępowych do zewnętrznych usług, takich jak np. Google Maps Platform.
 
 \begin{lstlisting}[caption={Kod funkcji wywołujących żadania HTTP do części serwerowej},label={lst:client-server},captionpos=b,language=JavaScript,numbers=left,showstringspaces=false]
-    export const getOrders = async (
-        request: Request
-    ): Promise<OrderResponse[]> => {
-        const axios = await getAxios(request);
-        return axios.get(`/api/v2/orders`)
-          .then((res) => res.data);
-    };
-      
-    export const startOrder = async (
-        request: Request,
-        restaurantId: string
-    ): Promise<UuidWrapper> => {
-        const axios = await getAxios(request);
-        return axios.post(`/api/v1/orders`, { restaurantId })
-          .then((res) => res.data);
-    };
+export const getOrders = async (
+    request: Request
+): Promise<OrderResponse[]> => {
+    const axios = await getAxios(request);
+    return axios.get(`/api/v2/orders`)
+      .then((res) => res.data);
+};
+  
+export const startOrder = async (
+    request: Request,
+    restaurantId: string
+): Promise<UuidWrapper> => {
+    const axios = await getAxios(request);
+    return axios.post(`/api/v1/orders`, { restaurantId })
+      .then((res) => res.data);
+};
 
-    export interface OrderResponse {
-        id: string;
-        restaurantId: string;
-        restaurantLocation: Location;
-        deliveryLocation: Location;
-        courierLocation: Location;
-        total: number;
-        deliveryFee: number;
-        userId: string;
-        status: OrderStatus;
-        items: OrderItem[];
-        itemsTotal: number;
-        paymentId: string;
-        paymentSessionUrl: string;
-        createdAt: string;
-        events: OrderEvent[];
-    }
+export interface OrderResponse {
+    id: string;
+    restaurantId: string;
+    restaurantLocation: Location;
+    deliveryLocation: Location;
+    courierLocation: Location;
+    total: number;
+    deliveryFee: number;
+    userId: string;
+    status: OrderStatus;
+    items: OrderItem[];
+    itemsTotal: number;
+    paymentId: string;
+    paymentSessionUrl: string;
+    createdAt: string;
+    events: OrderEvent[];
+}
 \end{lstlisting}
 
-\subsubsection{Współdzielony kod} services
+\subsubsection{Współdzielony kod} 
+
+Kod współdzielony przez różne komponenty w ramach systemu został umieszczony w osobnym folderze \textit{services}. Zawiera on m.in. kod odpowiedzialny za manipulowanie sesją użytkownika w postaci ciasteczka HTTP. Jego fragment został zaprezentowany na listingu \ref{lst:client-service}.
+
+\begin{lstlisting}[caption={Kod funkcji manipulujących sesją użytkownika},label={lst:client-service},captionpos=b,language=JavaScript,numbers=left,showstringspaces=false]
+export const sessionStorage = createCookieSessionStorage({
+    cookie: {
+      name: "__session",
+      httpOnly: true,
+      path: "/",
+      sameSite: "lax",
+      secrets: [process.env.SESSION_SECRET],
+      secure: process.env.NODE_ENV === "production",
+    },
+});
+
+export async function getSession(request: Request) {
+    const cookie = request.headers.get("Cookie");
+    return sessionStorage.getSession(cookie);
+}
+
+export async function setOrderId(request: Request, orderId: string) {
+    const session = await getSession(request);
+    session.set("orderId", orderId);
+    return sessionStorage.commitSession(session);
+}
+
+export async function getOrderId(request: Request) {
+    const session = await getSession(request);
+    return session.get("orderId");
+}
+\end{lstlisting}
 
 \subsubsection{Przechowywanie stanu aplikacji}
+
+Z powodu charakteru aplikacji typu MPA, w której każda strona jest ładowana osobno, nie ma potrzeby przechowywania stanu aplikacji po stronie klienta. Wszystkie dane są pobierane z serwera w momencie przejścia użytkownika na daną stronę. Cały stan aplikacji jest przechowywany po stronie serwera, w postaci sesji użytkownika, która jest przechowywana w postaci ciasteczka HTTP w przeglądarce klienta. Oznacza to, że w momencie zmiany przeglądarki lub urządzenia, użytkownik traci swój stan aplikacji. Ciasteczko to jest typu HTTP Only, co oznacza, że nie jest ono dostępne dla kodu JavaScript, co zwiększa bezpieczeństwo aplikacji. Jest ono dodatkowo szyfrowane przy pomocy tajnego klucza, który jest przechowywany po stronie serwera.

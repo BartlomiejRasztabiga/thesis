@@ -10,3 +10,4 @@
 \contentsline {lstlisting}{\numberline {5.10}{\ignorespaces Kod komponentu interfejsu użytkownika - pasek nawigacji managera restauracji}}{39}{lstlisting.5.10}%
 \contentsline {lstlisting}{\numberline {5.11}{\ignorespaces Kod ścieżki wyświetlającej listę dostępnych restauracji - \textit {/v2/ordering/restaurants}}}{40}{lstlisting.5.11}%
 \contentsline {lstlisting}{\numberline {5.12}{\ignorespaces Kod funkcji wywołujących żadania HTTP do części serwerowej}}{42}{lstlisting.5.12}%
+\contentsline {lstlisting}{\numberline {5.13}{\ignorespaces Kod funkcji manipulujących sesją użytkownika}}{43}{lstlisting.5.13}%
