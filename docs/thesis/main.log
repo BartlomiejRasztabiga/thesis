@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.19)  16 DEC 2023 19:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.19)  16 DEC 2023 20:33
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1067,12 +1067,12 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `futs' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-<src/pl/header/eiti.pdf, id=286, 483.72722pt x 76.8471pt>
+<src/pl/header/eiti.pdf, id=282, 483.72722pt x 76.8471pt>
 File: src/pl/header/eiti.pdf Graphic file (type pdf)
 <use src/pl/header/eiti.pdf>
 Package pdftex.def Info: src/pl/header/eiti.pdf  used on input line 96.
 (pdftex.def)             Requested size: 441.01775pt x 70.06229pt.
-<src/pl/title/inz.pdf, id=287, 483.72722pt x 105.39375pt>
+<src/pl/title/inz.pdf, id=283, 483.72722pt x 105.39375pt>
 File: src/pl/title/inz.pdf Graphic file (type pdf)
 <use src/pl/title/inz.pdf>
 Package pdftex.def Info: src/pl/title/inz.pdf  used on input line 96.
@@ -1141,7 +1141,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ] [8]) (./tex/2-techniki.tex [9]
-<tex/img//mikroserwisy.png, id=407, 1204.5pt x 582.175pt>
+<tex/img//mikroserwisy.png, id=402, 1204.5pt x 582.175pt>
 File: tex/img//mikroserwisy.png Graphic file (type png)
 <use tex/img//mikroserwisy.png>
 Package pdftex.def Info: tex/img//mikroserwisy.png  used on input line 17.
@@ -1214,7 +1214,7 @@ Overfull \hbox (15.541pt too wide) in alignment at lines 34--48
  []
 
 [11]
-<tex/img//cap.jpg, id=428, 401.5pt x 314.17375pt>
+<tex/img//cap.jpg, id=423, 401.5pt x 314.17375pt>
 File: tex/img//cap.jpg Graphic file (type jpg)
 <use tex/img//cap.jpg>
 Package pdftex.def Info: tex/img//cap.jpg  used on input line 65.
@@ -1223,13 +1223,13 @@ Package pdftex.def Info: tex/img//cap.jpg  used on input line 65.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [13] [14]
-<tex/img//cqrs.png, id=464, 593.21625pt x 352.31625pt>
+<tex/img//cqrs.png, id=459, 593.21625pt x 352.31625pt>
 File: tex/img//cqrs.png Graphic file (type png)
 <use tex/img//cqrs.png>
 Package pdftex.def Info: tex/img//cqrs.png  used on input line 116.
 (pdftex.def)             Requested size: 264.61333pt x 157.15923pt.
  [15 <./tex/img//cqrs.png>]
-<tex/img//event_sourcing.png, id=480, 723.70375pt x 653.44125pt>
+<tex/img//event_sourcing.png, id=475, 723.70375pt x 653.44125pt>
 File: tex/img//event_sourcing.png Graphic file (type png)
 <use tex/img//event_sourcing.png>
 Package pdftex.def Info: tex/img//event_sourcing.png  used on input line 143.
@@ -1253,13 +1253,13 @@ Underfull \vbox (badness 3128) has occurred while \output is active []
  [18
 
 ]
-<tex/img//event_storming.png, id=504, 1536.74126pt x 1061.9675pt>
+<tex/img//event_storming.png, id=499, 1536.74126pt x 1061.9675pt>
 File: tex/img//event_storming.png Graphic file (type png)
 <use tex/img//event_storming.png>
 Package pdftex.def Info: tex/img//event_storming.png  used on input line 37.
 (pdftex.def)             Requested size: 352.81554pt x 243.80986pt.
  [19 <./tex/img//event_storming.png>]
-<tex/img//event_storming2.png, id=518, 1725.44624pt x 1128.215pt>
+<tex/img//event_storming2.png, id=513, 1725.44624pt x 1128.215pt>
 File: tex/img//event_storming2.png Graphic file (type png)
 <use tex/img//event_storming2.png>
 Package pdftex.def Info: tex/img//event_storming2.png  used on input line 63.
@@ -1268,7 +1268,7 @@ Package pdftex.def Info: tex/img//event_storming2.png  used on input line 63.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [20 <./tex/img//event_storming2.png>] [21]) (./tex/4-architektura.tex [22]
-<tex/img//c4context.png, id=538, 3864.4375pt x 2007.5pt>
+<tex/img//c4context.png, id=533, 3864.4375pt x 2007.5pt>
 File: tex/img//c4context.png Graphic file (type png)
 <use tex/img//c4context.png>
 Package pdftex.def Info: tex/img//c4context.png  used on input line 33.
@@ -1277,7 +1277,7 @@ Package pdftex.def Info: tex/img//c4context.png  used on input line 33.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<tex/img//c4containers.png, id=540, 6803.4175pt x 3303.34125pt>
+<tex/img//c4containers.png, id=535, 6803.4175pt x 3303.34125pt>
 File: tex/img//c4containers.png Graphic file (type png)
 <use tex/img//c4containers.png>
 Package pdftex.def Info: tex/img//c4containers.png  used on input line 43.
@@ -1332,14 +1332,19 @@ Overfull \hbox (53.1949pt too wide) in paragraph at lines 276--277
 [37]
 Underfull \vbox (badness 1292) has occurred while \output is active []
 
- [38] [39]) (./tex/6-wdrozenie.tex [40]) (./tex/7-testowanie.tex [41
+ [38] [39]
+Overfull \hbox (39.87595pt too wide) in paragraph at lines 374--375
+[]\T1/futs/m/n/12 (-20) Na wy-cinku [][]5.11[][] przed-sta-wiono kod kom-po-nentu ob-sªu-gu-j¡-cego ±cie»k¦ \T1/futs/m/it/12 (-20) /v2/ordering/restaurants
+ []
 
-]) (./tex/8-podsumowanie.tex [42
+[40]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-]) [43
+ [41] [42]) (./tex/6-wdrozenie.tex [43]) (./tex/7-testowanie.tex [44
 
-] [44
+]) (./tex/8-podsumowanie.tex [45
 
+]) [46
 
 ]
 Overfull \hbox (2.92612pt too wide) in paragraph at lines 168--168
@@ -1366,7 +1371,10 @@ Overfull \hbox (12.9905pt too wide) in paragraph at lines 168--168
 []\T1/futs/m/it/12 (-20) Axon Fra-me-work\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (07.06.2023): [][]$\T1/cmtt/m/n/12 https : / / docs . axoniq . io / reference -[]
  []
 
-[45]
+[47
+
+
+]
 Overfull \hbox (6.71614pt too wide) in paragraph at lines 168--168
 \T1/cmtt/m/n/12 com / en / database / oracle / oracle -[] database / 21 / jjdev / Oracle -[] JVM -[] overview .
  []
@@ -1376,7 +1384,7 @@ Overfull \hbox (8.34697pt too wide) in paragraph at lines 168--168
 []\T1/futs/m/it/12 (-20) Framework Spring Boot\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (07.06.2023): [][]$\T1/cmtt/m/n/12 https : / / spring . io / projects /
  []
 
-[46] (./main.lof)
+[48] (./main.lof)
 \tf@lof=\write6
 \openout6 = `main.lof'.
 
@@ -1388,28 +1396,28 @@ Overfull \hbox (8.34697pt too wide) in paragraph at lines 168--168
 \tf@lol=\write8
 \openout8 = `main.lol'.
 
- [47
+ [49
 
 ] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 6CDFC59CAB2EC0D3970C7C881811A204;12012.
+(rerunfilecheck)             Checksum: 2224F509EE558957FD6194D3F1CBA741;11833.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 29962 strings out of 476025
- 518754 string characters out of 5790016
- 1890388 words of memory out of 5000000
- 49017 multiletter control sequences out of 15000+600000
- 634553 words of font info for 482 fonts, out of 8000000 for 9000
+ 30198 strings out of 476025
+ 522191 string characters out of 5790016
+ 1900388 words of memory out of 5000000
+ 49143 multiletter control sequences out of 15000+600000
+ 640280 words of font info for 497 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  123i,12n,120p,1198b,2622s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on main.pdf (47 pages, 1845809 bytes).
+Output written on main.pdf (49 pages, 1860205 bytes).
 PDF statistics:
- 1114 PDF objects out of 1200 (max. 8388607)
- 1025 compressed objects within 11 object streams
- 400 named destinations out of 1000 (max. 500000)
- 70763 words of extra memory for PDF output out of 74296 (max. 10000000)
+ 1230 PDF objects out of 1440 (max. 8388607)
+ 1138 compressed objects within 12 object streams
+ 490 named destinations out of 1000 (max. 500000)
+ 76899 words of extra memory for PDF output out of 89155 (max. 10000000)
 

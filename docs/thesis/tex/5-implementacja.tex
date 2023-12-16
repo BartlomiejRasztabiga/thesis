@@ -258,7 +258,7 @@ Kod współdzielony przez różne serwisy w ramach systemu został umieszczony w
 
 Moduł ten jest wersjonowany i publikowany jako artefakt systemu budowania Maven, dzięki czemu może być umieszczony w centralnym repozytorium i importowany przez inne projekty.
 
-Przykład współdzielonej klasy zaprezentowany jest na listingu \ref{lst:server-shared}
+Przykład współdzielonej klasy zaprezentowany jest na wycinku \ref{lst:server-shared}
 
 \begin{lstlisting}[caption={Kod klasy konfigurującej mechanizm uwierzytelniania i autoryzacji},label={lst:server-shared},captionpos=b,language=Kotlin,numbers=left,showstringspaces=false]
     @Configuration
@@ -367,14 +367,117 @@ export interface TopbarProps {
 
 Odpowiedzialność za dostarczenie danych oraz obsługę formularza komponent ten deleguje do swojego rodzica. Jest to podejście typowe dla biblioteki React, która promuje podejście kompozycyjne do tworzenia interfejsów użytkownika.
 
-\subsubsection{Obsługa ścieżek} routes
+\subsubsection{Obsługa ścieżek}
 
-\subsubsection{Komunikacja z częścią serwerową} server
+Komponenty aplikacji odpowiedzialne za obsługę ścieżek zostały umieszczone w folderze \textit{routes}. W frameworku Remix, komponenty te są punktami startowymi podróży użytkownika po aplikacji. Na przykład, po podanie w przeglądarce użytkownika ścieżki \textit{/v2/courier/delivery} aplikacja uruchomi plik \textit{courier.delivery.tsx}, który od tego momentu jest odpowiedzialny za ładowanie danych, obsługę formularzy i renderowanie komponentów.
+
+Na wycinku \ref{lst:client-route} przedstawiono kod komponentu obsługującego ścieżkę \textit{/v2/ordering/restaurants} wyświetlającą listę restauracji, które może wybrać użytkownik zamawiający.
+
+\begin{lstlisting}[caption={Kod ścieżki wyświetlającej listę dostępnych restauracji - \textit{/v2/ordering/restaurants}},label={lst:client-route},captionpos=b,language=JavaScript,numbers=left,showstringspaces=false]
+    export async function loader({ request }: LoaderArgs) {
+        const currentUser = await getCurrentUser(request);
+        const restaurants = await getRestaurants(request);
+      
+        const activeOrderId = await getOrderId(request);
+        const activeOrder = await getOrder(request, activeOrderId)
+      
+        return json({ restaurants, currentUser, activeOrder });
+    }
+
+    export async function action({ request, params }: ActionArgs) {
+        const formData = await request.formData();
+        ...
+      }
+      
+    export default function V2RestaurantsPage() {
+      const data = useLoaderData<typeof loader>();
+      const navigate = useNavigate();
+    
+      const openRestaurants = data.restaurants.filter(
+        (restaurant) => restaurant.availability === "OPEN",
+      );
+    
+      return (
+        <div className="flex flex-col h-full overflow-x-hidden">
+          <div>
+            <Topbar user={data.currentUser} />
+          </div>
+          <div className="h-full">
+            <div className="flex flex-col w-80 mx-auto">
+              {openRestaurants.map((restaurant, key) => (
+                <Card key={key} className={"my-4"}>
+                  <CardActionArea>
+                    <NavLink to={restaurant.id}>
+                      <CardMedia
+                        component="img"
+                        image={restaurant.imageUrl}
+                      />
+                      <CardContent>
+                        ...
+                      </CardContent>
+                    </NavLink>
+                  </CardActionArea>
+                </Card>
+              ))}
+            </div>
+          </div>
+          <div>
+            <BottomNavbar />
+          </div>
+        </div>
+      );
+    }      
+\end{lstlisting}
+      
+Charakterystycznymi dla aplikacji napisanych z użyciem frameworka Remix, jest obecność dwóch funkcji w każdym komponencie obsługującym ścieżkę. 
+
+Pierwszą z nich jest funkcja \textit{loader}, która jest odpowiedzialna za ładowanie danych. Funkcja ta jest wywoływana po stronie serwera, w momencie wejścia użytkownika na daną ścieżkę. Dane zwracane przez tę funkcję są następnie przekazywane do funkcji, która jest odpowiedzialna za renderowanie komponentów. Funkcja ta jest wywoływana po stronie klienta, w momencie przejścia użytkownika na daną ścieżkę. Dzięki temu, użytkownik nie musi czekać na załadowanie danych, aby zobaczyć interfejs użytkownika. 
+
+Drugą funkcją jest \textit{action}, która jest odpowiedzialna za obsługę formularzy, wysyłanych przez użytkownika w celu dokonania zmiany danych w systemie. Funkcja ta jest wywoływana po stronie serwera, w momencie wysłania formularza przez użytkownika.
+
+\subsubsection{Komunikacja z częścią serwerową}
+
+Funkcje odpowiedzialne za wykonywanie żądań HTTP do części serwerowej zostały umieszczone w katalogu \textit{server}. Pliki te zawierają również obiekty transferu danych, które są używane do przesyłania danych pomiędzy częścią kliencką a serwerową.
+
+Na wycinku \ref{lst:client-server} przedstawiono przykładowy kod funkcji wywołujących żądania HTTP do części serwerowej. Funkcje te są wywoływane przez funkcje \textit{loader} oraz \textit{action} opisane w poprzednim podrozdziale. Kod ten wykorzystuje bibliotekę \textit{axios}, która jest odpowiedzialna za wykonywanie żądań HTTP. Co ważne, funkcje te są wywoływane po stronie serwera, a nie klienta, co pozwala np. na ukrycie kluczy dostępowych do zewnętrznych usług, takich jak np. Google Maps Platform.
+
+\begin{lstlisting}[caption={Kod funkcji wywołujących żadania HTTP do części serwerowej},label={lst:client-server},captionpos=b,language=JavaScript,numbers=left,showstringspaces=false]
+    export const getOrders = async (
+        request: Request
+    ): Promise<OrderResponse[]> => {
+        const axios = await getAxios(request);
+        return axios.get(`/api/v2/orders`)
+          .then((res) => res.data);
+    };
+      
+    export const startOrder = async (
+        request: Request,
+        restaurantId: string
+    ): Promise<UuidWrapper> => {
+        const axios = await getAxios(request);
+        return axios.post(`/api/v1/orders`, { restaurantId })
+          .then((res) => res.data);
+    };
+
+    export interface OrderResponse {
+        id: string;
+        restaurantId: string;
+        restaurantLocation: Location;
+        deliveryLocation: Location;
+        courierLocation: Location;
+        total: number;
+        deliveryFee: number;
+        userId: string;
+        status: OrderStatus;
+        items: OrderItem[];
+        itemsTotal: number;
+        paymentId: string;
+        paymentSessionUrl: string;
+        createdAt: string;
+        events: OrderEvent[];
+    }
+\end{lstlisting}
 
 \subsubsection{Współdzielony kod} services
 
 \subsubsection{Przechowywanie stanu aplikacji}
-
-\subsubsection{Interfejs użytkownika}
-
-TODO jeżeli będzie mało stron
