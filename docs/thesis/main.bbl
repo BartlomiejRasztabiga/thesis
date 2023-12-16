@@ -305,9 +305,37 @@
       \field{howpublished}{Dostęp zdalny (16.12.2023): \url{https://remix.run}}
       \field{title}{Strona internetowa biblioteki Remix}
     \endentry
-    \entry{locust}{misc}{}
+    \entry{gradle}{misc}{}
       \field{sortinit}{3}
       \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (17.12.2023): \url{https://gradle.org}}
+      \field{title}{Strona internetowa systemu budowania Gradle}
+    \endentry
+    \entry{detekt}{misc}{}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (17.12.2023): \url{https://detekt.dev}}
+      \field{title}{Strona internetowa narzędzia do statycznej analizy kodu w języku Kotlin - detekt}
+    \endentry
+    \entry{ghcr}{misc}{}
+      \field{sortinit}{3}
+      \field{sortinithash}{ad6fe7482ffbd7b9f99c9e8b5dccd3d7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (17.12.2023): \url{https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry}}
+      \field{title}{Dokumentacja usługi GitHub Container Registry}
+    \endentry
+    \entry{gaa}{misc}{}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (17.12.2023): \url{https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts}}
+      \field{title}{Dokumentacja usługi GitHub Actions Artifacts}
+    \endentry
+    \entry{locust}{misc}{}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
       \field{labeltitlesource}{title}
       \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://locust.io}}
       \field{title}{Strona internetowa biblioteki Locust}

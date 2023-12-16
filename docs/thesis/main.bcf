@@ -2401,7 +2401,11 @@
     <bcf:citekey order="34" intorder="1">typescript</bcf:citekey>
     <bcf:citekey order="35" intorder="1">react</bcf:citekey>
     <bcf:citekey order="36" intorder="1">remix</bcf:citekey>
-    <bcf:citekey order="37" intorder="1">locust</bcf:citekey>
+    <bcf:citekey order="37" intorder="1">gradle</bcf:citekey>
+    <bcf:citekey order="38" intorder="1">detekt</bcf:citekey>
+    <bcf:citekey order="39" intorder="1">ghcr</bcf:citekey>
+    <bcf:citekey order="40" intorder="1">gaa</bcf:citekey>
+    <bcf:citekey order="41" intorder="1">locust</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="none">

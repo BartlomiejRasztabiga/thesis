@@ -2,9 +2,31 @@
 
 \section{Wdrożenie}
 
+Aby zapewnić sprawne działanie systemu mikroserwisowego, należy zadbać o odpowiednie środowisko uruchomieniowe, w którym będą działać poszczególne mikroserwisy. Ponadto, należy zadbać o odpowiednie narzędzia, które pozwolą na automatyzację procesu wdrażania nowych wersji oprogramowania.
+
 \subsection{CI/CD}
 
+Aby usprawnić proces tworzenia i wdrażania oprogramowania, należy zadbać o odpowiednie narzędzia, które pozwolą na automatyzację tych procesów. Jednym z takich narzędzi jest CI/CD, czyli ciągła integracja i ciągłe wdrażanie. CI/CD pozwala na automatyzację procesu budowania aplikacji, testowania jej, a następnie wdrażania do środowiska produkcyjnego.
+
+W ramach pracy inżynierskiej, został zaimplementowany potok CI/CD w ramach platformy GitHub Actions. Przykładowo, dla serwisu serwerowego potok ten składa się z następujących kroków:
+
+\begin{enumerate}
+    \item Przygotowanie środowiska z zainstalowanymi JDK 21 i Gradle \cite{gradle} 8.1.1
+    \item Przeprowadzenie analizy statycznej kodu za pomocą narzędzia Detekt \cite{detekt}
+    \item Przeprowadzenie testów jednostkowych i integracyjnych (komenda \texttt{./gradlew test})
+    \item Zbudowanie aplikacji za pomocą Gradle (komenda \texttt{./gradlew build})
+    \item Zbudowanie obrazu Docker za pomocą Docker Buildx (komenda \texttt{docker buildx build})
+    \item Opublikowanie zbudowanego obrazu w GitHub Container Registry \cite{ghcr} (komenda \texttt{docker push})
+    \item (opcjonalnie) Wdrożenie zbudowanego obrazu na klastrze Kubernetes (komenda \texttt{kubectl apply})
+\end{enumerate}
+
+Wszystkie komponenty systemu są budowane równolegle, co pozwala na skrócenie czasu budowania całego systemu. W przypadku, gdy któryś z kroków zakończy się niepowodzeniem, proces budowania zostaje przerwany, a programista otrzymują informację o błędzie.
+
+W przypadku implementowanego systemu, cały potok wraz z wdrożeniem trwa około 3 minuty.
+
 \subsection{Repozytorium artefaktów}
+
+Aby zapewnić możliwość uruchomienia dowolnego elementu systemu, należy zadbać o dostępność wymaganych artefaktów (np. biblioteki \textit{shared}). W tym celu wykorzystano GitHub Actions Artifacts \cite{gaa}, które umożliwiają przechowywanie artefaktów np. systemu budowania Gradle i są zintegrowane z potokiem CI/CD.
 
 \subsection{Konteneryzacja}
 

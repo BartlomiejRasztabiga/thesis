@@ -50,20 +50,20 @@
 \contentsline {section}{\numberline {6\relax .\enspace }Wdrożenie}{45}{section.6}%
 \contentsline {subsection}{\numberline {6.1\relax .\enspace }CI/CD}{45}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2\relax .\enspace }Repozytorium artefaktów}{45}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3\relax .\enspace }Konteneryzacja}{45}{subsection.6.3}%
-\contentsline {subsection}{\numberline {6.4\relax .\enspace }Orkiestracja kontenerów}{45}{subsection.6.4}%
-\contentsline {subsection}{\numberline {6.5\relax .\enspace }Skalowanie}{45}{subsection.6.5}%
-\contentsline {subsection}{\numberline {6.6\relax .\enspace }Chmura Google Cloud Platform}{45}{subsection.6.6}%
-\contentsline {subsection}{\numberline {6.7\relax .\enspace }Monitorowanie}{45}{subsection.6.7}%
-\contentsline {section}{\numberline {7\relax .\enspace }Testowanie systemu}{46}{section.7}%
-\contentsline {subsection}{\numberline {7.1\relax .\enspace }Testy jednostkowe}{46}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2\relax .\enspace }Testy integracyjne}{46}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3\relax .\enspace }Testy akceptacyjne}{46}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4\relax .\enspace }Testy wydajnościowe}{46}{subsection.7.4}%
-\contentsline {section}{\numberline {8\relax .\enspace }Podsumowanie}{47}{section.8}%
-\contentsline {subsection}{\numberline {8.1\relax .\enspace }Wnioski}{47}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2\relax .\enspace }Stopień realizacji założeń}{47}{subsection.8.2}%
-\contentsline {subsection}{\numberline {8.3\relax .\enspace }Możliwości dalszego rozwoju}{47}{subsection.8.3}%
+\contentsline {subsection}{\numberline {6.3\relax .\enspace }Konteneryzacja}{46}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.4\relax .\enspace }Orkiestracja kontenerów}{46}{subsection.6.4}%
+\contentsline {subsection}{\numberline {6.5\relax .\enspace }Skalowanie}{46}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.6\relax .\enspace }Chmura Google Cloud Platform}{46}{subsection.6.6}%
+\contentsline {subsection}{\numberline {6.7\relax .\enspace }Monitorowanie}{46}{subsection.6.7}%
+\contentsline {section}{\numberline {7\relax .\enspace }Testowanie systemu}{47}{section.7}%
+\contentsline {subsection}{\numberline {7.1\relax .\enspace }Testy jednostkowe}{47}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2\relax .\enspace }Testy integracyjne}{47}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3\relax .\enspace }Testy akceptacyjne}{47}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4\relax .\enspace }Testy wydajnościowe}{47}{subsection.7.4}%
+\contentsline {section}{\numberline {8\relax .\enspace }Podsumowanie}{48}{section.8}%
+\contentsline {subsection}{\numberline {8.1\relax .\enspace }Wnioski}{48}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2\relax .\enspace }Stopień realizacji założeń}{48}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3\relax .\enspace }Możliwości dalszego rozwoju}{48}{subsection.8.3}%
 \contentsline {section}{Bibliografia}{49}{section*.9}%
 \contentsline {section}{Spis rysunków}{51}{section*.9}%
 \contentsline {section}{Spis tabel}{51}{section*.9}%
