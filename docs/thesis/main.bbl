@@ -333,6 +333,34 @@
       \field{howpublished}{Dostęp zdalny (17.12.2023): \url{https://docs.github.com/en/actions/using-workflows/storing-workflow-data-as-artifacts}}
       \field{title}{Dokumentacja usługi GitHub Actions Artifacts}
     \endentry
+    \entry{k8s}{misc}{}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (17.12.2023): \url{https://kubernetes.io}}
+      \field{title}{Strona internetowa orkiestratora kontenerów Kubernetes}
+    \endentry
+    \entry{gcp}{misc}{}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (17.12.2023): \url{https://cloud.google.com}}
+      \field{title}{Strona internetowa chmury Google Cloud Platform}
+    \endentry
+    \entry{grafana-loki}{misc}{}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (18.12.2023): \url{https://grafana.com/oss/loki/}}
+      \field{title}{Strona internetowa zestawu narzędzi Grafana Loki}
+    \endentry
+    \entry{axon-console}{misc}{}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (18.12.2023): \url{https://grafana.com/oss/loki/}}
+      \field{title}{Strona internetowa zestawu narzędzi Grafana Loki}
+    \endentry
     \entry{locust}{misc}{}
       \field{sortinit}{4}
       \field{sortinithash}{9381316451d1b9788675a07e972a12a7}

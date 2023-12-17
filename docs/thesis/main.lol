@@ -11,3 +11,6 @@
 \contentsline {lstlisting}{\numberline {5.11}{\ignorespaces Kod ścieżki wyświetlającej listę dostępnych restauracji - \textit {/v2/ordering/restaurants}}}{40}{lstlisting.5.11}%
 \contentsline {lstlisting}{\numberline {5.12}{\ignorespaces Kod funkcji wywołujących żadania HTTP do części serwerowej}}{42}{lstlisting.5.12}%
 \contentsline {lstlisting}{\numberline {5.13}{\ignorespaces Kod funkcji manipulujących sesją użytkownika}}{43}{lstlisting.5.13}%
+\contentsline {lstlisting}{\numberline {6.1}{\ignorespaces Fragment potoku CI/CD}}{45}{lstlisting.6.1}%
+\contentsline {lstlisting}{\numberline {6.2}{\ignorespaces Instrukcja budowania obrazu Docker serwisu serwerowego}}{46}{lstlisting.6.2}%
+\contentsline {lstlisting}{\numberline {6.3}{\ignorespaces Fragment pliku konfiguracyjnego Kubernetes dla serwisu zamówień}}{47}{lstlisting.6.3}%
