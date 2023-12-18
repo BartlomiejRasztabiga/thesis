@@ -157,17 +157,25 @@ Domyślnie uruchomiono po jednej instancji serwisów obsługujących komendy (Do
 
 \subsection{Monitorowanie}
 
-Do monitoringu systemu użyto kombinacji wbudowanych narzędzi Google Cloud Platform, narzędzi Grafana Loki \cite{grafana-loki} oraz Axon Console \cite{axon-console}.
+Do monitoringu systemu użyto kombinacji wbudowanych narzędzi Google Cloud Platform, zestawu narzędzi Grafana Loki \cite{grafana-loki} oraz platformy Axon Console \cite{axon-console}.
 
-TODO screenshot grafany czy coś
+Grafana Loki jest narzędziem do agregacji i zbierania logów, które zostało zintegrowane z klastrem Kubernetes. Dzięki temu, wszystkie logi z kontenerów są automatycznie zbierane i agregowane w jednym miejscu. Ponadto, dzięki integracji z platformą Grafana możliwe jest wizualizowanie, filtrowanie oraz wyszukiwanie logów w celach diagnostycznych.
 
-TODO screenshot axon console
+Na rysunku \ref{fig:loki} przedstawiono przykładowe logi systemu w Grafana Loki.
+
+\clearpage
 
 \begin{figure}[!h]
     \centering \includegraphics[width=1.0\linewidth]{loki.png}
     \caption{Logi systemu w Grafana Loki}
     \label{fig:loki}
 \end{figure}
+
+Axon Console jest platformą do monitorowania oraz zdalnego zarządzania systemami opartymi na frameworku Axon. Pozwala ona na wizualizację topologii systemu, monitorowanie stanu agregatów, zdarzeń, komend oraz zapytań, a także zarządzanie procesorami zdarzeń (np. dzielenie strumieni zdarzeń na partycje).
+
+Ponadto pozwala ona na monitorowanie średnich opóźnień w konsumpcji zdarzeń i liczby obsługiwanych komend na sekundę co pozwala na odnajdywanie wąskich gardeł w systemie.
+
+Na rysunku \ref{fig:axonconsole} przedstawiono panel systemu Axon Console.
 
 \begin{figure}[!h]
     \centering \includegraphics[width=1.0\linewidth]{axonconsole.png}

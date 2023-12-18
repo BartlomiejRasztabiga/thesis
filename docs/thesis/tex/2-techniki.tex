@@ -113,7 +113,7 @@ Projektowanie zorientowane na dziedzinę (ang. Domain-Driven Design, DDD \cite{d
 Separacja odpowiedzialności komend i zapytań (ang. Command Query Responsibility Segregation, CQRS \cite{cqrs}) to wzorzec architektoniczny, który rozdziela operacje odczytu (Query) od operacji zapisu (Command) w systemie informatycznym na poziomie architektury. Taka separacja nie wymaga, by oba rodzaje operacji były zaimplementowane w ramach tej samej aplikacji. W przypadku tworzenia skalowalnych aplikacji internetowych, CQRS umożliwia efektywniejsze zarządzanie i optymalizację procesów odczytu i zapisu poprzez ich niezależne skalowanie. Wynikiem jest optymalne wykorzystanie zasobów, uproszczenie struktury kodu i zwiększenie ogólnej wydajności systemu. W architekturze opartej na mikroserwisach, CQRS dodatkowo sprzyja lepszemu rozdzieleniu obowiązków między poszczególnymi mikroserwisami, co przekłada się na wyższą modułowość i elastyczność systemu.
 
 \begin{figure}[!h]
-    \centering \includegraphics[width=0.6\linewidth]{cqrs.png}
+    \centering \includegraphics[width=1.0\linewidth]{cqrs.png}
     \caption{Schemat architektoniczny implementacji wzorca CQRS}
 \end{figure}
 
@@ -140,7 +140,7 @@ Wzorzec Event Sourcing \cite{eventsourcing} jest podejściem w projektowaniu opr
 \end{enumerate}
 
 \begin{figure}[!h]
-    \centering \includegraphics[width=0.6\linewidth]{event_sourcing.png}
+    \centering \includegraphics[width=1.0\linewidth]{event_sourcing.png}
     \caption{Schemat architektoniczny implementacji wzorca Event Sourcing}
 \end{figure}
 
