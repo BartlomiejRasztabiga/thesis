@@ -10,7 +10,7 @@ plugins {
     id("maven-publish")
     id("java-test-fixtures")
     id("io.gitlab.arturbosch.detekt") version "1.23.4"
-    id("io.sentry.jvm.gradle") version "4.0.0"
+    id("io.sentry.jvm.gradle") version "4.1.0"
 }
 
 group = "me.rasztabiga.thesis"
