@@ -361,6 +361,20 @@
       \field{howpublished}{Dostęp zdalny (18.12.2023): \url{https://grafana.com/oss/loki/}}
       \field{title}{Strona internetowa zestawu narzędzi Grafana Loki}
     \endentry
+    \entry{kotest}{misc}{}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (20.12.2023): \url{https://kotest.io}}
+      \field{title}{Strona internetowa biblioteki do testowania - Kotest}
+    \endentry
+    \entry{jacoco}{misc}{}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (20.12.2023): \url{https://www.jacoco.org/jacoco/}}
+      \field{title}{Strona internetowa biblioteki do mierzenia pokrycia testami - JaCoCo}
+    \endentry
     \entry{locust}{misc}{}
       \field{sortinit}{4}
       \field{sortinithash}{9381316451d1b9788675a07e972a12a7}

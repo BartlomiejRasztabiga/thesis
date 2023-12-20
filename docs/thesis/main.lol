@@ -14,3 +14,4 @@
 \contentsline {lstlisting}{\numberline {6.1}{\ignorespaces Fragment potoku CI/CD}}{46}{lstlisting.6.1}%
 \contentsline {lstlisting}{\numberline {6.2}{\ignorespaces Instrukcja budowania obrazu Docker serwisu serwerowego}}{47}{lstlisting.6.2}%
 \contentsline {lstlisting}{\numberline {6.3}{\ignorespaces Fragment pliku konfiguracyjnego Kubernetes dla serwisu zamówień}}{48}{lstlisting.6.3}%
+\contentsline {lstlisting}{\numberline {7.1}{\ignorespaces Przykładowy test jednostkowy serwisu zamówień}}{52}{lstlisting.7.1}%

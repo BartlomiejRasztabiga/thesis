@@ -2,22 +2,84 @@
 
 \section{Testowanie systemu}
 
+Aby zapewnić najwyższą jakość tworzonego oprogramowania, kluczowe jest włączenie etapu testowania do procesu jego rozwoju. Celem testowania jest identyfikacja i eliminacja błędów, zazwyczaj przed oficjalnym wdrożeniem produktu. W tym procesie stosuje się różnorodne metody i narzędzia. We wdrożonym systemie, zostały wykorzystane cztery główne rodzaje testów: testy jednostkowe, które koncentrują się na najmniejszych częściach kodu; testy integracyjne, sprawdzające współdziałanie poszczególnych modułów; testy akceptacyjne, które oceniają oprogramowanie z perspektywy użytkownika końcowego; oraz testy wydajnościowe, mające na celu ocenę szybkości i stabilności działania systemu.
+
 \subsection{Testy jednostkowe}
 
-TODO snippet
+Testy jednostkowe są najmniejszymi testami, które można przeprowadzić na oprogramowaniu. Ich celem jest sprawdzenie, czy najmniejsze części kodu, np. pojedyncze funkcje, klasy, działają poprawnie. W ramach pracy inżynierskiej, testy jednostkowe zostały przeprowadzone przy pomocy narzędzia Kotest \cite{kotest} oraz pakietu \textit{org.axonframework:axon-test} pomocniczego w testowaniu aplikacji opartych na frameworku Axon.
+
+Pokrycie kodu reprezentowane jest przez procentowy udział linii kodu, które zostały przetestowane. W ramach pracy inżynierskiej, pokrycie kodu zostało zmierzone przy pomocy narzędzia JaCoCo \cite{jacoco}. Cel pokrycia kodu został ustalony na poziomie 80\%. W ramach pracy inżynierskiej, pokrycie całego kodu wyniosło 83\%, a pokrycie kodu warstwy dziedziny wyniosło 100\%.
+
+\begin{lstlisting}[caption={Przykładowy test jednostkowy serwisu zamówień},label={lst:testing-unit},captionpos=b,language=Kotlin,numbers=left]
+class OrderTest {
+
+    private lateinit var testFixture: AggregateTestFixture<Order>
+    private lateinit var orderVerificationPort: OrderVerificationPort
+
+    @BeforeEach
+    fun setUp() {
+        orderVerificationPort = mockk<OrderVerificationPort>()
+        testFixture = AggregateTestFixture(Order::class.java)
+        testFixture.registerInjectableResource(orderVerificationPort)
+    }
+
+    @Test
+    fun `given created order, should finalize order`() {
+        val orderStartedEvent = OrderStartedEvent(
+            orderId = UUID.randomUUID(),
+            userId = "user",
+            restaurantId = UUID.randomUUID(),
+            status = OrderStartedEvent.OrderStatus.CREATED
+        )
+
+        val orderItemAddedEvent = OrderItemAddedEvent(
+            orderId = orderStartedEvent.orderId,
+            productId = UUID.randomUUID()
+        )
+
+        val finalizeOrderCommand = FinalizeOrderCommand(
+            orderId = orderStartedEvent.orderId,
+            userId = orderStartedEvent.userId
+        )
+
+        every {
+            orderVerificationPort.productExists(
+                orderItemAddedEvent.productId,
+                orderStartedEvent.restaurantId
+            )
+        } returns true
+
+        val orderFinalizedEvent = OrderFinalizedEvent(
+            orderId = orderStartedEvent.orderId,
+            userId = orderStartedEvent.userId,
+            restaurantId = orderStartedEvent.restaurantId,
+            items = mapOf(orderItemAddedEvent.productId to 1)
+        )
+
+        testFixture.given(orderStartedEvent, orderItemAddedEvent)
+            .`when`(finalizeOrderCommand)
+            .expectSuccessfulHandlerExecution()
+            .expectEvents(orderFinalizedEvent)
+    }
+}
+\end{lstlisting}
+
+Na listingu \ref{lst:testing-unit} przedstawiono przykładowy test jednostkowy serwisu zamówień, weryfikujący zachowanie agregatu dla komendy finalizującej zamówienie. W liniach 6-11 przedstawiono przygotowanie testu, polegające na utworzenie obiektu testowego oraz zarejestrowanie w nim testowej implementacji portu weryfikacji zamówień. W liniach 13-51 przedstawiono scenariusz testowy, polegający na wywołaniu komendy finalizującej zamówienie, a następnie sprawdzeniu, czy agregat wyemitował oczekiwane zdarzenie.
+
+Dzięki pakietowi pomocniczemu frameworka Axon takie testy są łatwe w implementacji i dalszym utrzymaniu. Dzięki zastosowaniu technik DDD oraz Event Sourcing możliwe jest przetestowanie zachowania logiki biznesowej bez konieczności uruchamiania całej aplikacji, przez co wykonywanie takich testów jest szybkie i wydajne.
 
 \subsection{Testy integracyjne}
 
-TODO snippet?
+TODO wycinek kodu
 
 \subsection{Testy akceptacyjne}
 
-TODO snippet e2e?
+TODO wycinek kodu
 
 \subsection{Testy wydajnościowe}
 
-Przeprowadzono testy wydajnościowe przy pomocy narzędzia Locust \cite{locust}, które wykazały stabilność systemu, przy obciążeniu na poziomie 265 żądań HTTP na sekundę.
+W ramach pracy inżynierskiej przeprowadzono testy wydajnościowe przy pomocy narzędzia Locust \cite{locust}.
 
-TODO snippet
+TODO wycinek kodu
 
-TODO tabelka z SDI
+TODO tabelka z porównaniem wydajności różnych konfiguracji

@@ -57,14 +57,14 @@
 \contentsline {subsection}{\numberline {6.7\relax .\enspace }Monitorowanie}{50}{subsection.6.7}%
 \contentsline {section}{\numberline {7\relax .\enspace }Testowanie systemu}{52}{section.7}%
 \contentsline {subsection}{\numberline {7.1\relax .\enspace }Testy jednostkowe}{52}{subsection.7.1}%
-\contentsline {subsection}{\numberline {7.2\relax .\enspace }Testy integracyjne}{52}{subsection.7.2}%
-\contentsline {subsection}{\numberline {7.3\relax .\enspace }Testy akceptacyjne}{52}{subsection.7.3}%
-\contentsline {subsection}{\numberline {7.4\relax .\enspace }Testy wydajnościowe}{52}{subsection.7.4}%
-\contentsline {section}{\numberline {8\relax .\enspace }Podsumowanie}{53}{section.8}%
-\contentsline {subsection}{\numberline {8.1\relax .\enspace }Wnioski}{53}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2\relax .\enspace }Stopień realizacji założeń}{53}{subsection.8.2}%
-\contentsline {subsection}{\numberline {8.3\relax .\enspace }Możliwości dalszego rozwoju}{53}{subsection.8.3}%
-\contentsline {section}{Bibliografia}{55}{section*.11}%
-\contentsline {section}{Spis rysunków}{58}{section*.11}%
-\contentsline {section}{Spis tabel}{58}{section*.11}%
-\contentsline {section}{Spis wycinków kodu}{58}{section*.11}%
+\contentsline {subsection}{\numberline {7.2\relax .\enspace }Testy integracyjne}{54}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3\relax .\enspace }Testy akceptacyjne}{54}{subsection.7.3}%
+\contentsline {subsection}{\numberline {7.4\relax .\enspace }Testy wydajnościowe}{54}{subsection.7.4}%
+\contentsline {section}{\numberline {8\relax .\enspace }Podsumowanie}{55}{section.8}%
+\contentsline {subsection}{\numberline {8.1\relax .\enspace }Wnioski}{55}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2\relax .\enspace }Stopień realizacji założeń}{55}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3\relax .\enspace }Możliwości dalszego rozwoju}{55}{subsection.8.3}%
+\contentsline {section}{Bibliografia}{57}{section*.11}%
+\contentsline {section}{Spis rysunków}{60}{section*.11}%
+\contentsline {section}{Spis tabel}{60}{section*.11}%
+\contentsline {section}{Spis wycinków kodu}{60}{section*.11}%
