@@ -31,11 +31,11 @@ repositories {
     }
 }
 
-val axonVersion = "4.9.1"
+val axonVersion = "4.9.2"
 val kotestVersion = "5.8.0"
 
 dependencies {
-    implementation("me.rasztabiga.thesis:shared:0.21.1")
+    implementation("me.rasztabiga.thesis:shared:0.21.2")
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -54,7 +54,7 @@ dependencies {
 
     implementation("io.axoniq.console:console-framework-client-spring-boot-starter:1.2.0")
 
-    testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.21.1"))
+    testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.21.2"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("io.projectreactor:reactor-test")
     testImplementation("org.axonframework:axon-test")

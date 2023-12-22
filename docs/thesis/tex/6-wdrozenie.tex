@@ -114,7 +114,7 @@ spec:
                 secretKeyRef:
                   name: gmaps-api-key
                   key: key
-          image: ghcr.io/bartlomiejrasztabiga/thesis/order:0.21.1
+          image: ghcr.io/bartlomiejrasztabiga/thesis/order:0.21.2
           name: order-service
           ports:
             - containerPort: 8102
@@ -139,7 +139,7 @@ spec:
 
 Oprócz podanego na wycinku tzw. \textit{deploymentu}, który definiuje wymagane zasoby, należy zdefiniować również \textit{service}, który umożliwia komunikację sieciową.
 
-Na podstawie powyższego pliku konfiguracyjnego, Kubernetes zapewni automatyczne wdrożenie jednej instancji serwisu zamówień w wersji 0.21.1, uruchomionego na porcie 8102 z wstrzykniętymi podanymi zmiennymi środowiskowymi w sekcji \texttt{env}. 
+Na podstawie powyższego pliku konfiguracyjnego, Kubernetes zapewni automatyczne wdrożenie jednej instancji serwisu zamówień w wersji 0.21.2, uruchomionego na porcie 8102 z wstrzykniętymi podanymi zmiennymi środowiskowymi w sekcji \texttt{env}.
 
 \subsection{Skalowanie}
 

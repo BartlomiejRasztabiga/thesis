@@ -20,7 +20,7 @@ spec:
               value: "68447ea9-1:4ac1289d784047ac88cc1e1ab39bdefc"
             - name: SPRING_PROFILES_ACTIVE
               value: nosecurity
-          image: ghcr.io/bartlomiejrasztabiga/thesis/restaurant:0.21.1
+          image: ghcr.io/bartlomiejrasztabiga/thesis/restaurant:0.21.2
           name: restaurant-service
           ports:
             - containerPort: 8101
