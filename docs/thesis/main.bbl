@@ -394,7 +394,7 @@
       \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labeltitlesource}{title}
       \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://locust.io}}
-      \field{title}{Strona internetowa biblioteki Locust}
+      \field{title}{Strona internetowa biblioteki do testów wydajnościowych Locust}
     \endentry
   \enddatalist
   \missing{docker}
