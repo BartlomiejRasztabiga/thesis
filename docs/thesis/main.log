@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.19)  20 DEC 2023 21:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.19)  22 DEC 2023 21:37
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1000,7 +1000,15 @@ Package biblatex Info: Automatic encoding selection.
 
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
- (./main.bbl)
+ (./main.bbl
+
+Package biblatex Warning: The following entry could not be found
+(biblatex)                in the database:
+(biblatex)                docker
+(biblatex)                Please verify the spelling and rerun
+(biblatex)                LaTeX afterwards.
+
+)
 Package biblatex Info: Reference section=0 on input line 63.
 Package biblatex Info: Reference segment=0 on input line 63.
 Package caption Info: Begin \AtBeginDocument code.
@@ -1360,9 +1368,17 @@ Package pdftex.def Info: tex/img//axonconsole.png  used on input line 181.
 ]
 Underfull \vbox (badness 4582) has occurred while \output is active []
 
- [53]) (./tex/8-podsumowanie.tex [54]) [55
+ [53]
+Overfull \hbox (108.13374pt too wide) in paragraph at lines 73--74
+\T1/futs/m/n/12 (-20) mych na-rz¦-dzi co jed-nost-kowe, z do-dat-kowa po-moc¡ bi-blio-teki \T1/futs/m/it/12 (-20) org.springframework.boot:spring-boot-starter-test\T1/futs/m/n/12 (-20) ,
+ []
 
-] [56
+
+LaTeX Warning: Citation 'docker' on page 54 undefined on input line 75.
+
+[54] [55]) (./tex/8-podsumowanie.tex [56]) [57
+
+] [58
 
 
 ]
@@ -1390,7 +1406,7 @@ Overfull \hbox (12.9905pt too wide) in paragraph at lines 168--168
 []\T1/futs/m/it/12 (-20) Axon Fra-me-work\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (07.06.2023): [][]$\T1/cmtt/m/n/12 https : / / docs . axoniq . io / reference -[]
  []
 
-[57]
+[59]
 Overfull \hbox (6.71614pt too wide) in paragraph at lines 168--168
 \T1/cmtt/m/n/12 com / en / database / oracle / oracle -[] database / 21 / jjdev / Oracle -[] JVM -[] overview .
  []
@@ -1400,7 +1416,12 @@ Overfull \hbox (8.34697pt too wide) in paragraph at lines 168--168
 []\T1/futs/m/it/12 (-20) Framework Spring Boot\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (07.06.2023): [][]$\T1/cmtt/m/n/12 https : / / spring . io / projects /
  []
 
-[58] [59] (./main.lof)
+[60]
+Overfull \hbox (20.8801pt too wide) in paragraph at lines 168--168
+[]\T1/futs/m/it/12 (-20) Strona in-ter-ne-towa bi-blio-teki do te-sto-wa-nia API - Rest As-su-red\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (22.12.2023):
+ []
+
+[61] (./main.lof)
 \tf@lof=\write6
 \openout6 = `main.lof'.
 
@@ -1412,7 +1433,7 @@ Overfull \hbox (8.34697pt too wide) in paragraph at lines 168--168
 \tf@lol=\write8
 \openout8 = `main.lol'.
 
- [60
+ [62
 
 ] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
@@ -1422,18 +1443,18 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 30733 strings out of 476025
- 530631 string characters out of 5790016
+ 30851 strings out of 476025
+ 532763 string characters out of 5790016
  1899388 words of memory out of 5000000
- 49480 multiletter control sequences out of 15000+600000
- 640676 words of font info for 500 fonts, out of 8000000 for 9000
+ 49540 multiletter control sequences out of 15000+600000
+ 641072 words of font info for 503 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  123i,12n,120p,1198b,2622s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on main.pdf (60 pages, 2699324 bytes).
+Output written on main.pdf (62 pages, 2707696 bytes).
 PDF statistics:
- 1535 PDF objects out of 1728 (max. 8388607)
- 1425 compressed objects within 15 object streams
- 682 named destinations out of 1000 (max. 500000)
+ 1616 PDF objects out of 1728 (max. 8388607)
+ 1503 compressed objects within 16 object streams
+ 736 named destinations out of 1000 (max. 500000)
  76901 words of extra memory for PDF output out of 89155 (max. 10000000)
 

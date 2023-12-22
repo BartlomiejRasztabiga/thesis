@@ -70,11 +70,75 @@ Dzięki pakietowi pomocniczemu frameworka Axon takie testy są łatwe w implemen
 
 \subsection{Testy integracyjne}
 
-TODO wycinek kodu
+Testy integracyjne prawdzają współdziałanie poszczególnych modułów systemu. W ramach pracy inżynierskiej, testy jednostkowe zostały przeprowadzone przy pomocy tych samych narzędzi co jednostkowe, z dodatkowa pomocą biblioteki \textit{org.springframework.boot:spring-boot-starter-test}, pozwalającej na uruchomienie testów w kontekście aplikacji Spring Boot.
+
+W celu przygotowania środowiska testowego, należy uruchomić lokalnie instancję Axon Server np. przy pomocy Dockera \cite{docker}.
+
+\begin{lstlisting}[caption={Przykładowy test integracyjny serwisu zamówień},label={lst:testing-integration},captionpos=b,language=Kotlin,numbers=left]
+@SpringBootTest
+@ActiveProfiles("test")
+class OrderTestIT {
+
+    @Autowired
+    private lateinit var commandGateway: CommandGateway
+
+    @Autowired
+    private lateinit var aggregateRepository: Repository<Order>
+
+    @Test
+    fun `given open restaurant and user, should start order`() {
+        val orderId = commandGateway.sendAndWait<UUID>(
+            StartOrderCommand(
+                orderId = UUID.randomUUID(),
+                userId = "userId",
+                restaurantId = UUID.randomUUID()
+            )
+        )
+
+        val order = aggregateRepository.load(orderId.toString())
+        order.userId shouldBe "userId"
+    }
+}
+\end{lstlisting}
+
+Na listingu \ref{lst:testing-integration} przedstawiono przykładowy test integracyjny serwisu zamówień, weryfikujący, że po wysłaniu komendy rozpoczęcia zamówienia, agregat został poprawnie utworzony. W przeciwieństwie do testów jednostkowych, test ten weryfikuje również działanie komponentów odpowiedzialnych za przesyłanie komend do agregatów oraz zapisywanie zdarzeń do magazyń zdarzeń. Testy te są bardziej złożone w implementacji, ale pozwalają na weryfikację działania całego systemu.
 
 \subsection{Testy akceptacyjne}
 
-TODO wycinek kodu
+Testy akceptacyjne sprawdzają, czy system spełnia wymagania użytkownika końcowego. W ramach pracy inżynierskiej, testy akceptacyjne zostały przeprowadzone przy pomocy narzędzia RestAssured \cite{restassured}, które pozwala na testowanie interfejsu REST API. Zaimplementowano jeden scenariusz testowy, który przechodzi przez wszystkie funkcjonalności systemu, od rejestracji użytkownika, przez dodanie restauracji, złożenie zamówienia, aż do jego dostarczenia.
+
+Służy on również jako weryfikacja poprawnego działania systemu po wdrożeniu nowej wersji.
+
+\begin{lstlisting}[caption={Scenariusz testowy w ramach testów akceptacyjnych},label={lst:testing-acceptance},captionpos=b,language=Kotlin,numbers=left]
+@Test
+fun e2e() {
+    // setup
+    setupRestaurant()
+    setupOrderingUser()
+    setupCourier()
+
+    // user
+    createOrder()
+    payOrder()
+
+    // restaurant
+    acceptRestaurantOrder()
+    prepareRestaurantOrder()
+
+    // courier
+    acceptDeliveryOffer()
+    pickupDelivery()
+    deliverDelivery()
+
+    // payments
+    withdrawRestaurantBalance()
+    withdrawCourierBalance()
+}
+\end{lstlisting}
+
+Na listingu \ref{lst:testing-acceptance} przedstawiono jedynie fragment wspomnianego testu, ze względu na jego długość. Test ten weryfikuje, czy system spełnia wymagania użytkownika końcowego, a także czy wszystkie komponenty współpracują ze sobą poprawnie. Test ten jest bardzo złożony w implementacji, ale pozwala na weryfikację działania całego systemu.
+
+Weryfikuje on również integrację z zewnętrznymi systemami, takimi jak system płatności Stripe, poprzez wykorzystanie biblioteki Selenium \cite{selenium}, umożliwiającej automatyzację przeglądarek internetowych, co pozwala na manualne przejście procesu płatności.
 
 \subsection{Testy wydajnościowe}
 

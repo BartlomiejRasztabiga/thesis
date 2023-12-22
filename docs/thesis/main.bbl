@@ -375,14 +375,29 @@
       \field{howpublished}{Dostęp zdalny (20.12.2023): \url{https://www.jacoco.org/jacoco/}}
       \field{title}{Strona internetowa biblioteki do mierzenia pokrycia testami - JaCoCo}
     \endentry
-    \entry{locust}{misc}{}
+    \entry{restassured}{misc}{}
       \field{sortinit}{4}
       \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (22.12.2023): \url{https://rest-assured.io}}
+      \field{title}{Strona internetowa biblioteki do testowania API - Rest Assured}
+    \endentry
+    \entry{selenium}{misc}{}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (22.12.2023): \url{https://www.selenium.dev}}
+      \field{title}{Strona internetowa biblioteki do automatyzacji przeglądarek internetowych do celów testowych - Selenium}
+    \endentry
+    \entry{locust}{misc}{}
+      \field{sortinit}{5}
+      \field{sortinithash}{20e9b4b0b173788c5dace24730f47d8c}
       \field{labeltitlesource}{title}
       \field{howpublished}{Dostęp zdalny (24.11.2023): \url{https://locust.io}}
       \field{title}{Strona internetowa biblioteki Locust}
     \endentry
   \enddatalist
+  \missing{docker}
 \endrefsection
 \endinput
 

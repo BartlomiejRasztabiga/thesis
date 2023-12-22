@@ -1,14 +1,16 @@
 [0] Config.pm:307> INFO - This is Biber 2.19
 [0] Config.pm:310> INFO - Logfile is 'main.blg'
-[37] biber-darwin:340> INFO - === Wed Dec 20, 2023, 21:29:57
-[47] Biber.pm:419> INFO - Reading 'main.bcf'
-[92] Biber.pm:979> INFO - Found 44 citekeys in bib section 0
-[100] Biber.pm:4419> INFO - Processing section 0
-[106] Biber.pm:4610> INFO - Looking for bibtex file 'bibliografia.bib' for section 0
-[107] bibtex.pm:1713> INFO - LaTeX decoding ...
-[115] bibtex.pm:1519> INFO - Found BibTeX data source 'bibliografia.bib'
-[155] UCollate.pm:68> INFO - Overriding locale 'pl-PL' defaults 'variable = shifted' with 'variable = non-ignorable'
-[155] UCollate.pm:68> INFO - Overriding locale 'pl-PL' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[155] Biber.pm:4239> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'pl-PL'
-[164] bbl.pm:660> INFO - Writing 'main.bbl' with encoding 'UTF-8'
-[168] bbl.pm:763> INFO - Output to main.bbl
+[40] biber-darwin:340> INFO - === Fri Dec 22, 2023, 21:37:45
+[49] Biber.pm:419> INFO - Reading 'main.bcf'
+[95] Biber.pm:979> INFO - Found 47 citekeys in bib section 0
+[103] Biber.pm:4419> INFO - Processing section 0
+[109] Biber.pm:4610> INFO - Looking for bibtex file 'bibliografia.bib' for section 0
+[110] bibtex.pm:1713> INFO - LaTeX decoding ...
+[119] bibtex.pm:1519> INFO - Found BibTeX data source 'bibliografia.bib'
+[158] UCollate.pm:68> INFO - Overriding locale 'pl-PL' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[158] UCollate.pm:68> INFO - Overriding locale 'pl-PL' defaults 'variable = shifted' with 'variable = non-ignorable'
+[158] Biber.pm:4239> INFO - Sorting list 'none/global//global/global' of type 'entry' with template 'none' and locale 'pl-PL'
+[168] bbl.pm:660> INFO - Writing 'main.bbl' with encoding 'UTF-8'
+[172] bbl.pm:763> INFO - Output to main.bbl
+[172] Biber.pm:131> WARN - I didn't find a database entry for 'docker' (section 0)
+[172] Biber.pm:133> INFO - WARNINGS: 1

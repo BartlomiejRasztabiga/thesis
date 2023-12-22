@@ -15,3 +15,5 @@
 \contentsline {lstlisting}{\numberline {6.2}{\ignorespaces Instrukcja budowania obrazu Docker serwisu serwerowego}}{47}{lstlisting.6.2}%
 \contentsline {lstlisting}{\numberline {6.3}{\ignorespaces Fragment pliku konfiguracyjnego Kubernetes dla serwisu zamówień}}{48}{lstlisting.6.3}%
 \contentsline {lstlisting}{\numberline {7.1}{\ignorespaces Przykładowy test jednostkowy serwisu zamówień}}{52}{lstlisting.7.1}%
+\contentsline {lstlisting}{\numberline {7.2}{\ignorespaces Przykładowy test integracyjny serwisu zamówień}}{54}{lstlisting.7.2}%
+\contentsline {lstlisting}{\numberline {7.3}{\ignorespaces Scenariusz testowy w ramach testów akceptacyjnych}}{55}{lstlisting.7.3}%
