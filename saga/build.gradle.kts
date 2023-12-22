@@ -1,12 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.1.5"
+    id("org.springframework.boot") version "3.2.1"
     id("io.spring.dependency-management") version "1.1.4"
     id("org.jetbrains.kotlin.jvm") version "1.9.21"
     id("org.jetbrains.kotlin.plugin.spring") version "1.9.21"
     id("io.gitlab.arturbosch.detekt") version "1.23.4"
-    id("io.sentry.jvm.gradle") version "4.0.0"
+    id("io.sentry.jvm.gradle") version "4.1.0"
 }
 
 group = "me.rasztabiga.thesis"
