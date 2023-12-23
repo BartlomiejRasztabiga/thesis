@@ -142,8 +142,60 @@ Weryfikuje on również integrację z zewnętrznymi systemami, takimi jak system
 
 \subsection{Testy wydajnościowe}
 
-W ramach pracy inżynierskiej przeprowadzono testy wydajnościowe przy pomocy narzędzia Locust \cite{locust}.
+Testy wydajnościowe mają na celu ocenę szybkości i stabilności działania systemu. Pozwalają one przewidywać zachowanie systemu pod wzrastającym obciążeniem, umożliwiając zaplanowanie odpowiednich ulepszeń infrastruktury i kodu.
 
-TODO wycinek kodu
+W ramach pracy inżynierskiej przeprowadzono testy wydajnościowe przy pomocy narzędzia Locust \cite{locust} w języku Python. Narzędzie to pozwala na symulację wielu użytkowników, którzy wykonują określone akcje w systemie. W ramach pracy inżynierskiej, przeprowadzono testy z perspektywy trzech rodzajów użytkowników: użytkownika zamawiającego, managera restauracji oraz kuriera. Każdy rodzaj użytkownika został zdefiniowany przez klasę w języku Python, która implementuje logikę wykonywania akcji w systemie. 
 
-TODO tabelka z porównaniem wydajności różnych konfiguracji
+Przykład scenariusza testowego został przedstawiony na listingu \ref{lst:testing-performance}.
+
+\begin{lstlisting}[caption={Scenariusz testowy w ramach testów wydajnościowych obsługujących managera restauracji},label={lst:testing-performance},captionpos=b,language=Python,numbers=left]
+class RestaurantManager(HttpUser):
+    def on_start(self):
+        self.client.headers["X-User-Id"] = fake.uuid4()
+        self._create_restaurant()
+
+    @task
+    def e2e(self):
+        restaurant_orders = self.client.get(
+            f"/v2/restaurants/{self.restaurant_id}/orders"
+        ).json()
+
+        selected_order = random.choice(restaurant_orders)
+        restaurant_order_id = selected_order.get("restaurantOrderId")
+
+        self.client.put(f"/v1/orders/{restaurant_order_id}/accept")
+
+        self.client.put(f"/v1/orders/{restaurant_order_id}/prepare" )
+\end{lstlisting}
+
+Klasa ta imituje zachowanie managera restauracji, który po zalogowaniu się do systemu, pobiera listę zamówień, wybiera jedno z nich, a następnie akceptuje i przygotowuje je do dostarczenia.
+
+W ramach testów wydajnościowych przeprowadzono testy z perspektywy 100, 200, 300, 500 i 1000 użytkowników. Wszystkie testy zostały wykonane na lokalnym środowisku, przy pomocy trzech instancji narzędzia Locust. Wszystkie testy zostały przeprowadzone na wdrożonej w chmurowym klastrze Kubernetes produkcyjnej wersji systemu, bez żadnych dodatkowych optymalizacji. Klaster był skonfigurowany z trzema węzłami typu \textit{e2-standard-4}, jak opisano w rozdziale dotyczącym wdrożenia. Każdy serwis systemu został uruchomiony w czterech instancjach. Liczba użytkowników została zwiększana stopniowo, po 5 użytkowników na sekudnę, aż do osiągnięcia docelowej liczby użytkowników. Rezultalty testów były zapisywane po dziesięciu minutach od rozpoczęcia testu. 
+
+Wyniki testów wydajnościowych zostały przedstawione w tabeli \ref{table:performance}. Śledzonymi metrykami były liczba żądań na sekundę, średnie czasy odpowiedzi oraz opóźnienie obsługi zdarzeń. Opóźnienie obsługi zdarzeń jest to czas, który upłynął od momentu wygenerowania zdarzenia przez system, do momentu jego obsłużenia przez wszystkie komponenty systemu.
+
+\begin{longtable}{| m{0.25\linewidth} | m{0.2\linewidth} | m{0.25\linewidth} | m{0.2\linewidth} |}
+    \caption{Rezultaty testów wydajnościowcyh}
+    \label{table:performance} \\
+
+    \hline
+    Liczba użytkowników & Liczba żądań na sekundę & Czasy odpowiedzi & Opóźnienie obsługi zdarzeń \\ \hline\hline \endfirsthead \endfoot
+    \hline \endlastfoot
+
+    100 & 90,5 & Percentyl 50\% - 13 ms \newline Percentyl 95\% - 24 ms & 3 ms \\ \hline
+    200 & 183,2 & Percentyl 50\% - 15 ms \newline Percentyl 95\% - 29 ms & 10 ms \\ \hline
+    300 & 264,7 & Percentyl 50\% - 16 ms \newline Percentyl 95\% - 30 ms & 6 ms \\ \hline
+    500 & 438,1 & Percentyl 50\% - 59 ms \newline Percentyl 95\% - 210 ms & 8,86 s \\ \hline
+    1000 & 886,2 & Percentyl 50\% - 62 ms \newline Percentyl 95\% - 160 ms & 16,12 s \\ \hline
+\end{longtable}
+
+System zachowywał się stabilnie do momentu osiągnięcia liczby 500 użytkowników. W tym momencie, opóźnienie obsługi zdarzeń zaczęło gwałtownie rosnąć, co oznacza, że system nie był w stanie obsłużyć wszystkich zdarzeń w czasie rzeczywistym. Jednocześnie, nadal obsługiwał on wszystkie żądania w akceptowalnym czasie. Problem z opóźnieniem obsługi zdarzeń rósł wraz ze wzrostem liczby użytkowników. W przypadku 1000 użytkowników, opóźnienie obsługi zdarzeń wyniosło 16,12 sekundy.
+
+
+Na rysunku \ref{fig:locust} przedstawiono przykładowy rezultat wykonania testów wydajnościowych. Na wykresie przedstawiono liczbę użytkowników, którzy wykonują akcje w systemie, liczbę zapytań na sekundę, które są wykonywane oraz średnie czasy odpowiedzi.
+
+\begin{figure}[!h]
+    \centering \includegraphics[width=1.0\linewidth]{locust.png}
+    \caption{Przykładowy rezultat wykonania testów wydajnościowych}
+    \label{fig:locust}
+\end{figure}

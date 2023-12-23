@@ -17,3 +17,4 @@
 \contentsline {lstlisting}{\numberline {7.1}{\ignorespaces Przykładowy test jednostkowy serwisu zamówień}}{52}{lstlisting.7.1}%
 \contentsline {lstlisting}{\numberline {7.2}{\ignorespaces Przykładowy test integracyjny serwisu zamówień}}{54}{lstlisting.7.2}%
 \contentsline {lstlisting}{\numberline {7.3}{\ignorespaces Scenariusz testowy w ramach testów akceptacyjnych}}{55}{lstlisting.7.3}%
+\contentsline {lstlisting}{\numberline {7.4}{\ignorespaces Scenariusz testowy w ramach testów wydajnościowych obsługujących managera restauracji}}{56}{lstlisting.7.4}%
