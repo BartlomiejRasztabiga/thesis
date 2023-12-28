@@ -8,7 +8,7 @@ Aby zapewnić sprawne działanie systemu mikroserwisowego, należy zadbać o odp
 
 Jednym z narzędzi, które mogą usprawnić proces wdrażania oprogramowania, jest CI/CD, czyli ciągła integracja i ciągłe wdrażanie. CI/CD pozwala na automatyzację procesu budowania aplikacji, testowania jej, a następnie wdrażania do środowiska produkcyjnego.
 
-W ramach pracy inżynierskiej, został zaimplementowany potok CI/CD w ramach platformy GitHub Actions. Przykładowo, dla serwisu serwerowego potok ten składa się z następujących kroków:
+W ramach pracy inżynierskiej został zaimplementowany potok CI/CD w ramach platformy GitHub Actions. Przykładowo, dla serwisu serwerowego potok ten składa się z następujących kroków:
 
 \begin{enumerate}
     \item Przygotowanie środowiska z zainstalowanymi JDK 21 i Gradle \cite{gradle} 8.1.1
@@ -57,7 +57,7 @@ jobs:
           platforms: linux/amd64,linux/arm64
 \end{lstlisting}
 
-W przypadku implementowanego systemu, wykonanie całego potoku wraz z wdrożeniem trwa około 3 minuty.
+W przypadku implementowanego systemu wykonanie całego potoku wraz z wdrożeniem trwa około 3 minuty.
 
 \subsection{Repozytorium artefaktów}
 
@@ -80,11 +80,11 @@ Budowa obrazu na jego podstawie polega na skopiowaniu pliku \texttt{.jar} z kode
     
 \subsection{Orkiestracja kontenerów}
 
-Aby zapewnić skalowalność i niezawodność systemu mikroserwisowego, należy zadbać o odpowiednie narzędzia do orkiestracji kontenerów. W przypadku implementowanego systemu, wykorzystano narzędzie Kubernetes \cite{k8s}, które umożliwia automatyzację wdrażania, skalowania i zarządzania aplikacjami kontenerowymi.
+Aby zapewnić skalowalność i niezawodność systemu mikroserwisowego, należy zadbać o odpowiednie narzędzia do orkiestracji kontenerów. W przypadku implementowanego systemu wykorzystano narzędzie Kubernetes \cite{k8s}, które umożliwia automatyzację wdrażania, skalowania i zarządzania aplikacjami kontenerowymi.
 
 Kubernetes pozwala na uruchomienie wielu instancji każdego mikroserwisu, które mogą być automatycznie skalowane w zależności od obciążenia. Ponadto, Kubernetes zapewnia automatyczne wdrażanie nowych wersji oprogramowania, dzięki czemu nie jest wymagane ręczne uruchamianie nowych kontenerów. Ponadto, obsługuje on mechanizmy zcentralizowanej konfiguracji, woluminów, monitorowania oraz obsługi sieci.
 
-Narzędzie to oferuje deklaratywne podejście do konfiguracji, co oznacza, że użytkownik określa stan, w którym powinien znajdować się system, a Kubernetes automatycznie dokonuje niezbędnych zmian, aby osiągnąć ten stan. W przypadku implementowanego systemu, stan systemu jest określony za pomocą plików YAML, które opisują wymagane zasoby, takie jak kontenery, woluminy, sieci, itp.
+Narzędzie to oferuje deklaratywne podejście do konfiguracji, co oznacza, że użytkownik określa stan, w którym powinien znajdować się system, a Kubernetes automatycznie dokonuje niezbędnych zmian, aby osiągnąć ten stan. W przypadku implementowanego systemu stan systemu jest określony za pomocą plików YAML, które opisują wymagane zasoby, takie jak kontenery, woluminy, sieci itp.
 
 \begin{lstlisting}[caption={Fragment pliku konfiguracyjnego Kubernetes dla serwisu zamówień},label={lst:deployment-k8s},captionpos=b,numbers=left]
 apiVersion: apps/v1
@@ -139,19 +139,19 @@ spec:
 
 Oprócz podanego na wycinku tzw. \textit{deploymentu}, który definiuje wymagane zasoby, należy zdefiniować również \textit{service}, który umożliwia komunikację sieciową.
 
-Na podstawie powyższego pliku konfiguracyjnego, Kubernetes zapewni automatyczne wdrożenie jednej instancji serwisu zamówień w wersji 0.21.3, uruchomionego na porcie 8102 z wstrzykniętymi podanymi zmiennymi środowiskowymi w sekcji \texttt{env}.
+Na podstawie powyższego pliku konfiguracyjnego, Kubernetes zapewni automatyczne wdrożenie jednej instancji serwisu zamówień w wersji 0.21.3, uruchomionego na porcie 8102 ze wstrzykniętymi podanymi zmiennymi środowiskowymi w sekcji \texttt{env}.
 
 \subsection{Skalowanie}
 
-Dzięki zastosowaniu orkiestratora kontenerów, możliwe jest automatyczne skalowanie poszczególnych komponentów systemu, na podstawie podanych metryk np. średniego zużycia procesora lub pamięci RAM. W przypadku implementowanego systemu, zastosowano ręczne skalowanie poziome poprzez zmianę parametru \textit{replicas}, czyli dodawanie lub usuwanie instancji serwisów w zależności od obciążenia, przez operatora systemu.
+Dzięki zastosowaniu orkiestratora kontenerów możliwe jest automatyczne skalowanie poszczególnych komponentów systemu, na podstawie podanych metryk np. średniego zużycia procesora lub pamięci RAM. W przypadku implementowanego systemu zastosowano ręczne skalowanie poziome poprzez zmianę parametru \textit{replicas}, czyli dodawanie lub usuwanie instancji serwisów w zależności od obciążenia, przez operatora systemu.
 
 \subsection{Chmura Google Cloud Platform}
 
 Produkcyjne wdrożenie systemu odbyło się w chmurze publicznej od firmy Google - Google Cloud Platform \cite{gcp}. Wdrożenie w chmurze publicznej pozwala na łatwe skalowanie zasobów, a także zapewnia wysoką dostępność systemu. Ponadto, chmura publiczna pozwala na łatwe wdrożenie systemu w różnych lokalizacjach geograficznych, co pozwala na zmniejszenie opóźnień sieciowych. 
 
-Wybór ten został podyktowany również tym, że Autor nie dysponuje odpowiednią fizyczną infrastrukturą, która pozwoliłaby na wdrożenie systemu w środowisku lokalnym biorąc pod uwagę wymagania systemu.
+Wybór ten został podyktowany również tym, że Autor nie dysponuje odpowiednią fizyczną infrastrukturą, która pozwoliłaby na wdrożenie systemu w środowisku lokalnym, biorąc pod uwagę wymagania systemu.
 
-Google Cloud Platform posiada w swojej ofercie usługę Kubernetes Engine, która umożliwia uruchomienie zarządzanego klastra Kubernetes w chmurze. Wdrożenie systemu odbyło się na klastrze złożonym z trzech węzłów, które są uruchomione w strefie \textit{europe-central-2} (Warszawa, Polska). Każdy węzęł jest typu \textit{e2-standard-4}, co oznacza, że posiada 4 vCPU i 16 GB pamięci RAM oraz 100 GB przestrzeni dyskowej.
+Google Cloud Platform posiada w swojej ofercie usługę Kubernetes Engine, która umożliwia uruchomienie zarządzanego klastra Kubernetes w chmurze. Wdrożenie systemu odbyło się na klastrze złożonym z trzech węzłów, które są uruchomione w strefie \textit{europe-central-2} (Warszawa, Polska). Każdy węzeł jest typu \textit{e2-standard-4}, co oznacza, że posiada 4 vCPU i 16 GB pamięci RAM oraz 100 GB przestrzeni dyskowej.
 
 Domyślnie uruchomiono po jednej instancji serwisów obsługujących komendy (Dostawy, Zamówienia, Płatności, Restauracje) oraz po cztery instancje serwisów obsługujących większy ruch niż pozostałe (Zapytania oraz Sagi).
 
@@ -159,7 +159,7 @@ Domyślnie uruchomiono po jednej instancji serwisów obsługujących komendy (Do
 
 Do monitoringu systemu użyto kombinacji wbudowanych narzędzi Google Cloud Platform, zestawu narzędzi Grafana Loki \cite{grafana-loki} oraz platformy Axon Console \cite{axon-console}.
 
-Grafana Loki jest narzędziem do agregacji i zbierania logów, które zostało zintegrowane z klastrem Kubernetes. Dzięki temu, wszystkie logi z kontenerów są automatycznie zbierane i agregowane w jednym miejscu. Ponadto, dzięki integracji z platformą Grafana możliwe jest wizualizowanie, filtrowanie oraz wyszukiwanie logów w celach diagnostycznych.
+Grafana Loki jest narzędziem do agregacji i zbierania logów, które zostało zintegrowane z klastrem Kubernetes. Dzięki temu wszystkie logi z kontenerów są automatycznie zbierane i agregowane w jednym miejscu. Ponadto, dzięki integracji z platformą Grafana możliwe jest wizualizowanie, filtrowanie oraz wyszukiwanie logów w celach diagnostycznych.
 
 Na rysunku \ref{fig:loki} przedstawiono przykładowe logi systemu w Grafana Loki.
 

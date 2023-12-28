@@ -4,18 +4,18 @@
 
 \subsection{Wnioski}
 
-TODO wnioski z wydajności
+Celem pracy dyplomowej było zaprojektowanie i implementacja mikroserwisowego systemu informatycznego do zarządzania zamówieniami restauracyjnymi. System został stworzony zgodnie ze zdefiniowanymi założeniami funkcjonalnymi i niefunkcjonalnymi, przy użyciu technologii dobranych na podstawie analizy porównawczej. Zastosowane techniki i narzędzia umożliwiły zapewnienie wymaganej wydajności oraz skalowalności systemu, co potwierdziły przeprowadzone testy wydajnościowe.
 
-\subsection{Stopień realizacji założeń}
+W ramach pracy dyplomowej zaimplementowano wszystkie funkcjonalności określone w wymaganiach funkcjonalnych. Dodatkowo udało się zrealizować część funkcjonalności dodatkowych, które nie były pierwotnie zdefiniowane, takie jak np. możliwość śledzenia lokalizacji kuriera w czasie rzeczywistym.
 
-TODO chyba wszystko?
+Zrealizowano również wszystkie wymagania niefunkcjonalne. Skalowalność osiągnięto dzięki architekturze mikroserwisowej, kolejkom komunikatów i odpowiedniej infrastrukturze sieciowej. Wydajność systemu, zmierzona podczas testów, spełnia założenia przetwarzania minimum 50 żądań na sekundę. System jest monitorowalny dzięki narzędziom takim jak Prometheus, Grafana, Loki, a także testowalny, co udowodniono przez testy jednostkowe, integracyjne i wydajnościowe. Wymagania dotyczące bezpieczeństwa zostały spełnione przez zastosowanie autoryzacji JWT i platformy Auth0.
 
 \subsection{Możliwości dalszego rozwoju}
 
-Dalszy rozwój aplikacji, np. w ramach pracy magisterskiej, może obejmować następujące kierunki:
+Ze względu na zastosowanie architektury mikroserwisowej, zorientowanej na zdarzenia, system łatwo można rozbudować, dodając nowe funkcjonalności. W ramach dalszego rozwoju można skupić się na jednym z następujących obszarów:
 
-\textbf{Rozszerzenie funkcjonalności aplikacji} W ramach rozwoju aplikacji można rozszerzyć jej funkcjonalność o dodatkowe możliwości, np. analizę i wizualizację danych związanych ze sprzedażą, wydajnością kurierów, itp.
+\textbf{Rozszerzenie funkcjonalności aplikacji} - Rozwój aplikacji może obejmować dodanie nowych funkcji, np. analizę i wizualizację danych związanych ze sprzedażą i wydajnością kurierów.
 
-\textbf{Podniesienie wydajności systemu i dalsze testy wydajnościowe} W ramach dalszego rozwoju można podjąć próbę dalszego zwiększenia wydajności systemu, np. poprzez zastosowanie innych technologii, np. innej bazy danych, innych narzędzi do przetwarzania danych, itp. Można również przeprowadzić testy wydajnościowe z wykorzystaniem większej liczby użytkowników równolegle.
+\textbf{Podniesienie wydajności systemu i dalsze testy wydajnościowe} - Możliwe jest dalsze zwiększenie wydajności systemu, np. poprzez zastosowanie innych narzędzi lub modyfikacje w modelowaniu systemu. Warto również przeprowadzić testy wydajnościowe z większą liczbą użytkowników.
 
-\textbf{Ulepszenie warstwy prezentacji części klienckiej} W ramach dalszego rozwoju aplikacji można podjąć próbę ulepszenia warstwy prezentacji części klienckiej, np. poprzez zastosowanie innych technologii, bardziej dopasowanych do dziedziny systemu, takich jak aplikacje mobilne. 
+\textbf{Ulepszenie warstwy prezentacji części klienckiej} - Kolejnym obszarem rozwoju może być ulepszenie interfejsu użytkownika, np. poprzez rozwój aplikacji mobilnych na systemy Android i iOS.

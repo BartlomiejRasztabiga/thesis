@@ -375,6 +375,13 @@
       \field{howpublished}{Dostęp zdalny (20.12.2023): \url{https://www.jacoco.org/jacoco/}}
       \field{title}{Strona internetowa biblioteki do mierzenia pokrycia testami - JaCoCo}
     \endentry
+    \entry{docker}{misc}{}
+      \field{sortinit}{4}
+      \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
+      \field{labeltitlesource}{title}
+      \field{howpublished}{Dostęp zdalny (28.12.2023): \url{https://www.docker.com}}
+      \field{title}{Strona internetowa narzędzia do konteneryzacji - Docker}
+    \endentry
     \entry{restassured}{misc}{}
       \field{sortinit}{4}
       \field{sortinithash}{9381316451d1b9788675a07e972a12a7}
@@ -397,7 +404,6 @@
       \field{title}{Strona internetowa biblioteki do testów wydajnościowych Locust}
     \endentry
   \enddatalist
-  \missing{docker}
 \endrefsection
 \endinput
 

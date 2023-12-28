@@ -5,7 +5,7 @@ Przed przystąpieniem do implementacji projektu inżynierskiego, istotne jest zr
 
 \subsection{Architektura mikroserwisowa}
 
-Przez lata pojawiło się wiele definicji architektury oprogramowania. Dobrze pojęcie to obrazują Panowie Bass, Clements i Kazman podając w 2003 roku \cite{bass2012software}, że
+Przez lata pojawiło się wiele definicji architektury oprogramowania. Panowie Bass, Clements i Kazman w 2003 roku \cite{bass2012software} wyjaśnili to pojęcie, podkreślając, że
 
 \begin{displayquote}
 \emph{Architektura oprogramowania programu lub systemu informatycznego jest strukturą lub zbiorem struktur tego systemu, obejmującym elementy oprogramowania, widoczne dla pozostałych elementów oprogramowania oraz zależności między nimi.}
@@ -51,9 +51,9 @@ Architektura mikroserwisowa jest preferowana do tworzenia skalowalnych aplikacji
 
 \subsection{Skalowalność}
 
-Skalowanie usług jest ważnym aspektem w projektowaniu i utrzymaniu aplikacji internetowych, zwłaszcza w kontekście rosnącego zapotrzebowania na usługi danej aplikacji, spowodowanego np. wzrostem liczby użytkowników. W kontekście systemów informatycznych, skalowanie może być realizowane zarówno w sposób poziomy, jak i pionowy.
+Skalowanie usług jest ważnym aspektem w projektowaniu i utrzymaniu aplikacji internetowych, zwłaszcza w kontekście rosnącego zapotrzebowania na usługi danej aplikacji, spowodowanego np. wzrostem liczby użytkowników. W kontekście systemów informatycznych skalowanie może być realizowane zarówno w sposób poziomy, jak i pionowy.
 
-Skalowanie Poziome: Oznacza dodawanie większej liczby instancji serwisu do obsługi rosnącego obciążenia. W przypadku mikroserwisów, indywidualne serwisy mogą być skalowane niezależnie, co pozwala na zwiększenie wydajności systemu bez konieczności modyfikowania całej architektury. W rozwiązaniach chmurowych takie skalowanie jest bardzo często automatyczne - odpowiednie mechanizmy uruchamiają kolejne instancje serwisów na podstawie zużycia ich zasobów lub np. liczby żądań na sekundę.
+Skalowanie Poziome: Oznacza dodawanie większej liczby instancji serwisu do obsługi rosnącego obciążenia. W przypadku mikroserwisów indywidualne serwisy mogą być skalowane niezależnie, co pozwala na zwiększenie wydajności systemu bez konieczności modyfikowania całej architektury. W rozwiązaniach chmurowych takie skalowanie jest bardzo często automatyczne - odpowiednie mechanizmy uruchamiają kolejne instancje serwisów na podstawie zużycia ich zasobów lub np. liczby żądań na sekundę.
 
 Skalowanie Pionowe: Polega na zwiększaniu zasobów (np. CPU, pamięci) w istniejącej instancji serwisu. W architekturze mikroserwisowej jest to mniej powszechne, ponieważ główny nacisk kładzie się na elastyczność i skalowalność poziomą. Skalowanie takie jest bardzo popularne w systemach o architekturze monolitycznej, ponieważ często jest to jedyna opcja na zwiększenie wydajności rozwiązania bez poważnych zmian w architekturze.
 
@@ -93,11 +93,11 @@ Podsumowując, architektura zorientowana na zdarzenia, stosowana w ramach archit
 Projektowanie zorientowane na dziedzinę (ang. Domain-Driven Design, DDD \cite{ddd}) to podejście do projektowania oprogramowania, które koncentruje się na modelowaniu złożonych systemów biznesowych.
 
 \begin{enumerate}
-    \item \textbf{Modelowanie Dziedziny}: DDD skupia się na głębokim zrozumieniu dziedziny biznesowej i jej problemów. W kontekście aplikacji webowych, modelowanie dziedziny pomaga w identyfikacji kluczowych funkcji i procesów biznesowych, które aplikacja ma obsługiwać.
+    \item \textbf{Modelowanie Dziedziny}: DDD skupia się na głębokim zrozumieniu dziedziny biznesowej i jej problemów. W kontekście aplikacji webowych modelowanie dziedziny pomaga w identyfikacji kluczowych funkcji i procesów biznesowych, które aplikacja ma obsługiwać.
 
     \item \textbf{Język powszechny} (ang. Ubiquitous Language): w DDD to wspólny język, którym posługują się zarówno programiści, jak i eksperci biznesowi. Ułatwia to komunikację i zapewnia, że wszystkie zainteresowane strony mają wspólne rozumienie funkcjonalności aplikacji.
 
-    \item \textbf{Podział na Ograniczone Konteksty }(ang. Bounded Contexts): DDD promuje dzielenie systemu na mniejsze, zarządzane części, znane jako Ograniczone Konteksty. W architekturze mikroserwisowej, każdy mikroserwis może reprezentować osobny Kontekst, co pozwala na niezależne zarządzanie, rozwijanie i skalowanie poszczególnych części systemu.
+    \item \textbf{Podział na Ograniczone Konteksty }(ang. Bounded Contexts): DDD promuje dzielenie systemu na mniejsze, zarządzane części, znane jako Ograniczone Konteksty. W architekturze mikroserwisowej każdy mikroserwis może reprezentować osobny Kontekst, co pozwala na niezależne zarządzanie, rozwijanie i skalowanie poszczególnych części systemu.
 
     \item \textbf{Integracja i Komunikacja między Mikroserwisami}: W środowisku mikroserwisowym ważne jest zapewnienie skutecznej komunikacji i integracji między różnymi serwisami. DDD może pomóc w definiowaniu jasnych interfejsów i umów między serwisami, co ułatwia ich integrację i współpracę.
 
@@ -110,7 +110,7 @@ Projektowanie zorientowane na dziedzinę (ang. Domain-Driven Design, DDD \cite{d
 
 \subsection{Separacja odpowiedzialności komend i zapytań}
 
-Separacja odpowiedzialności komend i zapytań (ang. Command Query Responsibility Segregation, CQRS \cite{cqrs}) to wzorzec architektoniczny, który rozdziela operacje odczytu (Query) od operacji zapisu (Command) w systemie informatycznym na poziomie architektury. Taka separacja nie wymaga, by oba rodzaje operacji były zaimplementowane w ramach tej samej aplikacji. W przypadku tworzenia skalowalnych aplikacji internetowych, CQRS umożliwia efektywniejsze zarządzanie i optymalizację procesów odczytu i zapisu poprzez ich niezależne skalowanie. Wynikiem jest optymalne wykorzystanie zasobów, uproszczenie struktury kodu i zwiększenie ogólnej wydajności systemu. W architekturze opartej na mikroserwisach, CQRS dodatkowo sprzyja lepszemu rozdzieleniu obowiązków między poszczególnymi mikroserwisami, co przekłada się na wyższą modułowość i elastyczność systemu.
+Separacja odpowiedzialności komend i zapytań (ang. Command Query Responsibility Segregation, CQRS \cite{cqrs}) to wzorzec architektoniczny, który rozdziela operacje odczytu (Query) od operacji zapisu (Command) w systemie informatycznym na poziomie architektury. Taka separacja nie wymaga, by oba rodzaje operacji były zaimplementowane w ramach tej samej aplikacji. W przypadku tworzenia skalowalnych aplikacji internetowych CQRS umożliwia efektywniejsze zarządzanie i optymalizację procesów odczytu i zapisu poprzez ich niezależne skalowanie. Wynikiem jest optymalne wykorzystanie zasobów, uproszczenie struktury kodu i zwiększenie ogólnej wydajności systemu. W architekturze opartej na mikroserwisach CQRS dodatkowo sprzyja lepszemu rozdzieleniu obowiązków między poszczególnymi mikroserwisami, co przekłada się na wyższą modułowość i elastyczność systemu.
 
 \begin{figure}[!h]
     \centering \includegraphics[width=1.0\linewidth]{cqrs.png}
@@ -133,7 +133,7 @@ Wzorzec Event Sourcing \cite{eventsourcing} jest podejściem w projektowaniu opr
 
     \item \textbf{Zarządzanie Zdarzeniami}: Event Sourcing wymaga skutecznego zarządzania i przetwarzania strumieni zdarzeń, co może być wyzwaniem w dużych systemach. Ważne jest zapewnienie odpowiedniej wydajności i skalowalności mechanizmów przetwarzających zdarzenia, tzw. magazynu zdarzeń i kolejki komunikatów.
 
-    \item O\textbf{dzyskiwanie i Odporność na Awarii}: Wzorzec ten zapewnia naturalną odporność na awarie, ponieważ stan aplikacji może być odtworzony z historii zdarzeń. Jest to szczególnie ważne w środowisku rozproszonym, jakim jest architektura mikroserwisowa.
+    \item \textbf{Odzyskiwanie i Odporność na Awarii}: Wzorzec ten zapewnia naturalną odporność na awarie, ponieważ stan aplikacji może być odtworzony z historii zdarzeń. Jest to szczególnie ważne w środowisku rozproszonym, jakim jest architektura mikroserwisowa.
 
     \item \textbf{Wersjonowanie Zdarzeń}: W miarę rozwoju systemu, format zdarzeń może się zmieniać. Zarządzanie różnymi wersjami zdarzeń i ich kompatybilnością wsteczną staje się istotnym aspektem projektu.
 
@@ -152,7 +152,7 @@ Wzorzec Saga \cite{saga} w architekturze mikroserwisowej jest strategią zarząd
 
     \item \textbf{Definicja Sag}: Saga to sekwencja operacji, w której każda operacja jest lokalną transakcją w ramach jednego mikroserwisu. Jeśli wszystkie operacje zakończą się pomyślnie, cała Saga jest uznawana za zakończoną sukcesem. Jeśli jednak jedna z operacji zawiedzie, Saga inicjuje serię kompensacyjnych akcji, aby przywrócić system do spójnego stanu.
 
-    \item \textbf{Orkiestracja vs Choreografia}: Istnieją dwa podejścia do implementacji Sag: orkiestracja i choreografia. W orkiestracji, centralny koordynator (taki jak serwis orkiestracyjny) zarządza kolejnością i rezultatem operacji. W choreografii, każdy mikroserwis zna kolejny krok i samodzielnie publikuje zdarzenia, które są słuchane przez inne serwisy.
+    \item \textbf{Orkiestracja vs Choreografia}: Istnieją dwa podejścia do implementacji Sag: orkiestracja i choreografia. W orkiestracji centralny koordynator (taki jak serwis orkiestracyjny) zarządza kolejnością i rezultatem operacji. W choreografii każdy mikroserwis zna kolejny krok i samodzielnie publikuje zdarzenia, które są słuchane przez inne serwisy.
 
     \item \textbf{Kompensacja}: Gdy jedna z operacji w Sadze zawodzi, system musi podjąć akcje kompensacyjne, aby cofnąć zmiany wprowadzone przez poprzednie operacje. Wymaga to starannego projektowania logiki kompensacji dla każdej operacji.
 

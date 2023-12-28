@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.19)  23 DEC 2023 17:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.19)  28 DEC 2023 21:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1005,15 +1005,7 @@ Package biblatex Info: Automatic encoding selection.
 
 Package biblatex Info: Trying to load bibliographic data...
 Package biblatex Info: ... file 'main.bbl' found.
- (./main.bbl
-
-Package biblatex Warning: The following entry could not be found
-(biblatex)                in the database:
-(biblatex)                docker
-(biblatex)                Please verify the spelling and rerun
-(biblatex)                LaTeX afterwards.
-
-)
+ (./main.bbl)
 Package biblatex Info: Reference section=0 on input line 64.
 Package biblatex Info: Reference segment=0 on input line 64.
 Package caption Info: Begin \AtBeginDocument code.
@@ -1080,12 +1072,12 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `futs' (encoding: T1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-<src/pl/header/eiti.pdf, id=278, 483.72722pt x 76.8471pt>
+<src/pl/header/eiti.pdf, id=274, 483.72722pt x 76.8471pt>
 File: src/pl/header/eiti.pdf Graphic file (type pdf)
 <use src/pl/header/eiti.pdf>
 Package pdftex.def Info: src/pl/header/eiti.pdf  used on input line 97.
 (pdftex.def)             Requested size: 441.01775pt x 70.06229pt.
-<src/pl/title/inz.pdf, id=279, 483.72722pt x 105.39375pt>
+<src/pl/title/inz.pdf, id=275, 483.72722pt x 105.39375pt>
 File: src/pl/title/inz.pdf Graphic file (type pdf)
 <use src/pl/title/inz.pdf>
 Package pdftex.def Info: src/pl/title/inz.pdf  used on input line 97.
@@ -1149,7 +1141,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ] [8]) (./tex/2-techniki.tex [9]
-<tex/img//mikroserwisy.png, id=397, 1204.5pt x 582.175pt>
+<tex/img//mikroserwisy.png, id=392, 1204.5pt x 582.175pt>
 File: tex/img//mikroserwisy.png Graphic file (type png)
 <use tex/img//mikroserwisy.png>
 Package pdftex.def Info: tex/img//mikroserwisy.png  used on input line 17.
@@ -1222,7 +1214,7 @@ Overfull \hbox (15.541pt too wide) in alignment at lines 34--48
  []
 
 [11]
-<tex/img//cap.jpg, id=418, 401.5pt x 314.17375pt>
+<tex/img//cap.jpg, id=413, 401.5pt x 314.17375pt>
 File: tex/img//cap.jpg Graphic file (type jpg)
 <use tex/img//cap.jpg>
 Package pdftex.def Info: tex/img//cap.jpg  used on input line 65.
@@ -1231,13 +1223,13 @@ Package pdftex.def Info: tex/img//cap.jpg  used on input line 65.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [13] [14]
-<tex/img//cqrs.png, id=454, 593.21625pt x 352.31625pt>
+<tex/img//cqrs.png, id=449, 593.21625pt x 352.31625pt>
 File: tex/img//cqrs.png Graphic file (type png)
 <use tex/img//cqrs.png>
 Package pdftex.def Info: tex/img//cqrs.png  used on input line 116.
 (pdftex.def)             Requested size: 441.01775pt x 261.93564pt.
  [15 <./tex/img//cqrs.png>]
-<tex/img//event_sourcing.png, id=469, 723.70375pt x 653.44125pt>
+<tex/img//event_sourcing.png, id=463, 723.70375pt x 653.44125pt>
 File: tex/img//event_sourcing.png Graphic file (type png)
 <use tex/img//event_sourcing.png>
 Package pdftex.def Info: tex/img//event_sourcing.png  used on input line 143.
@@ -1258,19 +1250,16 @@ LaTeX Font Info:    Font shape `U/futm/m/n' will be
 (Font)              scaled to size 9.19998pt on input line 17.
 LaTeX Font Info:    Font shape `U/futm/m/n' will be
 (Font)              scaled to size 7.35999pt on input line 17.
-
-Underfull \vbox (badness 3128) has occurred while \output is active []
-
  [18
 
 ]
-<tex/img//event_storming.png, id=494, 1536.74126pt x 1061.9675pt>
+<tex/img//event_storming.png, id=489, 1536.74126pt x 1061.9675pt>
 File: tex/img//event_storming.png Graphic file (type png)
 <use tex/img//event_storming.png>
 Package pdftex.def Info: tex/img//event_storming.png  used on input line 37.
 (pdftex.def)             Requested size: 441.01775pt x 304.75423pt.
  [19 <./tex/img//event_storming.png>] [20]
-<tex/img//event_storming2.png, id=514, 1725.44624pt x 1128.215pt>
+<tex/img//event_storming2.png, id=509, 1725.44624pt x 1128.215pt>
 File: tex/img//event_storming2.png Graphic file (type png)
 <use tex/img//event_storming2.png>
 Package pdftex.def Info: tex/img//event_storming2.png  used on input line 65.
@@ -1281,7 +1270,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [21
 
  <./tex/img//event_storming2.png>] [22]) (./tex/4-architektura.tex [23]
-<tex/img//c4context.png, id=532, 3864.4375pt x 2007.5pt>
+<tex/img//c4context.png, id=527, 3864.4375pt x 2007.5pt>
 File: tex/img//c4context.png Graphic file (type png)
 <use tex/img//c4context.png>
 Package pdftex.def Info: tex/img//c4context.png  used on input line 33.
@@ -1290,7 +1279,7 @@ Package pdftex.def Info: tex/img//c4context.png  used on input line 33.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<tex/img//c4containers.png, id=534, 6803.4175pt x 3303.34125pt>
+<tex/img//c4containers.png, id=529, 6803.4175pt x 3303.34125pt>
 File: tex/img//c4containers.png Graphic file (type png)
 <use tex/img//c4containers.png>
 Package pdftex.def Info: tex/img//c4containers.png  used on input line 43.
@@ -1356,12 +1345,12 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [42] [43] [44]) (./tex/6-wdrozenie.tex [45] [46
 
 ] [47] [48] [49] [50]
-<tex/img//loki.png, id=1150, 1923.185pt x 933.4875pt>
+<tex/img//loki.png, id=1145, 1923.185pt x 933.4875pt>
 File: tex/img//loki.png Graphic file (type png)
 <use tex/img//loki.png>
 Package pdftex.def Info: tex/img//loki.png  used on input line 169.
 (pdftex.def)             Requested size: 441.01775pt x 214.05664pt.
-<tex/img//axonconsole.png, id=1152, 962.59625pt x 458.71375pt>
+<tex/img//axonconsole.png, id=1147, 962.59625pt x 458.71375pt>
 File: tex/img//axonconsole.png Graphic file (type png)
 <use tex/img//axonconsole.png>
 Package pdftex.def Info: tex/img//axonconsole.png  used on input line 181.
@@ -1375,11 +1364,8 @@ Underfull \vbox (badness 4582) has occurred while \output is active []
 
  [53]
 Overfull \hbox (108.13374pt too wide) in paragraph at lines 73--74
-\T1/futs/m/n/12 (-20) mych na-rz¦-dzi co jed-nost-kowe, z do-dat-kowa po-moc¡ bi-blio-teki \T1/futs/m/it/12 (-20) org.springframework.boot:spring-boot-starter-test\T1/futs/m/n/12 (-20) ,
+\T1/futs/m/n/12 (-20) mych na-rz¦-dzi co jed-nost-kowe, z do-dat-kow¡ po-moc¡ bi-blio-teki \T1/futs/m/it/12 (-20) org.springframework.boot:spring-boot-starter-test\T1/futs/m/n/12 (-20) ,
  []
-
-
-LaTeX Warning: Citation 'docker' on page 54 undefined on input line 75.
 
 [54] [55] (/usr/local/texlive/2023/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2023/02/27 1.9 listings language file
@@ -1408,7 +1394,7 @@ Overfull \hbox (5.89546pt too wide) in alignment at lines 183--190
  [] [] [] [] 
  []
 
-<tex/img//locust.png, id=1318, 2055.68pt x 1378.14874pt>
+<tex/img//locust.png, id=1315, 2055.68pt x 1378.14874pt>
 File: tex/img//locust.png Graphic file (type png)
 <use tex/img//locust.png>
 Package pdftex.def Info: tex/img//locust.png  used on input line 198.
@@ -1477,24 +1463,24 @@ Overfull \hbox (20.8801pt too wide) in paragraph at lines 169--169
 
  [65] (./main.aux)
 Package rerunfilecheck Info: File `main.out' has not changed.
-(rerunfilecheck)             Checksum: 1FE48048B8CF7D8C5A625FB344530DDC;11612.
+(rerunfilecheck)             Checksum: 8B48E526E9D723DE58B77BC11FD9FD4E;11406.
 Package logreq Info: Writing requests to 'main.run.xml'.
 \openout1 = `main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 31196 strings out of 476025
- 537099 string characters out of 5790016
+ 31189 strings out of 476025
+ 537100 string characters out of 5790016
  1899388 words of memory out of 5000000
- 49853 multiletter control sequences out of 15000+600000
- 641072 words of font info for 503 fonts, out of 8000000 for 9000
+ 49854 multiletter control sequences out of 15000+600000
+ 640280 words of font info for 497 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 123i,12n,120p,1198b,2622s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 123i,12n,120p,1196b,2622s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on main.pdf (65 pages, 2956170 bytes).
+Output written on main.pdf (65 pages, 2957188 bytes).
 PDF statistics:
- 1661 PDF objects out of 1728 (max. 8388607)
- 1543 compressed objects within 16 object streams
+ 1659 PDF objects out of 1728 (max. 8388607)
+ 1541 compressed objects within 16 object streams
  759 named destinations out of 1000 (max. 500000)
- 76906 words of extra memory for PDF output out of 89155 (max. 10000000)
+ 76898 words of extra memory for PDF output out of 89155 (max. 10000000)
 

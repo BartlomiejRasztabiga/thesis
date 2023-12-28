@@ -23,11 +23,11 @@ Celem niniejszej pracy było zaprojektowanie, stworzenie, wdrożenie oraz przete
 
 \subsection{Charakterystyka problemu}
 
-Zastosowana architektura wymagała odpowiedniego podziału systemu informatycznego na mikroserwisy, które komunikują się między sobą w celu spełnienia wymagań biznesowych. System został podzielony na dwie części: kliencką i serwerową. Część kliencka jest aplikacją webową, uruchamianą w przeglądarce klienta, komunikującą się z częścią serwerową przy pomocy interfejsu REST. Część serwerowa została wykonana we wcześniej wspomnianej architekturze mikroserwisowej i zawiera całą logikę biznesową systemu. Niniejsza praca przedstawia jakie techniki zostały zastosowane do stworzenia tych modułów oraz jakie korzyści daje nam zastosowanie takiej architektury. Przedstawiono również krótkie porównanie z architekturą monolityczną w kontekście dopasowania do przedstawionego problemu.
+Zastosowana architektura wymagała odpowiedniego podziału systemu informatycznego na mikroserwisy, które komunikują się między sobą w celu spełnienia wymagań biznesowych. System został podzielony na dwie części: kliencką i serwerową. Część kliencka jest aplikacją webową, uruchamianą w przeglądarce klienta, komunikującą się z częścią serwerową przy pomocy interfejsu REST. Część serwerowa została wykonana we wcześniej wspomnianej architekturze mikroserwisowej i zawiera całą logikę biznesową systemu. W tej pracy omówiono zastosowane techniki przy tworzeniu modułów oraz korzyści wynikające z wykorzystania tej specyficznej architektury. Ponadto, zaprezentowano krótkie zestawienie tej architektury z monolityczną, analizując ich dopasowanie do omawianego problemu.
 
 \subsection{Przegląd podobnych rozwiązań}
 
-W ramach tej pracy inżynierskiej, Autor stwierdza, że nie był w stanie przeprowadzić dogłębnego porównania projektowanego systemu z istniejącymi na rynku rozwiązaniami takimi jak Uber Eats, Wolt, Pyszne.pl, Bolt Food. Powodem tego jest ograniczony dostęp do szczegółowych informacji na temat ich architektury serwerowej i rozwiązań technologicznych. Ponadto, porównanie funkcjonalności z perspektywy użytkownika końcowego nie było głównym celem pracy, gdyż nacisk położono nie na rozwój licznych funkcjonalności, lecz na badanie aspektów technicznych związanych z tworzeniem skalowalnych aplikacji webowych. W związku z tym, analiza skupia się bardziej na kwestiach architektonicznych i wydajnościowych, a nie na bezpośredniej konkurencji z funkcjami oferowanymi przez wymienione platformy.
+W ramach tej pracy inżynierskiej Autor stwierdza, że nie był w stanie przeprowadzić dogłębnego porównania projektowanego systemu z istniejącymi na rynku rozwiązaniami takimi jak Uber Eats, Wolt, Pyszne.pl, Bolt Food. Powodem tego jest ograniczony dostęp do szczegółowych informacji na temat ich architektury serwerowej i rozwiązań technologicznych. Ponadto, porównanie funkcjonalności z perspektywy użytkownika końcowego nie było głównym celem pracy, gdyż nacisk położono nie na rozwój licznych funkcjonalności, lecz na badanie aspektów technicznych związanych z tworzeniem skalowalnych aplikacji webowych. W związku z tym analiza skupia się bardziej na kwestiach architektonicznych i wydajnościowych, a nie na bezpośredniej konkurencji z funkcjami oferowanymi przez wymienione platformy.
 
 
 \subsection{Struktura pracy}
@@ -40,8 +40,8 @@ Kolejny rozdział będzie poświęcony analizie wymagań budowanego systemu. Prz
 
 W kolejnym rozdziale zostanie przedstawiona proponowana architektura systemowa i wdrożeniowa systemu, wraz z jej modelem C4. Opisane zostaną zastosowane mechanizmy persystencji danych, przechowywania i transportu komunikatów. Pokrótce opisane zostaną również mechanizmy uwierzytelniania i autoryzacji oraz zastosowane integracje z zewnętrznymi usługami.
 
-Następnie zostanie omówiona implementacja systemu. W tym rozdziale przedstawiony zostanie proces tworzenia obu części systemu informatycznego, wraz z użytymi narzędziami, technikami, oraz ich ogólnym opisem i przykładem wykorzystania w systemie.
+Następny rozdział skupi się na implementacji systemu. Będzie zawierać szczegółowy opis procesu tworzenia obu segmentów systemu informatycznego, z uwzględnieniem wykorzystanych narzędzi, technik, ich zastosowania oraz przykładów ich użycia w systemie.
 
-Przedostatni rozdział będzie dotyczył testowania systemu. Zostaną omówione zastosowane rodzaje testów oraz w jaki sposób zostały użyte do weryfikacji wymagań systemu.
+Przedostatni rozdział będzie poświęcony testowaniu systemu. Opisane zostaną różne rodzaje testów i sposób ich wykorzystania do sprawdzenia zgodności systemu z wymaganiami.
 
-W ostatnim rozdziale zostanie przedstawione podsumowanie implementacji systemu oraz wniosków wyciągniętych z testów wydajnościowych. Zostanie zaprezentowane jakich błędów mógłby uniknąć Autor, gdyby system był tworzony z wiedzą posiadaną po zakończeniu obecnej implementacji. Przedstawione zostaną rownież możliwości dalszego rozwoju systemu.
+W końcowym rozdziale zostaną przedstawione wnioski wynikające z implementacji systemu i przeprowadzonych testów wydajnościowych. Na koniec przedstawione zostaną także perspektywy dalszego rozwoju systemu.

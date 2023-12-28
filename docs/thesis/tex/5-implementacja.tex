@@ -20,13 +20,13 @@ Spring Boot ma silne powiązanie z koncepcją "cloud native", która odnosi się
 
 \textbf{Axon Framework} to framework do tworzenia aplikacji w architekturze opartej na zdarzeniach (event-driven) i wzorcu CQRS. Wspiera również DDD, Event Sourcing oraz wzorzec Saga. Axon Framework jest napisany w języku Java, ale może być wykorzystywany również w języku Kotlin. Axon Framework dostarcza abstrakcje do tworzenia aplikacji opartych na zdarzeniach, takich jak agregaty, komendy, zdarzenia, szyna wiadomości, sagi, itp. Axon Framework jest narzędziem open source, rozwijanym przez firmę AxonIQ.
 
-\textbf{Axon Server} jest infrastrukturalnym elementem ekosystemu Axon, pełniącym rolę kolejki komunikatów oraz magazynu zdarzeń. Oferuje on również narzędzia do monitoringu i zarządzania aplikacjami opartymi na Axon Framework.
+\textbf{Axon Server} jest infrastrukturalnym elementem ekosystemu Axon, odgrywającym rolę kolejki komunikatów oraz magazynu zdarzeń. Oferuje on również narzędzia do monitoringu i zarządzania aplikacjami opartymi na Axon Framework.
 
 \subsubsection{Architektura heksagonalna}
 
 Część serwerowa aplikacji została zaimplementowana zgodnie z architekturą heksagonalną (ang. hexagonal architecture), która jest jedną z popularnych architektur aplikacji serwerowych, wykorzystywanych przy złożonych projektach informatycznych. Architektura ta jest również znana pod nazwą architektury czystej (ang. clean architecture) lub architektury portów i adapterów (ang. ports and adapters architecture). Została ona zaproponowana przez Alistaira Cockburna w 2005 roku \cite{cockburn2005hexagonal}.
 
-Architektura heksagonalna jest architekturą warstwową, która składa się z trzech warstw: warstwy adapterów, warstwy dziedziny oraz warstwy infrastruktury. Warstwa dziedziny jest główną warstwą aplikacji, która zawiera logikę biznesową. Warstwa adapterów jest warstwą zewnętrzną, która zawiera adaptery wejściowe i wyjściowe, które są odpowiedzialne za komunikację z zewnętrznymi systemami. Warstwa infrastruktury jest warstwą wewnętrzną, która zawiera implementację adapterów wejściowych i wyjściowych. Warstwa infrastruktury jest odpowiedzialna za konfigurację aplikacji oraz za integrację z zewnętrznymi systemami (np. bazą danych, systemem plików, itp.).
+Architektura heksagonalna jest architekturą warstwową, która składa się z trzech warstw: warstwy adapterów, warstwy dziedziny oraz warstwy infrastruktury. Warstwa dziedziny jest główną warstwą aplikacji, która zawiera logikę biznesową. Warstwa adapterów jest warstwą zewnętrzną, która zawiera adaptery wejściowe i wyjściowe, które są odpowiedzialne za komunikację z zewnętrznymi systemami. Warstwa infrastruktury jest warstwą wewnętrzną, która zawiera implementację adapterów wejściowych i wyjściowych. Warstwa infrastruktury jest odpowiedzialna za konfigurację aplikacji oraz za integrację z zewnętrznymi systemami (np. bazą danych, systemem plików itp.).
 
 \subsubsection{Podział na pakiety}
 
@@ -164,7 +164,7 @@ interface OrderVerificationPort {
 }
 \end{lstlisting}
 
-Kod ten jest wywoływany w momencie otrzymania komendy \textit{StartOrderCommand} przez agregat \textit{Order}. Komenda ta jest wysyłana do agregatu przez adapter wejściowy, zaprezentowany w rozdziale 5.1.4. Agregat \textit{Order} jest odpowiedzialny za wstępną walidację zamówienia, która jest realizowana przy pomocy portu \textit{OrderVerificationPort}. W przypadku tej komendy, system weryfikuje czy podana resutacja istnieje i czy jest otwarta. Port walidacyjny jest interfejsem, implementowanym przez odpowiedni adapter wyjściowy.
+Kod ten jest wywoływany w momencie otrzymania komendy \textit{StartOrderCommand} przez agregat \textit{Order}. Komenda ta jest wysyłana do agregatu przez adapter wejściowy, zaprezentowany w rozdziale 5.1.4. Agregat \textit{Order} jest odpowiedzialny za wstępną walidację zamówienia, która jest realizowana przy pomocy portu \textit{OrderVerificationPort}. W przypadku tej komendy system weryfikuje czy podana restauracja istnieje i czy jest otwarta. Port walidacyjny jest interfejsem, implementowanym przez odpowiedni adapter wyjściowy.
 
 W przypadku, gdy wstępna walidacja zamówienia zakończy się sukcesem, agregat \textit{Order} emituje zdarzenie \textit{OrderStartedEvent}, które jest zapisywane w magazynie zdarzeń, kontrolowanym przez Axon Server. Na zdarzenie nasłuchują inne komponenty systemu, które mogą na jego podstawie budować projekcje, wysyłać powiadomienia do użytkowników, lub podejmować inne akcje.
 
@@ -174,7 +174,7 @@ Dzięki zastosowaniu Axon Framework nie ma konieczności pisania kodu odpowiedzi
 
 Warstwa ta obejmuje pakiet \textit{query}. Zawiera ona komponenty, które są odpowiedzialne za obsługę zapytań użytkowników systemu. W implementowanym systemie komponentami tymi są procesory zdarzeń budujące projekcje, zapytania oraz klasy pomocnicze służące do persystencji danych w bazie danych.
 
-Na wycinku \ref{lst:server-domain-query} przedstawiono kod procesora zdarzeń budującego projekcję zamówienia. Procesor ten nasłuchuje na zdarzenie \textit{OrderStartedEvent} i na jego podstawie buduje projekcję zamówienia, która jest zapisywana w bazie danych. Procesor ten jest wywoływany automatycznie przez Axon Framework, w momencie otrzymania odpowiednigo zdarzenia.
+Na wycinku \ref{lst:server-domain-query} przedstawiono kod procesora zdarzeń budującego projekcję zamówienia. Procesor ten nasłuchuje na zdarzenie \textit{OrderStartedEvent} i na jego podstawie buduje projekcję zamówienia, która jest zapisywana w bazie danych. Procesor ten jest wywoływany automatycznie przez Axon Framework, w momencie otrzymania odpowiedniego zdarzenia.
 
 \begin{lstlisting}[caption={Kod procesora zdarzeń budującego projekcję zamówienia},label={lst:server-domain-query},captionpos=b,language=Kotlin,numbers=left,showstringspaces=false]
 @ProcessingGroup("projection")
@@ -236,7 +236,7 @@ Dzięki zastosowaniu adnotacji \textit{@Profile("!nosecurity")} możliwe jest wy
 
 \subsubsection{Warstwa infrastruktury}
 
-Warstwa ta obejmuje pakiet \textit{infrastructure}. Zawiera ona kod, niezwiązany z domeną aplikacji, który jest odpowiedzialny za integrację z konkretnymi technologiami, np. bazą danych, systemem plików, itp. W implementowanym systemie komponentami tej warstwy są np. implementacje repozytoriów bazodanowych używające konkretnej technologii - Spring Data MongoDB. Są to również komponenty służące do komunikacji z zewnętrznymi usługami, np. klient Google Maps Platform.
+Warstwa ta obejmuje pakiet \textit{infrastructure}. Zawiera ona kod, niezwiązany z domeną aplikacji, który jest odpowiedzialny za integrację z konkretnymi technologiami, np. bazą danych, systemem plików itp. W implementowanym systemie komponentami tej warstwy są np. implementacje repozytoriów bazodanowych używające konkretnej technologii - Spring Data MongoDB. Są to również komponenty służące do komunikacji z zewnętrznymi usługami, np. klient Google Maps Platform.
 
 Na wycinku \ref{lst:server-infrastructure} przedstawiono przykładowy kod implementacji repozytorium bazodanowego. Jest to implementacja interfejsu \textit{ReactiveMongoRepository}, który jest komponentem oferującym dostęp do bazy MongoDB. Mimo faktu, że repozytorium to jest interfejsem, a nie klasą, to dzięki mechanizmowi refleksji oferowanemu przez framework Spring, implementacja ta jest automatycznie generowana w czasie uruchamiania aplikacji.
 
@@ -249,7 +249,7 @@ interface SpringDataOrderRepository
 }
 \end{lstlisting}
 
-Repozytorium bazowe, \textit{ReactiveMongoRepository} zawiera podstawowe metody do operacji na bazie danych, takie jak np. \textit{save}, \textit{findById}, \textit{findAll}, itp. Repozytorium \textit{SpringDataOrderRepository} rozszerza repozytorium bazowe i dodaje do niego dodatkową metodę \textit{findAllByUserId}, która zwraca wszystkie zamówienia danego użytkownika.
+Repozytorium bazowe, \textit{ReactiveMongoRepository} zawiera podstawowe metody do operacji na bazie danych, takie jak np. \textit{save}, \textit{findById}, \textit{findAll} itp. Repozytorium \textit{SpringDataOrderRepository} rozszerza repozytorium bazowe i dodaje do niego dodatkową metodę \textit{findAllByUserId}, która zwraca wszystkie zamówienia danego użytkownika.
 
 \subsubsection{Współdzielony kod}
 
@@ -285,7 +285,7 @@ class SecurityConfig {
 }
 \end{lstlisting}
 
-Klasa ta jest odpowiedzialna za konfigurację mechanizmu uwierzytelniania i autoryzacji. Została ona umieszczona w module \textit{shared}, ponieważ jest ona wspólna dla wszystkich serwisów w ramach systemu. Uruchamia ona mechanizm uwierzytelniania i autoryzacji oferowany przez framework Spring Security. Uwierzytelnianie odbywa się przy pomocy tokenów JWT. Dodatkowo, wyłącza ona mechanizmy obrony przed atakiem CSRF oraz CORS, które są niepotrzebne w przypadku zastosowanej infrastruktury sieciowej systemu.
+Klasa ta jest odpowiedzialna za konfigurację mechanizmu uwierzytelniania i autoryzacji. Została ona umieszczona w module \textit{shared}, ponieważ jest ona wspólna dla wszystkich serwisów w ramach systemu. Uruchamia ona mechanizm uwierzytelniania i autoryzacji oferowany przez framework Spring Security. Uwierzytelnianie odbywa się przy pomocy tokenów JWT. Dodatkowo wyłącza ona mechanizmy obrony przed atakiem CSRF oraz CORS, które są niepotrzebne w przypadku zastosowanej infrastruktury sieciowej systemu.
 
 Domyślnie, żądania na wszystkie ścieżki aplikacji wymagają uwierzytelniania. Są jednak dwie ścieżki, gdzie takie mechanizmy są wyłączone. Pierwsza z nich to ścieżka \textit{/actuator/**}, która jest wykorzystywana przez framework Spring Boot do oferowania statusu aplikacji, wykorzystywanego m.in. przez orkiestratora kontenerów Kubernetes. Druga ścieżka to \textit{/api/v1/payments/stripe-webhook}, która jest wykorzystywana przez serwis odpowiedzialny za płatności, do obsługi webhooków z serwisu Stripe.
 
@@ -301,7 +301,7 @@ W części klienckiej aplikacji wykorzystano następujące najważniejsze narzę
 
 \textbf{TypeScript} \cite{typescript} to język programowania stworzony przez firmę Microsoft, będący rozszerzeniem języka JavaScript, poprzed wprowadzenie statycznego typowania, co pozwala programistom na wykrywanie błędów w czasie kompilacji i znacząco ułatwia zarządzanie dużymi projektami. 
 
-\textbf{React} \cite{react} to biblioteka JavaScript, która jest wykorzystywana do tworzenia interfejsów użytkownika. React jest deklaratywną biblioteką open source, rozwijaną przez firmę Facebook, która pozwala na tworzenie interfejsów użytkownika przy pomocy komponentów. Może ona być wykorzystywana do tworzenia zarówno aplikacji webowych, jak i mobilnych. W przeciwieństwie do poprzednich podejść w tworzeniu aplikacji internetowych, React stosuje technikę wirtualnego drzewa dokumentu (ang. virtual DOM) do renderowania interfejsu użytkownika. Technika ta polega na przechowywaniu w pamięci drzewa DOM, które jest reprezentacją interfejsu użytkownika. W momencie zmiany stanu aplikacji, drzewo DOM jest aktualizowane, a następnie porównywane z drzewem DOM przechowywanym w pamięci. Na podstawie tego porównania, React aktualizuje tylko te elementy interfejsu użytkownika, które uległy zmianie. Dzięki temu, renderowanie interfejsu użytkownika jest znacznie szybsze, co przekłada się na lepszą wydajność aplikacji.
+\textbf{React} \cite{react} to biblioteka JavaScript, która jest wykorzystywana do tworzenia interfejsów użytkownika. React jest deklaratywną biblioteką open source, rozwijaną przez firmę Facebook, która pozwala na tworzenie interfejsów użytkownika przy pomocy komponentów. Może ona być wykorzystywana do tworzenia zarówno aplikacji webowych, jak i mobilnych. W przeciwieństwie do poprzednich podejść w tworzeniu aplikacji internetowych React stosuje technikę wirtualnego drzewa dokumentu (ang. virtual DOM) do renderowania interfejsu użytkownika. Technika ta polega na przechowywaniu w pamięci drzewa DOM, które jest reprezentacją interfejsu użytkownika. W momencie zmiany stanu aplikacji, drzewo DOM jest aktualizowane, a następnie porównywane z drzewem DOM przechowywanym w pamięci. Na podstawie tego porównania, React aktualizuje tylko te elementy interfejsu użytkownika, które uległy zmianie. Dzięki temu renderowanie interfejsu użytkownika jest znacznie szybsze, co przekłada się na lepszą wydajność aplikacji.
 
 \textbf{Remix} \cite{remix} to framework do tworzenia aplikacji internetowych typu MPA, oparty na modelu SSR (ang. server side rendering), czyli renderowania interfejsu użytkownika po stronie serwera. Pozwala on na opbieranie danych na poziomie trasowania, co oznacza, że dane są ładowane przed renderowaniem komponentów, co pozwala na szybsze ładowanie aplikacji i lepsze pozycjonowanie w wyszukiwarkach internetowych.
 
@@ -368,7 +368,7 @@ Odpowiedzialność za dostarczenie danych oraz obsługę formularza komponent te
 
 \subsubsection{Obsługa ścieżek}
 
-Komponenty aplikacji odpowiedzialne za obsługę ścieżek zostały umieszczone w folderze \textit{routes}. W frameworku Remix, komponenty te są punktami startowymi podróży użytkownika po aplikacji. Na przykład, po podanie w przeglądarce użytkownika ścieżki \textit{/v2/courier/delivery} aplikacja uruchomi plik \textit{courier.delivery.tsx}, który od tego momentu jest odpowiedzialny za ładowanie danych, obsługę formularzy i renderowanie komponentów.
+Komponenty aplikacji odpowiedzialne za obsługę ścieżek zostały umieszczone w folderze \textit{routes}. W frameworku Remix komponenty te są punktami startowymi podróży użytkownika po aplikacji. Na przykład, po podanie w przeglądarce użytkownika ścieżki \textit{/v2/courier/delivery} aplikacja uruchomi plik \textit{courier.delivery.tsx}, który od tego momentu jest odpowiedzialny za ładowanie danych, obsługę formularzy i renderowanie komponentów.
 
 Na wycinku \ref{lst:client-route} przedstawiono kod komponentu obsługującego ścieżkę \textit{/v2/ordering/restaurants} wyświetlającą listę restauracji, które może wybrać użytkownik zamawiający.
 
@@ -430,7 +430,7 @@ export default function V2RestaurantsPage() {
       
 Charakterystycznymi dla aplikacji napisanych z użyciem frameworka Remix, jest obecność dwóch funkcji w każdym komponencie obsługującym ścieżkę. 
 
-Pierwszą z nich jest funkcja \textit{loader}, która jest odpowiedzialna za ładowanie danych. Funkcja ta jest wywoływana po stronie serwera, w momencie wejścia użytkownika na daną ścieżkę. Dane zwracane przez tę funkcję są następnie przekazywane do funkcji, która jest odpowiedzialna za renderowanie komponentów. Funkcja ta jest wywoływana po stronie klienta, w momencie przejścia użytkownika na daną ścieżkę. Dzięki temu, użytkownik nie musi czekać na załadowanie danych, aby zobaczyć interfejs użytkownika. 
+Pierwszą z nich jest funkcja \textit{loader}, która jest odpowiedzialna za ładowanie danych. Funkcja ta jest wywoływana po stronie serwera, w momencie wejścia użytkownika na daną ścieżkę. Dane zwracane przez tę funkcję są następnie przekazywane do funkcji, która jest odpowiedzialna za renderowanie komponentów. Funkcja ta jest wywoływana po stronie klienta, w momencie przejścia użytkownika na daną ścieżkę. Dzięki temu użytkownik nie musi czekać na załadowanie danych, aby zobaczyć interfejs użytkownika. 
 
 Drugą funkcją jest \textit{action}, która jest odpowiedzialna za obsługę formularzy, wysyłanych przez użytkownika w celu dokonania zmiany danych w systemie. Funkcja ta jest wywoływana po stronie serwera, w momencie wysłania formularza przez użytkownika.
 

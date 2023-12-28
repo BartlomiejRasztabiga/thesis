@@ -62,8 +62,7 @@
 \contentsline {subsection}{\numberline {7.4\relax .\enspace }Testy wydajnościowe}{56}{subsection.7.4}%
 \contentsline {section}{\numberline {8\relax .\enspace }Podsumowanie}{59}{section.8}%
 \contentsline {subsection}{\numberline {8.1\relax .\enspace }Wnioski}{59}{subsection.8.1}%
-\contentsline {subsection}{\numberline {8.2\relax .\enspace }Stopień realizacji założeń}{59}{subsection.8.2}%
-\contentsline {subsection}{\numberline {8.3\relax .\enspace }Możliwości dalszego rozwoju}{59}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.2\relax .\enspace }Możliwości dalszego rozwoju}{59}{subsection.8.2}%
 \contentsline {section}{Bibliografia}{61}{section*.12}%
 \contentsline {section}{Spis rysunków}{64}{section*.12}%
 \contentsline {section}{Spis tabel}{64}{section*.12}%

@@ -6,9 +6,9 @@ Aby zapewnić najwyższą jakość tworzonego oprogramowania, kluczowe jest wł�
 
 \subsection{Testy jednostkowe}
 
-Testy jednostkowe są najmniejszymi testami, które można przeprowadzić na oprogramowaniu. Ich celem jest sprawdzenie, czy najmniejsze części kodu, np. pojedyncze funkcje, klasy, działają poprawnie. W ramach pracy inżynierskiej, testy jednostkowe zostały przeprowadzone przy pomocy narzędzia Kotest \cite{kotest} oraz pakietu \textit{org.axonframework:axon-test} pomocniczego w testowaniu aplikacji opartych na frameworku Axon.
+Testy jednostkowe są najmniejszymi testami, które można przeprowadzić na oprogramowaniu. Ich celem jest sprawdzenie, czy najmniejsze części kodu, np. pojedyncze funkcje, klasy, działają poprawnie. W ramach pracy inżynierskiej testy jednostkowe zostały przeprowadzone przy pomocy narzędzia Kotest \cite{kotest} oraz pakietu \textit{org.axonframework:axon-test} pomocniczego w testowaniu aplikacji opartych na frameworku Axon.
 
-Pokrycie kodu reprezentowane jest przez procentowy udział linii kodu, które zostały przetestowane. W ramach pracy inżynierskiej, pokrycie kodu zostało zmierzone przy pomocy narzędzia JaCoCo \cite{jacoco}. Cel pokrycia kodu został ustalony na poziomie 80\%. W ramach pracy inżynierskiej, pokrycie całego kodu wyniosło 83\%, a pokrycie kodu warstwy dziedziny wyniosło 100\%.
+Pokrycie kodu reprezentowane jest przez procentowy udział linii kodu, które zostały przetestowane. W ramach pracy inżynierskiej, pokrycie kodu zostało zmierzone przy pomocy narzędzia JaCoCo \cite{jacoco}. Cel pokrycia kodu został ustalony na poziomie 80\%. W implementowanym systemie, pokrycie całego kodu wyniosło 83\%, a pokrycie kodu warstwy dziedziny wyniosło 100\%.
 
 \begin{lstlisting}[caption={Przykładowy test jednostkowy serwisu zamówień},label={lst:testing-unit},captionpos=b,language=Kotlin,numbers=left]
 class OrderTest {
@@ -70,9 +70,9 @@ Dzięki pakietowi pomocniczemu frameworka Axon takie testy są łatwe w implemen
 
 \subsection{Testy integracyjne}
 
-Testy integracyjne prawdzają współdziałanie poszczególnych modułów systemu. W ramach pracy inżynierskiej, testy jednostkowe zostały przeprowadzone przy pomocy tych samych narzędzi co jednostkowe, z dodatkowa pomocą biblioteki \textit{org.springframework.boot:spring-boot-starter-test}, pozwalającej na uruchomienie testów w kontekście aplikacji Spring Boot.
+Testy integracyjne sprawdzają współdziałanie poszczególnych modułów systemu. W ramach pracy inżynierskiej testy jednostkowe zostały przeprowadzone przy pomocy tych samych narzędzi co jednostkowe, z dodatkową pomocą biblioteki \textit{org.springframework.boot:spring-boot-starter-test}, pozwalającej na uruchomienie testów w kontekście aplikacji Spring Boot.
 
-W celu przygotowania środowiska testowego, należy uruchomić lokalnie instancję Axon Server np. przy pomocy Dockera \cite{docker}.
+W celu przygotowania środowiska testowego należy uruchomić lokalnie instancję Axon Server np. przy pomocy Dockera \cite{docker}.
 
 \begin{lstlisting}[caption={Przykładowy test integracyjny serwisu zamówień},label={lst:testing-integration},captionpos=b,language=Kotlin,numbers=left]
 @SpringBootTest
@@ -101,11 +101,11 @@ class OrderTestIT {
 }
 \end{lstlisting}
 
-Na listingu \ref{lst:testing-integration} przedstawiono przykładowy test integracyjny serwisu zamówień, weryfikujący, że po wysłaniu komendy rozpoczęcia zamówienia, agregat został poprawnie utworzony. W przeciwieństwie do testów jednostkowych, test ten weryfikuje również działanie komponentów odpowiedzialnych za przesyłanie komend do agregatów oraz zapisywanie zdarzeń do magazyń zdarzeń. Testy te są bardziej złożone w implementacji, ale pozwalają na weryfikację działania całego systemu.
+Na listingu \ref{lst:testing-integration} przedstawiono przykładowy test integracyjny serwisu zamówień, weryfikujący, że po wysłaniu komendy rozpoczęcia zamówienia, agregat został poprawnie utworzony. W przeciwieństwie do testów jednostkowych test ten weryfikuje również działanie komponentów odpowiedzialnych za przesyłanie komend do agregatów oraz zapisywanie zdarzeń do magazynu zdarzeń. Testy te są bardziej złożone w implementacji, ale pozwalają na weryfikację działania całego systemu.
 
 \subsection{Testy akceptacyjne}
 
-Testy akceptacyjne sprawdzają, czy system spełnia wymagania użytkownika końcowego. W ramach pracy inżynierskiej, testy akceptacyjne zostały przeprowadzone przy pomocy narzędzia RestAssured \cite{restassured}, które pozwala na testowanie interfejsu REST API. Zaimplementowano jeden scenariusz testowy, który przechodzi przez wszystkie funkcjonalności systemu, od rejestracji użytkownika, przez dodanie restauracji, złożenie zamówienia, aż do jego dostarczenia.
+Testy akceptacyjne sprawdzają, czy system spełnia wymagania użytkownika końcowego. W ramach pracy inżynierskiej testy akceptacyjne zostały przeprowadzone przy pomocy narzędzia RestAssured \cite{restassured}, które pozwala na testowanie interfejsu REST API. Zaimplementowano jeden scenariusz testowy, który przechodzi przez wszystkie funkcjonalności systemu, od rejestracji użytkownika, przez dodanie restauracji, złożenie zamówienia, aż do jego dostarczenia.
 
 Służy on również jako weryfikacja poprawnego działania systemu po wdrożeniu nowej wersji.
 
@@ -144,7 +144,7 @@ Weryfikuje on również integrację z zewnętrznymi systemami, takimi jak system
 
 Testy wydajnościowe mają na celu ocenę szybkości i stabilności działania systemu. Pozwalają one przewidywać zachowanie systemu pod wzrastającym obciążeniem, umożliwiając zaplanowanie odpowiednich ulepszeń infrastruktury i kodu.
 
-W ramach pracy inżynierskiej przeprowadzono testy wydajnościowe przy pomocy narzędzia Locust \cite{locust} w języku Python. Narzędzie to pozwala na symulację wielu użytkowników, którzy wykonują określone akcje w systemie. W ramach pracy inżynierskiej, przeprowadzono testy z perspektywy trzech rodzajów użytkowników: użytkownika zamawiającego, managera restauracji oraz kuriera. Każdy rodzaj użytkownika został zdefiniowany przez klasę w języku Python, która implementuje logikę wykonywania akcji w systemie. 
+W ramach pracy inżynierskiej przeprowadzono testy wydajnościowe przy pomocy narzędzia Locust \cite{locust} w języku Python. Narzędzie to pozwala na symulację wielu użytkowników, którzy wykonują określone akcje w systemie. Przeprowadzono testy z perspektywy trzech rodzajów użytkowników: użytkownika zamawiającego, managera restauracji oraz kuriera. Każdy rodzaj użytkownika został zdefiniowany przez klasę w języku Python, która implementuje logikę wykonywania akcji w systemie. 
 
 Przykład scenariusza testowego został przedstawiony na listingu \ref{lst:testing-performance}.
 
@@ -170,12 +170,12 @@ class RestaurantManager(HttpUser):
 
 Klasa ta imituje zachowanie managera restauracji, który po zalogowaniu się do systemu, pobiera listę zamówień, wybiera jedno z nich, a następnie akceptuje i przygotowuje je do dostarczenia.
 
-W ramach testów wydajnościowych przeprowadzono testy z perspektywy 100, 200, 300, 500 i 1000 użytkowników. Wszystkie testy zostały wykonane na lokalnym środowisku, przy pomocy trzech instancji narzędzia Locust. Wszystkie testy zostały przeprowadzone na wdrożonej w chmurowym klastrze Kubernetes produkcyjnej wersji systemu, bez żadnych dodatkowych optymalizacji. Klaster był skonfigurowany z trzema węzłami typu \textit{e2-standard-4}, jak opisano w rozdziale dotyczącym wdrożenia. Każdy serwis systemu został uruchomiony w czterech instancjach. Liczba użytkowników została zwiększana stopniowo, po 5 użytkowników na sekudnę, aż do osiągnięcia docelowej liczby użytkowników. Rezultalty testów były zapisywane po dziesięciu minutach od rozpoczęcia testu. 
+W ramach testów wydajnościowych przeprowadzono testy z perspektywy 100, 200, 300, 500 i 1000 użytkowników. Wszystkie testy zostały wykonane na lokalnym środowisku, przy pomocy trzech instancji narzędzia Locust. Wszystkie testy zostały przeprowadzone na wdrożonej w chmurowym klastrze Kubernetes produkcyjnej wersji systemu, bez żadnych dodatkowych optymalizacji. Klaster był skonfigurowany z trzema węzłami typu \textit{e2-standard-4}, jak opisano w rozdziale dotyczącym wdrożenia. Każdy serwis systemu został uruchomiony w czterech instancjach. Liczba użytkowników była zwiększana stopniowo, po 5 użytkowników na sekundę, aż do osiągnięcia docelowej liczby użytkowników. Rezultaty testów były zapisywane po dziesięciu minutach od rozpoczęcia testu. 
 
 Wyniki testów wydajnościowych zostały przedstawione w tabeli \ref{table:performance}. Śledzonymi metrykami były liczba żądań na sekundę, średnie czasy odpowiedzi oraz opóźnienie obsługi zdarzeń. Opóźnienie obsługi zdarzeń jest to czas, który upłynął od momentu wygenerowania zdarzenia przez system, do momentu jego obsłużenia przez wszystkie komponenty systemu.
 
 \begin{longtable}{| m{0.25\linewidth} | m{0.2\linewidth} | m{0.25\linewidth} | m{0.2\linewidth} |}
-    \caption{Rezultaty testów wydajnościowcyh}
+    \caption{Rezultaty testów wydajnościowych}
     \label{table:performance} \\
 
     \hline
