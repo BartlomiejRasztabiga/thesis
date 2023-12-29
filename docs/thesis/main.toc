@@ -52,7 +52,7 @@
 \contentsline {subsection}{\numberline {6.2\relax .\enspace }Repozytorium artefaktów}{47}{subsection.6.2}%
 \contentsline {subsection}{\numberline {6.3\relax .\enspace }Konteneryzacja}{47}{subsection.6.3}%
 \contentsline {subsection}{\numberline {6.4\relax .\enspace }Orkiestracja kontenerów}{48}{subsection.6.4}%
-\contentsline {subsection}{\numberline {6.5\relax .\enspace }Skalowanie}{49}{subsection.6.5}%
+\contentsline {subsection}{\numberline {6.5\relax .\enspace }Skalowanie}{50}{subsection.6.5}%
 \contentsline {subsection}{\numberline {6.6\relax .\enspace }Chmura Google Cloud Platform}{50}{subsection.6.6}%
 \contentsline {subsection}{\numberline {6.7\relax .\enspace }Monitorowanie}{50}{subsection.6.7}%
 \contentsline {section}{\numberline {7\relax .\enspace }Testowanie systemu}{52}{section.7}%

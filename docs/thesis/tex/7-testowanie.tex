@@ -70,7 +70,7 @@ Dzięki pakietowi pomocniczemu frameworka Axon takie testy są łatwe w implemen
 
 \subsection{Testy integracyjne}
 
-Testy integracyjne sprawdzają współdziałanie poszczególnych modułów systemu. W ramach pracy inżynierskiej testy jednostkowe zostały przeprowadzone przy pomocy tych samych narzędzi co jednostkowe, z dodatkową pomocą biblioteki \textit{org.springframework.boot:spring-boot-starter-test}, pozwalającej na uruchomienie testów w kontekście aplikacji Spring Boot.
+Testy integracyjne sprawdzają współdziałanie poszczególnych modułów systemu. W ramach pracy inżynierskiej testy jednostkowe zostały przeprowadzone przy pomocy tych samych narzędzi co jednostkowe, z dodatkową pomocą biblioteki \linebreak \textit{org.springframework.boot:spring-boot-starter-test}, pozwalającej na uruchomienie testów w kontekście aplikacji Spring Boot.
 
 W celu przygotowania środowiska testowego należy uruchomić lokalnie instancję Axon Server np. przy pomocy Dockera \cite{docker}.
 
@@ -107,7 +107,7 @@ Na listingu \ref{lst:testing-integration} przedstawiono przykładowy test integr
 
 Testy akceptacyjne sprawdzają, czy system spełnia wymagania użytkownika końcowego. W ramach pracy inżynierskiej testy akceptacyjne zostały przeprowadzone przy pomocy narzędzia RestAssured \cite{restassured}, które pozwala na testowanie interfejsu REST API. Zaimplementowano jeden scenariusz testowy, który przechodzi przez wszystkie funkcjonalności systemu, od rejestracji użytkownika, przez dodanie restauracji, złożenie zamówienia, aż do jego dostarczenia.
 
-Służy on również jako weryfikacja poprawnego działania systemu po wdrożeniu nowej wersji.
+Służy on również jako weryfikacja poprawnego działania systemu po wdrożeniu nowej wersji w ramach potoku CI/CD.
 
 \begin{lstlisting}[caption={Scenariusz testowy w ramach testów akceptacyjnych},label={lst:testing-acceptance},captionpos=b,language=Kotlin,numbers=left]
 @Test

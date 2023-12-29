@@ -2,7 +2,7 @@
 
 \section{Wdrożenie}
 
-Aby zapewnić sprawne działanie systemu mikroserwisowego, należy zadbać o odpowiednie środowisko uruchomieniowe, w którym będą działać poszczególne komponenty. Ponadto, należy zadbać o odpowiednie narzędzia, które pozwolą na automatyzację procesu wdrażania nowych wersji oprogramowania.
+Aby zapewnić sprawne działanie systemu mikroserwisowego, należy zadbać o odpowiednie środowisko uruchomieniowe, w którym będą działać poszczególne komponenty. Ponadto, należy zapewnić odpowiednie narzędzia, które pozwolą na automatyzację procesu wdrażania nowych wersji oprogramowania.
 
 \subsection{CI/CD}
 
@@ -61,7 +61,7 @@ W przypadku implementowanego systemu wykonanie całego potoku wraz z wdrożeniem
 
 \subsection{Repozytorium artefaktów}
 
-Aby zapewnić możliwość uruchomienia dowolnego elementu systemu, należy zadbać o dostępność wymaganych artefaktów. W przypadku implementowanego systemu jest to moduł \textit{shared}, który jest wymagany przez wszystkie inne usługi. W tym celu wykorzystano GitHub Actions Artifacts \cite{gaa}, które umożliwiają przechowywanie artefaktów np. systemu budowania Gradle i są zintegrowane z potokiem CI/CD.
+Aby umożliwić uruchomienie dowolnego elementu systemu przez programistów, należy zagwarantować dostępność wymaganych artefaktów. W przypadku implementowanego systemu artefaktem tym jest moduł \textit{shared}, który jest wymagany przez wszystkie inne usługi. W tym celu wykorzystano GitHub Actions Artifacts \cite{gaa}, które umożliwiają przechowywanie artefaktów np. systemu budowania Gradle i są zintegrowane z potokiem CI/CD.
 
 \subsection{Konteneryzacja}
 
@@ -76,15 +76,15 @@ COPY build/libs/*.jar app.jar
 ENTRYPOINT ["java","-jar","/app.jar"]
 \end{lstlisting}
 
-Budowa obrazu na jego podstawie polega na skopiowaniu pliku \texttt{.jar} z kodem aplikacji do kontenera, a następnie uruchomieniu go. Dzięki temu, że obraz jest budowany na podstawie gotowego obrazu \texttt{amazoncorretto:21}, który bazuje na dystrybucji OpenJDK od firmy Amazon, nie jest wymagane instalowanie JDK na maszynie, na której uruchamiany jest kontener.
+Budowa obrazu na jego podstawie polega na skopiowaniu pliku \texttt{.jar} z kodem aplikacji do kontenera, a następnie uruchomieniu go. Dzięki temu, że obraz jest budowany na podstawie gotowego obrazu \texttt{amazoncorretto:21}, który bazuje na dystrybucji OpenJDK od firmy Amazon, nie jest wymagane samodzielne instalowanie JDK.
     
 \subsection{Orkiestracja kontenerów}
 
-Aby zapewnić skalowalność i niezawodność systemu mikroserwisowego, należy zadbać o odpowiednie narzędzia do orkiestracji kontenerów. W przypadku implementowanego systemu wykorzystano narzędzie Kubernetes \cite{k8s}, które umożliwia automatyzację wdrażania, skalowania i zarządzania aplikacjami kontenerowymi.
+W celu zapewnienia skalowalności i niezawodności systemu mikroserwisowego, należy zadbać o odpowiednie narzędzia do orkiestracji kontenerów. W przypadku implementowanego systemu wykorzystano narzędzie Kubernetes \cite{k8s}, które umożliwia automatyzację wdrażania, skalowania i zarządzania aplikacjami kontenerowymi.
 
-Kubernetes pozwala na uruchomienie wielu instancji każdego mikroserwisu, które mogą być automatycznie skalowane w zależności od obciążenia. Ponadto, Kubernetes zapewnia automatyczne wdrażanie nowych wersji oprogramowania, dzięki czemu nie jest wymagane ręczne uruchamianie nowych kontenerów. Ponadto, obsługuje on mechanizmy zcentralizowanej konfiguracji, woluminów, monitorowania oraz obsługi sieci.
+Kubernetes pozwala na uruchomienie wielu instancji każdego mikroserwisu, które mogą być automatycznie skalowane w zależności od obciążenia. Ponadto, Kubernetes zapewnia automatyczne wdrażanie nowych wersji oprogramowania, dzięki czemu nie jest wymagane ręczne uruchamianie nowych kontenerów. Ponadto, obsługuje on mechanizmy zcentralizowanej konfiguracji, woluminów dyskowych, monitorowania aplikacji oraz obsługi sieci.
 
-Narzędzie to oferuje deklaratywne podejście do konfiguracji, co oznacza, że użytkownik określa stan, w którym powinien znajdować się system, a Kubernetes automatycznie dokonuje niezbędnych zmian, aby osiągnąć ten stan. W przypadku implementowanego systemu stan systemu jest określony za pomocą plików YAML, które opisują wymagane zasoby, takie jak kontenery, woluminy, sieci itp.
+Narzędzie to oferuje deklaratywne podejście do konfiguracji, co oznacza, że użytkownik określa stan, w którym powinien znajdować się system, a Kubernetes automatycznie dokonuje niezbędnych zmian, aby osiągnąć zadany stan. W przypadku implementowanego systemu stan systemu jest określony za pomocą plików YAML, które opisują wymagane zasoby, takie jak kontenery, woluminy, sieci itp.
 
 \begin{lstlisting}[caption={Fragment pliku konfiguracyjnego Kubernetes dla serwisu zamówień},label={lst:deployment-k8s},captionpos=b,numbers=left]
 apiVersion: apps/v1
@@ -137,7 +137,7 @@ spec:
       restartPolicy: Always
 \end{lstlisting}
 
-Oprócz podanego na wycinku tzw. \textit{deploymentu}, który definiuje wymagane zasoby, należy zdefiniować również \textit{service}, który umożliwia komunikację sieciową.
+Oprócz podanego na wycinku \ref{lst:deployment-k8s} tzw. \textit{deploymentu}, który definiuje wymagane zasoby, należy zdefiniować również \textit{service}, który umożliwia komunikację sieciową.
 
 Na podstawie powyższego pliku konfiguracyjnego, Kubernetes zapewni automatyczne wdrożenie jednej instancji serwisu zamówień w wersji 0.21.3, uruchomionego na porcie 8102 ze wstrzykniętymi podanymi zmiennymi środowiskowymi w sekcji \texttt{env}.
 
@@ -171,7 +171,7 @@ Na rysunku \ref{fig:loki} przedstawiono przykładowe logi systemu w Grafana Loki
     \label{fig:loki}
 \end{figure}
 
-Axon Console jest platformą do monitorowania oraz zdalnego zarządzania systemami opartymi na frameworku Axon. Pozwala ona na wizualizację topologii systemu, monitorowanie stanu agregatów, zdarzeń, komend oraz zapytań, a także zarządzanie procesorami zdarzeń (np. dzielenie strumieni zdarzeń na partycje).
+Axon Console jest platformą do monitorowania oraz zdalnego zarządzania systemami opartymi na frameworku Axon. Pozwala ona na wizualizację topologii systemu, monitorowanie stanu agregatów, zdarzeń, komend oraz zapytań, a także zarządzanie procesorami zdarzeń (np. dzielenie strumieni zdarzeń na partycje w celu równoległego procesowania).
 
 Ponadto pozwala ona na monitorowanie średnich opóźnień w konsumpcji zdarzeń i liczby obsługiwanych komend na sekundę co pozwala na odnajdywanie wąskich gardeł w systemie.
 

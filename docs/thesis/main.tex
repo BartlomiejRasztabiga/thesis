@@ -103,7 +103,7 @@
 \cleardoublepage % Zaczynamy od nieparzystej strony
 \abstract
 
-Praca prezentuje proces projektowania oraz implementacji systemu informatycznego opartego na architekturze mikroserwisowej, służącego do obsługi zamówień restauracyjnych w kontekście dostaw jedzenia. Został on zaimplementowany jako dwie warstwy: kliencka (aplikacja internetowa działająca w przeglądarce) oraz serwerowa.
+Praca prezentuje proces projektowania oraz implementacji systemu informatycznego opartego na architekturze mikroserwisowej, służącego do obsługi zamówień restauracyjnych w kontekście dostaw jedzenia. Został on zaimplementowany w dwóch częściach: klienckej (aplikacja internetowa działająca w przeglądarce) oraz serwerowej (system mikroserwisowy).
 
 Kolejne etapy, zrealizowane w ramach poniższej pracy inżynierskiej, to analiza wymagań funkcjonalnych oraz niefunkcjonalnych, podział systemu na mikroserwisy, implementacja aplikacji odpowiedzialnych za warstwę prezentacji, logikę biznesową oraz zarządzanie warstwą danych. Zwieńczeniem pracy było przetestowanie systemu pod kątem skalowalności i wydajności.
 
@@ -126,9 +126,9 @@ W podsumowaniu przedstawiono wnioski z testów wydajności prezentujące skalowa
 
 The thesis presents the process of designing and implementing an information system based on microservices architecture for managing restaurant orders in the context of food delivery. It has been implemented as two layers: client (a web application operating in a browser) and server.
 
-The subsequent stages, realized within this engineering thesis, include the analysis of functional and non-functional requirements, division of the system into microservices, implementation of applications responsible for the presentation layer, business logic, and data layer management. The culmination of the work was testing the system in terms of scalability and performance.
+The subsequent stages, accomplished within this thesis, include the analysis of functional and non-functional requirements, division of the system into microservices, implementation of applications responsible for the presentation layer, business logic, and data layer management. The culmination of the work was testing the system in terms of scalability and performance.
 
-The requirements analysis was preceded by a discussion of the microservices architecture and patterns and techniques helpful in creating scalable web applications.
+Requirements analysis was preceded by a discussion of the microservices architecture and patterns and techniques helpful in creating scalable web applications.
 
 During the description of the system implementation, the tools and technologies used were discussed on an ongoing basis, along with examples of their application in the system. Projection databases in MongoDB technology were used. The business logic layer consists of microservices written in Kotlin, using the Spring Framework and Axon Framework, providing a REST interface. Events are stored and delivered between services using the Axon Server tool. The presentation layer is a web application, launched in the client's browser, using Remix and React libraries.
 

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.19)  28 DEC 2023 21:57
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.19)  29 DEC 2023 21:12
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1141,7 +1141,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ] [8]) (./tex/2-techniki.tex [9]
-<tex/img//mikroserwisy.png, id=392, 1204.5pt x 582.175pt>
+<tex/img//mikroserwisy.png, id=397, 1204.5pt x 582.175pt>
 File: tex/img//mikroserwisy.png Graphic file (type png)
 <use tex/img//mikroserwisy.png>
 Package pdftex.def Info: tex/img//mikroserwisy.png  used on input line 17.
@@ -1214,7 +1214,7 @@ Overfull \hbox (15.541pt too wide) in alignment at lines 34--48
  []
 
 [11]
-<tex/img//cap.jpg, id=413, 401.5pt x 314.17375pt>
+<tex/img//cap.jpg, id=419, 401.5pt x 314.17375pt>
 File: tex/img//cap.jpg Graphic file (type jpg)
 <use tex/img//cap.jpg>
 Package pdftex.def Info: tex/img//cap.jpg  used on input line 65.
@@ -1222,14 +1222,14 @@ Package pdftex.def Info: tex/img//cap.jpg  used on input line 65.
  [12 <./tex/img//cap.jpg>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [13] [14]
-<tex/img//cqrs.png, id=449, 593.21625pt x 352.31625pt>
+ [13]
+<tex/img//cqrs.png, id=442, 593.21625pt x 352.31625pt>
 File: tex/img//cqrs.png Graphic file (type png)
 <use tex/img//cqrs.png>
 Package pdftex.def Info: tex/img//cqrs.png  used on input line 116.
 (pdftex.def)             Requested size: 441.01775pt x 261.93564pt.
- [15 <./tex/img//cqrs.png>]
-<tex/img//event_sourcing.png, id=463, 723.70375pt x 653.44125pt>
+ [14] [15 <./tex/img//cqrs.png>]
+<tex/img//event_sourcing.png, id=470, 723.70375pt x 653.44125pt>
 File: tex/img//event_sourcing.png Graphic file (type png)
 <use tex/img//event_sourcing.png>
 Package pdftex.def Info: tex/img//event_sourcing.png  used on input line 143.
@@ -1253,13 +1253,13 @@ LaTeX Font Info:    Font shape `U/futm/m/n' will be
  [18
 
 ]
-<tex/img//event_storming.png, id=489, 1536.74126pt x 1061.9675pt>
+<tex/img//event_storming.png, id=492, 1536.74126pt x 1061.9675pt>
 File: tex/img//event_storming.png Graphic file (type png)
 <use tex/img//event_storming.png>
 Package pdftex.def Info: tex/img//event_storming.png  used on input line 37.
 (pdftex.def)             Requested size: 441.01775pt x 304.75423pt.
  [19 <./tex/img//event_storming.png>] [20]
-<tex/img//event_storming2.png, id=509, 1725.44624pt x 1128.215pt>
+<tex/img//event_storming2.png, id=512, 1725.44624pt x 1128.215pt>
 File: tex/img//event_storming2.png Graphic file (type png)
 <use tex/img//event_storming2.png>
 Package pdftex.def Info: tex/img//event_storming2.png  used on input line 65.
@@ -1270,7 +1270,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [21
 
  <./tex/img//event_storming2.png>] [22]) (./tex/4-architektura.tex [23]
-<tex/img//c4context.png, id=527, 3864.4375pt x 2007.5pt>
+<tex/img//c4context.png, id=531, 3864.4375pt x 2007.5pt>
 File: tex/img//c4context.png Graphic file (type png)
 <use tex/img//c4context.png>
 Package pdftex.def Info: tex/img//c4context.png  used on input line 33.
@@ -1279,7 +1279,7 @@ Package pdftex.def Info: tex/img//c4context.png  used on input line 33.
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-<tex/img//c4containers.png, id=529, 6803.4175pt x 3303.34125pt>
+<tex/img//c4containers.png, id=533, 6803.4175pt x 3303.34125pt>
 File: tex/img//c4containers.png Graphic file (type png)
 <use tex/img//c4containers.png>
 Package pdftex.def Info: tex/img//c4containers.png  used on input line 43.
@@ -1344,13 +1344,16 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [42] [43] [44]) (./tex/6-wdrozenie.tex [45] [46
 
-] [47] [48] [49] [50]
-<tex/img//loki.png, id=1145, 1923.185pt x 933.4875pt>
+] [47] [48]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [49] [50]
+<tex/img//loki.png, id=1155, 1923.185pt x 933.4875pt>
 File: tex/img//loki.png Graphic file (type png)
 <use tex/img//loki.png>
 Package pdftex.def Info: tex/img//loki.png  used on input line 169.
 (pdftex.def)             Requested size: 441.01775pt x 214.05664pt.
-<tex/img//axonconsole.png, id=1147, 962.59625pt x 458.71375pt>
+<tex/img//axonconsole.png, id=1157, 962.59625pt x 458.71375pt>
 File: tex/img//axonconsole.png Graphic file (type png)
 <use tex/img//axonconsole.png>
 Package pdftex.def Info: tex/img//axonconsole.png  used on input line 181.
@@ -1363,8 +1366,8 @@ Package pdftex.def Info: tex/img//axonconsole.png  used on input line 181.
 Underfull \vbox (badness 4582) has occurred while \output is active []
 
  [53]
-Overfull \hbox (108.13374pt too wide) in paragraph at lines 73--74
-\T1/futs/m/n/12 (-20) mych na-rz¦-dzi co jed-nost-kowe, z do-dat-kow¡ po-moc¡ bi-blio-teki \T1/futs/m/it/12 (-20) org.springframework.boot:spring-boot-starter-test\T1/futs/m/n/12 (-20) ,
+Underfull \hbox (badness 10000) in paragraph at lines 73--74
+\T1/futs/m/n/12 (+20) mych na-rz¦-dzi co jed-nost-kowe, z do-dat-kow¡ po-moc¡ bi-blio-teki
  []
 
 [54] [55] (/usr/local/texlive/2023/texmf-dist/tex/latex/listings/lstlang1.sty
@@ -1394,7 +1397,7 @@ Overfull \hbox (5.89546pt too wide) in alignment at lines 183--190
  [] [] [] [] 
  []
 
-<tex/img//locust.png, id=1315, 2055.68pt x 1378.14874pt>
+<tex/img//locust.png, id=1325, 2055.68pt x 1378.14874pt>
 File: tex/img//locust.png Graphic file (type png)
 <use tex/img//locust.png>
 Package pdftex.def Info: tex/img//locust.png  used on input line 198.
@@ -1408,8 +1411,13 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 ]
-Overfull \hbox (2.92612pt too wide) in paragraph at lines 169--169
-[]\T1/futs/m/it/12 (-20) Strona in-ter-ne-towa ko-lejki wia-do-mo-±ci Rab-bitMQ\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (24.11.2023): [][]$\T1/cmtt/m/n/12 https :
+Overfull \hbox (22.9655pt too wide) in paragraph at lines 169--169
+[]\T1/futs/m/it/12 (-20) Najpopularniejsze apli-ka-cje do za-ma-wia-nia je-dze-nia w Pol-sce\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (29.12.2023):
+ []
+
+
+Overfull \hbox (3.67618pt too wide) in paragraph at lines 169--169
+[]\T1/futs/m/it/12 (-20) Kolejka wia-do-mo-±ci Rab-bitMQ\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (24.11.2023): [][]$\T1/cmtt/m/n/12 https : / / www . rabbitmq .
  []
 
 
@@ -1427,12 +1435,17 @@ Overfull \hbox (2.15727pt too wide) in paragraph at lines 169--169
 []\T1/futs/m/n/12 (-20) M. Fow-ler, ^^R  Bo-un-ded Con-text^^Q, Do-st¦p zdalny (07.06.2023): [][]$\T1/cmtt/m/n/12 https : / / martinfowler .
  []
 
-
+[61]
 Overfull \hbox (12.9905pt too wide) in paragraph at lines 169--169
 []\T1/futs/m/it/12 (-20) Axon Fra-me-work\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (07.06.2023): [][]$\T1/cmtt/m/n/12 https : / / docs . axoniq . io / reference -[]
  []
 
-[61]
+
+Overfull \hbox (13.15579pt too wide) in paragraph at lines 169--169
+[]\T1/futs/m/it/12 (-20) Serwis "In-vo-ice Ge-ne-ra-tor"\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (10.12.2023): [][]$\T1/cmtt/m/n/12 https : / / invoice -[] generator .
+ []
+
+
 Overfull \hbox (6.71614pt too wide) in paragraph at lines 169--169
 \T1/cmtt/m/n/12 com / en / database / oracle / oracle -[] database / 21 / jjdev / Oracle -[] JVM -[] overview .
  []
@@ -1442,12 +1455,17 @@ Overfull \hbox (8.34697pt too wide) in paragraph at lines 169--169
 []\T1/futs/m/it/12 (-20) Framework Spring Boot\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (07.06.2023): [][]$\T1/cmtt/m/n/12 https : / / spring . io / projects /
  []
 
-[62]
-Overfull \hbox (20.8801pt too wide) in paragraph at lines 169--169
-[]\T1/futs/m/it/12 (-20) Strona in-ter-ne-towa bi-blio-teki do te-sto-wa-nia API - Rest As-su-red\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (22.12.2023):
+
+Overfull \hbox (14.6011pt too wide) in paragraph at lines 169--169
+[]\T1/futs/m/it/12 (-20) Narz¦dzie do sta-tycz-nej ana-lizy kodu w j¦-zyku Ko-tlin - de-tekt\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (17.12.2023):
  []
 
-[63] (./main.lof)
+
+Overfull \hbox (15.47401pt too wide) in paragraph at lines 169--169
+[]\T1/futs/m/it/12 (-20) Orkiestrator kon-te-ne-rów Ku-ber-ne-tes\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (17.12.2023): [][]$\T1/cmtt/m/n/12 https : / / kubernetes .
+ []
+
+[62] [63] (./main.lof)
 \tf@lof=\write6
 \openout6 = `main.lof'.
 
@@ -1469,18 +1487,18 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 31189 strings out of 476025
- 537100 string characters out of 5790016
+ 31194 strings out of 476025
+ 537697 string characters out of 5790016
  1899388 words of memory out of 5000000
- 49854 multiletter control sequences out of 15000+600000
- 640280 words of font info for 497 fonts, out of 8000000 for 9000
+ 49872 multiletter control sequences out of 15000+600000
+ 638940 words of font info for 485 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 123i,12n,120p,1196b,2622s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 123i,12n,120p,1181b,2622s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on main.pdf (65 pages, 2957188 bytes).
+Output written on main.pdf (65 pages, 2958961 bytes).
 PDF statistics:
- 1659 PDF objects out of 1728 (max. 8388607)
- 1541 compressed objects within 16 object streams
- 759 named destinations out of 1000 (max. 500000)
+ 1680 PDF objects out of 1728 (max. 8388607)
+ 1562 compressed objects within 16 object streams
+ 762 named destinations out of 1000 (max. 500000)
  76898 words of extra memory for PDF output out of 89155 (max. 10000000)
 

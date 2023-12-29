@@ -11,7 +11,7 @@ Przez lata pojawiło się wiele definicji architektury oprogramowania. Panowie B
 \emph{Architektura oprogramowania programu lub systemu informatycznego jest strukturą lub zbiorem struktur tego systemu, obejmującym elementy oprogramowania, widoczne dla pozostałych elementów oprogramowania oraz zależności między nimi.}
 \end{displayquote}
 
-Architektura mikroserwisowa to podejście do strukturyzacji aplikacji jako zbiór niewielkich, niezależnych usług, które komunikują się ze sobą przy użyciu standardowych protokołów komunikacji synchronicznej, takich jak HTTP/gRPC \cite{grpc} lub asynchronicznych kolejek komunikatów, np. RabbitMQ \cite{rabbitmq}/Apache Kafka \cite{kafka}. Każdy mikroserwis jest odpowiedzialny za wykonanie określonej funkcjonalności lub usługi i może być rozwijany, wdrażany oraz zarządzany niezależnie od innych. Ta architektura zapewnia wysoką skalowalność i elastyczność, umożliwiając łatwe wprowadzanie zmian i adaptację do zmieniających się wymagań. Mikroserwisy przechowujące dane często mają swoje własne bazy danych, co zwiększa ich niezależność i izolację od innych części systemu.
+Architektura mikroserwisowa to podejście do strukturyzacji aplikacji jako zbiór niewielkich, niezależnych usług, które komunikują się ze sobą przy użyciu standardowych protokołów komunikacji synchronicznej, takich jak HTTP\cite{http}/gRPC \cite{grpc} lub asynchronicznych kolejek komunikatów, np. RabbitMQ \cite{rabbitmq}/Apache Kafka \cite{kafka}. Każdy mikroserwis jest odpowiedzialny za wykonanie określonej funkcjonalności lub usługi i może być rozwijany, wdrażany oraz zarządzany niezależnie od innych. Ta architektura zapewnia wysoką skalowalność i elastyczność, umożliwiając łatwe wprowadzanie zmian i adaptację do zmieniających się wymagań. Mikroserwisy przechowujące dane często mają swoje własne bazy danych, co zwiększa ich niezależność i izolację od innych części systemu.
 
 \begin{figure}[!h]
     \centering \includegraphics[width=1.0\linewidth]{mikroserwisy.png}
@@ -23,7 +23,7 @@ Główną konsekwencją zastosowania takiej architektury, jest możliwości niez
 
 Z powodu konieczności komunikacji między elementami systemu, często utrudnione jest zastosowanie spójności natychmiastowej, znanej np. z relacyjnych baz danych. W systemach takich stosowana jest tzw. spójność ostateczna (ang. "eventual consistency") \cite{eventual_consistency}. Powoduje ona, że najnowszy odczyt nie gwarantuje otrzymania danych wynikających z najnowszego zapisu. Utrudnia to m.in. tworzenie interfejsów graficznych dla użytkowników końcowych oraz testowanie aplikacji.
 
-Architektura mikroserwisowa sprzyja tworzeniu systemów o wysokiej niezawodności i dostępności. Uruchamiając wielokrotne instancje poszczególnych serwisów, system staje się odporny na chwilowe awarie. Umożliwia to rozłożenie ruchu pomiędzy instancje.
+Architektura mikroserwisowa sprzyja tworzeniu systemów o wysokiej niezawodności i dostępności. Uruchamiając wielokrotne instancje poszczególnych serwisów, system staje się odporny na chwilowe awarie. Umożliwia to również rozłożenie ruchu pomiędzy instancje.
 
 \begin{longtable}{| m{0.15\linewidth} | m{0.4\linewidth} | m{0.4\linewidth} |}
     \caption{Porównanie architektur: mikroserwisowej i monolitycznej.}
@@ -70,7 +70,7 @@ Twierdzenie CAP \cite{cap}, odnosi się do trzech podstawowych właściwości, k
 
 \subsection{Architektura zorientowana na zdarzenia}
 
-Architektura zorientowana na zdarzenia (Event-Driven Architecture, EDA) to podejście, w którym przepływ działania systemu jest sterowany przez zdarzenia - zazwyczaj oznacza to, że działania w systemie są wywoływane w odpowiedzi na konkretne wydarzenia, które mogą być generowane przez różne części aplikacji.
+Architektura zorientowana na zdarzenia (ang. Event-Driven Architecture, EDA) to podejście, w którym przepływ działania systemu jest sterowany przez zdarzenia - zazwyczaj oznacza to, że działania w systemie są wywoływane w odpowiedzi na konkretne wydarzenia, które mogą być generowane przez różne części aplikacji.
 
 W architekturze mikroserwisowej, gdzie każdy mikroserwis jest odpowiedzialny za określoną funkcjonalność i działa niezależnie, zastosowanie architektury zorientowanej na zdarzenia pozwala na efektywne i elastyczne zarządzanie komunikacją między różnymi serwisami. Oto kilka kluczowych aspektów, jak architektura zorientowana na zdarzenia wspiera tworzenie skalowalnych aplikacji webowych:
 
@@ -97,9 +97,9 @@ Projektowanie zorientowane na dziedzinę (ang. Domain-Driven Design, DDD \cite{d
 
     \item \textbf{Język powszechny} (ang. Ubiquitous Language): w DDD to wspólny język, którym posługują się zarówno programiści, jak i eksperci biznesowi. Ułatwia to komunikację i zapewnia, że wszystkie zainteresowane strony mają wspólne rozumienie funkcjonalności aplikacji.
 
-    \item \textbf{Podział na Ograniczone Konteksty }(ang. Bounded Contexts): DDD promuje dzielenie systemu na mniejsze, zarządzane części, znane jako Ograniczone Konteksty. W architekturze mikroserwisowej każdy mikroserwis może reprezentować osobny Kontekst, co pozwala na niezależne zarządzanie, rozwijanie i skalowanie poszczególnych części systemu.
+    \item \textbf{Podział na Ograniczone Konteksty }(ang. Bounded Contexts): DDD promuje dzielenie systemu na mniejsze części, znane jako Ograniczone Konteksty. W architekturze mikroserwisowej każdy mikroserwis może reprezentować osobny Kontekst, co pozwala na niezależne zarządzanie, rozwijanie i skalowanie poszczególnych części systemu.
 
-    \item \textbf{Integracja i Komunikacja między Mikroserwisami}: W środowisku mikroserwisowym ważne jest zapewnienie skutecznej komunikacji i integracji między różnymi serwisami. DDD może pomóc w definiowaniu jasnych interfejsów i umów między serwisami, co ułatwia ich integrację i współpracę.
+    \item \textbf{Integracja i Komunikacja między Mikroserwisami}: W środowisku mikroserwisowym ważne jest zapewnienie skutecznej komunikacji i integracji między różnymi serwisami. DDD może pomóc w definiowaniu jasnych interfejsów i kontraktów między serwisami, co ułatwia ich integrację i współpracę.
 
     \item \textbf{Elastyczność i Skalowalność}: Przyjmując podejście DDD w architekturze mikroserwisowej, można osiągnąć większą elastyczność i skalowalność. Mikroserwisy można niezależnie skalować w zależności od potrzeb, co jest szczególnie ważne w przypadku aplikacji webowych, które mogą doświadczać zmiennego obciążenia.
 
@@ -148,12 +148,8 @@ Wzorzec Event Sourcing \cite{eventsourcing} jest podejściem w projektowaniu opr
 
 Wzorzec Saga \cite{saga} w architekturze mikroserwisowej jest strategią zarządzania transakcjami rozproszonymi. W systemach opartych na mikroserwisach, gdzie każdy serwis zarządza własną bazą danych, tradycyjne transakcje bazodanowe (jak te stosowane w monolitycznych architekturach) nie są możliwe. Saga oferuje rozwiązanie tego problemu, umożliwiając realizację operacji, które obejmują wiele serwisów, poprzez sekwencję lokalnych transakcji.
 
-\begin{enumerate}
+Saga to sekwencja operacji, w której każda operacja jest lokalną transakcją w ramach jednego mikroserwisu. Jeśli wszystkie operacje zakończą się pomyślnie, cała Saga jest uznawana za zakończoną sukcesem. Jeśli jednak jedna z operacji zawiedzie, Saga inicjuje serię kompensacyjnych akcji, aby przywrócić system do spójnego stanu.
 
-    \item \textbf{Definicja Sag}: Saga to sekwencja operacji, w której każda operacja jest lokalną transakcją w ramach jednego mikroserwisu. Jeśli wszystkie operacje zakończą się pomyślnie, cała Saga jest uznawana za zakończoną sukcesem. Jeśli jednak jedna z operacji zawiedzie, Saga inicjuje serię kompensacyjnych akcji, aby przywrócić system do spójnego stanu.
+Istnieją dwa podejścia do implementacji Sag: orkiestracja i choreografia. W orkiestracji centralny koordynator (taki jak serwis orkiestracyjny) zarządza kolejnością i rezultatem operacji. W choreografii każdy mikroserwis zna kolejny krok i samodzielnie publikuje zdarzenia, które są słuchane przez inne serwisy.
 
-    \item \textbf{Orkiestracja vs Choreografia}: Istnieją dwa podejścia do implementacji Sag: orkiestracja i choreografia. W orkiestracji centralny koordynator (taki jak serwis orkiestracyjny) zarządza kolejnością i rezultatem operacji. W choreografii każdy mikroserwis zna kolejny krok i samodzielnie publikuje zdarzenia, które są słuchane przez inne serwisy.
-
-    \item \textbf{Kompensacja}: Gdy jedna z operacji w Sadze zawodzi, system musi podjąć akcje kompensacyjne, aby cofnąć zmiany wprowadzone przez poprzednie operacje. Wymaga to starannego projektowania logiki kompensacji dla każdej operacji.
-
-\end{enumerate}
+Gdy jedna z operacji w Sadze zawodzi, system musi podjąć akcje kompensacyjne, aby cofnąć zmiany wprowadzone przez poprzednie operacje. Wymaga to starannego projektowania logiki kompensacji dla każdej operacji.
