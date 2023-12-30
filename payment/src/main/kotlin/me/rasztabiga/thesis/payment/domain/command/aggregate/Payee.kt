@@ -20,7 +20,6 @@ import java.util.*
 internal class Payee {
     // either restaurant manager or courier, both have some balance and can withdraw money
 
-    // TODO wszystko z tego jest potrzebne?
     @AggregateIdentifier
     private lateinit var id: UUID
     private lateinit var userId: String

@@ -18,10 +18,6 @@ import { clearOrderId } from "~/services/session.server";
 import { useEffect } from "react";
 
 export async function loader({ request, params }: LoaderArgs) {
-  // TODO refresh few times to get stripe url set up and totals
-  // TODO https://remix.run/docs/en/main/guides/streaming#3-deferring-data-in-loaders
-  // TODO albo revalidator jak w tracking.tsx
-
   const activeOrderId = params.orderId;
   invariant(activeOrderId, "activeOrderId not found");
 

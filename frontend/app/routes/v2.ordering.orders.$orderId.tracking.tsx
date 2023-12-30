@@ -42,7 +42,6 @@ export default function V2OrderTrackingPage() {
 
   const revalidator = useRevalidator();
 
-  // TODO good enough for now
   useEffect(() => {
     const timer = setInterval(() => {
       revalidator.revalidate();
@@ -51,8 +50,6 @@ export default function V2OrderTrackingPage() {
       clearInterval(timer);
     };
   }, [revalidator]);
-
-  // TODO live update order status
 
   const getOrderSummary = (order: OrderResponse): string => {
     switch (order.status) {

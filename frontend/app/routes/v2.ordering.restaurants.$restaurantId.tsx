@@ -242,7 +242,6 @@ export default function V2RestaurantPage() {
                       </Form>
                     </Box>
                   </Box>
-                  {/* TODO make it a rectangle */}
                   <CardMedia
                     component="img"
                     sx={{ width: "10rem" }}

@@ -40,7 +40,6 @@ export default function V2OrdersHistoryPage() {
           <Typography variant="h4" className="my-4">
             Orders history
           </Typography>
-          {/*  TODO use mui list instead? */}
           {ordersSorted.map((order, key) => {
             const restaurant = data.restaurants.find(
               (restaurant) => restaurant.id === order.restaurantId,

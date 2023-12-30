@@ -36,31 +36,23 @@ class OrderDeliveryLifecycleSaga {
     @StartSaga
     @SagaEventHandler(associationProperty = "deliveryId")
     fun on(event: OrderDeliveryCreatedEvent) {
-        // TODO handle exception?
         val courier = findBestCourier(event.restaurantLocation) ?: error("Cannot find best courier for delivery")
 
-        // TODO handle exception?
         commandGateway.sendAndWait<Any>(AssignDeliveryCommand(event.deliveryId, courier.id))
     }
 
-    // TODO handle rejected
     @Suppress("UnusedParameter")
     @SagaEventHandler(associationProperty = "deliveryId")
     fun on(event: OrderDeliveryRejectedEvent) {
-        // TODO handle exception?
         val courier = findBestCourier(event.restaurantLocation) ?: error("Cannot find best courier for delivery")
 
-        // TODO handle exception?
         commandGateway.sendAndWait<Any>(AssignDeliveryCommand(event.deliveryId, courier.id))
     }
-
-    // TODO handle accepted?
 
     @Suppress("UnusedParameter")
     @EndSaga
     @SagaEventHandler(associationProperty = "deliveryId")
     fun on(event: OrderDeliveryAcceptedEvent) {
-        // TODO check if courier doesnt' have two deliveries?
         // if so, unassign one of them (leaving only one) xD
     }
 
@@ -73,7 +65,6 @@ class OrderDeliveryLifecycleSaga {
         while (true) {
             retries++
             if (retries > 10) {
-                // TODO handle
                 error("Cannot find best courier for delivery")
             }
             try {

@@ -19,11 +19,11 @@ Architektura mikroserwisowa to podejście do strukturyzacji aplikacji jako zbió
 \end{figure}
 
 
-Główną konsekwencją zastosowania takiej architektury, jest możliwości niezależnego poziomego skalowania każdego komponentu systemu, ponieważ każdy serwis jest osobną jednostką wdrożeniową (np. kontenerem).
+Główną konsekwencją zastosowania takiej architektury jest możliwość niezależnego poziomego skalowania każdego komponentu systemu, ponieważ każdy serwis jest osobną jednostką wdrożeniową (np. kontenerem).
 
 Z powodu konieczności komunikacji między elementami systemu, często utrudnione jest zastosowanie spójności natychmiastowej, znanej np. z relacyjnych baz danych. W systemach takich stosowana jest tzw. spójność ostateczna (ang. "eventual consistency") \cite{eventual_consistency}. Powoduje ona, że najnowszy odczyt nie gwarantuje otrzymania danych wynikających z najnowszego zapisu. Utrudnia to m.in. tworzenie interfejsów graficznych dla użytkowników końcowych oraz testowanie aplikacji.
 
-Architektura mikroserwisowa sprzyja tworzeniu systemów o wysokiej niezawodności i dostępności. Uruchamiając wielokrotne instancje poszczególnych serwisów, system staje się odporny na chwilowe awarie. Umożliwia to również rozłożenie ruchu pomiędzy instancje.
+Architektura mikroserwisowa sprzyja tworzeniu systemów o wysokiej niezawodności i dostępności. Uruchamiając wielokrotne instancje poszczególnych serwisów, system staje się odporny na chwilowe awarie. Umożliwia to również rozłożenie ruchu pomiędzy instancjami.
 
 \begin{longtable}{| m{0.15\linewidth} | m{0.4\linewidth} | m{0.4\linewidth} |}
     \caption{Porównanie architektur: mikroserwisowej i monolitycznej.}
@@ -72,7 +72,7 @@ Twierdzenie CAP \cite{cap}, odnosi się do trzech podstawowych właściwości, k
 
 Architektura zorientowana na zdarzenia (ang. Event-Driven Architecture, EDA) to podejście, w którym przepływ działania systemu jest sterowany przez zdarzenia - zazwyczaj oznacza to, że działania w systemie są wywoływane w odpowiedzi na konkretne wydarzenia, które mogą być generowane przez różne części aplikacji.
 
-W architekturze mikroserwisowej, gdzie każdy mikroserwis jest odpowiedzialny za określoną funkcjonalność i działa niezależnie, zastosowanie architektury zorientowanej na zdarzenia pozwala na efektywne i elastyczne zarządzanie komunikacją między różnymi serwisami. Oto kilka kluczowych aspektów, jak architektura zorientowana na zdarzenia wspiera tworzenie skalowalnych aplikacji webowych:
+W architekturze mikroserwisowej, gdzie każdy mikroserwis jest odpowiedzialny za określoną funkcjonalność i działa niezależnie, zastosowanie architektury zorientowanej na zdarzenia pozwala na efektywne i elastyczne zarządzanie komunikacją między różnymi serwisami. Oto kilka aspektów obrazujących w jaki sposób architektura zorientowana na zdarzenia wspiera tworzenie skalowalnych aplikacji webowych:
 
 \begin{enumerate}
     \item \textbf{Asynchroniczność}: Komunikacja oparta na zdarzeniach jest z natury asynchroniczna. Mikroserwisy mogą emitować zdarzenia bez konieczności oczekiwania na bezpośrednią odpowiedź, co pozwala na bardziej efektywne wykorzystanie zasobów i lepszą skalowalność.
@@ -133,7 +133,7 @@ Wzorzec Event Sourcing \cite{eventsourcing} jest podejściem w projektowaniu opr
 
     \item \textbf{Zarządzanie Zdarzeniami}: Event Sourcing wymaga skutecznego zarządzania i przetwarzania strumieni zdarzeń, co może być wyzwaniem w dużych systemach. Ważne jest zapewnienie odpowiedniej wydajności i skalowalności mechanizmów przetwarzających zdarzenia, tzw. magazynu zdarzeń i kolejki komunikatów.
 
-    \item \textbf{Odzyskiwanie i Odporność na Awarii}: Wzorzec ten zapewnia naturalną odporność na awarie, ponieważ stan aplikacji może być odtworzony z historii zdarzeń. Jest to szczególnie ważne w środowisku rozproszonym, jakim jest architektura mikroserwisowa.
+    \item \textbf{Odzyskiwanie i Odporność na Awarie}: Wzorzec ten zapewnia naturalną odporność na awarie, ponieważ stan aplikacji może być odtworzony z historii zdarzeń. Jest to szczególnie ważne w środowisku rozproszonym, jakim jest architektura mikroserwisowa.
 
     \item \textbf{Wersjonowanie Zdarzeń}: W miarę rozwoju systemu, format zdarzeń może się zmieniać. Zarządzanie różnymi wersjami zdarzeń i ich kompatybilnością wsteczną staje się istotnym aspektem projektu.
 

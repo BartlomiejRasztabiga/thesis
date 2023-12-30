@@ -16,15 +16,13 @@ import org.axonframework.spring.stereotype.Aggregate
 import java.math.BigDecimal
 import java.util.*
 
-// TODO move to Payer aggregate?
 @Aggregate
 internal class OrderPayment {
 
-    // TODO wszystko z tego jest potrzebne?
     @AggregateIdentifier
     private lateinit var id: UUID
     private lateinit var payerId: String
-    private lateinit var orderId: UUID // TODO remove?
+    private lateinit var orderId: UUID
     private lateinit var amount: BigDecimal
     private lateinit var status: PaymentStatus
 

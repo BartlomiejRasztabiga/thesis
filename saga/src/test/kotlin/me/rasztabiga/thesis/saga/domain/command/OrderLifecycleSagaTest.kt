@@ -47,8 +47,6 @@ class OrderLifecycleSagaTest {
             )
         } returns CompletableFuture.completedFuture(mockk<OrderResponse>())
 
-        // TODO
-
         testFixture
             .whenPublishingA(orderFinalizedEvent)
             .expectActiveSagas(1)

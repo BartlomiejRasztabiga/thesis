@@ -110,7 +110,6 @@ jobs:
         run: npm ci
       - name: Lint
         run: npm run lint
-# TODO disabled for now, after upgrading to remix v2 many types are missing
 #      - name: Type check
 #        run: npm run typecheck --if-present
 #      - name: Run vitest
@@ -119,7 +118,6 @@ jobs:
         run: cp .env.example .env
       - name: Build
         run: npm run build
-# TODO disabled for now because of failing invariant (?)
 #      - name: Cypress run
 #        uses: cypress-io/github-action@v5
 #        with:

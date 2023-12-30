@@ -108,10 +108,8 @@ export default function V2CourierPage() {
 
   const fetcher = useFetcher();
 
-  // TODO good enough for now ???
   useEffect(() => {
     const timer = setInterval(async () => {
-      // TODO jak przeslac te dane na serwer?
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(async (position) => {
           const { latitude, longitude } = position.coords;
@@ -123,7 +121,6 @@ export default function V2CourierPage() {
         });
       }
 
-      // TODO only if no delivery in progress
       // disabled for now, we want to update courier's location
       // if (!data.currentDelivery) {
       revalidator.revalidate();
@@ -140,13 +137,11 @@ export default function V2CourierPage() {
     )}`;
   };
 
-  // TODO update to MUI
   const getContent = () => {
     if (data.currentDelivery && data.currentDelivery.status !== "ASSIGNED") {
       return (
         <div className="justify-center">
           <p>Delivery in progress</p>
-          {/* TODO Buttons to navigate */}
           <p>From: {data.currentDelivery.restaurantLocation.streetAddress}</p>
           <p>To: {data.currentDelivery.deliveryLocation.streetAddress}</p>
           <p>Status: {data.currentDelivery.status}</p>

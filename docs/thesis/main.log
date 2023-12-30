@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.19)  29 DEC 2023 21:12
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.11.19)  30 DEC 2023 17:05
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -1075,12 +1075,12 @@ Package microtype Info: Loading generic protrusion settings for font family
 <src/pl/header/eiti.pdf, id=274, 483.72722pt x 76.8471pt>
 File: src/pl/header/eiti.pdf Graphic file (type pdf)
 <use src/pl/header/eiti.pdf>
-Package pdftex.def Info: src/pl/header/eiti.pdf  used on input line 97.
+Package pdftex.def Info: src/pl/header/eiti.pdf  used on input line 93.
 (pdftex.def)             Requested size: 441.01775pt x 70.06229pt.
 <src/pl/title/inz.pdf, id=275, 483.72722pt x 105.39375pt>
 File: src/pl/title/inz.pdf Graphic file (type pdf)
 <use src/pl/title/inz.pdf>
-Package pdftex.def Info: src/pl/title/inz.pdf  used on input line 97.
+Package pdftex.def Info: src/pl/title/inz.pdf  used on input line 93.
 (pdftex.def)             Requested size: 441.01775pt x 96.08856pt.
  [1
 
@@ -1286,10 +1286,9 @@ Package pdftex.def Info: tex/img//c4containers.png  used on input line 43.
 (pdftex.def)             Requested size: 441.01775pt x 214.11986pt.
 [24
 
-] [25 <./tex/img//c4context.png> <./tex/img//c4containers.png>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
+] [25 <./tex/img//c4context.png> <./tex/img//c4containers.png>] [26] [27
 
- [26] [27]
+]
 Underfull \vbox (badness 2057) has occurred while \output is active []
 
  [28]) (./tex/5-implementacja.tex [29] [30
@@ -1362,10 +1361,7 @@ Package pdftex.def Info: tex/img//axonconsole.png  used on input line 181.
 
  <./tex/img//loki.png> <./tex/img//axonconsole.png>] [52
 
-]
-Underfull \vbox (badness 4582) has occurred while \output is active []
-
- [53]
+] [53]
 Underfull \hbox (badness 10000) in paragraph at lines 73--74
 \T1/futs/m/n/12 (+20) mych na-rz¦-dzi co jed-nost-kowe, z do-dat-kow¡ po-moc¡ bi-blio-teki
  []
@@ -1411,57 +1407,57 @@ LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
 ]
-Overfull \hbox (22.9655pt too wide) in paragraph at lines 169--169
+Overfull \hbox (22.9655pt too wide) in paragraph at lines 165--165
 []\T1/futs/m/it/12 (-20) Najpopularniejsze apli-ka-cje do za-ma-wia-nia je-dze-nia w Pol-sce\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (29.12.2023):
  []
 
 
-Overfull \hbox (3.67618pt too wide) in paragraph at lines 169--169
+Overfull \hbox (3.67618pt too wide) in paragraph at lines 165--165
 []\T1/futs/m/it/12 (-20) Kolejka wia-do-mo-±ci Rab-bitMQ\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (24.11.2023): [][]$\T1/cmtt/m/n/12 https : / / www . rabbitmq .
  []
 
 
-Overfull \hbox (4.13127pt too wide) in paragraph at lines 169--169
+Overfull \hbox (4.13127pt too wide) in paragraph at lines 165--165
 \T1/futs/m/n/12 (-20) (24.11.2023): [][]$\T1/cmtt/m/n/12 https : / / asseconews . pl / dlaczego -[] wartosc -[] tworzyc -[] aplikacje -[]
  []
 
 
-Overfull \hbox (9.11789pt too wide) in paragraph at lines 169--169
+Overfull \hbox (9.11789pt too wide) in paragraph at lines 165--165
 []\T1/futs/m/it/12 (-20) Definicja wzorca Event So-ur-cing\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (24.11.2023): [][]$\T1/cmtt/m/n/12 https : / / martinfowler .
  []
 
 
-Overfull \hbox (2.15727pt too wide) in paragraph at lines 169--169
+Overfull \hbox (2.15727pt too wide) in paragraph at lines 165--165
 []\T1/futs/m/n/12 (-20) M. Fow-ler, ^^R  Bo-un-ded Con-text^^Q, Do-st¦p zdalny (07.06.2023): [][]$\T1/cmtt/m/n/12 https : / / martinfowler .
  []
 
 [61]
-Overfull \hbox (12.9905pt too wide) in paragraph at lines 169--169
+Overfull \hbox (12.9905pt too wide) in paragraph at lines 165--165
 []\T1/futs/m/it/12 (-20) Axon Fra-me-work\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (07.06.2023): [][]$\T1/cmtt/m/n/12 https : / / docs . axoniq . io / reference -[]
  []
 
 
-Overfull \hbox (13.15579pt too wide) in paragraph at lines 169--169
+Overfull \hbox (13.15579pt too wide) in paragraph at lines 165--165
 []\T1/futs/m/it/12 (-20) Serwis "In-vo-ice Ge-ne-ra-tor"\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (10.12.2023): [][]$\T1/cmtt/m/n/12 https : / / invoice -[] generator .
  []
 
 
-Overfull \hbox (6.71614pt too wide) in paragraph at lines 169--169
+Overfull \hbox (6.71614pt too wide) in paragraph at lines 165--165
 \T1/cmtt/m/n/12 com / en / database / oracle / oracle -[] database / 21 / jjdev / Oracle -[] JVM -[] overview .
  []
 
 
-Overfull \hbox (8.34697pt too wide) in paragraph at lines 169--169
+Overfull \hbox (8.34697pt too wide) in paragraph at lines 165--165
 []\T1/futs/m/it/12 (-20) Framework Spring Boot\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (07.06.2023): [][]$\T1/cmtt/m/n/12 https : / / spring . io / projects /
  []
 
 
-Overfull \hbox (14.6011pt too wide) in paragraph at lines 169--169
+Overfull \hbox (14.6011pt too wide) in paragraph at lines 165--165
 []\T1/futs/m/it/12 (-20) Narz¦dzie do sta-tycz-nej ana-lizy kodu w j¦-zyku Ko-tlin - de-tekt\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (17.12.2023):
  []
 
 
-Overfull \hbox (15.47401pt too wide) in paragraph at lines 169--169
+Overfull \hbox (15.47401pt too wide) in paragraph at lines 165--165
 []\T1/futs/m/it/12 (-20) Orkiestrator kon-te-ne-rów Ku-ber-ne-tes\T1/futs/m/n/12 (-20) , Do-st¦p zdalny (17.12.2023): [][]$\T1/cmtt/m/n/12 https : / / kubernetes .
  []
 
@@ -1487,15 +1483,15 @@ Package logreq Info: Writing requests to 'main.run.xml'.
 
  ) 
 Here is how much of TeX's memory you used:
- 31194 strings out of 476025
- 537697 string characters out of 5790016
+ 31198 strings out of 476025
+ 537739 string characters out of 5790016
  1899388 words of memory out of 5000000
  49872 multiletter control sequences out of 15000+600000
- 638940 words of font info for 485 fonts, out of 8000000 for 9000
+ 639214 words of font info for 488 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  123i,12n,120p,1181b,2622s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2023/texmf-dist/fonts/type1/public/fourier/fourier-ms.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putb8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putr8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/adobe/utopia/putri8a.pfb></usr/local/texlive/2023/texmf-dist/fonts/type1/public/cm-super/sftt1200.pfb>
-Output written on main.pdf (65 pages, 2958961 bytes).
+Output written on main.pdf (65 pages, 2958883 bytes).
 PDF statistics:
  1680 PDF objects out of 1728 (max. 8388607)
  1562 compressed objects within 16 object streams

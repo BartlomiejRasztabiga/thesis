@@ -34,10 +34,6 @@ class GlobalErrorWebExceptionHandler(
         return exchange.response.writeWith(Mono.just(dataBuffer))
     }
 
-    // TODO Can I make it better? Currently Axon swallows all of my original exceptions
-
-    // TODO manually report sentry exception?
-
     private fun createError(ex: Throwable): ApiError {
         val error = when (ex) {
             is CommandExecutionException -> {

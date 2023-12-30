@@ -92,7 +92,7 @@ class OrderLifecycleSaga {
 
         orderItems = event.items
 
-        val order = getOrder(event.orderId) // TODO czasami rzuci not found! jak ograc? retry?
+        val order = getOrder(event.orderId)
 
         commandGateway.sendAndWait<Void>(
             CalculateOrderTotalCommand(
@@ -116,7 +116,6 @@ class OrderLifecycleSaga {
                 )
             )
         } catch (e: Exception) {
-            // TODO payment not found
             // ignore
         }
 
@@ -128,7 +127,6 @@ class OrderLifecycleSaga {
 
         val restaurant = getRestaurant(event.restaurantId)
 
-        // TODO save total, items etc here
         orderTotal = event.productsTotal + event.deliveryFee
         productsTotal = event.productsTotal
         userPaidDeliveryFee = event.deliveryFee
@@ -166,8 +164,6 @@ class OrderLifecycleSaga {
     fun on(event: OrderPaidEvent) {
         restaurantOrderId = UUID.randomUUID()
 
-        // TODO aggregate id must be unique?
-        // TODO associate restaurantOrderId with saga?
         commandGateway.sendAndWait<Void>(
             CreateRestaurantOrderCommand(
                 restaurantOrderId = restaurantOrderId,
@@ -195,7 +191,6 @@ class OrderLifecycleSaga {
                 )
             )
         } catch (e: Exception) {
-            // TODO handle exception, retry?
         }
     }
 
@@ -210,7 +205,6 @@ class OrderLifecycleSaga {
                 )
             )
         } catch (e: Exception) {
-            // TODO payment not found
             // ignore
         }
 
@@ -223,7 +217,6 @@ class OrderLifecycleSaga {
 
     @SagaEventHandler(associationProperty = "orderId")
     fun on(event: OrderDeliveryDeliveredEvent) {
-        // TODO reduce calls to query?
 
         courierId = event.courierId
 
@@ -243,7 +236,7 @@ class OrderLifecycleSaga {
         commandGateway.sendAndWait<Void>(
             AddPayeeBalanceCommand(
                 payeeId = restaurantManagerPayeeId,
-                amount = productsTotal // TODO NPE https://rasztabigab-thesis.sentry.io/issues/4623555368/?project=4506195047219200&query=is%3Aunresolved&referrer=issue-stream&statsPeriod=14d&stream_index=0
+                amount = productsTotal
             )
         )
 
@@ -268,7 +261,7 @@ class OrderLifecycleSaga {
         commandGateway.sendAndWait<Void>(
             CreateInvoiceCommand(
                 id = userInvoiceId,
-                payeeId = UUID.randomUUID(), // TODO hacky, User doesn't have payeeId because it's not a payee
+                payeeId = UUID.randomUUID(),
                 from = "Food Delivery App",
                 to = user.name,
                 issueDate = LocalDate.now(),
@@ -315,8 +308,6 @@ class OrderLifecycleSaga {
 
     @Suppress("TooGenericExceptionCaught", "TooGenericExceptionThrown", "SwallowedException", "MagicNumber")
     private fun getOrder(orderId: UUID): OrderResponse {
-        // TODO hacky
-        // TODO spring retryable?
         var retries = 0
         while (true) {
             retries++

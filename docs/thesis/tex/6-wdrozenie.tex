@@ -20,9 +20,9 @@ W ramach pracy inżynierskiej został zaimplementowany potok CI/CD w ramach plat
     \item (opcjonalnie) Wdrożenie zbudowanego obrazu na klastrze Kubernetes (komenda \texttt{kubectl apply})
 \end{enumerate}
 
-Wszystkie komponenty systemu są budowane równolegle, co pozwala na skrócenie czasu budowania całego systemu. W przypadku, gdy któryś z kroków zakończy się niepowodzeniem, proces budowania zostaje przerwany, a programista otrzymują informację o błędzie.
+Wszystkie komponenty systemu są budowane równolegle, co pozwala na skrócenie czasu budowania całego systemu. W przypadku, gdy któryś z kroków zakończy się niepowodzeniem, proces budowania zostaje przerwany, a programista otrzymuje informację o błędzie.
 
-Na listingu \ref{lst:deployment-cicd} przedstawiono fragment pliku konfiguracyjnego potoku CI/CD dla serwisu serwerowego z pominięciem mniej istotnych kroków.
+Na wycinku \ref{lst:deployment-cicd} przedstawiono fragment pliku konfiguracyjnego potoku CI/CD dla serwisu serwerowego z pominięciem mniej istotnych kroków.
 
 \begin{lstlisting}[caption={Fragment potoku CI/CD},label={lst:deployment-cicd},captionpos=b,numbers=left]
 name: Build & Publish
@@ -65,9 +65,9 @@ Aby umożliwić uruchomienie dowolnego elementu systemu przez programistów, nal
 
 \subsection{Konteneryzacja}
 
-Wdrażanie systemów mikroserwisowych z wykorzystaniem technologii Docker stało się standardem w rozwoju nowoczesnych aplikacji webowych. Docker umożliwia tworzenie lekkich, przenośnych kontenerów dla każdego mikroserwisu, które zapewniają izolację i niezależność dla każdego mikroserwisu. Każdy kontener zawiera wszystkie niezbędne składniki (kod, środowisko wykonawcze, biblioteki), co umożliwia mikroserwisowi działać spójnie i niezawodnie w różnych środowiskach. 
+Wdrażanie systemów mikroserwisowych z wykorzystaniem technologii Docker stało się standardem w rozwoju nowoczesnych aplikacji webowych. Docker umożliwia tworzenie lekkich, przenośnych kontenerów dla każdego mikroserwisu, które zapewniają izolację i niezależność dla każdego mikroserwisu. Każdy kontener zawiera wszystkie niezbędne składniki (kod, środowisko wykonawcze, biblioteki), co umożliwia  jednakowe i niezawodne działanie w różnych środowiskach. 
 
-Na listingu \ref{lst:deployment-docker} przedstawiono plik konfiguracyjny Dockerfile dla serwisu serwerowego.
+Na wycinku \ref{lst:deployment-docker} przedstawiono plik konfiguracyjny Dockerfile dla serwisu serwerowego.
 
 \begin{lstlisting}[caption={Instrukcja budowania obrazu Docker serwisu serwerowego},label={lst:deployment-docker},captionpos=b,numbers=left]
 FROM amazoncorretto:21

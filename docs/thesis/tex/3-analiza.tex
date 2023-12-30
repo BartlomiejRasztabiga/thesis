@@ -21,7 +21,7 @@ Słownik najważniejszych pojęć występujących w dziedzinie systemu. W nawias
     \item \textbf{Zamówienie} (ang. \textit{Order}) - encja reprezentująca zamówienie użytkownika. Zamówienie posiada status, który może być aktualizowany przez system. Zamówienie jest definiowane przez użytkownika, restaurację, adres dostawy, listę dań oraz status.
     \item \textbf{Faktura} (ang. \textit{Invoice}) - encja reprezentująca fakturę wystawioną przez system. Faktura może być wystawiona dla użytkownika, restauracji lub kuriera. Faktura jest definiowana przez składniki, kwotę, datę wystawienia oraz adres e-mail odbiorcy.
     \item \textbf{Płatność} (ang. \textit{Order Payment}) - encja reprezentująca płatność za zamówienie. Płatność może być dokonana przez użytkownika. Płatność jest definiowana przez zamówienie, metodę płatności, kwotę oraz status.
-    \item \textbf{Odbiora płatności} (ang. \textit{Payee}) - encja reprezentująca odbiorcę płatności. Odbiorca płatności może być restauracją lub kurierem. Odbiorca płatności jest definiowany przez nazwę, adres e-mail oraz balans kwotowy.
+    \item \textbf{Odbiorca płatności} (ang. \textit{Payee}) - encja reprezentująca odbiorcę płatności. Odbiorca płatności może być restauracją lub kurierem. Odbiorca płatności jest definiowany przez nazwę, adres e-mail oraz balans kwotowy.
     \item \textbf{Płatnik} (ang. \textit{Payer}) - encja reprezentująca płatnika. Płatnik może być użytkownikiem lub systemem. Płatnik jest definiowany przez nazwę oraz adres e-mail.
     \item \textbf{Zamówienie restauracyjne} (ang. \textit{Restaurant Order}) - encja reprezentująca zamówienie złożone w restauracji. Zamówienie restauracyjne posiada status, który może być aktualizowany przez system. Zamówienie restauracyjne jest definiowane przez restaurację, listę dań oraz status.
 
@@ -70,13 +70,13 @@ W ramach sesji przeprowadzono kolejno następujące kroki:
 
 W wyniku sesji Burzy Zdarzeń zidentyfikowano pięć kontekstów granicznych, które będą kluczowe dla tworzonej aplikacji. Są to:
 
-\textbf{Restaurant} (\textit{Restauracja}) - obejmuje zarządzanie restauracjami, menu oraz definicją i dostępnością produktów. Potrafi wyliczyć aktualną cenę produktów w zamówieniu oraz zweryfikować ich dostępność,
+\textbf{Restaurant} (\textit{Restauracja}) - obejmuje zarządzanie restauracjami, menu oraz definicją i dostępnością produktów. Potrafi wyliczyć aktualną cenę produktów w zamówieniu oraz zweryfikować ich dostępność.
 
-\textbf{Order} (\textit{Zamówienie}) - odpowiada za proces zamówienia, jego składanie, modyfikowanie, anulowanie oraz koordynuje cały proces przygotowania zamówienia do momentu dostawy. Umożliwia również zarządzanie danymi użytkowników i ich adresami dostaw,
+\textbf{Order} (\textit{Zamówienie}) - odpowiada za proces zamówienia, jego składanie, modyfikowanie, anulowanie oraz koordynuje cały proces przygotowania zamówienia do momentu dostawy. Umożliwia również zarządzanie danymi użytkowników i ich adresami dostaw.
 
-\textbf{Delivery} (\textit{Dostawa}) - koncentruje się na logistyce dostaw, monitorowaniu statusu dostawy oraz komunikacji z dostawcą. Zarządza również bazą dostawców i ich lokalizacjami. Odpowiada za proces dopasowania dostawcy do zamówienia,
+\textbf{Delivery} (\textit{Dostawa}) - koncentruje się na logistyce dostaw, monitorowaniu statusu dostawy oraz komunikacji z dostawcą. Zarządza również bazą dostawców i ich lokalizacjami. Odpowiada za proces dopasowania dostawcy do zamówienia.
 
-\textbf{Payment} (\textit{Płatność}) - zarządza procesem płatności, obejmuje różne metody płatności oraz obsługę transakcji. Obsługuje wszelkie rozliczenia w ramach systemu. Odpowiada również za generowanie faktur dla użytkowników, restauracji i dostawców i ich wysyłkę,
+\textbf{Payment} (\textit{Płatność}) - zarządza procesem płatności, obejmuje różne metody płatności oraz obsługę transakcji. Obsługuje wszelkie rozliczenia w ramach systemu. Odpowiada również za generowanie faktur dla użytkowników, restauracji i dostawców i ich wysyłkę.
 
 \medskip
 
@@ -137,13 +137,13 @@ Wymagania funkcjonalne zostały zidentyfikowane na podstawie komend i zdarzeń, 
 
 \subsection{Wymagania niefunkcjonalne}
 
-Wymagania niefunkcjonalne zostały zidentyfikowane m.in. na podstawie ograniczeń biznesowych, wymagań funkcjonalnych oraz doświadczenia Autora w budowaniu skalowalnych aplikacji webowych. Ponadto zostały one zainspirowane listą 12 czynników wpływających na jakość oprogramowania zaproponowaną przez Adama Wigginsa \cite{12factors}.
+Wymagania niefunkcjonalne zostały zidentyfikowane m.in. na podstawie ograniczeń biznesowych, wymagań funkcjonalnych oraz doświadczenia Autora w budowaniu skalowalnych aplikacji webowych. Ponadto zostały one uzupełnione przez inspiracje płynące z listy 12 czynników wpływających na jakość oprogramowania zaproponowaną przez Adama Wigginsa \cite{12factors}.
 
-\textbf{Skalowalność} - każdy z komponentów systemu powinien być skalowalny poziomo w zależności od obciążenia. Każdy mikroserwis powinien móc być replikowalny,
+\textbf{Skalowalność} - każdy z komponentów systemu powinien być skalowalny poziomo w zależności od obciążenia. Każdy mikroserwis powinien móc być replikowalny.
 
-\textbf{Wydajność} - system powinien umożliwiać równoległe przetwarzanie minimum 50 dowolnych żądań HTTP na sekundę,
+\textbf{Wydajność} - system powinien umożliwiać równoległe przetwarzanie minimum 50 dowolnych żądań HTTP na sekundę.
 
-\textbf{Wysoka dostępność} - możliwość częściowej pracy pomimo utraty niektórych komponentów systemu. System powinien być odporny na awarie,
+\textbf{Wysoka dostępność} - możliwość częściowej pracy pomimo utraty niektórych komponentów systemu. System powinien być odporny na awarie.
 
 \textbf{Monitorowanie} - aplikacja powinna umożliwiać monitorowanie i logowanie zdarzeń w celu analizy i debugowania. Każdy mikroserwis powinien logować swoje zdarzenia w centralnym repozytorium, a system powinien umożliwiać monitorowanie stanu mikroserwisów.
 

@@ -7,7 +7,6 @@ from faker import Faker
 
 fake = Faker()
 
-# TODO more addresses
 addresses = [
     {"streetAddress": "Bukowińska 26C, 02-703 Warszawa", "lat": "52.1840", "lng": "21.0251"},
     {"streetAddress": "Cypryjska 70, 02-762 Warszawa", "lat": "52.1730", "lng": "21.0585"},
@@ -30,9 +29,6 @@ addresses = [
     {"streetAddress": "Muranów District, 00-001 Warszawa", "lat": "52.2541", "lng": "21.0085"},
     {"streetAddress": "Solec District, 00-002 Warszawa", "lat": "52.2383", "lng": "21.0456"}
 ]
-
-# TODO add more GETs to verify that the data is changed
-# TODO add util to await for the data to be changed instead of using while True
 
 DEBUG = False
 
@@ -62,10 +58,6 @@ class OrderingUser(HttpUser):
             return
 
         selected_restaurant = random.choice(restaurants)
-
-        # TODO how to ensure, that we've selected proper restaurant?
-
-        # TODO fails with User with ID userId not found?
 
         time.sleep(1)
         order_id = None
@@ -112,7 +104,6 @@ class OrderingUser(HttpUser):
 
         time.sleep(5)
 
-        # TODO wait for paymentId to be set
         payment_id = None
         while True:
             try:
@@ -131,8 +122,6 @@ class OrderingUser(HttpUser):
         log(f"ORDERING Paying for order {order_id}")
         self.client.put(f"/v1/payments/{payment_id}/pay")
         log(f"ORDERING Paid for order {order_id}")
-
-        # TODO wait for PAID status
 
         while True:
             try:
@@ -257,16 +246,9 @@ class DeliveryCourier(HttpUser):
             log(f"DELIVERY Offer id is None")
             return
 
-        # TODO delete rejecting?
-        # if random.random() < 0.1:
-        #     self.client.put(f"/v1/deliveries/{offer.get('id')}/reject")
-        #     log(f"DELIVERY Rejected offer {offer}")
-        #     return
-
         self.client.put(f"/v1/deliveries/{offer.get('id')}/accept")
         log(f"DELIVERY Accepted offer {offer}")
 
-        # TODO wait for order to be ready for pickup?
         while True:
             try:
                 self.client.put(f"/v1/deliveries/{offer.get('id')}/pickup")
@@ -292,7 +274,6 @@ class DeliveryCourier(HttpUser):
             }
         })
 
-        # TODO update courier availability
         self.client.put(f"/v1/couriers/me/availability", json={
             "availability": "ONLINE"
         })

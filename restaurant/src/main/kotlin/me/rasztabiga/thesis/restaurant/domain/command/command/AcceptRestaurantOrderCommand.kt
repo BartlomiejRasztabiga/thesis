@@ -6,5 +6,4 @@ import java.util.*
 data class AcceptRestaurantOrderCommand(
     @TargetAggregateIdentifier val restaurantOrderId: UUID,
     val restaurantId: UUID
-    // TODO userId?
 )

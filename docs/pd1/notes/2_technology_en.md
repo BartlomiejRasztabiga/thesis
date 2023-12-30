@@ -17,7 +17,6 @@ Programming language: TypeScript 5.0.4
 Framework: Remix 1.15.0
 Libraries:
 - React 17.0.2
-- TODO
 
 ## 2.3 Database
 

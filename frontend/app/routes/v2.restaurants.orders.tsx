@@ -105,7 +105,6 @@ export default function V2RestaurantPage() {
     ["NEW", "ACCEPTED", "PREPARED"].includes(order.status),
   );
 
-  // TODO good enough for now
   useEffect(() => {
     const timer = setInterval(() => {
       revalidator.revalidate();
@@ -116,7 +115,6 @@ export default function V2RestaurantPage() {
   }, [revalidator]);
 
   const getActionButtons = (order: RestaurantOrderResponse) => {
-    // TODO change to MUI buttons!!!
     switch (order.status) {
       case "NEW":
         return (

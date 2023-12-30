@@ -14,7 +14,6 @@ export default function BottomNavbar() {
   }
 
   return (
-    // TODO replace links!
     <nav className="flex flex-col items-center justify-between w-full fixed bottom-0">
       <hr className="w-full" />
       <BottomNavigation showLabels className="w-full">
@@ -25,7 +24,6 @@ export default function BottomNavbar() {
           to="/v2/restaurants/orders"
           style={boldIfMatchesPath("/v2/restaurants/orders")}
         />
-        {/*TODO change icon*/}
         <BottomNavigationAction
           label="History"
           icon={<List />}

@@ -12,7 +12,6 @@ import java.util.*
 @Aggregate
 internal class Payer {
 
-    // TODO wszystko z tego jest potrzebne?
     @AggregateIdentifier
     private lateinit var id: UUID
     private lateinit var userId: String

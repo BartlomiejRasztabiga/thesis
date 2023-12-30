@@ -50,7 +50,7 @@ W kolejnych podrozdziałach zostaną przedstawione szczegóły implementacyjne p
 
 Warstwa ta obejmuje pakiet \textit{adapter.in}. Zawiera ona tzw. adaptery wejściowe, czyli komponenty odpowiedzialne za rozpoczynanie przepływu sterowania w aplikacji. Adaptery wejściowe są odpowiedzialne za obsługę zapytań i komend, które są wysyłane do aplikacji przez użytkowników lub inne systemy. W implementowanym systemie adapterami wejściowymi są kontrolery REST API oraz serwisy nasłuchujące na zdarzenia z kolejki komunikatów.
 
-Na wycinku \ref{lst:server-in-adapter} przedstawiono przykładowy kod kontrolera REST API, który obsługuje zapytanie HTTP POST na ścieżce \textit{/api/v1/orders}. Zapytanie to rozpoczyna zamówienie ze strony użytkownika zamawiającego. W ciele zapytania znajduje się obiekt JSON, który jest mapowany na obiekt klasy \textit{StartOrderRequest}. Obiekt ten jest następnie przekazywany do komponentu \textit{ReactorCommandGateway}, który jest odpowiedzialny za wysłanie komendy \textit{StartOrderCommand} do szyny komend. Komenda ta jest następnie przekazywana do odpowiedniego agregatu dziedzinowego, który jest odpowiedzialny za jej obsługę. Rezultatem synchronicznym obsługi komendy jest nadany identyfikator zamówienia, w postacu UUID, który jest zwracany w odpowiedzi HTTP. 
+Na wycinku \ref{lst:server-in-adapter} przedstawiono przykładowy kod kontrolera REST API, który obsługuje zapytanie HTTP POST na ścieżce \textit{/api/v1/orders}. Zapytanie to rozpoczyna zamówienie ze strony użytkownika zamawiającego. W ciele zapytania znajduje się obiekt JSON, który jest mapowany na obiekt klasy \textit{StartOrderRequest}. Obiekt ten jest następnie przekazywany do komponentu \textit{ReactorCommandGateway}, który jest odpowiedzialny za wysłanie komendy \textit{StartOrderCommand} do szyny komend. Komenda ta jest następnie przekazywana do odpowiedniego agregatu dziedzinowego, który jest odpowiedzialny za jej obsługę. Rezultatem synchronicznym obsługi komendy jest nadany identyfikator zamówienia, w postaci UUID, który jest zwracany w odpowiedzi HTTP. 
 
 \begin{lstlisting}[caption={Kod kontrolera REST API obsługującego zapytania dotyczące zamówień},label={lst:server-in-adapter},captionpos=b,language=Kotlin,numbers=left]
 @RestController
@@ -72,7 +72,7 @@ class OrderController(
 }
 \end{lstlisting}
 
-Kod kontrolera został napisany z wykorzystaniem biblioteki programowania reaktywnego Spring WebFlux, która pozwala na obsługę żądań HTTP w sposób asynchroniczny. Pozwala to na obsługę większej liczby żądań przy użyciu mniejszej liczby wątków, co przekłada się na większą wydajność aplikacji.
+Kod kontrolera został napisany z wykorzystaniem biblioteki programowania reaktywnego Spring WebFlux, która pozwala na obsługę żądań HTTP w sposób asynchroniczny. Umożliwia to obsługę większej liczby żądań przy użyciu mniejszej liczby wątków, co przekłada się na większą wydajność aplikacji.
 
 Poza kodem obsługującym żądanie HTTP, kontroler zawiera również adnotacje, które definiują uprawnienia wymagane do wykonania żądania. W tym przypadku żądanie wymaga posiadania uprawnień \textit{ORDER.WRITE}, które są zdefiniowane w klasie \textit{Scopes}. Jest to część biblioteki Spring Security, implementującej standard OAuth 2.0.
 
@@ -368,7 +368,7 @@ Odpowiedzialność za dostarczenie danych oraz obsługę formularza komponent te
 
 \subsubsection{Obsługa ścieżek}
 
-Komponenty aplikacji odpowiedzialne za obsługę ścieżek zostały umieszczone w folderze \textit{routes}. W frameworku Remix komponenty te są punktami startowymi podróży użytkownika po aplikacji. Na przykład, po podaniu w przeglądarce użytkownika ścieżki \textit{/v2/courier/delivery} aplikacja uruchomi plik \textit{v2.courier.delivery.tsx}, który od tego momentu jest odpowiedzialny za ładowanie danych, obsługę formularzy i renderowanie komponentów.
+Komponenty aplikacji odpowiedzialne za obsługę ścieżek zostały umieszczone w folderze \textit{routes}. W frameworku Remix komponenty te są punktami startowymi interakcji użytkownika w aplikacji. Na przykład, po podaniu w przeglądarce użytkownika ścieżki \textit{/v2/courier/delivery} aplikacja uruchomi plik \textit{v2.courier.delivery.tsx}, który od tego momentu jest odpowiedzialny za ładowanie danych, obsługę formularzy i renderowanie komponentów.
 
 Na wycinku \ref{lst:client-route} przedstawiono kod komponentu obsługującego ścieżkę \textit{/v2/ordering/restaurants} wyświetlającą listę restauracji, które może wybrać użytkownik zamawiający.
 
@@ -479,7 +479,7 @@ export interface OrderResponse {
 
 \subsubsection{Współdzielony kod} 
 
-Kod współdzielony przez różne komponenty w ramach systemu został umieszczony w osobnym folderze \textit{services}. Zawiera on m.in. kod odpowiedzialny za manipulowanie sesją użytkownika w postaci ciasteczka HTTP. Jego fragment został zaprezentowany na listingu \ref{lst:client-service}.
+Kod współdzielony przez różne komponenty w ramach systemu został umieszczony w osobnym folderze \textit{services}. Zawiera on m.in. kod odpowiedzialny za manipulowanie sesją użytkownika w postaci ciasteczka HTTP. Jego fragment został zaprezentowany na wycinku \ref{lst:client-service}.
 
 \begin{lstlisting}[caption={Kod funkcji manipulujących sesją użytkownika},label={lst:client-service},captionpos=b,language=JavaScript,numbers=left,showstringspaces=false]
 export const sessionStorage = createCookieSessionStorage({

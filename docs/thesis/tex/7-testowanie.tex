@@ -2,7 +2,7 @@
 
 \section{Testowanie systemu}
 
-Aby zapewnić najwyższą jakość tworzonego oprogramowania, kluczowe jest włączenie etapu testowania do procesu jego rozwoju. Celem testowania jest identyfikacja i eliminacja błędów, zazwyczaj przed oficjalnym wdrożeniem produktu. W tym procesie stosuje się różnorodne metody i narzędzia. We wdrożonym systemie, zostały wykorzystane cztery główne rodzaje testów: testy jednostkowe, które koncentrują się na najmniejszych częściach kodu; testy integracyjne, sprawdzające współdziałanie poszczególnych modułów; testy akceptacyjne, które oceniają oprogramowanie z perspektywy użytkownika końcowego; oraz testy wydajnościowe, mające na celu ocenę szybkości i stabilności działania systemu.
+Aby zapewnić najwyższą jakość tworzonego oprogramowania, kluczowe jest włączenie etapu testowania do procesu jego rozwoju. Celem testowania jest identyfikacja i eliminacja błędów, zazwyczaj przed oficjalnym wdrożeniem produktu. W tym procesie stosuje się różnorodne metody i narzędzia. We wdrożonym systemie, zostały wykorzystane cztery główne rodzaje testów: testy jednostkowe, które koncentrują się na najmniejszych częściach kodu; testy integracyjne, sprawdzające współdziałanie poszczególnych modułów; testy akceptacyjne, które oceniają oprogramowanie z perspektywy użytkownika końcowego oraz testy wydajnościowe, mające na celu ocenę szybkości i stabilności działania systemu.
 
 \subsection{Testy jednostkowe}
 
@@ -64,7 +64,7 @@ class OrderTest {
 }
 \end{lstlisting}
 
-Na listingu \ref{lst:testing-unit} przedstawiono przykładowy test jednostkowy serwisu zamówień, weryfikujący zachowanie agregatu dla komendy finalizującej zamówienie. W liniach 6-11 przedstawiono przygotowanie testu, polegające na utworzenie obiektu testowego oraz zarejestrowanie w nim testowej implementacji portu weryfikacji zamówień. W liniach 13-51 przedstawiono scenariusz testowy, polegający na wywołaniu komendy finalizującej zamówienie, a następnie sprawdzeniu, czy agregat wyemitował oczekiwane zdarzenie.
+Na wycinku \ref{lst:testing-unit} przedstawiono przykładowy test jednostkowy serwisu zamówień, weryfikujący zachowanie agregatu dla komendy finalizującej zamówienie. W liniach 6-11 przedstawiono przygotowanie testu, polegające na utworzeniu obiektu testowego oraz zarejestrowaniu w nim testowej implementacji portu weryfikacji zamówień. W liniach 13-51 przedstawiono scenariusz testowy, polegający na wywołaniu komendy finalizującej zamówienie, a następnie sprawdzeniu, czy agregat wyemitował oczekiwane zdarzenie.
 
 Dzięki pakietowi pomocniczemu frameworka Axon takie testy są łatwe w implementacji i dalszym utrzymaniu. Dzięki zastosowaniu technik DDD oraz Event Sourcing możliwe jest przetestowanie zachowania logiki biznesowej bez konieczności uruchamiania całej aplikacji, przez co wykonywanie takich testów jest szybkie i wydajne.
 
@@ -101,7 +101,7 @@ class OrderTestIT {
 }
 \end{lstlisting}
 
-Na listingu \ref{lst:testing-integration} przedstawiono przykładowy test integracyjny serwisu zamówień, weryfikujący, że po wysłaniu komendy rozpoczęcia zamówienia, agregat został poprawnie utworzony. W przeciwieństwie do testów jednostkowych test ten weryfikuje również działanie komponentów odpowiedzialnych za przesyłanie komend do agregatów oraz zapisywanie zdarzeń do magazynu zdarzeń. Testy te są bardziej złożone w implementacji, ale pozwalają na weryfikację działania całego systemu.
+Na wycinku \ref{lst:testing-integration} przedstawiono przykładowy test integracyjny serwisu zamówień, weryfikujący, że po wysłaniu komendy rozpoczęcia zamówienia, agregat został poprawnie utworzony. W przeciwieństwie do testów jednostkowych test ten weryfikuje również działanie komponentów odpowiedzialnych za przesyłanie komend do agregatów oraz zapisywanie zdarzeń do magazynu zdarzeń. Testy te są bardziej złożone w implementacji, ale pozwalają na weryfikację działania całego systemu.
 
 \subsection{Testy akceptacyjne}
 
@@ -136,7 +136,7 @@ fun e2e() {
 }
 \end{lstlisting}
 
-Na listingu \ref{lst:testing-acceptance} przedstawiono jedynie fragment wspomnianego testu, ze względu na jego długość. Test ten weryfikuje, czy system spełnia wymagania użytkownika końcowego, a także czy wszystkie komponenty współpracują ze sobą poprawnie. Test ten jest bardzo złożony w implementacji, ale pozwala na weryfikację działania całego systemu.
+Na wycinku \ref{lst:testing-acceptance} przedstawiono jedynie fragment wspomnianego testu, ze względu na jego długość. Test ten weryfikuje, czy system spełnia wymagania użytkownika końcowego, a także czy wszystkie komponenty współpracują ze sobą poprawnie. Test ten jest bardzo złożony w implementacji, ale pozwala na weryfikację działania całego systemu.
 
 Weryfikuje on również integrację z zewnętrznymi systemami, takimi jak system płatności Stripe, poprzez wykorzystanie biblioteki Selenium \cite{selenium}, umożliwiającej automatyzację przeglądarek internetowych, co pozwala na manualne przejście procesu płatności.
 
@@ -146,7 +146,7 @@ Testy wydajnościowe mają na celu ocenę szybkości i stabilności działania s
 
 W ramach pracy inżynierskiej przeprowadzono testy wydajnościowe przy pomocy narzędzia Locust \cite{locust} w języku Python. Narzędzie to pozwala na symulację wielu użytkowników, którzy wykonują określone akcje w systemie. Przeprowadzono testy z perspektywy trzech rodzajów użytkowników: użytkownika zamawiającego, managera restauracji oraz kuriera. Każdy rodzaj użytkownika został zdefiniowany przez klasę w języku Python, która implementuje logikę wykonywania akcji w systemie. 
 
-Przykład scenariusza testowego został przedstawiony na listingu \ref{lst:testing-performance}.
+Przykład scenariusza testowego został przedstawiony na wycinku \ref{lst:testing-performance}.
 
 \begin{lstlisting}[caption={Scenariusz testowy w ramach testów wydajnościowych obsługujących managera restauracji},label={lst:testing-performance},captionpos=b,language=Python,numbers=left]
 class RestaurantManager(HttpUser):
@@ -170,9 +170,9 @@ class RestaurantManager(HttpUser):
 
 Klasa ta imituje zachowanie managera restauracji, który po zalogowaniu się do systemu, pobiera listę zamówień, wybiera jedno z nich, a następnie akceptuje i przygotowuje je do dostarczenia.
 
-W ramach testów wydajnościowych przeprowadzono testy z perspektywy 100, 200, 300, 500 i 1000 użytkowników. Wszystkie testy zostały wykonane na lokalnym środowisku, przy pomocy trzech instancji narzędzia Locust. Wszystkie testy zostały przeprowadzone na wdrożonej w chmurowym klastrze Kubernetes produkcyjnej wersji systemu, bez żadnych dodatkowych optymalizacji. Klaster był skonfigurowany z trzema węzłami typu \textit{e2-standard-4}, jak opisano w rozdziale dotyczącym wdrożenia. Każdy serwis systemu został uruchomiony w czterech instancjach. Liczba użytkowników była zwiększana stopniowo, po 5 użytkowników na sekundę, aż do osiągnięcia docelowej liczby użytkowników. Rezultaty testów były zapisywane po dziesięciu minutach od rozpoczęcia testu. 
+W ramach testów wydajnościowych przeprowadzono testy z perspektywy 100, 200, 300, 500 i 1000 użytkowników. Wszystkie testy zostały wykonane na lokalnym środowisku, przy pomocy trzech instancji narzędzia Locust. Wszystkie testy zostały przeprowadzone na wdrożonej w chmurowym klastrze Kubernetes produkcyjnej wersji systemu, bez żadnych dodatkowych optymalizacji. Klaster skonfigurowano z trzema węzłami typu \textit{e2-standard-4}, jak opisano w rozdziale dotyczącym wdrożenia. Każdy serwis systemu został uruchomiony w czterech instancjach. Liczba użytkowników była zwiększana stopniowo, po 5 użytkowników na sekundę, aż do osiągnięcia docelowej liczby użytkowników. Rezultaty testów były zapisywane po dziesięciu minutach od rozpoczęcia testu. 
 
-Wyniki testów wydajnościowych zostały przedstawione w tabeli \ref{table:performance}. Śledzonymi metrykami były liczba żądań na sekundę, średnie czasy odpowiedzi oraz opóźnienie obsługi zdarzeń. Opóźnienie obsługi zdarzeń jest to czas, który upłynął od momentu wygenerowania zdarzenia przez system, do momentu jego obsłużenia przez wszystkie komponenty systemu.
+Wyniki testów wydajnościowych zostały przedstawione w tabeli \ref{table:performance}. Śledzonymi metrykami były liczba żądań na sekundę, średnie czasy odpowiedzi oraz opóźnienie obsługi zdarzeń. Opóźnienie obsługi zdarzeń to czas, który upłynął od momentu wygenerowania zdarzenia przez system, do momentu jego obsłużenia przez wszystkie komponenty systemu.
 
 \begin{longtable}{| m{0.25\linewidth} | m{0.2\linewidth} | m{0.25\linewidth} | m{0.2\linewidth} |}
     \caption{Rezultaty testów wydajnościowych}
