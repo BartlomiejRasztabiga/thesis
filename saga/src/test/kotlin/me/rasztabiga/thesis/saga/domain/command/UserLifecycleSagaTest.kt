@@ -28,7 +28,7 @@ class UserLifecycleSagaTest {
 
         var payerId: UUID? = null
 
-        testFixture.setCallbackBehavior { commandPayload, commandMetaData ->
+        testFixture.setCallbackBehavior { commandPayload, _ ->
             if (commandPayload is CreatePayerCommand) {
                 payerId = commandPayload.id
             }

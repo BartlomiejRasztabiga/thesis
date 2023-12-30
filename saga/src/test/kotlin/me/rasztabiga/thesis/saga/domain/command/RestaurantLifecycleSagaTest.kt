@@ -32,7 +32,7 @@ class RestaurantLifecycleSagaTest {
 
         var payeeId: UUID? = null
 
-        testFixture.setCallbackBehavior { commandPayload, commandMetaData ->
+        testFixture.setCallbackBehavior { commandPayload, _ ->
             if (commandPayload is CreatePayeeCommand) {
                 payeeId = commandPayload.id
             }

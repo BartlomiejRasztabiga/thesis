@@ -1,7 +1,6 @@
 #!/usr/bin/env sh
 (cd ./delivery/ || exit ; sh ./gradlew build)
 (cd ./e2e/ || exit ; sh ./gradlew build)
-(cd ./gateway/ || exit ; sh ./gradlew build)
 (cd ./order/ || exit ; sh ./gradlew build)
 (cd ./payment/ || exit ; sh ./gradlew build)
 (cd ./query/ || exit ; sh ./gradlew build)

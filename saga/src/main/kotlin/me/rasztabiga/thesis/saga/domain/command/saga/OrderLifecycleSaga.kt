@@ -191,6 +191,7 @@ class OrderLifecycleSaga {
                 )
             )
         } catch (e: Exception) {
+            // ignore
         }
     }
 
