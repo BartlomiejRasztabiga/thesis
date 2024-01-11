@@ -47,7 +47,7 @@
     "@remix-run/dev": "^2.4.1",
     "@remix-run/eslint-config": "^2.4.1",
     "@types/bcryptjs": "^2.4.6",
-    "@types/eslint": "^8.56.0",
+    "@types/eslint": "^8.56.2",
     "@types/leaflet": "^1.9.8",
     "@types/marked": "^5.0.2",
     "@types/node": "^20.10.6",
