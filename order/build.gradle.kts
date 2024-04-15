@@ -6,7 +6,7 @@ plugins {
     id("org.jetbrains.kotlin.jvm") version "1.9.23"
     id("org.jetbrains.kotlin.plugin.spring") version "1.9.23"
     id("io.gitlab.arturbosch.detekt") version "1.23.6"
-    id("io.sentry.jvm.gradle") version "4.1.1"
+    id("io.sentry.jvm.gradle") version "4.3.1"
 }
 
 group = "me.rasztabiga.thesis"
@@ -61,7 +61,7 @@ dependencies {
     testImplementation("org.axonframework:axon-test")
     testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
-    testImplementation("io.mockk:mockk:1.13.8")
+    testImplementation("io.mockk:mockk:1.13.10")
     testImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 

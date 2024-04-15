@@ -10,7 +10,7 @@ plugins {
     id("maven-publish")
     id("java-test-fixtures")
     id("io.gitlab.arturbosch.detekt") version "1.23.6"
-    id("io.sentry.jvm.gradle") version "4.1.1"
+    id("io.sentry.jvm.gradle") version "4.3.1"
 }
 
 group = "me.rasztabiga.thesis"
@@ -43,7 +43,7 @@ dependencies {
     testFixturesImplementation("org.axonframework:axon-test")
     testFixturesImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
     testFixturesImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
-    testFixturesImplementation("io.mockk:mockk:1.13.8")
+    testFixturesImplementation("io.mockk:mockk:1.13.10")
     testFixturesImplementation("com.ninja-squad:springmockk:4.0.2")
 }
 
