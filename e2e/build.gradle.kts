@@ -2,11 +2,11 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
-    id("org.springframework.boot") version "3.2.1"
+    id("org.springframework.boot") version "3.2.4"
     id("io.spring.dependency-management") version "1.1.4"
-    id("org.jetbrains.kotlin.jvm") version "1.9.21"
-    id("org.jetbrains.kotlin.plugin.spring") version "1.9.21"
-    id("io.gitlab.arturbosch.detekt") version "1.23.4"
+    id("org.jetbrains.kotlin.jvm") version "1.9.23"
+    id("org.jetbrains.kotlin.plugin.spring") version "1.9.23"
+    id("io.gitlab.arturbosch.detekt") version "1.23.6"
 }
 
 group = "me.rasztabiga.thesis"
