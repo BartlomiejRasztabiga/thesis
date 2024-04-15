@@ -11,7 +11,7 @@ Jednym z narzędzi, które mogą usprawnić proces wdrażania oprogramowania, je
 W ramach pracy inżynierskiej został zaimplementowany potok CI/CD w ramach platformy GitHub Actions. Przykładowo, dla serwisu serwerowego potok ten składa się z następujących kroków:
 
 \begin{enumerate}
-    \item Przygotowanie środowiska z zainstalowanymi JDK 21 i Gradle \cite{gradle} 8.1.1
+    \item Przygotowanie środowiska z zainstalowanymi JDK 21 i Gradle \cite{gradle} 8.7
     \item Przeprowadzenie analizy statycznej kodu za pomocą narzędzia Detekt \cite{detekt}
     \item Przeprowadzenie testów jednostkowych i integracyjnych (komenda \texttt{./gradlew test})
     \item Zbudowanie aplikacji za pomocą Gradle (komenda \texttt{./gradlew build})
@@ -42,11 +42,11 @@ jobs:
       matrix:
         service: [restaurant, order, payment, delivery, query, saga]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Set up JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
       - name: Set up Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
       - name: Build with Gradle
         run: ./gradlew build
       - name: Build and push
