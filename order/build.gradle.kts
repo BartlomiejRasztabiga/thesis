@@ -53,7 +53,7 @@ dependencies {
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib"))
 
-    implementation("io.axoniq.console:console-framework-client-spring-boot-starter:1.2.0")
+    implementation("io.axoniq.console:console-framework-client-spring-boot-starter:1.4.1")
 
     testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.21.4"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")
