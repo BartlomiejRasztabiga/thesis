@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
-    id("org.springframework.boot") version "3.2.4"
+    id("org.springframework.boot") version "3.2.5"
     id("io.spring.dependency-management") version "1.1.4"
     id("org.jetbrains.kotlin.jvm") version "1.9.23"
     id("org.jetbrains.kotlin.plugin.spring") version "1.9.23"
@@ -10,7 +10,7 @@ plugins {
     id("maven-publish")
     id("java-test-fixtures")
     id("io.gitlab.arturbosch.detekt") version "1.23.6"
-    id("io.sentry.jvm.gradle") version "4.4.0"
+    id("io.sentry.jvm.gradle") version "4.4.1"
 }
 
 group = "me.rasztabiga.thesis"
@@ -25,7 +25,7 @@ repositories {
     mavenCentral()
 }
 
-val axonVersion = "4.9.2"
+val axonVersion = "4.9.4"
 val kotestVersion = "5.8.0"
 
 dependencies {

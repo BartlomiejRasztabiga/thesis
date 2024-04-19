@@ -1,12 +1,12 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "3.2.4"
+    id("org.springframework.boot") version "3.2.5"
     id("io.spring.dependency-management") version "1.1.4"
     id("org.jetbrains.kotlin.jvm") version "1.9.23"
     id("org.jetbrains.kotlin.plugin.spring") version "1.9.23"
     id("io.gitlab.arturbosch.detekt") version "1.23.6"
-    id("io.sentry.jvm.gradle") version "4.4.0"
+    id("io.sentry.jvm.gradle") version "4.4.1"
 }
 
 group = "me.rasztabiga.thesis"
@@ -31,7 +31,7 @@ repositories {
     }
 }
 
-val axonVersion = "4.9.2"
+val axonVersion = "4.9.4"
 val kotestVersion = "5.8.0"
 
 dependencies {
@@ -53,7 +53,7 @@ dependencies {
     implementation(kotlin("reflect"))
     implementation(kotlin("stdlib"))
 
-    implementation("io.axoniq.console:console-framework-client-spring-boot-starter:1.2.0")
+    implementation("io.axoniq.console:console-framework-client-spring-boot-starter:1.4.1")
 
     testImplementation(testFixtures("me.rasztabiga.thesis:shared:0.21.4"))
     testImplementation("org.springframework.boot:spring-boot-starter-test")

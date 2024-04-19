@@ -2,7 +2,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import org.springframework.boot.gradle.tasks.bundling.BootJar
 
 plugins {
-    id("org.springframework.boot") version "3.2.4"
+    id("org.springframework.boot") version "3.2.5"
     id("io.spring.dependency-management") version "1.1.4"
     id("org.jetbrains.kotlin.jvm") version "1.9.23"
     id("org.jetbrains.kotlin.plugin.spring") version "1.9.23"
@@ -31,7 +31,7 @@ repositories {
     }
 }
 
-val axonVersion = "4.9.2"
+val axonVersion = "4.9.4"
 val kotestVersion = "5.8.0"
 
 dependencies {
