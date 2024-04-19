@@ -32,7 +32,7 @@ repositories {
 }
 
 val axonVersion = "4.9.4"
-val kotestVersion = "5.8.0"
+val kotestVersion = "5.8.1"
 
 dependencies {
     implementation("me.rasztabiga.thesis:shared:0.21.4")
