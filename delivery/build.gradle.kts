@@ -4,7 +4,7 @@ plugins {
     id("org.springframework.boot") version "3.2.5"
     id("io.spring.dependency-management") version "1.1.4"
     id("org.jetbrains.kotlin.jvm") version "1.9.23"
-    id("org.jetbrains.kotlin.plugin.spring") version "1.9.23"
+    id("org.jetbrains.kotlin.plugin.spring") version "1.9.24"
     id("io.gitlab.arturbosch.detekt") version "1.23.6"
     id("io.sentry.jvm.gradle") version "4.4.1"
 }
